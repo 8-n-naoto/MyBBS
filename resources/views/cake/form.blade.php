@@ -1,0 +1,63 @@
+{{-- <?php dd($info); ?> --}}
+
+<x-layout>
+    <main class="form">
+        <form method="post" action="{{ route('formcheck') }}">
+            @csrf
+            <div>
+                <label for="name">後で変更します:
+                    <input type="text" name="users_id" id="name" placeholder="フルネームで入力して下さい"></label>
+                @error('users_id')
+                    <div class="error">{{ $message }}</div>
+                @enderror
+            </div>
+            <div>
+                <label for="date">受け取り日時:
+                    <input type="date" name="birthday" id="date"></label>
+                @error('birthday')
+                    <div class="error">{{ $message }}</div>
+                @enderror
+            </div>
+            <div>
+                <label for="date">受け取り時間:
+                    <input type="time" name="time" id="time"></label>
+                @error('time')
+                    <div class="error">{{ $message }}</div>
+                @enderror
+            </div>
+            <div>
+                <img src="{{ asset($info->mainphoto) }}" width="240px">
+                <label for="cake">ケーキの種類:
+                    <input type="text" name="cakename" id="cake" value="{{ $info->cakename }}" readonly></label>
+                <input type="hidden" name="mainphoto" id="cake" value="{{ $info->mainphoto }}" readonly></label>
+            </div>
+            <div>
+                @forelse ($prices as $price)
+                    <label>
+                        <input type="radio" name="capacity" value="{{ $price->capacity }}">
+                        大きさ：{{ $price->capacity }}お値段：{{ $price->price }}円
+                    </label>
+                    <input type="hidden" name="price" value="{{ $price->price }}">
+                    @error('capacity')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
+                @empty
+                    <p>ただいま準備中...</p>
+                @endforelse
+                {{-- <input type="radio" name="size" value="{{ $info->size1 }}">{{ $info->size1 }}
+                <label><input type="radio" name="size" value="{{ $info->size2 }}">{{ $info->size2 }}</label>
+                <label><input type="radio" name="size" value="{{ $info->size3 }}">{{ $info->size3 }}</label> --}}
+            </div>
+            <div>
+                メッセ―ジ：
+                <textarea name="massage" placeholder="メッセージを入力してください"></textarea>
+                @error('massage')
+                    <div class="error">{{ $message }}</div>
+                @enderror
+            </div>
+            <div>
+                <button class="button">確認画面へ！</button>
+            </div>
+        </form>
+    </main>
+</x-layout>
