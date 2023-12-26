@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cake_photo extends Model
+class CakePhoto extends Model
 {
-    public $table = 'cake_photo';
+    use HasFactory;
 
     protected $fillable =[
         'cake_infos_id',
@@ -15,9 +15,8 @@ class Cake_photo extends Model
         'subphotos',
     ];
 
-    public function cake_info()
+    public function cake_infos()
     {
-        return $this->belongsTo(Cake_info::class);
+        return $this->belongsTo(Cake_info::class,'cake_infos_id','id');
     }
-
 }

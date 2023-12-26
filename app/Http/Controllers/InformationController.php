@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Cake_info;
-use App\Models\Cake_info_sub;
-use App\Models\Cake_photo;
+use App\Models\CakeInfo;
+use App\Models\CakeInfoSub;
+use App\Models\CakePhoto;
 use App\Models\Main_reservation;
 use App\Models\Sub_reservation;
 use Carbon\Carbon;
@@ -16,9 +16,8 @@ class InformationController extends Controller
     // ホーム画面
     public function index()
     {
-        // $infos=Cake_info::find(1)->price;
-        // $infos=Cake_info::find(1)->cake_infos_sub;
-        $infos = Cake_info::all();
+        // $infos=CakeInfo::find(1)->cake_info_subs;
+        $infos = CakeInfo::all();
         return view('index')
             ->with(['infos' => $infos]);
     }
@@ -35,31 +34,30 @@ class InformationController extends Controller
         //不一致ならばログイン画面に戻す
         //ログイン出来たなら下記の処理をする＋ログイン情報を保持
 
-        $info = Cake_info::all();
+        $info = CakeInfo::all();
         return view('index')
             ->with(['infos' => $info]);
     }
 
     //ケーキ詳細表示画面
-    public function cakeinfo(Cake_info $cake_info)
+    public function cakeinfo(CakeInfo $cakeinfo)
     {
-        $subitem = Cake_info::all();
-        $id = $cake_info->id;
-        $price = Cake_info_sub::where('cake_infos_id', '=', $id)->get();
+        $subitem = CakeInfo::all();
+        $cakephotos=CakePhoto::where('cake_infos_id','=',$cakeinfo->id)->get();
 
         return view('cake.cakeinfo')
             ->with([
-                'info' => $cake_info,
-                'prices' => $price,
+                'info' => $cakeinfo,
                 'subinfo' => $subitem,
+                // 'subphotos'=>$cakephotos
             ]);
     }
 
     //予約詳細入力画面
-    public function buy(Cake_info $cake_info)
+    public function buy(CakeInfo $cake_info)
     {
         $id = $cake_info->id;
-        $price = Cake_info_sub::where('cake_infos_id', '=', $id)->get();
+        $price = CakeInfoSub::where('cake_infos_id', '=', $id)->get();
         return view('cake.form')
             ->with([
                 'info' => $cake_info,

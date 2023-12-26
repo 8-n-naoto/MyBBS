@@ -9,7 +9,8 @@
                 @csrf
                 <label>
                     <p>現在の写真</p>
-                    <img src="{{ asset($info->mainphoto) }}" class="images" alt="ケーキの写真" width="160px">
+                    <img src="{{ asset($info->mainphoto) }}" class="images" alt="ケーキの写真" width="160px"
+                        accept=".jpg,.png">
                     <input type="file" name="mainphoto" value="{{ $info->mainphoto }}">
                     @error('mainphoto')
                         <div class="error">{{ $message }}</div>
@@ -52,17 +53,19 @@
                 @csrf
                 <button class="button">削除ボタン</button>
             </form>
-            <form method="post" action="{{ route('add.price', $info) }}" id="update_price">
+
+            <h2>大きさと値段の設定</h2>
+            <form method="post" action="{{ route('add.price', $info) }}" id="update_price" class="flex-row">
                 @csrf
                 <input type="hidden" name='id' value="{{ $info->id }}">
-                <label class="flex-row">
+                <label>
                     大きさ：<input type="text" name="capacity" size="5">
                     @error('capacity')
                         <div class="error">{{ $message }}</div>
                     @enderror
                 </label>
-                <label class="flex-row">
-                    お値段：<input type="text" name="price" size="7">円
+                <label>
+                    お値段：<input type="text" name="price" size="7">
                     @error('price')
                         <div class="error">{{ $message }}</div>
                     @enderror
@@ -71,7 +74,7 @@
             </form>
 
             @forelse ($prices as $price)
-                <form method="post" action="{{ route('destroy.price', $price) }}" id="delete_price">
+                <form method="post" action="{{ route('destroy.price', $price) }}" id="delete_price" class="flex-row">
                     @method('DELETE')
                     @csrf
                     <p>大きさ：{{ $price->capacity }}</p>
@@ -82,6 +85,43 @@
             @empty
                 <p>バリエーションを追加してください</p>
             @endforelse
+
+
+
+
+
+            <h2>ギャラリーの設定</h2>
+            <form method="post" action="{{ route('add.photo') }}" enctype="multipart/form-data" id="update_subphoto">
+                @csrf
+                <input type="hidden" name='cake_infos_id' value="{{ $info->id }}">
+                <label>
+                    写真を選択してください： <input type="file" name="subphotos" accept=".jpg,.png">
+                    @error('subphotos')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
+                </label>
+                <label>
+                    写真の名前：<input type="text" name="photoname" size="7">
+                    @error('photoname')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
+                </label>
+                <button class="button">追加するよ！</button>
+            </form>
+
+            @forelse ($subphotos as $subphoto)
+                <form method="post" action="{{ route('destroy.photo', $subphoto) }}" id="delete_photo">
+                    @method('DELETE')
+                    @csrf
+                    <img src=" {{ asset($subphoto->subphotos) }}" alt=""width="200px">
+                    <p>写真の名前：{{ $subphoto->photoname }}</p>
+                    <input type="hidden" id="subphoto" value="{{ $subphoto }}">
+                    <button class="button">消去</button>
+                </form>
+            @empty
+                <p>バリエーションを追加してください</p>
+            @endforelse
+
 
         </section>
 

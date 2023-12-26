@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use  App\Models\Cake_info;
-use  App\Models\Cake_info_sub;
+use  App\Models\CakeInfo;
+use  App\Models\CakeInfoSub;
+use App\Models\CakePhoto;
 use  App\Models\Main_reservation;
 use  App\Models\Sub_reservation;
 use App\Models\User;
@@ -15,7 +16,7 @@ class ReservationController extends Controller
     // 管理画面ホーム
     public function management()
     {
-        $info = Cake_info::all();
+        $info = CakeInfo::all();
         $infosub = Sub_reservation::all();
         $user = User::all();
         $today = Carbon::today();
@@ -34,7 +35,7 @@ class ReservationController extends Controller
     //ON/OFF画面
     public function edits()
     {
-        $info = Cake_info::all();
+        $info = CakeInfo::all();
         return view('management.edits')
             ->with([
                 'info' => $info,
@@ -42,22 +43,24 @@ class ReservationController extends Controller
     }
 
     //個別詳細変更画面
-    public function edit(Cake_info $cake_info)
+    public function edit(CakeInfo $cake_info)
     {
-        $cakecode=Cake_info::all();
-        $prices = Cake_info_sub::where('cake_infos_id', '=', $cake_info->id)->get();
+        $cakecode=CakeInfo::all();
+        $cakephotos=CakePhoto::where('cake_infos_id','=',$cake_info->id)->get();
+        $prices = CakeInfoSub::where('cake_infos_id', '=', $cake_info->id)->get();
         return view('management.edit')
             ->with([
                 'info' => $cake_info,
                 'prices' => $prices,
                 'cakecode'=>$cakecode,
+                'subphotos'=>$cakephotos
             ]);
     }
 
     //商品追加ページ
     public function create()
     {
-        $cakecode=Cake_info::all();
+        $cakecode=CakeInfo::all();
         return view('management.create')
         ->with([
             'cakecode'=>$cakecode,
@@ -92,7 +95,7 @@ class ReservationController extends Controller
             'price.required'=>'価格を追加してください',
         ]);
 
-        $post = new Cake_info();
+        $post = new CakeInfo();
         $post->cakename = $request->cakename;
         $post->topic = $request->topic;
         $post->explain = $request->explain;
@@ -106,7 +109,7 @@ class ReservationController extends Controller
         $post->save();
 
         $id=$post->id;
-        $post = new Cake_info_sub();
+        $post = new CakeInfoSub();
         $post->cake_infos_id = $id;
         $post->capacity = $request->capacity;
         $post->price = $request->price;
@@ -132,7 +135,7 @@ class ReservationController extends Controller
             'price.required'=>'価格を追加してください',
         ]);
 
-        $post = new Cake_info_sub();
+        $post = new CakeInfoSub();
         $post->cake_infos_id = $request->id;
         $post->capacity = $request->capacity;
         $post->price = $request->price;
@@ -142,8 +145,40 @@ class ReservationController extends Controller
             ->route('cakeinfos');
     }
 
+    //商品更新処理(photo)
+    public function addphoto(Request $request)
+    {
+        //トークン再生成
+        $request->session()->regenerateToken();
+
+        //バリデート
+        $request->validate([
+            'cake_infos_id'=>'required',
+            'photoname'=>'required',
+            'subphotos'=>'required',
+        ],[
+            'cake_infos_id.required'=>'ログインしてください',
+            'photoname.required'=>'ケーキの名前を入力してください',
+            'subphotos.required'=>'写真を選択してください',
+        ]);
+
+        $post = new CakePhoto();
+        $post->cake_infos_id= $request->cake_infos_id;
+        $post->photoname = $request->photoname;
+        // // name属性が'images'のinputタグをファイル形式に、画像をpublic/imagesに名前付きで保存
+        $image_path = $request->file('subphotos')->getClientOriginalName();
+        // 上記処理にて保存した画像に名前を付け、Cakeinfoテーブルのimagesカラムをパスに形にして名前を付ける
+        $request->file('subphotos')->storeAs('public/images/' . $image_path);
+        //名前を保存
+        $post->subphotos = 'storage/images/' . $image_path;
+        $post->save();
+
+        return redirect()
+            ->route('cakeinfos');
+    }
+
     //更新処理
-    public function update(Request $request, Cake_info $cake_info)
+    public function update(Request $request, CakeInfo $cakeinfo)
     {
 
         //トークン再生成
@@ -165,18 +200,18 @@ class ReservationController extends Controller
         ]);
 
 
-        $cake_info->cakename = $request->cakename;
-        $cake_info->topic = $request->topic;
-        $cake_info->explain = $request->explain;
-        $cake_info->cakecode = $request->cakecode;
+        $cakeinfo->cakename = $request->cakename;
+        $cakeinfo->topic = $request->topic;
+        $cakeinfo->explain = $request->explain;
+        $cakeinfo->cakecode = $request->cakecode;
 
 
         // name属性が'images'のinputタグをファイル形式に、画像をpublic/imagesにファイル名で保存
         $image_path = $request->file('mainphoto')->getClientOriginalName();
         // 上記処理にて保存した画像に名前を付け、Cakeinfoテーブルのimagesカラムにパスの形式にして、格納
         $request->file('mainphoto')->storeAs('public/images/' . $image_path);
-        $cake_info->mainphoto = 'storage/images/' . $image_path;
-        $cake_info->save();
+        $cakeinfo->mainphoto = 'storage/images/' . $image_path;
+        $cakeinfo->save();
 
 
         return redirect()
@@ -184,30 +219,41 @@ class ReservationController extends Controller
     }
 
     //商品情報削除用ページ
-    public function destroy(Cake_info $cake_info)
+    public function destroy(CakeInfo $cakeinfo)
     {
 
         //削除
-        $cake_info->delete();
+        $cakeinfo->delete();
         //残りの値を渡して表示する。
-        $cakeinfo = Cake_info::all();
+        $cakeinfo = CakeInfo::all();
         return view('management.edits')
             ->with(['info' => $cakeinfo]);
     }
-    //商品情報削除用ページ
-    public function destroy_price(Request $request, Cake_info_sub $cake_info_sub)
+    //商品情報削除用ページ(price)
+    public function destroy_price(Request $request, CakeInfoSub $cakeinfosub)
     {
 
-        $cake_info_sub->delete();
+        $cakeinfosub->delete();
         //残りの値を渡して表示する。
-        $cakeinfo = Cake_info::all();
+        $cakeinfo = CakeInfo::all();
         return view('management.edits')
             ->with(['info' => $cakeinfo]);
     }
+    //商品情報削除用ページ(photo)
+    public function destroy_photo(Request $request, CakePhoto $cakephoto)
+    {
+
+        $cakephoto->delete();
+        //残りの値を渡して表示する。
+        $cakeinfo = CakeInfo::all();
+        return view('management.edits')
+            ->with(['info' => $cakeinfo]);
+    }
+
 
 
     // 予約一覧表示画面
-    public function counts(Cake_info $cake_info)
+    public function counts(CakeInfo $cake_info)
     {
         $today = Carbon::today();
         $cakename = $cake_info->cakename;
