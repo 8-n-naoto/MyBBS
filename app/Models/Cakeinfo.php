@@ -1,27 +1,29 @@
 <?php
 
-// namespace App\Models;
+namespace App\Models;
 
-// use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-// class Cakeinfo extends Model
-// {
-//     public $table = 'cakeinfos';
+class CakeInfo extends Model
+{
+    use HasFactory;
 
-//     protected $fillable = [
-//         'cakenames',
-//         'images',
-//         'topics',
-//         'explain',
-//         'size1',
-//         'price1',
-//         'size2',
-//         'price2',
-//         'size3',
-//         'price3',
-//         'size4',
-//         'price4',
-//     ];
-// }
+    protected $fillable = [
+        'cakename',
+        'mainphoto',
+        'topic',
+        'explain',
+        'cakecode',
+    ];
 
+    public function cake_info_subs()
+    {
+        return $this->hasMany(CakeInfoSub::class,'cake_infos_id','id');
+    }
+
+    public function cake_photos()
+    {
+        return $this->hasMany(CakePhoto::class,'cake_infos_id','id');
+    }
+}

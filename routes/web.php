@@ -55,15 +55,15 @@ use GuzzleHttp\Middleware;
 
 //ログインページ
 Route::get('login', [AuthenticatedSessionController::class, 'create'])
-->name('login');
+    ->name('login');
 //ログイン処理
 Route::post('login', [AuthenticatedSessionController::class, 'store']);
 //ユーザー登録ページ
 Route::get('/register', [RegisterController::class, 'create'])
-->name('register');
+    ->name('register');
 //ログイン処理
 Route::post('/register', [RegisterController::class, 'store'])
-->name('register');
+    ->name('register');
 //ログアウト処理
 Route::post('/logout', [Logoutcontroller::class, 'destroy'])
     ->middleware('auth');
@@ -93,62 +93,62 @@ Route::get('/', [InformationController::class, 'index'])
 
 
 //InformationController
-Route::controller(InformationController::class)->middleware(['auth'])->group(function(){
-//個別ページ
-Route::get('/cake/{cake_info}', 'cakeinfo') ->name('cake.cakeinfo');
-//予約用フォームページ
-Route::get('/form/{cake_info}', 'buy')->name('form');
-//フォーム確認画面
-Route::post('/form/formcheck', 'formcheck')->name('formcheck');
-//フォームOK画面
-Route::post('/form/formcheckok','reservation')->name('reservation');
+Route::controller(InformationController::class)->middleware(['auth'])->group(function () {
+    //個別ページ
+    Route::get('/cake/{cakeinfo}', 'cakeinfo')->name('cake.cakeinfo');
+    //予約用フォームページ
+    Route::get('/form/{cakeinfo}', 'buy')->name('form');
+    //フォーム確認画面
+    Route::post('/form/formcheck', 'formcheck')->name('formcheck');
+    //フォームOK画面
+    Route::post('/form/formcheckok', 'reservation')->name('reservation');
 });
 
 
 
 //ReservationController
-Route::controller(ReservationController::class)->middleware(['auth'])->group(function(){
-//管理画面トップ
-Route::get('/management/manage', [ReservationController::class, 'management'])
-    ->name('management');
-//ON/OFF画面
-Route::get('/management/manage/edit', [ReservationController::class, 'edits'])
-    ->name('cakeinfos');
-//個別設定ページ
-Route::get('/management/manage/edit/{cake_info}', [ReservationController::class, 'edit'])
-    ->name('info.edit');
+Route::controller(ReservationController::class)->middleware(['auth'])->group(function () {
+    //管理画面トップ
+    Route::get('/management/manage', [ReservationController::class, 'management'])
+        ->name('management');
+    //ON/OFF画面
+    Route::get('/management/manage/edit', [ReservationController::class, 'edits'])
+        ->name('cakeinfos');
+    //個別設定ページ
+    Route::get('/management/manage/edit/{cakeinfo}', [ReservationController::class, 'edit'])
+        ->name('info.edit');
 
 
-//商品追加ページ
-Route::get('/management/create', [ReservationController::class, 'create'])
-    ->name('create');
-//商品新規追加処理ページ
-Route::post('/management/store', [ReservationController::class, 'store'])
-    ->name('posts.store');
-//商品情報更新処理(main)
-Route::patch('/management/manage/edit/{cake_info}/update', [ReservationController::class, 'update'])
-    ->name('update');
-//商品更新画面（price）
-Route::post('/management/manage/edit/{cake_info}/addprice', [ReservationController::class, 'addprice'])
-    ->name('add.price');
-//商品情報削除ページ（main）
-Route::delete('/management/manage/edit/{cake_info}/destroy', [ReservationController::class, 'destroy'])
-    ->name('destroy');
-//商品情報削除ページ（price）
-Route::delete('/management/manage/edit/{cake_info_sub}/destroyprice', [ReservationController::class, 'destroy_price'])
-    ->name('destroy.price');
+    //商品追加ページ
+    Route::get('/management/create', [ReservationController::class, 'create'])
+        ->name('create');
+    //商品新規追加処理ページ
+    Route::post('/management/store', [ReservationController::class, 'store'])
+        ->name('posts.store');
+    //商品情報更新処理(main)
+    Route::patch('/management/manage/edit/{cakeinfo}/update', [ReservationController::class, 'update'])
+        ->name('update');
+    //商品更新画面（price）
+    Route::post('/management/manage/edit/{cakeinfo}/addprice', [ReservationController::class, 'addprice'])
+        ->name('add.price');
+    //商品更新ページ(subphoto)
+    Route::post('/management/manage/edit/addphoto', [ReservationController::class, 'addphoto'])
+        ->name('add.photo');
+    //商品情報削除ページ（main）
+    Route::delete('/management/manage/edit/{cakeinfo}/destroy', [ReservationController::class, 'destroy'])
+        ->name('destroy');
+    //商品情報削除ページ（price）
+    Route::delete('/management/manage/edit/{cakeinfosub}/destroyprice', [ReservationController::class, 'destroy_price'])
+        ->name('destroy.price');
+    //商品情報削除ページ（photo）
+    Route::delete('/management/manage/edit/{cakephoto}/destroyphoto', [ReservationController::class, 'destroy_photo'])
+        ->name('destroy.photo');
 
-//日付別総量確認画面
-Route::get('/management/manage/date', [ReservationController::class, 'date'])
-    ->name('date');
+    //日付別総量確認画面
+    Route::get('/management/manage/date', [ReservationController::class, 'date'])
+        ->name('date');
 
-//総数表示ページ種類別
-Route::get('/management/manage/{cake_info}', [ReservationController::class, 'counts'])
-    ->name('count');
-
-    });
-
-
-
-
-
+    //総数表示ページ種類別
+    Route::get('/management/manage/{cakeinfo}', [ReservationController::class, 'counts'])
+        ->name('count');
+});

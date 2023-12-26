@@ -57,6 +57,7 @@ button {
 .flex-row {
     display: flex;
     flex-direction: row;
+    vertical-align: bottom;
 }
 .flex-column{
     display: flex;
@@ -95,6 +96,15 @@ footer {
     width: 480px;
     margin: 12px 0;
     border-radius: 8px;
+}
+
+/* ギャラリー */
+.gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    padding: 40px;
+    gap: 40px;
+    margin-bottom: 10%;
 }
 
 /* サブのケーキ */
