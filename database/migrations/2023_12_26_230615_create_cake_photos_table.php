@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('cake_photos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->unsignedBigInteger('cake_infos_id');  // 外部キー  cake-info
+            $table->unsignedBigInteger('cake_photos_id');  // 外部キー  cake-info
             $table->string('photoname');
             $table->string('subphotos');
             $table
-            ->foreign('cake_infos_id')
+            ->foreign('cake_photos_id')
             ->references('id')
             ->on('cake_infos')
             ->onDelete('cascade');

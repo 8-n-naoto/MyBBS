@@ -10,13 +10,13 @@ class CakePhoto extends Model
     use HasFactory;
 
     protected $fillable =[
-        'cake_infos_id',
+        'cake_photos_id',
         'photoname',
         'subphotos',
     ];
 
     public function cake_infos()
     {
-        return $this->belongsTo(Cake_info::class,'cake_infos_id','id');
+        return $this->belongsTo(CakeInfo::class,'cake_photos_id','id');
     }
 }

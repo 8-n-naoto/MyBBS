@@ -93,7 +93,7 @@
             <h2>ギャラリーの設定</h2>
             <form method="post" action="{{ route('add.photo') }}" enctype="multipart/form-data" id="update_subphoto">
                 @csrf
-                <input type="hidden" name='cake_infos_id' value="{{ $info->id }}">
+                <input type="hidden" name='cake_photos_id' value="{{ $info->id }}">
                 <label>
                     写真を選択してください： <input type="file" name="subphotos" accept=".jpg,.png">
                     @error('subphotos')

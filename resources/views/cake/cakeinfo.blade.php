@@ -4,14 +4,14 @@
         <main class="">
             <!-- 画面上側 -->
             <section class="">
-                <h2 class="middlefont">{{ $info->cakename }}</h2>
+                <h2 class="middlefont">{{ $infos->cakename }}</h2>
                 <div class="maininfo">
                     <div class="flex-row">
-                        <img src="{{ asset($info->mainphoto) }}" class="mainphoto">
+                        <img src="{{ asset($infos->mainphoto) }}" class="mainphoto">
 
                         <div class="textbackground">
                             <h3>サイズ一覧</h3>
-                            @forelse ($info->cake_info_subs as $info)
+                            @forelse ($infos->cake_info_subs as $info)
                                 <a href="{{ route('form', $info) }}" class="flex-row">
                                     <p>サイズ：{{ $info->capacity }}</p>
                                     <p>￥{{ $info->price }}円</p>
@@ -21,18 +21,18 @@
                                 <p>ただいま準備中...</p>
                             @endforelse
                             <div>
-                                <h3>{{ $info->topic }}</h3>
+                                <h3>{{ $infos->topic }}</h3>
                             </div>
                             <div>
                                 <h3>商品説明</h3>
-                                <p>{{ $info->explain }}</p>
+                                <p>{{ $infos->explain }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- 画面下側 -->
                 <div class="gallery">
-                    {{-- @forelse ($info->cake_photos as $info)
+                    @forelse ($subphotos->cake_photos as $info)
                         <object>
                             <img src=" {{ asset($info->subphotos) }}" class="subphoto">
                             <p>{{ $info->photoname }}</p>
@@ -40,7 +40,7 @@
                         </object>
                     @empty
                         <p>現在準備中です...</p>
-                    @endforelse --}}
+                    @endforelse
 
                 </div>
             </section>

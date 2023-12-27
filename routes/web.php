@@ -126,10 +126,10 @@ Route::controller(ReservationController::class)->middleware(['auth'])->group(fun
     Route::post('/management/store', [ReservationController::class, 'store'])
         ->name('posts.store');
     //商品情報更新処理(main)
-    Route::patch('/management/manage/edit/{cakeinfo}/update', [ReservationController::class, 'update'])
+    Route::patch('/management/manage/edit/update', [ReservationController::class, 'update'])
         ->name('update');
     //商品更新画面（price）
-    Route::post('/management/manage/edit/{cakeinfo}/addprice', [ReservationController::class, 'addprice'])
+    Route::post('/management/manage/edit/addprice', [ReservationController::class, 'addprice'])
         ->name('add.price');
     //商品更新ページ(subphoto)
     Route::post('/management/manage/edit/addphoto', [ReservationController::class, 'addphoto'])

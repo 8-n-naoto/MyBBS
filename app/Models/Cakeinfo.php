@@ -24,6 +24,6 @@ class CakeInfo extends Model
 
     public function cake_photos()
     {
-        return $this->hasMany(CakePhoto::class,'cake_infos_id','id');
+        return $this->hasMany(CakePhoto::class,'cake_photos_id','id');
     }
 }

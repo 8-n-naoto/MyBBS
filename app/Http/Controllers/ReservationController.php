@@ -43,14 +43,14 @@ class ReservationController extends Controller
     }
 
     //個別詳細変更画面
-    public function edit(CakeInfo $cake_info)
+    public function edit(CakeInfo $cakeinfo)
     {
         $cakecode=CakeInfo::all();
-        $cakephotos=CakePhoto::where('cake_infos_id','=',$cake_info->id)->get();
-        $prices = CakeInfoSub::where('cake_infos_id', '=', $cake_info->id)->get();
+        $cakephotos=CakePhoto::where('cake_photos_id','=',$cakeinfo->id)->get();
+        $prices = CakeInfoSub::where('cake_infos_id', '=', $cakeinfo->id)->get();
         return view('management.edit')
             ->with([
-                'info' => $cake_info,
+                'info' => $cakeinfo,
                 'prices' => $prices,
                 'cakecode'=>$cakecode,
                 'subphotos'=>$cakephotos
@@ -153,7 +153,7 @@ class ReservationController extends Controller
 
         //バリデート
         $request->validate([
-            'cake_infos_id'=>'required',
+            'cake_photos_id'=>'required',
             'photoname'=>'required',
             'subphotos'=>'required',
         ],[
@@ -163,7 +163,7 @@ class ReservationController extends Controller
         ]);
 
         $post = new CakePhoto();
-        $post->cake_infos_id= $request->cake_infos_id;
+        $post->cake_photos_id= $request->cake_photos_id;
         $post->photoname = $request->photoname;
         // // name属性が'images'のinputタグをファイル形式に、画像をpublic/imagesに名前付きで保存
         $image_path = $request->file('subphotos')->getClientOriginalName();

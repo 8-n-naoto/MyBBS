@@ -43,24 +43,24 @@ class InformationController extends Controller
     public function cakeinfo(CakeInfo $cakeinfo)
     {
         $subitem = CakeInfo::all();
-        $cakephotos=CakePhoto::where('cake_infos_id','=',$cakeinfo->id)->get();
+        $subphotos=$cakeinfo;
 
         return view('cake.cakeinfo')
             ->with([
-                'info' => $cakeinfo,
+                'infos' => $cakeinfo,
                 'subinfo' => $subitem,
-                // 'subphotos'=>$cakephotos
+                'subphotos'=>$subphotos
             ]);
     }
 
     //予約詳細入力画面
-    public function buy(CakeInfo $cake_info)
+    public function buy(CakeInfo $cakeinfo)
     {
-        $id = $cake_info->id;
+        $id = $cakeinfo->id;
         $price = CakeInfoSub::where('cake_infos_id', '=', $id)->get();
         return view('cake.form')
             ->with([
-                'info' => $cake_info,
+                'info' => $cakeinfo,
                 'prices' => $price,
             ]);
     }
