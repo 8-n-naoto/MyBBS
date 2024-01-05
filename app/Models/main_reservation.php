@@ -17,11 +17,11 @@ class Main_reservation extends Model
 
     public function sub_reservations()
     {
-        return $this->hasMany(Sub_reservation::class);
+        return $this->hasMany(Sub_reservation::class,'main_reservation_id','id');
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'users_id','id');
     }
 }

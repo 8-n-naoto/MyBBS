@@ -1,4 +1,8 @@
-<x-layout>
+@extends('components.footer')
+@extends('components.aside')
+@extends('components.header')
+
+@section('contents')
     {{-- <?php dd($info); ?> --}}
     <main class="flex-center">
         <!-- 画面左側 -->
@@ -51,12 +55,11 @@
                     <div class="error">{{ $message }}</div>
                 @enderror
                 </label>
-                <button class="button" id="button">追加するよ！</button>
+                <button class="button" id="button" id="addcake">追加するよ！</button>
             </form>
         </section>
-    </main>
     <script>
-        'use strict'
+        'use strict';
         {
             document.getElementById('add_cake').addEventListener('submit', e => {
                 e.preventDefault();
@@ -68,4 +71,4 @@
         }
     </script>
 
-</x-layout>
+@endsection

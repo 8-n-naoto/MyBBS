@@ -8,7 +8,6 @@ use  App\Models\CakeInfoSub;
 use App\Models\CakePhoto;
 use  App\Models\Main_reservation;
 use  App\Models\Sub_reservation;
-use App\Models\User;
 use Carbon\Carbon;
 
 class ReservationController extends Controller
@@ -16,18 +15,19 @@ class ReservationController extends Controller
     // 管理画面ホーム
     public function management()
     {
+        $day= Carbon::today()->format('m月d日のご予約');
         $info = CakeInfo::all();
         $infosub = Sub_reservation::all();
-        $user = User::all();
         $today = Carbon::today();
         $reservation = Main_reservation::whereDate('birthday', $today)->get();
 
         return view('management.manage')
             ->with([
-                'users'=>$user,
-                'info' => $info,
-                'infosub'=>$infosub,
+                'day'=>$day,
+                'cakenames' => $info,
+                'infosub' => $infosub,
                 'reservations' => $reservation,
+                'cakeinfos'=>$info,
             ]);
     }
 
@@ -35,36 +35,42 @@ class ReservationController extends Controller
     //ON/OFF画面
     public function edits()
     {
-        $info = CakeInfo::all();
+        $infos = CakeInfo::all();
         return view('management.edits')
             ->with([
-                'info' => $info,
+                'cakenames'=>$infos,
+                'cakeinfos'=>$infos,
+                'info' => $infos,
             ]);
     }
 
     //個別詳細変更画面
     public function edit(CakeInfo $cakeinfo)
     {
-        $cakecode=CakeInfo::all();
-        $cakephotos=CakePhoto::where('cake_photos_id','=',$cakeinfo->id)->get();
+        $infos = CakeInfo::all();
+        $cakephotos = CakePhoto::where('cake_photos_id', '=', $cakeinfo->id)->get();
         $prices = CakeInfoSub::where('cake_infos_id', '=', $cakeinfo->id)->get();
         return view('management.edit')
             ->with([
+                'cakenames'=>$infos,
+                'cakeinfos'=>$infos,
                 'info' => $cakeinfo,
                 'prices' => $prices,
-                'cakecode'=>$cakecode,
-                'subphotos'=>$cakephotos
+                'cakecode' => $infos,
+                'subphotos' => $cakephotos
             ]);
     }
 
     //商品追加ページ
     public function create()
     {
-        $cakecode=CakeInfo::all();
+        $infos = CakeInfo::all();
         return view('management.create')
-        ->with([
-            'cakecode'=>$cakecode,
-        ]);
+            ->with([
+                'cakenames'=>$infos,
+                'cakeinfos'=>$infos,
+                'cakecode' => $infos,
+            ]);
     }
 
     //商品追加用ページ
@@ -75,24 +81,24 @@ class ReservationController extends Controller
 
         //バリデート
         $request->validate([
-            'cakename'=>'required',
-            'topic'=>'required',
-            'explain'=>'required',
-            'cakecode'=>'required',
-            'cakename'=>'required',
-            'mainphoto'=>'required',
-            'capacity'=>'required',
-            'price'=>'required',
-        ],[
-            'users_id.required'=>'ログインしてください',
-            'cakename.required'=>'ケーキの名前を入力してください',
-            'topic.required'=>'ひとこと説明を入力してください',
-            'explain.required'=>'説明を入力してください',
-            'cakecode.required'=>'商品コードを入力してください',
-            'cakename.required'=>'ケーキの名前を入力してください',
-            'mainphoto.required'=>'ケーキの写真を追加してください',
-            'capacity.required'=>'大きさや内容量を入力してください',
-            'price.required'=>'価格を追加してください',
+            'cakename' => 'required',
+            'topic' => 'required',
+            'explain' => 'required',
+            'cakecode' => 'required',
+            'cakename' => 'required',
+            'mainphoto' => 'required',
+            'capacity' => 'required',
+            'price' => 'required',
+        ], [
+            'users_id.required' => 'ログインしてください',
+            'cakename.required' => 'ケーキの名前を入力してください',
+            'topic.required' => 'ひとこと説明を入力してください',
+            'explain.required' => '説明を入力してください',
+            'cakecode.required' => '商品コードを入力してください',
+            'cakename.required' => 'ケーキの名前を入力してください',
+            'mainphoto.required' => 'ケーキの写真を追加してください',
+            'capacity.required' => '大きさや内容量を入力してください',
+            'price.required' => '価格を追加してください',
         ]);
 
         $post = new CakeInfo();
@@ -108,7 +114,7 @@ class ReservationController extends Controller
         $post->mainphoto = 'storage/images/' . $image_path;
         $post->save();
 
-        $id=$post->id;
+        $id = $post->id;
         $post = new CakeInfoSub();
         $post->cake_infos_id = $id;
         $post->capacity = $request->capacity;
@@ -128,11 +134,11 @@ class ReservationController extends Controller
         $request->session()->regenerateToken();
 
         $request->validate([
-            'capacity'=>'required',
-            'price'=>'required',
-        ],[
-            'capacity.required'=>'大きさや内容量を入力してください',
-            'price.required'=>'価格を追加してください',
+            'capacity' => 'required',
+            'price' => 'required',
+        ], [
+            'capacity.required' => '大きさや内容量を入力してください',
+            'price.required' => '価格を追加してください',
         ]);
 
         $post = new CakeInfoSub();
@@ -153,17 +159,17 @@ class ReservationController extends Controller
 
         //バリデート
         $request->validate([
-            'cake_photos_id'=>'required',
-            'photoname'=>'required',
-            'subphotos'=>'required',
-        ],[
-            'cake_infos_id.required'=>'ログインしてください',
-            'photoname.required'=>'ケーキの名前を入力してください',
-            'subphotos.required'=>'写真を選択してください',
+            'cake_photos_id' => 'required',
+            'photoname' => 'required',
+            'subphotos' => 'required',
+        ], [
+            'cake_infos_id.required' => 'ログインしてください',
+            'photoname.required' => 'ケーキの名前を入力してください',
+            'subphotos.required' => '写真を選択してください',
         ]);
 
         $post = new CakePhoto();
-        $post->cake_photos_id= $request->cake_photos_id;
+        $post->cake_photos_id = $request->cake_photos_id;
         $post->photoname = $request->photoname;
         // // name属性が'images'のinputタグをファイル形式に、画像をpublic/imagesに名前付きで保存
         $image_path = $request->file('subphotos')->getClientOriginalName();
@@ -186,17 +192,17 @@ class ReservationController extends Controller
 
         //バリデート
         $request->validate([
-            'cakename'=>'required',
-            'mainphoto'=>'required',
-            'topic'=>'required',
-            'explain'=>'required',
-            'cakecode'=>'required',
-        ],[
-            'cakename.required'=>'ケーキの名前を入力してください',
-            'topic.required'=>'ひとこと説明を入力してください',
-            'explain.required'=>'説明を入力してください',
-            'cakecode.required'=>'商品コードを入力してください',
-            'mainphoto.required'=>'ケーキの写真を追加してください',
+            'cakename' => 'required',
+            'mainphoto' => 'required',
+            'topic' => 'required',
+            'explain' => 'required',
+            'cakecode' => 'required',
+        ], [
+            'cakename.required' => 'ケーキの名前を入力してください',
+            'topic.required' => 'ひとこと説明を入力してください',
+            'explain.required' => '説明を入力してください',
+            'cakecode.required' => '商品コードを入力してください',
+            'mainphoto.required' => 'ケーキの写真を追加してください',
         ]);
 
 
@@ -227,7 +233,11 @@ class ReservationController extends Controller
         //残りの値を渡して表示する。
         $cakeinfo = CakeInfo::all();
         return view('management.edits')
-            ->with(['info' => $cakeinfo]);
+            ->with([
+                'info' => $cakeinfo,
+                'cakenames'=>$cakeinfo,
+                'cakeinfos'=>$cakeinfo,
+        ]);
     }
     //商品情報削除用ページ(price)
     public function destroy_price(Request $request, CakeInfoSub $cakeinfosub)
@@ -237,7 +247,11 @@ class ReservationController extends Controller
         //残りの値を渡して表示する。
         $cakeinfo = CakeInfo::all();
         return view('management.edits')
-            ->with(['info' => $cakeinfo]);
+            ->with([
+                'info' => $cakeinfo,
+                'cakenames'=>$cakeinfo,
+                'cakeinfos'=>$cakeinfo,
+            ]);
     }
     //商品情報削除用ページ(photo)
     public function destroy_photo(Request $request, CakePhoto $cakephoto)
@@ -247,34 +261,61 @@ class ReservationController extends Controller
         //残りの値を渡して表示する。
         $cakeinfo = CakeInfo::all();
         return view('management.edits')
-            ->with(['info' => $cakeinfo]);
+            ->with([
+                'info' => $cakeinfo,
+                'cakenames'=>$cakeinfo,
+                'cakeinfos'=>$cakeinfo,
+            ]);
     }
 
 
 
     // 予約一覧表示画面
-    public function counts(CakeInfo $cake_info)
+    public function counts(CakeInfo $cakeinfo)
     {
-        $today = Carbon::today();
-        $cakename = $cake_info->cakename;
-        $info = Sub_reservation::where('cakename', $cakename);
+        $infos = CakeInfo::all();
+        $cakename = $cakeinfo->cakename;
+        $subinfo = Sub_reservation::where('cakename', $cakename)->get();
+        $info = Main_reservation::all();
 
-        // $info = Sub_reservation::where('cake', $cakename)->where('birthday', '>=', $today)->get();
         return view('management.count')
             ->with([
-                'name' => $cake_info,
-                'info' => $info,
+                'cakenames'=>$infos,
+                'cakeinfos'=>$infos,
+                'name' => $cakeinfo,
+                'reservations' => $info,
+                'infosubs' => $subinfo,
+
             ]);
     }
     //日にち別予約数確認画面(当日)
     public function date()
     {
-        $info = Main_reservation::all();  //今日以降のものを抽出→日にち順に並び変える→時間順に並び変える→ゲット
-        $info_sub=Sub_reservation::all(); //あとから上ので一緒に出せるようにする。
+        $infos=CakeInfo::all();
+        $today = Carbon::today();
+        $reservations = Main_reservation::whereDate('birthday', $today);  //今日以降のものを抽出→日にち順に並び変える→時間順に並び変える→ゲット
+        $info_sub = Sub_reservation::all(); //あとから上ので一緒に出せるようにする。
         return view('management.date')
             ->with([
-                'info' => $info,
-                'info_sub'=>$info_sub,
+                'cakenames'=>$infos,
+                'cakeinfos'=>$infos,
+                'reservations' => $reservations,
+                'infosubs' => $info_sub,
+            ]);
+    }
+
+    public function thedate(Request $request)
+    {
+        $infos=CakeInfo::all();
+        $reservations = Main_reservation::whereDate('birthday', $request->date)->get();
+        $info_sub = Sub_reservation::all();
+        return view('management.thedate')
+            ->with([
+                'cakenames'=>$infos,
+                'cakeinfos'=>$infos,
+                'reservations' => $reservations,
+                'infosubs' => $info_sub,
+                'date' => $request->date,
             ]);
     }
 }

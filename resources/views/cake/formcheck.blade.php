@@ -5,7 +5,7 @@
         <form method="post" action="{{ route('reservation') }}" id="form_send">
             @csrf
             <div>
-                <p>お名前:{{ $info->users_id }}</p>
+                <p>お名前:{{ $info->users_name }}</p>
                 <input type="hidden" name="users_id" id="date" value="{{ $info->users_id }}">
             </div>
             <div>

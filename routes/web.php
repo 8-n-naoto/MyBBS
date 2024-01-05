@@ -144,9 +144,12 @@ Route::controller(ReservationController::class)->middleware(['auth'])->group(fun
     Route::delete('/management/manage/edit/{cakephoto}/destroyphoto', [ReservationController::class, 'destroy_photo'])
         ->name('destroy.photo');
 
-    //日付別総量確認画面
+    //日付別総量確認画面(home)
     Route::get('/management/manage/date', [ReservationController::class, 'date'])
         ->name('date');
+    //日付別総量確認画面(選択)
+    Route::post('/management/manage/date/thedate', [ReservationController::class, 'thedate'])
+        ->name('thedate');
 
     //総数表示ページ種類別
     Route::get('/management/manage/{cakeinfo}', [ReservationController::class, 'counts'])

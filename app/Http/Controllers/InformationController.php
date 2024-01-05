@@ -56,12 +56,10 @@ class InformationController extends Controller
     //予約詳細入力画面
     public function buy(CakeInfo $cakeinfo)
     {
-        $id = $cakeinfo->id;
-        $price = CakeInfoSub::where('cake_infos_id', '=', $id)->get();
         return view('cake.form')
             ->with([
                 'info' => $cakeinfo,
-                'prices' => $price,
+                'prices' => $cakeinfo,
             ]);
     }
 
@@ -69,15 +67,17 @@ class InformationController extends Controller
     public function formcheck(Request $request)
     {
         $request->validate([
+            'users_name'=>'required',
             'users_id'=>'required',
             'birthday'=>'required',
             'time'=>'required',
             'cakename'=>'required', //出来るなら既存のデータと照合して、間違っていれば返したい
-            'mainphoto'=>'required',//対応しているか確認したい
-            'capacity'=>'required',//対応しているか確認したい
-            'price'=>'required',//対応しているか確認したい
-            'massage'=>'required',//確認くらいは出したい
+            'mainphoto'=>'required',
+            'capacity'=>'required',
+            'price'=>'required',
+            'massage'=>'required',
         ],[
+            'users_id.required'=>'ログインしてください',
             'users_id.required'=>'ログインしてください',
             'birthday.required'=>'受取日を入力してください',
             'time.required'=>'受け取り時間を入力してください',
@@ -110,7 +110,12 @@ class InformationController extends Controller
         $posts->massage = $request->massage;
         $posts->save();
 
-        return view('cake.formcheckok');
-        // ->with(['info' => $posts])
+        $mainID=$id;
+        $subID=$posts->id;
+        return view('cake.formcheckok')
+        ->with([
+            'mainID' => $mainID,
+            'subID'=>$subID,
+        ]);
     }
 }

@@ -1,5 +1,9 @@
-<x-layout>
+@extends('components.footer')
+@extends('components.aside')
+@extends('components.header')
 
+
+@section('contents')
     <main class="grid">
         <div class="subinfo">
             @forelse ($info as $info)
@@ -15,11 +19,7 @@
                 <p>コンテンツを用意してください</p>
             @endforelse
         </div>
-        <a href="{{ route('create') }}">新規追加</a>
-        <a href="{{ route('management') }}">管理画面ホームへ</a>
 
-    </main>
 
     </body>
-    <script src="{{ url('js/main.js') }}"></script>
-</x-layout>
+    @endsection

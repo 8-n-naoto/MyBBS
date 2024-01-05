@@ -5,8 +5,9 @@
         <form method="post" action="{{ route('formcheck') }}">
             @csrf
             <div>
-                <label for="name">後で変更します:
-                    <input type="text" name="users_id" id="name" placeholder="フルネームで入力して下さい"></label>
+                <input type="hidden" name="users_id" id="name" value="{{Auth::user()->id}}">
+                <label for="name">お名前:
+                    <input type="text" name="users_name" id="name" value="{{Auth::user()->name}}">様</label>
                 @error('users_id')
                     <div class="error">{{ $message }}</div>
                 @enderror
@@ -32,7 +33,7 @@
                 <input type="hidden" name="mainphoto" id="cake" value="{{ $info->mainphoto }}" readonly></label>
             </div>
             <div>
-                @forelse ($prices as $price)
+                @forelse ($prices->cake_info_subs as $price)
                     <label>
                         <input type="radio" name="capacity" value="{{ $price->capacity }}">
                         大きさ：{{ $price->capacity }}お値段：{{ $price->price }}円
@@ -44,9 +45,6 @@
                 @empty
                     <p>ただいま準備中...</p>
                 @endforelse
-                {{-- <input type="radio" name="size" value="{{ $info->size1 }}">{{ $info->size1 }}
-                <label><input type="radio" name="size" value="{{ $info->size2 }}">{{ $info->size2 }}</label>
-                <label><input type="radio" name="size" value="{{ $info->size3 }}">{{ $info->size3 }}</label> --}}
             </div>
             <div>
                 メッセ―ジ：

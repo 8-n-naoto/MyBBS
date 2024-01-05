@@ -1,16 +1,20 @@
-<x-layout>
+@extends('components.footer')
+@extends('components.aside')
+@extends('components.header')
+
+@section('contents')
     {{-- <?php dd($prices); ?> --}}
     <main class="flex-center">
         <!-- 画面左側 -->
         <section class="textbackground">
             {{-- 確認後下記の属性にこれをたすenctype="multipart/form-data" --}}
-            <form method="post" action="{{ route('update', $info) }}" enctype="multipart/form-data" id="update_cake">
+            <form method="post" action="{{ route('update', $info) }}" enctype="multipart/form-data" id="update_cake"
+                class="update">
                 @method('PATCH')
                 @csrf
                 <label>
                     <p>現在の写真</p>
-                    <img src="{{ asset($info->mainphoto) }}" class="images" alt="ケーキの写真" width="160px"
-                        accept=".jpg,.png">
+                    <img src="{{ asset($info->mainphoto) }}" class="images" alt="ケーキの写真" width="160px" accept=".jpg,.png">
                     <input type="file" name="mainphoto" value="{{ $info->mainphoto }}">
                     @error('mainphoto')
                         <div class="error">{{ $message }}</div>
@@ -48,14 +52,14 @@
                 </label>
                 <button class="button" id="button">更新するよ！</button>
             </form>
-            <form method="post" action="{{ route('destroy', $info) }}" id="delete_cakeinfo">
+            <form method="post" action="{{ route('destroy', $info) }}" class="delete">
                 @method('DELETE')
                 @csrf
                 <button class="button">削除ボタン</button>
             </form>
 
             <h2>大きさと値段の設定</h2>
-            <form method="post" action="{{ route('add.price', $info) }}" id="update_price" class="flex-row">
+            <form method="post" action="{{ route('add.price', $info) }}" id="update_price" class="flex-row update">
                 @csrf
                 <input type="hidden" name='id' value="{{ $info->id }}">
                 <label>
@@ -74,7 +78,7 @@
             </form>
 
             @forelse ($prices as $price)
-                <form method="post" action="{{ route('destroy.price', $price) }}" id="delete_price" class="flex-row">
+                <form method="post" action="{{ route('destroy.price', $price) }}" id="" class="flex-row delete">
                     @method('DELETE')
                     @csrf
                     <p>大きさ：{{ $price->capacity }}</p>
@@ -91,7 +95,8 @@
 
 
             <h2>ギャラリーの設定</h2>
-            <form method="post" action="{{ route('add.photo') }}" enctype="multipart/form-data" id="update_subphoto">
+            <form method="post" action="{{ route('add.photo') }}" enctype="multipart/form-data" id="update_subphoto"
+                class="update">
                 @csrf
                 <input type="hidden" name='cake_photos_id' value="{{ $info->id }}">
                 <label>
@@ -110,7 +115,7 @@
             </form>
 
             @forelse ($subphotos as $subphoto)
-                <form method="post" action="{{ route('destroy.photo', $subphoto) }}" id="delete_photo">
+                <form method="post" action="{{ route('destroy.photo', $subphoto) }}" class="delete">
                     @method('DELETE')
                     @csrf
                     <img src=" {{ asset($subphoto->subphotos) }}" alt=""width="200px">
@@ -125,38 +130,59 @@
 
         </section>
 
-    </main>
+
     <script>
-        'use strict' {
-            document.getElementById('update_cake').addEventListener('submit', e => {
-                e.preventDefault();
-                if (!confirm('商品を追加しますか?')) {
-                    return;
-                }
-                e.target.submit();
+        'use strict';
+        {
+            // document.getElementById('update_cake').addEventListener('submit', e => {
+            //     e.preventDefault();
+            //     if (!confirm('商品を追加しますか?')) {
+            //         return;
+            //     }
+            //     e.target.submit();
+            // });
+            // document.getElementById('update_price').addEventListener('submit', e => {
+            //     e.preventDefault();
+            //     if (!confirm('値段を追加しますか?')) {
+            //         return;
+            //     }
+            //     e.target.submit();
+            // });
+            // document.getElementById('update_subphoto').addEventListener('submit', e => {
+            //     e.preventDefault();
+            //     if (!confirm('写真を追加しますか?')) {
+            //         return;
+            //     }
+            //     e.target.submit();
+            // });
+
+            // ボタン更新用
+            document.querySelectorAll('.update').forEach(element => {
+                element.addEventListener('submit', e => {
+                    e.preventDefault();
+                    // switch()｛
+                    if (!confirm('更新しますか？')) {
+                        return;
+                        // }
+                        e.target.submit();
+                    }
+                    // ｝
+                })
             });
-            document.getElementById('update_price').addEventListener('submit', e => {
-                e.preventDefault();
-                if (!confirm('値段をを追加しますか?')) {
-                    return;
-                }
-                e.target.submit();
+
+
+            // ボタン削除用
+            document.querySelectorAll('.delete').forEach(element => {
+                element.addEventListener('submit', e => {
+                    e.preventDefault();
+                    if (!confirm('本当に削除しますか？')) {
+                        return;
+                    }
+                    e.target.submit();
+                })
+
             });
-            document.getElementById('delete_cakeinfo').addEventListener('submit', e => {
-                e.preventDefault();
-                if (!confirm('本当に削除しますか？')) {
-                    return;
-                }
-                e.target.submit();
-            });
-            document.getElementById('delete_price').addEventListener('submit', e => {
-                e.preventDefault();
-                if (!confirm('本当に削除しますか？')) {
-                    return;
-                }
-                e.target.submit();
-            });
+
         }
     </script>
-
-</x-layout>
+@endsection

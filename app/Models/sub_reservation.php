@@ -19,6 +19,6 @@ class Sub_reservation extends Model
 
     public function main_reservation()
     {
-        return $this->belongsTo(Main_reservation::class);
+        return $this->belongsTo(Main_reservation::class,'main_reservation_id','id');
     }
 }

@@ -1,0 +1,1 @@
+drop table users,cake_infos,cake_infos_sub,cake_photos,failed_jobs,main_reservation,migrations,password_reset_tokens,personal_access_tokens,sub_reservation;

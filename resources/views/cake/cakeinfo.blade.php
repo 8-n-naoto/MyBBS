@@ -12,7 +12,7 @@
                         <div class="textbackground">
                             <h3>サイズ一覧</h3>
                             @forelse ($infos->cake_info_subs as $info)
-                                <a href="{{ route('form', $info) }}" class="flex-row">
+                                <a href="{{ route('form', $infos) }}" class="flex-row">
                                     <p>サイズ：{{ $info->capacity }}</p>
                                     <p>￥{{ $info->price }}円</p>
                                     <p class="button">購入へ</p>
@@ -63,7 +63,7 @@
 
 
             </div>
-            {{-- <a href="/form/form" class="button"><button class="button">購入画面へ進む</button></a> --}}
+
             <div class="flex-row textbackground">
                 <div>
                     <p>住所：〒098-6758 北海道稚内市宗谷岬３</p>

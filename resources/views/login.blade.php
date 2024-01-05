@@ -1,4 +1,6 @@
-<x-layout>
+@extends('components.footer')
+@extends('components.header')
+@section('main')
     <main class="form">
         <form method="post" action="{{ route('index') }}">
             @csrf
@@ -18,5 +20,4 @@
                 <button class="button">確認画面へ！</button>
             </div>
         </form>
-    </main>
-</x-layout>
+@endsection

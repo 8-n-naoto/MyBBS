@@ -1,5 +1,10 @@
 {{-- <?php dd($info); ?> --}}
-<x-layout>
+
+@extends('components.footer')
+@extends('components.aside')
+@extends('components.header')
+
+@section('contents')
     <main class="flex-row">
         <section>
             <div>
@@ -34,55 +39,33 @@
                         </tr>
                     </tfoot>
                 </table>
-                <select size="4" name="ケーキの種類" onChange="location.href=value;" class="textbackground">
-                    @forelse ($info as $info)
-                        <option value="{{ route('count', $info->id) }}">{{ $info->cakename }}</option>
-                    @empty
-                        <p>準備中だよ！</p>
-                    @endforelse
-                </select>
+
             </div>
-            <a href="{{ route('cakeinfos') }}" class="button">商品編集画面へ</a>
-            <!-- 種類ごとに合計の予約数を出す。 -->
-            <a href="{{ route('date') }}">日付別確認画面へ</a>
         </section>
 
 
         <div class="textbackground flex-coulumn">
-            <h3 class="today middlefont"></h3>
-            <div class="">
-                <p class="middlefont"></p>
-                <div class="flex-row">
-                    @forelse ($reservations as $reservation)
-                        <p class="smallfont">
-                            {{ $reservation->birthday }}：{{ $reservation->time }}：
-                        </p>
-                        @forelse ($users as $user)
-                            @if ($reservation->users_id === $user->id)
-                                <p class="smallfont">
-                                    {{ $user->name }}様
-                                </p>
+            {{-- <h3 class="today middlefont"></h3> --}}
+            <p class="middlefont">{{$day}}</p>
+            <div>
+                @forelse ($reservations as $reservation)
+                    <div class="smallfont">
+                        <p class="smallfont">ご予約日：{{ $reservation->birthday }} 受け取り時間：{{ $reservation->time }}
+                            予約名：{{ $reservation->user->name }}様</p>
+                        @forelse ($infosub as $info)
+                            @if ($reservation->id === $info->main_reservation_id)
+                                <p class="smallfont">商品名：{{ $info->cakename }} 大きさ：{{ $info->capacity }}
+                                    値段：{{ $info->price }} メッセージ：{{ $info->massage }} </p>
                             @endif
                         @empty
+                            <p>予約情報が不足しています</p>
                         @endforelse
-                </div>
-                <div>
-                    @forelse ($infosub as $info)
-                        @if ($reservation->id === $info->main_reservation_id)
-                            <p class="smallfont">
-                                {{ $info->cakename }}：{{ $info->capacity }}：{{ $info->price }}：{{ $info->massage }}
-                            </p>
-                        @endif
-                    @empty
-                    @endforelse
-                    @empty
+                    </div>
+                @empty
                     <p>予約がないよ！</p>
-                    @endforelse
-                </div>
+                @endforelse
             </div>
-            <script src="{{ url('js/main.js') }}"></script>
-    </main>
+        </div>
+        <script src="{{ url('js/main.js') }}"></script>
 
-    </body>
-
-</x-layout>
+    @endsection

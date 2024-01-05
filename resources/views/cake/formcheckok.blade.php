@@ -1,6 +1,8 @@
 <x-layout>
     <main class="">
         <div>
+            <p>{{Auth::user()->name}}様の予約番号</p>
+            <p>{{$mainID}}-{{$subID}}</p>
         <p class="">またのお越しをお待ちしております！</p>
         </div>
       <div>

@@ -1,4 +1,4 @@
-{{-- <?php dd($info); ?> --}}
+{{-- <?php dd($reservations); ?> --}}
 @extends('components.footer')
 @extends('components.aside')
 @extends('components.header')
@@ -7,16 +7,17 @@
     <main>
         <form method="POST" action="{{ route('thedate') }}">
             @csrf
-            <label for="date" class="textbackground">
+            <label for="" class="textbackground">
                 <input type="date" name="date">日にちを選択してください
                 <button>決定</button>
             </label>
         </form>
 
         <div>
+            <h2 class="textbackground">{{ $date }}のご予約分</h2>
             <div>
                 @forelse ($reservations as $reservation)
-                    <div class="smallfont">
+                    <div class="textbackground">
                         <p class="smallfont">ご予約日：{{ $reservation->birthday }} 受け取り時間：{{ $reservation->time }}
                             予約名：{{ $reservation->user->name }}様</p>
                         @forelse ($infosubs as $info)
@@ -33,4 +34,5 @@
                 @endforelse
             </div>
         </div>
-    @endsection
+
+@endsection
