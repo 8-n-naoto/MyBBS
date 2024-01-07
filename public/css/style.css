@@ -59,6 +59,10 @@ aside{
     flex: none;
 }
 
+.shadow{
+    filter: grayscale(100%);
+}
+
 .sidemenu{
     padding: 0.5rem 0;
     margin-bottom: 0.5rem;

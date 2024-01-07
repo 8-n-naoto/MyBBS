@@ -8,12 +8,6 @@
         let year = today.getFullYear();
         let month = today.getMonth();
 
-        // function day() {
-        //     const todaytext = today.getDate() + `日のご予約`;
-        //     document.querySelectorAll(".today")[0].textContent = todaytext;
-        // }
-        // day();
-
         function getCalendarHead() {
             const dates = [];
             const d = new Date(year, month, 0).getDate();
@@ -151,5 +145,7 @@
         createCalendar();
     }
 
+
+    
 
 }

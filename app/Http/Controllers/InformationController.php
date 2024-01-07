@@ -16,8 +16,7 @@ class InformationController extends Controller
     // ホーム画面
     public function index()
     {
-        // $infos=CakeInfo::find(1)->cake_info_subs;
-        $infos = CakeInfo::all();
+        $infos = CakeInfo::where('boolean','=',1)->get();
         return view('index')
             ->with(['infos' => $infos]);
     }
