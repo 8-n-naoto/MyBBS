@@ -125,62 +125,6 @@
             @empty
                 <p>バリエーションを追加してください</p>
             @endforelse
-
-
         </section>
-
-
-    <script>
-        'use strict';
-        {
-            // document.getElementById('update_cake').addEventListener('submit', e => {
-            //     e.preventDefault();
-            //     if (!confirm('商品を追加しますか?')) {
-            //         return;
-            //     }
-            //     e.target.submit();
-            // });
-            // document.getElementById('update_price').addEventListener('submit', e => {
-            //     e.preventDefault();
-            //     if (!confirm('値段を追加しますか?')) {
-            //         return;
-            //     }
-            //     e.target.submit();
-            // });
-            // document.getElementById('update_subphoto').addEventListener('submit', e => {
-            //     e.preventDefault();
-            //     if (!confirm('写真を追加しますか?')) {
-            //         return;
-            //     }
-            //     e.target.submit();
-            // });
-
-            // ボタン更新用
-            document.querySelectorAll('.update').forEach(element => {
-                element.addEventListener('submit', e => {
-                    e.preventDefault();
-                    // switch()｛
-                    if (!confirm('更新しますか？')) {
-                        return;
-                        }
-                        e.target.submit();
-                    })
-                    // ｝
-                });
-
-
-            // ボタン削除用
-            document.querySelectorAll('.delete').forEach(element => {
-                element.addEventListener('submit', e => {
-                    e.preventDefault();
-                    if (!confirm('本当に削除しますか？')) {
-                        return;
-                    }
-                    e.target.submit();
-                })
-
-            });
-
-        }
-    </script>
+        <script src="{{ url('js/button.js') }}"></script>
 @endsection

@@ -17,6 +17,9 @@
                 <a href="{{ route('date') }}" class="middlefont">日付別予約商品</a>
             </div>
             <div class="sidemenu">
+                <a href="{{ route('data') }}" class="middlefont">予約情報検索</a>
+            </div>
+            <div class="sidemenu">
                 <a href="{{ route('cakeinfos') }}" class="middlefont">表示商品編集</a>
                 <ul name="ケーキの種類">
                     @forelse ($cakeinfos as $info)

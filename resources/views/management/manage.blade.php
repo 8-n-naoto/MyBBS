@@ -66,6 +66,6 @@
                 @endforelse
             </div>
         </div>
-        <script src="{{ url('js/main.js') }}"></script>
+        <script src="{{ url('js/calender.js') }}"></script>
 
     @endsection

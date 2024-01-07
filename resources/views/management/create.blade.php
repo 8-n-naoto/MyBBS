@@ -58,17 +58,6 @@
                 <button class="button" id="button" id="addcake">追加するよ！</button>
             </form>
         </section>
-    <script>
-        'use strict';
-        {
-            document.getElementById('add_cake').addEventListener('submit', e => {
-                e.preventDefault();
-                if (!confirm('商品を追加しますか?')) {
-                    return;
-                }
-                e.target.submit();
-            });
-        }
-    </script>
+        <script src="{{ url('js/button.js') }}"></script>
 
 @endsection

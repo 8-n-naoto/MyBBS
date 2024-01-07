@@ -12,6 +12,9 @@
                         <img src="{{ asset($info->mainphoto) }} " class="subphoto" alt="ケーキの写真">
                         <p hidden>{{ $info->boolean }}</p>
                     </div>
+                    <a href="{{ route('info.edit', $info) }}">
+                        <p class="smallfont">詳細変更</p>
+                    </a>
                     <form method="POST" action="{{ route('boolean', $info) }}" id="update_boolean" class="update">
                         @method('PATCH')
                         @csrf
@@ -24,40 +27,11 @@
                             <button>表示する</button>
                         @endif
                     </form>
-                    <a href="{{ route('info.edit', $info) }}">
-                        <p class="smallfont">詳細変更</p>
-                    </a>
 
                 </object>
             @empty
                 <p>コンテンツを用意してください</p>
             @endforelse
         </div>
-
-        <script>
-            'use strict';
-            {
-                // boolean判別用
-                document.querySelectorAll('.boolean').forEach(element => {
-                    const boolean = Number(element.querySelector('p').textContent);
-
-                    if (boolean === 0) {
-                        element.querySelector('img').classList.add('shadow');
-                    }
-                });
-
-                // ボタン更新用
-                document.querySelectorAll('.update').forEach(element => {
-                    element.addEventListener('submit', e => {
-                        e.preventDefault();
-                        // switch()｛
-                        if (!confirm('更新しますか？')) {
-                            return;
-                        }
-                        e.target.submit();
-                    })
-                    // ｝
-                });
-            }
-        </script>
+        <script src="{{ url('js/button.js') }}"></script>
     @endsection
