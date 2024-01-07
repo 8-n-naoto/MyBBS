@@ -114,6 +114,9 @@ Route::controller(ReservationController::class)->middleware(['auth'])->group(fun
     //ON/OFF画面
     Route::get('/management/manage/edit', [ReservationController::class, 'edits'])
         ->name('cakeinfos');
+     //商品表示ON/OFF切り替え画面
+        Route::patch('/management/edit/{cakeinfo}', [ReservationController::class, 'boolean'])
+        ->name('boolean');
     //個別設定ページ
     Route::get('/management/manage/edit/{cakeinfo}', [ReservationController::class, 'edit'])
         ->name('info.edit');
@@ -131,7 +134,7 @@ Route::controller(ReservationController::class)->middleware(['auth'])->group(fun
     //商品更新画面（price）
     Route::post('/management/manage/edit/addprice', [ReservationController::class, 'addprice'])
         ->name('add.price');
-    //商品更新ページ(subphoto)
+    //商品更新画面(subphoto)
     Route::post('/management/manage/edit/addphoto', [ReservationController::class, 'addphoto'])
         ->name('add.photo');
     //商品情報削除ページ（main）

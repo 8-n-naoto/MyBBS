@@ -15,6 +15,7 @@ class Cake_info extends Model
         'topic',
         'explain',
         'cakecode',
+        'boolean'
     ];
 
     public function cake_info_sub()

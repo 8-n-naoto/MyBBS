@@ -95,8 +95,7 @@
 
 
             <h2>ギャラリーの設定</h2>
-            <form method="post" action="{{ route('add.photo') }}" enctype="multipart/form-data" id="update_subphoto"
-                class="update">
+            <form method="post" action="{{ route('add.photo') }}" enctype="multipart/form-data" id="update_subphoto"class="update">
                 @csrf
                 <input type="hidden" name='cake_photos_id' value="{{ $info->id }}">
                 <label>
@@ -163,12 +162,11 @@
                     // switch()｛
                     if (!confirm('更新しますか？')) {
                         return;
-                        // }
+                        }
                         e.target.submit();
-                    }
+                    })
                     // ｝
-                })
-            });
+                });
 
 
             // ボタン削除用
