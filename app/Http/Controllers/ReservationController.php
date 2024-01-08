@@ -288,6 +288,8 @@ class ReservationController extends Controller
 
             ]);
     }
+
+
     //日にち別予約数確認画面(当日)
     public function date()
     {
@@ -303,7 +305,7 @@ class ReservationController extends Controller
                 'infosubs' => $info_sub,
             ]);
     }
-
+    //日にち別予約数確認画面（指定）
     public function thedate(Request $request)
     {
         $infos = CakeInfo::all();
@@ -319,6 +321,7 @@ class ReservationController extends Controller
             ]);
     }
 
+    //真偽値変換用
     public function boolean(Request $request, CakeInfo $cakeinfo)
     {
         //トークン再生成
@@ -333,10 +336,15 @@ class ReservationController extends Controller
 
         $cakeinfo->boolean = $request->boolean;
         $cakeinfo->save();
-        
+
         return redirect()
             ->route('cakeinfos');
-
-
     }
+
+    // 予約検索画面
+    public function information()
+    {
+        return view('management.reservinfo');
+    }
+
 }

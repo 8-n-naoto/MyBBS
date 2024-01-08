@@ -109,16 +109,16 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
 //ReservationController
 Route::controller(ReservationController::class)->middleware(['auth'])->group(function () {
     //管理画面トップ
-    Route::get('/management/manage', [ReservationController::class, 'management'])
+    Route::get('/management/', [ReservationController::class, 'management'])
         ->name('management');
     //ON/OFF画面
-    Route::get('/management/manage/edit', [ReservationController::class, 'edits'])
+    Route::get('/management/edit', [ReservationController::class, 'edits'])
         ->name('cakeinfos');
-     //商品表示ON/OFF切り替え画面
-        Route::patch('/management/edit/{cakeinfo}', [ReservationController::class, 'boolean'])
+    //商品表示ON/OFF切り替え画面
+    Route::patch('/management/edit/{cakeinfo}', [ReservationController::class, 'boolean'])
         ->name('boolean');
     //個別設定ページ
-    Route::get('/management/manage/edit/{cakeinfo}', [ReservationController::class, 'edit'])
+    Route::get('/management/edit/{cakeinfo}', [ReservationController::class, 'edit'])
         ->name('info.edit');
 
 
@@ -129,32 +129,44 @@ Route::controller(ReservationController::class)->middleware(['auth'])->group(fun
     Route::post('/management/store', [ReservationController::class, 'store'])
         ->name('posts.store');
     //商品情報更新処理(main)
-    Route::patch('/management/manage/edit/update', [ReservationController::class, 'update'])
+    Route::patch('/management/edit/update', [ReservationController::class, 'update'])
         ->name('update');
     //商品更新画面（price）
-    Route::post('/management/manage/edit/addprice', [ReservationController::class, 'addprice'])
+    Route::post('/management/edit/addprice', [ReservationController::class, 'addprice'])
         ->name('add.price');
     //商品更新画面(subphoto)
-    Route::post('/management/manage/edit/addphoto', [ReservationController::class, 'addphoto'])
+    Route::post('/management/edit/addphoto', [ReservationController::class, 'addphoto'])
         ->name('add.photo');
     //商品情報削除ページ（main）
-    Route::delete('/management/manage/edit/{cakeinfo}/destroy', [ReservationController::class, 'destroy'])
+    Route::delete('/management/edit/{cakeinfo}/destroy', [ReservationController::class, 'destroy'])
         ->name('destroy');
     //商品情報削除ページ（price）
-    Route::delete('/management/manage/edit/{cakeinfosub}/destroyprice', [ReservationController::class, 'destroy_price'])
+    Route::delete('/management/edit/{cakeinfosub}/destroyprice', [ReservationController::class, 'destroy_price'])
         ->name('destroy.price');
     //商品情報削除ページ（photo）
-    Route::delete('/management/manage/edit/{cakephoto}/destroyphoto', [ReservationController::class, 'destroy_photo'])
+    Route::delete('/management/edit/{cakephoto}/destroyphoto', [ReservationController::class, 'destroy_photo'])
         ->name('destroy.photo');
 
     //日付別総量確認画面(home)
-    Route::get('/management/manage/date', [ReservationController::class, 'date'])
+    Route::get('/management/date', [ReservationController::class, 'date'])
         ->name('date');
     //日付別総量確認画面(選択)
-    Route::post('/management/manage/date/thedate', [ReservationController::class, 'thedate'])
+    Route::post('/management/date/thedate', [ReservationController::class, 'thedate'])
         ->name('thedate');
 
-    //総数表示ページ種類別
-    Route::get('/management/manage/{cakeinfo}', [ReservationController::class, 'counts'])
+    //商品別総数表示ページ種類別
+    Route::get('/management/{cakeinfo}', [ReservationController::class, 'counts'])
         ->name('count');
+
+    //予約情報確認画面
+    Route::get('/management/information', [ReservationController::class, 'information'])
+        ->name('information');
+
+
+
+
+
+
+
+
 });

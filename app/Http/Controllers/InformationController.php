@@ -29,10 +29,6 @@ class InformationController extends Controller
     //ログイン処理
     public function loginok()
     {
-        //ログイン処理をここでする
-        //不一致ならばログイン画面に戻す
-        //ログイン出来たなら下記の処理をする＋ログイン情報を保持
-
         $info = CakeInfo::all();
         return view('index')
             ->with(['infos' => $info]);
@@ -117,4 +113,5 @@ class InformationController extends Controller
             'subID'=>$subID,
         ]);
     }
+
 }
