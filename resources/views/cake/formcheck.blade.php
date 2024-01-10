@@ -1,8 +1,9 @@
 {{-- <?php dd($info->capasity); ?> --}}
+@extends('components.frontlayout')
 
-<x-layout>
-    <main class="form">
-        <form method="post" action="{{ route('reservation') }}" id="form_send">
+@section('main')
+    <section class="form">
+        <form method="post" action="{{ route('reservation') }}" id="form_send" class="sendform">
             @csrf
             <div>
                 <p>お名前:{{ $info->users_name }}</p>
@@ -34,50 +35,21 @@
                 <input type="hidden" name="massage" id="massage" value="{{ $info->massage }}">
             </div>
             <div>
-                <button class="button" id="button">内容を確定する</button>
+                <button class="sendbutton" id="button">内容を確定する</button>
             </div>
-        <div class="loader">
-            <div class="sk-chase">
-                <div class="sk-chase-dot"></div>
-                <div class="sk-chase-dot"></div>
-                <div class="sk-chase-dot"></div>
-                <div class="sk-chase-dot"></div>
-                <div class="sk-chase-dot"></div>
-                <div class="sk-chase-dot"></div>
+
+            {{-- なんかおかしいので直す「flex」が原因 --}}
+            <div class="loader">
+                <div class="sk-chase">
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                </div>
             </div>
-        </div>
         </form>
-    </main>
-    <script>
-        'use strict'
-        {
-
-            // ローダー用
-            const myFunc = () => {
-
-                const form = document.forms[1];
-                const button = form.querySelector('button');
-                const loader = form.querySelector('.loader');
-                console.log(loader);
-
-                button.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    //ローダーを表示する
-                    loader.style.display = 'block';
-
-                    form.submit();
-                }, false);
-            };
-            myFunc();
-
-            document.getElementById('form_send').addEventListener('submit', e => {
-                e.preventDefault();
-                if (!confirm('購入に進みますか?')) {
-                    return;
-                }
-                e.target.submit();
-            });
-        }
-    </script>
-
-</x-layout>
+    </section>
+    <script src="{{ url('js/button.js') }}"></script>
+@endsection

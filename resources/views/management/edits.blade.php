@@ -1,10 +1,6 @@
-@extends('components.footer')
-@extends('components.aside')
-@extends('components.header')
-
-
-@section('contents')
-    <main class="grid">
+@extends('components.managementlayout')
+@section('main')
+    <section class="grid">
         <div class="subinfo">
             @forelse ($cakeinfos as $info)
                 <object>
@@ -33,5 +29,6 @@
                 <p>コンテンツを用意してください</p>
             @endforelse
         </div>
-        <script src="{{ url('js/button.js') }}"></script>
-    @endsection
+    </section>
+    <script src="{{ url('js/button.js') }}"></script>
+@endsection

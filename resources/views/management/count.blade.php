@@ -1,10 +1,7 @@
-{{-- <?php dd($infosubs);?> --}}
-@extends('components.footer')
-@extends('components.aside')
-@extends('components.header')
-
-@section('contents')
-    <main>
+{{-- <?php dd($infosubs); ?> --}}
+@extends('components.managementlayout')
+@section('main')
+    <section>
         <h2 class="bigfont">{{ $name->cakename }}</h2>
         <div class="">
             @forelse ($infosubs as $info)
@@ -24,4 +21,5 @@
                 <p>準備中です</p>
             @endforelse
         </div>
-    @endsection
+    </section>
+@endsection

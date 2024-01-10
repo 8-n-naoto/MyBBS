@@ -33,4 +33,30 @@
         })
 
     });
+
+    // ローダー用
+    {
+        const myFunc = () => {
+            const form = document.querySelector('.sendform');
+            const button = form.querySelector('.sendbutton');
+            const loader = form.querySelector('.loader');
+
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                //ローダーを表示する
+                loader.style.display = 'block';
+
+                form.submit();
+            }, false);
+        };
+        myFunc();
+        document.getElementById('form_send').addEventListener('submit', e => {
+            e.preventDefault();
+            if (!confirm('購入に進みますか?')) {
+                return;
+            }
+            e.target.submit();
+        });
+    }
+
 }

@@ -1,7 +1,6 @@
 
     <div class="conteiner">
         <aside>
-
             <h2 class="textbackground"><a href="{{ route('management') }}">管理画面</a></h2>
             <div class="sidemenu">
                 <p class="middlefont">商品別予約一覧</p>
@@ -32,7 +31,8 @@
             </div>
             <!-- 種類ごとに合計の予約数を出す。考え中 -->
         </aside>
-        @yield('contents')
+        <main class="flex-row">
+        @yield('main')
+        </main>
     </div>
-
 {{-- 文字が折り返し表示されないにしたい --}}

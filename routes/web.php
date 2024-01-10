@@ -151,7 +151,7 @@ Route::controller(ReservationController::class)->middleware(['auth'])->group(fun
     Route::get('/management/date', [ReservationController::class, 'date'])
         ->name('date');
     //日付別総量確認画面(選択)
-    Route::post('/management/date/thedate', [ReservationController::class, 'thedate'])
+    Route::post('/management/date', [ReservationController::class, 'thedate'])
         ->name('thedate');
 
     //商品別総数表示ページ種類別
@@ -161,12 +161,7 @@ Route::controller(ReservationController::class)->middleware(['auth'])->group(fun
     //予約情報確認画面
     Route::get('/management/information', [ReservationController::class, 'information'])
         ->name('information');
-
-
-
-
-
-
-
-
+    //予約検索処理
+    Route::post('/management/information', [ReservationController::class, 'getinformation'])
+        ->name('getinformation');
 });

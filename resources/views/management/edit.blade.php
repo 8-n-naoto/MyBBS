@@ -1,10 +1,7 @@
-@extends('components.footer')
-@extends('components.aside')
-@extends('components.header')
-
-@section('contents')
+@extends('components.managementlayout')
+@section('main')
     {{-- <?php dd($prices); ?> --}}
-    <main class="flex-center">
+    <section class="flex-center">
         <!-- 画面左側 -->
         <section class="textbackground">
             {{-- 確認後下記の属性にこれをたすenctype="multipart/form-data" --}}
@@ -95,7 +92,8 @@
 
 
             <h2>ギャラリーの設定</h2>
-            <form method="post" action="{{ route('add.photo') }}" enctype="multipart/form-data" id="update_subphoto"class="update">
+            <form method="post" action="{{ route('add.photo') }}" enctype="multipart/form-data"
+                id="update_subphoto"class="update">
                 @csrf
                 <input type="hidden" name='cake_photos_id' value="{{ $info->id }}">
                 <label>
@@ -126,5 +124,6 @@
                 <p>バリエーションを追加してください</p>
             @endforelse
         </section>
-        <script src="{{ url('js/button.js') }}"></script>
+    </section>
+    <script src="{{ url('js/button.js') }}"></script>
 @endsection

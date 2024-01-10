@@ -24,7 +24,7 @@ class ReservationController extends Controller
         return view('management.manage')
             ->with([
                 'day' => $day,
-                'infosub' => $infosub,
+                'infosubs' => $infosub,
                 'reservations' => $reservation,
                 'cakeinfos' => $info,
             ]);
@@ -273,9 +273,9 @@ class ReservationController extends Controller
         return view('management.count')
             ->with([
                 'cakeinfos' => $infos,
+                'infosubs' => $subinfo,
                 'name' => $cakeinfo,
                 'reservations' => $info,
-                'infosubs' => $subinfo,
 
             ]);
     }
@@ -286,13 +286,16 @@ class ReservationController extends Controller
     {
         $infos = CakeInfo::all();
         $today = Carbon::today();
-        $reservations = Main_reservation::whereDate('birthday', $today);  //今日以降のものを抽出→日にち順に並び変える→時間順に並び変える→ゲット
+        $reservations = Main_reservation::whereDate('birthday', $today)->get();  //今日以降のものを抽出→日にち順に並び変える→時間順に並び変える→ゲット
         $info_sub = Sub_reservation::all(); //あとから上ので一緒に出せるようにする。
+        $date = Carbon::today()->format('Y年m月d日');
+
         return view('management.date')
             ->with([
+                'date' => $date,
                 'cakeinfos' => $infos,
-                'reservations' => $reservations,
                 'infosubs' => $info_sub,
+                'reservations' => $reservations,
             ]);
     }
     //日にち別予約数確認画面（指定）
@@ -301,7 +304,7 @@ class ReservationController extends Controller
         $infos = CakeInfo::all();
         $reservations = Main_reservation::whereDate('birthday', $request->date)->get();
         $info_sub = Sub_reservation::all();
-        return view('management.thedate')
+        return view('management.date')
             ->with([
                 'cakeinfos' => $infos,
                 'reservations' => $reservations,
@@ -334,13 +337,35 @@ class ReservationController extends Controller
     public function information()
     {
         $info = CakeInfo::all();
-        $infosub = Sub_reservation::all();
 
-        return view('management.reservinfo')
-        ->with([
-            'cakeinfos' => $info,
-            'infosub' => $infosub,
-        ]);
+        return view('management.reservationscheck')
+            ->with([
+                'cakeinfos' => $info,
+                'main' => null,
+                'id'=>null,
+            ]);
     }
 
+    //予約検索用
+    public function getinformation(Request $request)
+    {
+        $info = CakeInfo::all();
+        $main = Main_reservation::where('id', '=', $request->MainReservationsID)->get();
+        $sub = Sub_reservation::where('id', '=', $request->SubReservationsID)->get();
+
+        return view('management.reservationscheck')
+            ->with([
+                'cakeinfos' => $info,
+                'reservations' => $main,
+                'infosubs'=>$sub,
+                'id'=>$request,
+            ]);
+    }
 }
+
+/**
+ *関数の説明
+ *
+ *
+ *
+**/

@@ -1,10 +1,8 @@
 {{-- <?php dd($info); ?> --}}
-@extends('components.footer')
-@extends('components.aside')
-@extends('components.header')
 
-@section('contents')
-    <main>
+@extends('components.managementlayout')
+@section('main')
+    <section>
         <form method="POST" action="{{ route('thedate') }}">
             @csrf
             <label for="date" class="textbackground">
@@ -15,6 +13,7 @@
 
         <div>
             <div>
+                <p class="smallfont">{{ $date }}</p>
                 @forelse ($reservations as $reservation)
                     <div class="smallfont">
                         <p class="smallfont">ご予約日：{{ $reservation->birthday }} 受け取り時間：{{ $reservation->time }}
@@ -33,4 +32,5 @@
                 @endforelse
             </div>
         </div>
-    @endsection
+    </section>
+@endsection

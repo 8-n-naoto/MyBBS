@@ -1,5 +1,7 @@
-<x-layout>
-    <main class="">
+
+@extends('components.frontlayout')
+@section('main')
+    <section class="">
         <div>
             <p>{{Auth::user()->name}}様の予約番号</p>
             <p>{{$mainID}}-{{$subID}}</p>
@@ -10,5 +12,7 @@
           <button>ホームへ戻る</button>
         </a>
       </div>
-      </main>
-</x-layout>
+    </section>
+@endsection
+
+

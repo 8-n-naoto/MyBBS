@@ -40,7 +40,9 @@ main {
     padding: 20px 120px;
     display: flex;
     flex-direction: column;
-    flex: auto;
+    flex: 1;
+    min-height: 100vh;
+
 }
 
 .conteiner{

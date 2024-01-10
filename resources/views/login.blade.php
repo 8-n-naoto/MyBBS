@@ -1,7 +1,8 @@
-@extends('components.footer')
-@extends('components.header')
+
+@extends('components.frontlayout')
+
 @section('main')
-    <main class="form">
+    <section class="form">
         <form method="post" action="{{ route('index') }}">
             @csrf
             <div>
@@ -20,4 +21,6 @@
                 <button class="button">確認画面へ！</button>
             </div>
         </form>
+    </section>
+
 @endsection

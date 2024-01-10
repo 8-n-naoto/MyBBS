@@ -29,21 +29,21 @@ class InformationController extends Controller
     //ログイン処理
     public function loginok()
     {
-        $info = CakeInfo::all();
+        $infos = CakeInfo::where('boolean','=',1)->get();
         return view('index')
-            ->with(['infos' => $info]);
+            ->with(['infos' => $infos]);
     }
 
     //ケーキ詳細表示画面
     public function cakeinfo(CakeInfo $cakeinfo)
     {
-        $subitem = CakeInfo::all();
+        $infos = CakeInfo::where('boolean','=',1)->get();
         $subphotos=$cakeinfo;
 
         return view('cake.cakeinfo')
             ->with([
-                'infos' => $cakeinfo,
-                'subinfo' => $subitem,
+                'infos' => $infos,
+                'cakeinfos' => $cakeinfo,
                 'subphotos'=>$subphotos
             ]);
     }
