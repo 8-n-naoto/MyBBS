@@ -6,7 +6,7 @@
 @section('contents')
     <main class="grid">
         <div class="subinfo">
-            @forelse ($info as $info)
+            @forelse ($cakeinfos as $info)
                 <object>
                     <div class="boolean">
                         <img src="{{ asset($info->mainphoto) }} " class="subphoto" alt="ケーキの写真">

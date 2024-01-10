@@ -24,7 +24,6 @@ class ReservationController extends Controller
         return view('management.manage')
             ->with([
                 'day' => $day,
-                'cakenames' => $info,
                 'infosub' => $infosub,
                 'reservations' => $reservation,
                 'cakeinfos' => $info,
@@ -38,9 +37,7 @@ class ReservationController extends Controller
         $infos = CakeInfo::all();
         return view('management.edits')
             ->with([
-                'cakenames' => $infos,
                 'cakeinfos' => $infos,
-                'info' => $infos,
             ]);
     }
 
@@ -52,7 +49,6 @@ class ReservationController extends Controller
         $prices = CakeInfoSub::where('cake_infos_id', '=', $cakeinfo->id)->get();
         return view('management.edit')
             ->with([
-                'cakenames' => $infos,
                 'cakeinfos' => $infos,
                 'info' => $cakeinfo,
                 'prices' => $prices,
@@ -67,7 +63,6 @@ class ReservationController extends Controller
         $infos = CakeInfo::all();
         return view('management.create')
             ->with([
-                'cakenames' => $infos,
                 'cakeinfos' => $infos,
                 'cakecode' => $infos,
             ]);
@@ -235,7 +230,6 @@ class ReservationController extends Controller
         return view('management.edits')
             ->with([
                 'info' => $cakeinfo,
-                'cakenames' => $cakeinfo,
                 'cakeinfos' => $cakeinfo,
             ]);
     }
@@ -249,7 +243,6 @@ class ReservationController extends Controller
         return view('management.edits')
             ->with([
                 'info' => $cakeinfo,
-                'cakenames' => $cakeinfo,
                 'cakeinfos' => $cakeinfo,
             ]);
     }
@@ -263,7 +256,6 @@ class ReservationController extends Controller
         return view('management.edits')
             ->with([
                 'info' => $cakeinfo,
-                'cakenames' => $cakeinfo,
                 'cakeinfos' => $cakeinfo,
             ]);
     }
@@ -280,7 +272,6 @@ class ReservationController extends Controller
 
         return view('management.count')
             ->with([
-                'cakenames' => $infos,
                 'cakeinfos' => $infos,
                 'name' => $cakeinfo,
                 'reservations' => $info,
@@ -299,7 +290,6 @@ class ReservationController extends Controller
         $info_sub = Sub_reservation::all(); //あとから上ので一緒に出せるようにする。
         return view('management.date')
             ->with([
-                'cakenames' => $infos,
                 'cakeinfos' => $infos,
                 'reservations' => $reservations,
                 'infosubs' => $info_sub,
@@ -313,7 +303,6 @@ class ReservationController extends Controller
         $info_sub = Sub_reservation::all();
         return view('management.thedate')
             ->with([
-                'cakenames' => $infos,
                 'cakeinfos' => $infos,
                 'reservations' => $reservations,
                 'infosubs' => $info_sub,
@@ -344,7 +333,14 @@ class ReservationController extends Controller
     // 予約検索画面
     public function information()
     {
-        return view('management.reservinfo');
+        $info = CakeInfo::all();
+        $infosub = Sub_reservation::all();
+
+        return view('management.reservinfo')
+        ->with([
+            'cakeinfos' => $info,
+            'infosub' => $infosub,
+        ]);
     }
 
 }

@@ -6,7 +6,7 @@
             <div class="sidemenu">
                 <p class="middlefont">商品別予約一覧</p>
                 <ul name="ケーキの種類">
-                    @forelse ($cakenames as $info)
+                    @forelse ($cakeinfos as $info)
                         <li class="smallfont"><a href="{{ route('count', $info) }}">{{ $info->cakename }}</a></li>
                     @empty
                         <li class="smallfont">準備中だよ！</li>

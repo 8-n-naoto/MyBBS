@@ -115,10 +115,10 @@ Route::controller(ReservationController::class)->middleware(['auth'])->group(fun
     Route::get('/management/edit', [ReservationController::class, 'edits'])
         ->name('cakeinfos');
     //商品表示ON/OFF切り替え画面
-    Route::patch('/management/edit/{cakeinfo}', [ReservationController::class, 'boolean'])
+    Route::patch('/management/{cakeinfo}/edit', [ReservationController::class, 'boolean'])
         ->name('boolean');
     //個別設定ページ
-    Route::get('/management/edit/{cakeinfo}', [ReservationController::class, 'edit'])
+    Route::get('/management/{cakeinfo}/edit', [ReservationController::class, 'edit'])
         ->name('info.edit');
 
 
@@ -155,7 +155,7 @@ Route::controller(ReservationController::class)->middleware(['auth'])->group(fun
         ->name('thedate');
 
     //商品別総数表示ページ種類別
-    Route::get('/management/{cakeinfo}', [ReservationController::class, 'counts'])
+    Route::get('/management/{cakeinfo}/count', [ReservationController::class, 'counts'])
         ->name('count');
 
     //予約情報確認画面
