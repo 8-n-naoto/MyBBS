@@ -150,6 +150,9 @@ Route::controller(ReservationController::class)->middleware(['auth'])->group(fun
     //日付別総量確認画面(home)
     Route::get('/management/date', [ReservationController::class, 'date'])
         ->name('date');
+    Route::get('/management/test', [ReservationController::class, 'information'])
+        ->name('test');
+
     //日付別総量確認画面(選択)
     Route::post('/management/date/thedate', [ReservationController::class, 'thedate'])
         ->name('thedate');
@@ -158,15 +161,19 @@ Route::controller(ReservationController::class)->middleware(['auth'])->group(fun
     Route::get('/management/{cakeinfo}', [ReservationController::class, 'counts'])
         ->name('count');
 
+
     //予約情報確認画面
     Route::get('/management/information', [ReservationController::class, 'information'])
         ->name('information');
+});
 
 
-
-
-
-
-
-
+ Route::get('/test', function () {
+     return view('base');
+ });
+Route::get('/extend', function () {
+    return view('extend-sample');
+});
+Route::get('/extend2', function () {
+    return view('extend-sample-2');
 });

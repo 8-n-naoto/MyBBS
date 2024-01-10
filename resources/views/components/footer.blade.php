@@ -1,4 +1,3 @@
-</main>
 <footer>
     <ul class=”menus”>
         @if (Auth::user())
@@ -23,7 +22,3 @@
     </ul>
     <small>©このひとがつくりました？</small>
 </footer>
-
-</body>
-
-</html>
