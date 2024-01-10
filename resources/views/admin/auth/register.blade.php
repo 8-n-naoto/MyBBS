@@ -3,7 +3,7 @@
 
 @section('main')
     <section class="textbackground">
-    <form method="POST" action="{{ route('register') }}" id="send_form">
+    <form method="POST" action="{{ route('admin.register') }}" id="send_form">
         @csrf
 
         <!-- Name -->

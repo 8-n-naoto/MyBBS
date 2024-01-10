@@ -26,7 +26,8 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\ForgotPasswordLinkController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use GuzzleHttp\Middleware;
+use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\Admin\AdminRegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,14 +85,6 @@ Route::post('/forgot-password/{token}', [ForgotPasswordController::class, 'reset
 Route::get('/', [InformationController::class, 'index'])
     ->name('index');
 
-// //ログインペ―ジ
-// Route::get('/login', [InformationController::class, 'login'])
-//     ->name('login');
-// //ログイン処理ページ
-// Route::post('/', [InformationController::class, 'loginok'])
-//     ->name('index');
-
-
 //InformationController
 Route::controller(InformationController::class)->middleware(['auth'])->group(function () {
     //個別ページ
@@ -104,10 +97,23 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
     Route::post('/form/formcheckok', 'reservation')->name('reservation');
 });
 
+//管理者ログイン用
+Route::group(['prefix' => 'admin','as'=>'admin.'], function () {
+    // 登録
+    Route::get('register', [AdminRegisterController::class, 'create'])
+        ->name('register');
+    Route::post('register', [AdminRegisterController::class, 'store']);
+
+    // ログイン
+    Route::get('login', [AdminLoginController::class, 'showLoginPage'])
+        ->name('login');
+    Route::post('login', [AdminLoginController::class, 'login']);
+
+});
 
 
 //ReservationController
-Route::controller(ReservationController::class)->middleware(['auth'])->group(function () {
+Route::controller(ReservationController::class)->middleware(['auth:admin'])->group(function () {
     //管理画面トップ
     Route::get('/management/', [ReservationController::class, 'management'])
         ->name('management');

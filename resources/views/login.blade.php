@@ -1,4 +1,4 @@
-
+{{-- 
 @extends('components.frontlayout')
 
 @section('main')
@@ -23,4 +23,4 @@
         </form>
     </section>
 
-@endsection
+@endsection --}}
