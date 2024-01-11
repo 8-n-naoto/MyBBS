@@ -1,5 +1,10 @@
-{{-- <?php dd($infosubs); ?> --}}
 @extends('components.managementlayout')
+
+@section('css')
+<link rel="stylesheet" href="{{ url('css/font.css') }}">
+<link rel="stylesheet" href="{{ url('css/aside.css') }}">
+@endsection
+
 @section('main')
     <section>
         <h2 class="bigfont">{{ $name->cakename }}</h2>

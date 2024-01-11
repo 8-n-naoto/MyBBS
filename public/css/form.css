@@ -1,4 +1,4 @@
-/* ログイン画面 */
+/* ログイン/form画面 */
 .form {
     display: flex;
     flex-direction: column;
@@ -27,3 +27,12 @@ textarea {
 .textform {
     margin: 4px auto;
 }
+
+input,textarea{
+    padding: 4px;
+    width: 100%;
+    box-sizing: border-box;
+   }
+   textarea{
+       height: 24px;
+   }

@@ -36,3 +36,12 @@ button {
     padding: 4px 8px;
     vertical-align: middle;
 }
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    vertical-align: bottom;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}

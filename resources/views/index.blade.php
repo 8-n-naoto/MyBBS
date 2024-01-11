@@ -1,5 +1,8 @@
 @extends('components.frontlayout')
-{{-- <?php dd($infos); ?> --}}
+@section('css')
+<link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
+<link rel="stylesheet" href="{{ url('css/font.css') }}">
+@endsection
 
 @section('main')
     <section>

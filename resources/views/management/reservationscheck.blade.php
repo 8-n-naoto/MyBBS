@@ -1,6 +1,10 @@
-{{-- <?php dd($sub); ?> --}}
-
 @extends('components.managementlayout')
+
+@section('css')
+<link rel="stylesheet" href="{{ url('css/font.css') }}">
+<link rel="stylesheet" href="{{ url('css/aside.css') }}">
+@endsection
+
 @section('main')
     <section>
         {{-- 検索フォーム --}}
@@ -14,11 +18,9 @@
             </label>
         </form>
         @isset($id)
-            <h1>予約番号{{ $id->MainReservationsID }}-{{ $id->SubReservationsID }}</h1>
+            <h1 class="textbackground">予約番号{{ $id->MainReservationsID }}-{{ $id->SubReservationsID }}</h1>
+        {{-- 検索結果出力箇所 --}}
             @include('include.reservations')
         @endisset
-        {{-- 検索結果出力箇所 --}}
-
-
     </section>
 @endsection

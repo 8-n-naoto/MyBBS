@@ -1,4 +1,11 @@
 @extends('components.managementlayout')
+
+@section('css')
+<link rel="stylesheet" href="{{ url('css/font.css') }}">
+<link rel="stylesheet" href="{{ url('css/aside.css') }}">
+<link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
+@endsection
+
 @section('main')
     <section class="grid">
         <div class="subinfo">

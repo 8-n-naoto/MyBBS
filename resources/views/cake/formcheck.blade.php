@@ -1,6 +1,12 @@
 {{-- <?php dd($info->capasity); ?> --}}
 @extends('components.frontlayout')
 
+@section('css')
+<link rel="stylesheet" href="{{ url('css/font.css') }}">
+<link rel="stylesheet" href="{{ url('css/form.css') }}">
+<link rel="stylesheet" href="{{ url('css/animation.css') }}">
+@endsection
+
 @section('main')
     <section class="form">
         <form method="post" action="{{ route('front.result') }}" id="form_send" class="sendform">
