@@ -68,4 +68,16 @@ class LogoutController extends Controller
 
         return redirect('/');
     }
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function admin_destroy(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
 }

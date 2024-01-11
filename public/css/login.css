@@ -1,0 +1,29 @@
+/* ログイン画面 */
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form div {
+    text-align: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.504);
+    padding: 12px 0;
+}
+
+.smallmassagebox {
+    background: rgba(255, 255, 255, 0.608);
+    border: solid 1px;
+    padding: 4px;
+}
+
+textarea {
+    background: rgba(255, 255, 255, 0.608);
+    border: solid 1px;
+    padding: 4px;
+}
+
+.textform {
+    margin: 4px auto;
+}

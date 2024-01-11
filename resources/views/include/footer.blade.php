@@ -2,7 +2,10 @@
 <footer>
     <ul class=”menus”>
         @if (Auth::user())
-            <li>管理者権限でログインされています</li>
+            <li>ログインされています</li>
+            <li class="">
+                <a href="{{ route('admin.login') }}">管理者としてログイン</a>
+            </li>
             <li class="">
                 <a href="{{ route('management') }}">管理画面へ</a>
             </li>

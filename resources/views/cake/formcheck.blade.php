@@ -3,7 +3,7 @@
 
 @section('main')
     <section class="form">
-        <form method="post" action="{{ route('reservation') }}" id="form_send" class="sendform">
+        <form method="post" action="{{ route('front.result') }}" id="form_send" class="sendform">
             @csrf
             <div>
                 <p>お名前:{{ $info->users_name }}</p>

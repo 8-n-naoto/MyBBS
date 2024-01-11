@@ -4,8 +4,9 @@
     <section class="flex-center">
         <!-- 画面左側 -->
         <section class="textbackground">
-            {{-- 確認後下記の属性にこれをたすenctype="multipart/form-data" --}}
-            <form method="post" action="{{ route('update', $info) }}" enctype="multipart/form-data" id="update_cake"
+
+            {{-- メイン情報更新/削除 --}}
+            <form method="post" action="{{ route('cakes.cake.update', $info) }}" enctype="multipart/form-data" id="update_cake"
                 class="update">
                 @method('PATCH')
                 @csrf
@@ -49,14 +50,15 @@
                 </label>
                 <button class="button" id="button">更新するよ！</button>
             </form>
-            <form method="post" action="{{ route('destroy', $info) }}" class="delete">
+            <form method="post" action="{{ route('cakes.cake.destroy', $info) }}" class="delete">
                 @method('DELETE')
                 @csrf
                 <button class="button">削除ボタン</button>
             </form>
 
+            {{-- 大きさと価格の追加/削除 --}}
             <h2>大きさと値段の設定</h2>
-            <form method="post" action="{{ route('add.price', $info) }}" id="update_price" class="flex-row update">
+            <form method="post" action="{{ route('cakes.price.criate', $info) }}" id="update_price" class="flex-row update">
                 @csrf
                 <input type="hidden" name='id' value="{{ $info->id }}">
                 <label>
@@ -74,8 +76,9 @@
                 <button class="button">追加するよ！</button>
             </form>
 
+            {{-- 既存の大きさと価格の表示 --}}
             @forelse ($prices as $price)
-                <form method="post" action="{{ route('destroy.price', $price) }}" id="" class="flex-row delete">
+                <form method="post" action="{{ route('cakes.price.destroy', $price) }}" id="" class="flex-row delete">
                     @method('DELETE')
                     @csrf
                     <p>大きさ：{{ $price->capacity }}</p>
@@ -87,12 +90,9 @@
                 <p>バリエーションを追加してください</p>
             @endforelse
 
-
-
-
-
+            
             <h2>ギャラリーの設定</h2>
-            <form method="post" action="{{ route('add.photo') }}" enctype="multipart/form-data"
+            <form method="post" action="{{ route('cakes.photo.criate') }}" enctype="multipart/form-data"
                 id="update_subphoto"class="update">
                 @csrf
                 <input type="hidden" name='cake_photos_id' value="{{ $info->id }}">
@@ -112,7 +112,7 @@
             </form>
 
             @forelse ($subphotos as $subphoto)
-                <form method="post" action="{{ route('destroy.photo', $subphoto) }}" class="delete">
+                <form method="post" action="{{ route('cakes.photo.destroy', $subphoto) }}" class="delete">
                     @method('DELETE')
                     @csrf
                     <img src=" {{ asset($subphoto->subphotos) }}" alt=""width="200px">

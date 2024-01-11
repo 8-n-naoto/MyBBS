@@ -1,0 +1,38 @@
+/* 全画面共通部分 */
+main {
+    background: repeat url(../img/decoratephotos/backgroundimg.jpg);
+    padding: 20px 120px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 100vh;
+}
+/* ヘッダー */
+header {
+    justify-content: space-between;
+    background: center /cover url(../img/decoratephotos/topimg1.webp);
+    padding: 12px 120px;
+    display: flex;
+    align-items: center;
+}
+.menus {
+    padding: 2px;
+    margin: 0 12px;
+}
+/* フッター */
+footer {
+    justify-content: space-between;
+    background: center /cover url(../img/decoratephotos/topimg1.webp);
+    padding: 12px;
+    text-align: center;
+}
+.button {
+    margin: 0 auto;
+}
+button {
+    background: rgb(172, 172, 172);
+    border: 1px solid rgb(172, 172, 172);
+    border-radius: 4px;
+    padding: 4px 8px;
+    vertical-align: middle;
+}

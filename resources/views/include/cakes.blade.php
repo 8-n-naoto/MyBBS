@@ -1,7 +1,7 @@
 <div class="subinfo">
     @forelse ($infos as $info)
         <object>
-            <a href="{{ route('cake.cakeinfo', $info->id) }}">
+            <a href="{{ route('front.cake', $info->id) }}">
                 <img src="{{ asset($info->mainphoto) }}" class="subphoto" alt="ケーキの写真">
                 <p class="smallfont">{{ e($info->cakename) }}</p>
             </a>

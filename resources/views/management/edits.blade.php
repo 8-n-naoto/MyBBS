@@ -4,14 +4,15 @@
         <div class="subinfo">
             @forelse ($cakeinfos as $info)
                 <object>
-                    <div class="boolean">
-                        <img src="{{ asset($info->mainphoto) }} " class="subphoto" alt="ケーキの写真">
-                        <p hidden>{{ $info->boolean }}</p>
-                    </div>
-                    <a href="{{ route('info.edit', $info) }}">
+                    <a href="{{ route('cakes.store.update', $info) }}">
+                        <div class="boolean">
+                            <img src="{{ asset($info->mainphoto) }} " class="subphoto" alt="ケーキの写真">
+                            <p hidden>{{ $info->boolean }}</p>
+                        </div>
+
                         <p class="smallfont">詳細変更</p>
                     </a>
-                    <form method="POST" action="{{ route('boolean', $info) }}" id="update_boolean" class="update">
+                    <form method="POST" action="{{ route('cakes.boolean', $info) }}" id="update_boolean" class="update">
                         @method('PATCH')
                         @csrf
                         {{-- 商品表示切替ボタン --}}

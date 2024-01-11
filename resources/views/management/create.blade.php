@@ -4,7 +4,7 @@
     <section class="flex-center">
         <!-- 画面左側 -->
         <section class="textbackground">
-            <form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data" id="add_cake">
+            <form method="post" action="{{ route('cakes.cake.criate') }}" enctype="multipart/form-data" id="add_cake">
                 @csrf
                 <label>
                     写真更新用:<input type="file" name="mainphoto" accept=".jpg,.png">

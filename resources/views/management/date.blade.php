@@ -3,7 +3,7 @@
 @extends('components.managementlayout')
 @section('main')
     <section>
-        <form method="POST" action="{{ route('thedate') }}">
+        <form method="POST" action="{{ route('reservations.date.get') }}">
             @csrf
             <label for="date" class="textbackground">
                 <input type="date" name="date">日にちを選択してください

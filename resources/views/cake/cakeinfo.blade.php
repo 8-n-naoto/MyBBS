@@ -13,7 +13,7 @@
                         <div class="textbackground">
                             <h3>サイズ一覧</h3>
                             @forelse ($cakeinfos->cake_info_subs as $info)
-                                <a href="{{ route('form', $cakeinfos) }}" class="flex-row">
+                                <a href="{{ route('cake.form', $cakeinfos) }}" class="flex-row">
                                     <p>サイズ：{{ $info->capacity }}</p>
                                     <p>￥{{ $info->price }}円</p>
                                     <p class="button">購入へ</p>

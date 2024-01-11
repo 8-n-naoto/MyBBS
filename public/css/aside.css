@@ -1,0 +1,21 @@
+/* aside用 */
+.conteiner{
+    display: flex;
+    justify-content: space-between;
+}
+
+aside{
+    background: rgb(255, 196, 112);
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 200px;
+    flex: none;
+}
+.sidemenu{
+    padding: 0.5rem 0;
+    margin-bottom: 0.5rem;
+    background: rgba(255, 255, 255, 0.496);
+    border-radius: 0.5rem;
+}

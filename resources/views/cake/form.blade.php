@@ -4,7 +4,7 @@
 
 @section('main')
 <section class="form">
-    <form method="post" action="{{ route('formcheck') }}">
+    <form method="post" action="{{ route('front.check') }}">
         @csrf
         <div>
             <input type="hidden" name="users_id" id="name" value="{{Auth::user()->id}}">

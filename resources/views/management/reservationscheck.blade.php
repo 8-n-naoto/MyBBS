@@ -4,7 +4,7 @@
 @section('main')
     <section>
         {{-- 検索フォーム --}}
-        <form method="POST" action="{{ route('getinformation') }}">
+        <form method="POST" action="{{ route('reservations.information.get') }}">
             @csrf
             <p>予約番号を入力してください</p>
             <label class="textbackground flex-row">

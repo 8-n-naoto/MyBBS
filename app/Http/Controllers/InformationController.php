@@ -35,7 +35,7 @@ class InformationController extends Controller
     }
 
     //ケーキ詳細表示画面
-    public function cakeinfo(CakeInfo $cakeinfo)
+    public function _store_cake(CakeInfo $cakeinfo)
     {
         $infos = CakeInfo::where('boolean','=',1)->get();
         $subphotos=$cakeinfo;
@@ -49,7 +49,7 @@ class InformationController extends Controller
     }
 
     //予約詳細入力画面
-    public function buy(CakeInfo $cakeinfo)
+    public function _store_form(CakeInfo $cakeinfo)
     {
         return view('cake.form')
             ->with([
@@ -59,7 +59,7 @@ class InformationController extends Controller
     }
 
     // 予約情報確認画面
-    public function formcheck(Request $request)
+    public function _store_check(Request $request)
     {
         $request->validate([
             'users_name'=>'required',
@@ -87,7 +87,7 @@ class InformationController extends Controller
 
 
     //予約情報保存画面
-    public function reservation(Request $request)
+    public function _store_result(Request $request)
     {
         $request->session()->regenerateToken();
         $posts = new Main_reservation();
