@@ -20,6 +20,7 @@
 }
 .subphoto {
     width: 100%;
+    min-width: 315px;
     border-radius: 8px;
 }
 

@@ -95,15 +95,15 @@ class ReservationController extends Controller
     {
         $infos = CakeInfo::all();
         $cakename = $cakeinfo->cakename;
-        $subinfo = Sub_reservation::where('cakename', $cakename)->get();
         $info = Main_reservation::all();
+        $subinfo = Sub_reservation::where('cakename', $cakename)->get();
 
         return view('management.count')
             ->with([
                 'cakeinfos' => $infos,
+                'reservations' => $info,
                 'infosubs' => $subinfo,
                 'name' => $cakeinfo,
-                'reservations' => $info,
 
             ]);
     }

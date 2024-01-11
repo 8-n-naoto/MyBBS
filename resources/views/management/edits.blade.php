@@ -7,22 +7,23 @@
 @endsection
 
 @section('main')
-    <section class="grid">
-        <div class="subinfo">
+    <section>
+        <div class="cakephotos">
             @forelse ($cakeinfos as $info)
                 <object>
+                    {{-- 写真とリンク --}}
                     <a href="{{ route('cakes.store.update', $info) }}">
                         <div class="boolean">
                             <img src="{{ asset($info->mainphoto) }} " class="subphoto" alt="ケーキの写真">
                             <p hidden>{{ $info->boolean }}</p>
                         </div>
-
                         <p class="smallfont">詳細変更</p>
                     </a>
+
+                        {{-- 商品表示切替ボタン --}}
                     <form method="POST" action="{{ route('cakes.boolean', $info) }}" id="update_boolean" class="update">
                         @method('PATCH')
                         @csrf
-                        {{-- 商品表示切替ボタン --}}
                         @if ($info->boolean === 1)
                             <input type="hidden" name="boolean" value="0">
                             <button>非表示にする</button>

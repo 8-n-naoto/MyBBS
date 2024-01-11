@@ -6,7 +6,6 @@
 @endsection
 
 @section('main')
-    {{-- <?php dd($info); ?> --}}
     <section class="flex-center">
         <!-- 画面左側 -->
         <section class="textbackground">
