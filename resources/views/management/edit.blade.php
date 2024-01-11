@@ -7,7 +7,6 @@
 @endsection
 
 @section('main')
-    {{-- <?php dd($prices); ?> --}}
     <section class="flex-center">
         <!-- 画面左側 -->
         <section class="textbackground">

@@ -45,3 +45,10 @@ button {
     display: flex;
     flex-direction: column;
 }
+
+.google-map{
+    height: 300px;
+    width: 400px;
+}
+
+

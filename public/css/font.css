@@ -1,31 +1,70 @@
-.bigfont {
-    font-size: 24px;
+/* サイト名 */
+.sitefont {
+    font-size: 30px;
     font-weight: bold;
-    background-color: rgba(255, 255, 255, 0.598);
+    background-color: rgba(255, 167, 66, 0.841);
     border-radius: 8px;
     padding: 8px;
-    box-decoration-break: clone;
+    white-space: nowrap;
+    display: inline;
+}
+/* 大見出し */
+.bigfont {
+    font-size: 28px;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 0px 8px;
+    white-space: nowrap;
     display: inline;
 }
 
+/* 中見出し */
 .middlefont {
     font-size: 18px;
     font-weight: 700;
-    background-color: rgba(255, 255, 255, 0.598);
     border-radius: 8px;
     padding: 0px 8px;
     box-decoration-break: clone;
     display: inline;
-
 }
 
+/* テキスト用 */
 .smallfont {
     font-size: 16px;
     font-weight: 500;
-    background-color: rgba(255, 255, 255, 0.598);
     border-radius: 8px;
     padding: 4px 8px;
 }
+
+/* ケーキ名用 */
+.cakenamefont {
+    font-size: 28px;
+    font-weight: 300;
+    background-color: rgba(255, 255, 255, 0.598);
+    border-radius: 8px;
+    padding: 0;
+    text-align: center;
+    flex: 0;
+}
+/* その他一般用 */
+.font {
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 4px 8px;
+    white-space: nowrap;
+}
+
+/* map背景 */
+.map-background {
+    background-color: rgba(255, 255, 255, 0.598);
+    border-radius: 8px;
+    width: 100%;
+    margin: 12px 0;
+    padding: 16px 40px;
+}
+
+/* 不透明背景 */
 .textbackground {
     background-color: rgba(255, 255, 255, 0.598);
     border-radius: 8px;
@@ -33,3 +72,4 @@
     margin: 12px 0;
     padding: 8px;
 }
+

@@ -13,7 +13,7 @@
 <body>
     <header>
         <a href="{{ route('index') }}" class="">
-            <h1 class="bigfont">サイト名</h1><a>
+            <h1 class="sitefont">サイト名</h1><a>
                 <ul class=”menus”>
                     @if (Auth::user())
                         <li>ログインされています</li>

@@ -1,8 +1,10 @@
 /* メインのケーキ */
-.maininfo>div{
+.maininfo{
     gap: 80px;
+    margin: 12px 0px;
 }
 
+/* 大きい写真 */
 .mainphoto {
     width: 480px;
     margin: 12px 0;
@@ -12,24 +14,28 @@
 /* ギャラリー */
 .gallery {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     padding: 40px;
     gap: 40px;
-    margin-bottom: 10%;
+}
+.subphoto {
+    width: 100%;
+    border-radius: 8px;
 }
 
-/* サブのケーキ */
-.subinfo {
+/* ケーキ */
+.cakephotos {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     padding: 40px;
     gap: 40px;
-    margin-bottom: 10%;
+    margin: 0 auto;
 }
 
-.subphoto {
-    width: 100%;
-    border-radius: 8px;
+/* 商品一覧 */
+.menuphotos {
+    width: 368px;
+    border-radius: 8px 8px 0px 0px;
 }
 
 .shadow{

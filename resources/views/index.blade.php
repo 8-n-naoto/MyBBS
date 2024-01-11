@@ -6,7 +6,7 @@
 
 @section('main')
     <section>
-        <h1 class="bigfont">デコレーションケーキ</h1>
+        <h1 class="bigfont textbackground">デコレーションケーキ</h1>
         @include('include.cakes')
     </section>
     @include('include.google-map')
