@@ -46,6 +46,27 @@
     text-align: center;
     flex: 0;
 }
+
+/* エラー用 */
+.error{
+    color: red;
+}
+
+/* form小見出し */
+.form-font{
+    font-size: 16px;
+    font-weight: 600;
+    padding: 2px 0;
+    white-space: nowrap;
+}
+/* form　value部分 */
+.value-font{
+    font-size: 16px;
+    font-weight: 500;
+    padding: 2px 0;
+    white-space: nowrap;
+}
+
 /* その他一般用 */
 .font {
     font-size: 18px;

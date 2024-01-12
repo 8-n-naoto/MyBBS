@@ -52,7 +52,8 @@ class CakeController extends Controller
                 'cakeinfos' => $infos,
                 'info' => $cakeinfo,
                 'prices' => $prices,
-                'cakecode' => $infos,
+                'cakecodes' => $infos,
+                'cakenames' => $infos,
                 'subphotos' => $cakephotos
             ]);
     }
@@ -143,10 +144,9 @@ class CakeController extends Controller
         ]);
 
         $cakeinfo->cakename = $request->cakename;
+        $cakeinfo->cakecode = $request->cakecode;
         $cakeinfo->topic = $request->topic;
         $cakeinfo->explain = $request->explain;
-        $cakeinfo->cakecode = $request->cakecode;
-
 
         // name属性が'images'のinputタグをファイル形式に、画像をpublic/imagesにファイル名で保存
         $image_path = $request->file('mainphoto')->getClientOriginalName();
