@@ -88,16 +88,14 @@ class ReservationController extends Controller
     {
         $infos = CakeInfo::all();
         $cakename = $cakeinfo->cakename;
-        $info = Main_reservation::all();
-        $subinfo = Sub_reservation::where('cakename', $cakename)->get();
-        $count=$subinfo->count();
+        $reservations = Sub_reservation::where('cakename', $cakename)->get();
+        $count=$reservations->count();
 
         return view('management.count')
             ->with([
                 'cakeinfos' => $infos,
                 'cakeinfo' => $cakeinfo,
-                'reservations' => $info,
-                'infosubs' => $subinfo,
+                'reservations' => $reservations,
                 'count'=>$count,
             ]);
     }
@@ -112,8 +110,10 @@ class ReservationController extends Controller
         $startdate = $request->startdate;
         // 終わり
         $enddate = $request->enddate;
+        //指定した期間内のデータを抽出
         $info = Main_reservation::whereBetween('birthday',[$startdate,$enddate])->get();
-        $subinfo = Sub_reservation::where('cakename', $cakename)->get();
+        //上のデータを指定した商品名のもののみ抽出したい
+        
         $count = $info->count();
 
         return view('management.count')
@@ -121,7 +121,7 @@ class ReservationController extends Controller
                 'cakeinfos' => $infos,
                 'cakeinfo' => $cakeinfo,
                 'reservations' => $info,
-                'infosubs' => $subinfo,
+                'getcount' => $info,
                 'count' => $count,
             ]);
     }
