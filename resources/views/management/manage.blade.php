@@ -12,7 +12,6 @@
         @include('include.calender')
 
         <div class="textbackground flex-coulumn">
-            {{-- <h3 class="today middlefont"></h3> --}}
             <p class="middlefont">{{ $day }}</p>
             @include('include.reservations')
         </div>

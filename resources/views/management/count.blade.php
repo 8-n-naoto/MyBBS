@@ -7,7 +7,26 @@
 
 @section('main')
     <section>
-        <h2 class="bigfont">{{ $name->cakename }}</h2>
+        <h2 class="bigfont">{{ $cakeinfo->cakename }}</h2>
+        {{-- 検索フォーム --}}
+        <form method="POST" action="{{ route('reservations.count.get',$cakeinfo) }}" class="textbackground ">
+            @csrf
+            <p>期間を選択してください</p>
+            <div class="flex-row">
+                <label for="stertdate">開始日
+                    <input type="date" name="startdate" id="stertdate">
+                </label>
+                <label for="enddate">終了日
+                    <input type="date" name="enddate" id="enddate">
+                </label>
+                <div>
+                    <button>検索</button>
+                </div>
+            </div>
+        </form>
+
+        {{-- ケーキ名で抽出したものを出力 --}}
+        <p class="form-font textbackground">合計予約数：{{ $count }}件</p>
         <div class="">
             @forelse ($infosubs as $info)
                 <div class="textbackground">

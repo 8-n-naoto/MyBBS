@@ -4,19 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CakeInfo;
-use App\Models\CakeInfoSub;
-use App\Models\CakePhoto;
 use App\Models\Main_reservation;
 use App\Models\Sub_reservation;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 
 class InformationController extends Controller
 {
     // ホーム画面
     public function index()
     {
-        $infos = CakeInfo::where('boolean','=',1)->get();
+        $infos = CakeInfo::where('boolean',1)->get();
         return view('index')
             ->with(['infos' => $infos]);
     }
@@ -29,7 +25,7 @@ class InformationController extends Controller
     //ログイン処理
     public function loginok()
     {
-        $infos = CakeInfo::where('boolean','=',1)->get();
+        $infos = CakeInfo::where('boolean',1)->get();
         return view('index')
             ->with(['infos' => $infos]);
     }
@@ -37,7 +33,7 @@ class InformationController extends Controller
     //ケーキ詳細表示画面
     public function _store_cake(CakeInfo $cakeinfo)
     {
-        $infos = CakeInfo::where('boolean','=',1)->get();
+        $infos = CakeInfo::where('boolean',1)->get();
         $subphotos=$cakeinfo;
 
         return view('cake.cakeinfo')

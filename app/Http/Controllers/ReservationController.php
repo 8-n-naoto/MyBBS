@@ -15,16 +15,16 @@ class ReservationController extends Controller
     {
         $day = Carbon::today()->format('m月d日のご予約');
         $info = CakeInfo::all();
-        $infosub = Sub_reservation::all();
         $today = Carbon::today();
         $reservation = Main_reservation::whereDate('birthday', $today)->get();
+        $infosub = Sub_reservation::all();
 
         return view('management.manage')
             ->with([
                 'day' => $day,
-                'infosubs' => $infosub,
-                'reservations' => $reservation,
                 'cakeinfos' => $info,
+                'reservations' => $reservation,
+                'infosubs' => $infosub,
             ]);
     }
 
@@ -34,7 +34,8 @@ class ReservationController extends Controller
     {
         $infos = CakeInfo::all();
         $today = Carbon::today();
-        $reservations = Main_reservation::whereDate('birthday', $today)->get();  //今日以降のものを抽出→日にち順に並び変える→時間順に並び変える→ゲット
+         //今日以降のものを抽出→日にち順に並び変える→時間順に並び変える→ゲット
+        $reservations = Main_reservation::whereDate('birthday', $today)->get();
         $info_sub = Sub_reservation::all(); //あとから上ので一緒に出せるようにする。
         $date = Carbon::today()->format('Y年m月d日');
 
@@ -78,8 +79,8 @@ class ReservationController extends Controller
     public function _information_get(Request $request)
     {
         $info = CakeInfo::all();
-        $main = Main_reservation::where('id', '=', $request->MainReservationsID)->get();
-        $sub = Sub_reservation::where('id', '=', $request->SubReservationsID)->get();
+        $main = Main_reservation::where('id', $request->MainReservationsID)->get();
+        $sub = Sub_reservation::where('id', $request->SubReservationsID)->get();
 
         return view('management.reservationscheck')
             ->with([
@@ -97,14 +98,39 @@ class ReservationController extends Controller
         $cakename = $cakeinfo->cakename;
         $info = Main_reservation::all();
         $subinfo = Sub_reservation::where('cakename', $cakename)->get();
+        $count=$subinfo->count();
 
         return view('management.count')
             ->with([
                 'cakeinfos' => $infos,
+                'cakeinfo' => $cakeinfo,
                 'reservations' => $info,
                 'infosubs' => $subinfo,
-                'name' => $cakeinfo,
+                'count'=>$count,
+            ]);
+    }
 
+    //商品別総数表示ページ種類別
+    public function _count_get(Request $request, CakeInfo $cakeinfo)
+    {
+        $infos = CakeInfo::all();
+        $cakename = $cakeinfo->cakename;
+
+        // 初め
+        $startdate = $request->startdate;
+        // 終わり
+        $enddate = $request->enddate;
+        $info = Main_reservation::whereBetween('birthday',[$startdate,$enddate])->get();
+        $subinfo = Sub_reservation::where('cakename', $cakename)->get();
+        $count = $info->count();
+
+        return view('management.count')
+            ->with([
+                'cakeinfos' => $infos,
+                'cakeinfo' => $cakeinfo,
+                'reservations' => $info,
+                'infosubs' => $subinfo,
+                'count' => $count,
             ]);
     }
 }

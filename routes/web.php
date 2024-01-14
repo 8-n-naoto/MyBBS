@@ -133,8 +133,10 @@ Route::controller(ReservationController::class)->middleware(['auth:admin'])->gro
         Route::get('date', '_date_store')->name('date.store');
         //日付別総量確認画面(指定)
         Route::post('date', '_date_get')->name('date.get');
-        //商品別総数表示ページ種類別
+        //商品別総数表示ページ種類別(累計)
         Route::get('{cakeinfo}/count', '_count_store')->name('count.store')->where('cakeinfo', '[0-9]+');
+        //商品別総数表示ページ種類別(指定)
+        Route::post('{cakeinfo}/count', '_count_get')->name('count.get')->where('cakeinfo', '[0-9]+');
         //予約情報確認画面
         Route::get('information', '_information_store')->name('information.store');
         //予約検索処理

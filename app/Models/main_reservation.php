@@ -12,7 +12,7 @@ class Main_reservation extends Model
     protected $fillable=[
         'users_id',
         'birthday',
-        'time'
+        'time',
     ];
 
     public function sub_reservations()

@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use  App\Models\CakeInfo;
 use  App\Models\CakeInfoSub;
 use App\Models\CakePhoto;
-use  App\Models\Main_reservation;
-use  App\Models\Sub_reservation;
 
 class CakeController extends Controller
 {
@@ -45,8 +43,8 @@ class CakeController extends Controller
     public function _store_update(CakeInfo $cakeinfo)
     {
         $infos = CakeInfo::all();
-        $cakephotos = CakePhoto::where('cake_photos_id', '=', $cakeinfo->id)->get();
-        $prices = CakeInfoSub::where('cake_infos_id', '=', $cakeinfo->id)->get();
+        $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo->id)->get();
+        $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo->id)->get();
         return view('management.edit')
             ->with([
                 'cakeinfos' => $infos,
@@ -130,13 +128,14 @@ class CakeController extends Controller
 
         //バリデート
         $request->validate([
-            'cakename' => 'required',
+            'cakename' => 'required|unique:cake_infos',
             'mainphoto' => 'required',
             'topic' => 'required',
             'explain' => 'required',
             'cakecode' => 'required|unique:cake_infos',
         ], [
-            'cakename.required' => 'ケーキの名前を入力してください',
+            'cakename.required' => '商品名を入力してください',
+            'cakename.unique' => '商品名がすでに使われています',
             'topic.required' => 'ひとこと説明を入力してください',
             'explain.required' => '説明を入力してください',
             'cakecode.required' => '商品コードを入力してください',
@@ -220,7 +219,6 @@ class CakeController extends Controller
     //商品情報削除用ページ
     public function _cake_destroy(CakeInfo $cakeinfo)
     {
-
         //削除
         $cakeinfo->delete();
         //残りの値を渡して表示する。
@@ -232,7 +230,7 @@ class CakeController extends Controller
             ]);
     }
     //商品情報削除用ページ(price)
-    public function _price_destroy(Request $request, CakeInfoSub $cakeinfosub)
+    public function _price_destroy(CakeInfoSub $cakeinfosub)
     {
 
         $cakeinfosub->delete();
@@ -246,7 +244,7 @@ class CakeController extends Controller
     }
 
     //商品情報削除用ページ(photo)
-    public function _photo_destroy(Request $request, CakePhoto $cakephoto)
+    public function _photo_destroy(CakePhoto $cakephoto)
     {
 
         $cakephoto->delete();
