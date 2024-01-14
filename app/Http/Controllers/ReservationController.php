@@ -17,14 +17,12 @@ class ReservationController extends Controller
         $info = CakeInfo::all();
         $today = Carbon::today();
         $reservation = Main_reservation::whereDate('birthday', $today)->get();
-        $infosub = Sub_reservation::all();
 
         return view('management.manage')
             ->with([
                 'day' => $day,
                 'cakeinfos' => $info,
                 'reservations' => $reservation,
-                'infosubs' => $infosub,
             ]);
     }
 
@@ -36,14 +34,12 @@ class ReservationController extends Controller
         $today = Carbon::today();
          //今日以降のものを抽出→日にち順に並び変える→時間順に並び変える→ゲット
         $reservations = Main_reservation::whereDate('birthday', $today)->get();
-        $info_sub = Sub_reservation::all(); //あとから上ので一緒に出せるようにする。
         $date = Carbon::today()->format('Y年m月d日');
 
         return view('management.date')
             ->with([
                 'date' => $date,
                 'cakeinfos' => $infos,
-                'infosubs' => $info_sub,
                 'reservations' => $reservations,
             ]);
     }
@@ -52,12 +48,10 @@ class ReservationController extends Controller
     {
         $infos = CakeInfo::all();
         $reservations = Main_reservation::whereDate('birthday', $request->date)->get();
-        $info_sub = Sub_reservation::all();
         return view('management.date')
             ->with([
                 'cakeinfos' => $infos,
                 'reservations' => $reservations,
-                'infosubs' => $info_sub,
                 'date' => $request->date,
             ]);
     }
@@ -80,13 +74,11 @@ class ReservationController extends Controller
     {
         $info = CakeInfo::all();
         $main = Main_reservation::where('id', $request->MainReservationsID)->get();
-        $sub = Sub_reservation::where('id', $request->SubReservationsID)->get();
 
         return view('management.reservationscheck')
             ->with([
                 'cakeinfos' => $info,
                 'reservations' => $main,
-                'infosubs' => $sub,
                 'id' => $request,
             ]);
     }
