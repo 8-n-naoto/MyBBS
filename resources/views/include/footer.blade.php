@@ -23,6 +23,12 @@
                 <a href="{{ route('login') }}"> ログイン</a>
             </li>
         @endif
+        <li>
+            <a href="https://www.instagram.com/"><img src="{{ asset('img\S__9035785_0.jpg') }}"
+                    alt="instagram" width="18px" height="18px"></a>
+            <a href="https://www.twitter.com/"><img src="{{ asset('img\S__9035785_0.jpg') }}"
+                alt="instagram" width="18px" height="18px"></a>
+        </li>
     </ul>
     <small>©このひとがつくりました？</small>
 </footer>

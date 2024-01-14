@@ -13,7 +13,9 @@
             <h2 class="bigfont textbackground">{{ $cakeinfos->cakename }}</h2>
             <div class="maininfo flex-row">
                 {{-- ケーキの写真 --}}
-                <img src="{{ asset($cakeinfos->mainphoto) }}" class="mainphoto">
+                <div>
+                    <img src="{{ asset($cakeinfos->mainphoto) }}" class="mainphoto">
+                </div>
 
                 {{-- 説明など --}}
                 <div class="textbackground">
@@ -43,11 +45,12 @@
                 </div>
             </div>
             <!-- ギャラリー -->
+            <h3 class="form-font textbackground">gallery</h3>
             <div class="gallery">
                 @forelse ($subphotos->cake_photos as $info)
                     <object>
                         <img src=" {{ asset($info->subphotos) }}" class="subphoto">
-                        <p>{{ $info->photoname }}</p>
+                        <p class="form-font textbackground">{{ $info->photoname }}</p>
                     </object>
                 @empty
                     <p>現在準備中です...</p>

@@ -37,54 +37,38 @@
                                 {{-- 商品名 --}}
                                 <div class="flex-row">
                                     <p class="form-font">商品名　　　：</p>
+                                    <div class="flex-column">
+                                        <input type="text" name="cakename" size="20" value="{{ $info->cakename }}"
+                                            class="value-font">
+                                        @error('cakename')
+                                            <div class="error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                                @error('cakename')
-                                    <div class="error">{{ $message }}</div>
-                                @enderror
 
                                 <div class="flex-row">
                                     {{-- 商品コード --}}
                                     <p class="form-font">商品コード　：</p>
+                                    <div class="flex-column">
+                                        <input type="text" name="cakecode" size="7" value="{{ $info->cakecode }}"
+                                            class="value-font">
+                                        @error('cakecode')
+                                            <div class="error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                                @error('cakecode')
-                                    <div class="error">{{ $message }}</div>
-                                @enderror
 
                                 {{-- トピック --}}
                                 <div class="flex-row">
                                     <p class="form-font">ひとこと説明：</p>
+                                    <div class="flex-column">
+                                        <input type="text" name="topic" size="20" value="{{ $info->topic }}"
+                                            class="value-font">
+                                        @error('topic')
+                                            <div class="error">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                                @error('topic')
-                                    <div class="error">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div>
-                                {{-- 商品名 --}}
-                                <div class="flex-row">
-                                    <input type="text" name="cakename" size="20" value="{{ $info->cakename }}"
-                                        class="value-font">
-                                </div>
-                                @error('cakename')
-                                    <div class="error">{{ $message }}</div>
-                                @enderror
-
-                                <div class="flex-row">
-                                    {{-- 商品コード --}}
-                                    <input type="text" name="cakecode" size="7" value="{{ $info->cakecode }}"
-                                        class="value-font">
-                                </div>
-                                @error('cakecode')
-                                    <div class="error">{{ $message }}</div>
-                                @enderror
-
-                                {{-- トピック --}}
-                                <div class="flex-row">
-                                    <input type="text" name="topic" size="20" value="{{ $info->topic }}"
-                                        class="value-font">
-                                </div>
-                                @error('topic')
-                                    <div class="error">{{ $message }}</div>
-                                @enderror
                             </div>
                         </div>
                     </div>
@@ -152,21 +136,28 @@
                     @csrf
                     <input type="hidden" name='id' value="{{ $info->id }}">
                     <div class="flec-column">
-                        <p class="form-font">内容量：</p>
-                        <p class="form-font">価格　：</p>
-                    </div>
-                    <div class="flec-column">
                         <div>
-                            <input type="text" name="price" size="10">
-                            @error('price')
-                                <div class="error">{{ $message }}</div>
-                            @enderror
+                            <div class="flex-row">
+                                <p class="form-font">内容量：</p>
+                                <div>
+                                    <input type="text" name="price" size="10">
+                                    @error('price')
+                                        <div class="error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="flex-row">
+                                <p class="form-font">価格　：</p>
+                                <div>
+                                    <input type="text" name="capacity" size="10">
+                                    @error('capacity')
+                                        <div class="error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
                         </div>
-                        <div>
-                            <input type="text" name="capacity" size="10">
-                            @error('capacity')
-                                <div class="error">{{ $message }}</div>
-                            @enderror
+                        <div class="flec-column">
                         </div>
                     </div>
                     <div>

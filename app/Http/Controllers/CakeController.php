@@ -134,12 +134,13 @@ class CakeController extends Controller
             'mainphoto' => 'required',
             'topic' => 'required',
             'explain' => 'required',
-            'cakecode' => 'required',
+            'cakecode' => 'required|unique:cake_infos',
         ], [
             'cakename.required' => 'ケーキの名前を入力してください',
             'topic.required' => 'ひとこと説明を入力してください',
             'explain.required' => '説明を入力してください',
             'cakecode.required' => '商品コードを入力してください',
+            'cakecode.unique' => 'この商品コードはすでに使われています',
             'mainphoto.required' => 'ケーキの写真を追加してください',
         ]);
 
