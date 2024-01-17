@@ -2,6 +2,7 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
+    <link rel="stylesheet" href="{{ url('css/form.css') }}">
     <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
 @endsection
 
@@ -30,11 +31,10 @@
                         <p class="smallfont">ただいま準備中...</p>
                     @endforelse
                     @isset($cakeinfos->cake_info_subs)
-                        <a href="{{ route('front.form', $cakeinfos) }}" class="smallfont">
-                            購入へ
+                        <a href="{{ route('front.form', $cakeinfos) }}">
+                            <p class="smallfont button">購入へ</p>
                         </a>
                     @endisset
-
                     <div>
                         <div class="flex-row">
                             <h3 class="middlefont">商品説明</h3>

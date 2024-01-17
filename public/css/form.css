@@ -22,11 +22,46 @@
     margin: 4px auto;
 }
 
-input,textarea{
+input,
+textarea {
     padding: 4px;
     width: 100%;
     box-sizing: border-box;
-   }
-   textarea{
-       height: 24px;
-   }
+}
+
+textarea {
+    height: 24px;
+}
+
+/* type=text form部品 */
+.cakeform {
+    width: 100%;
+    border: 1px solid #d2d2d2;
+    border-radius: 3px;
+    background: #f7f7f7ad;
+    color: #000000;
+    font-size: 1em;
+}
+.cakeform::placeholder {
+    color: #999;
+}
+
+/* type=textarea form部品 */
+.cakeformbox {
+    width: 100%;
+    border: 1px solid #d2d2d2;
+    border-radius: 3px;
+    background: #f7f7f7ad;
+    color: #333;
+    height: 8em;
+}
+
+.cakeformbox::placeholder {
+    color: #999;
+}
+
+/* aタグ用 */
+.button{
+    background: #999;
+    
+}

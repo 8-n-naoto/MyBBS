@@ -3,6 +3,7 @@
 @section('css')
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
     <link rel="stylesheet" href="{{ url('css/aside.css') }}">
+    <link rel="stylesheet" href="{{ url('css/form.css') }}">
     <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
 @endsection
 
@@ -39,7 +40,7 @@
                                     <p class="form-font">商品名　　　：</p>
                                     <div class="flex-column">
                                         <input type="text" name="cakename" size="20" value="{{ $info->cakename }}"
-                                            class="value-font">
+                                            class="value-font cakeform">
                                         @error('cakename')
                                             <div class="error">{{ $message }}</div>
                                         @enderror
@@ -51,7 +52,7 @@
                                     <p class="form-font">商品コード　：</p>
                                     <div class="flex-column">
                                         <input type="text" name="cakecode" size="7" value="{{ $info->cakecode }}"
-                                            class="value-font">
+                                            class="value-font cakeform">
                                         @error('cakecode')
                                             <div class="error">{{ $message }}</div>
                                         @enderror
@@ -63,7 +64,7 @@
                                     <p class="form-font">ひとこと説明：</p>
                                     <div class="flex-column">
                                         <input type="text" name="topic" size="20" value="{{ $info->topic }}"
-                                            class="value-font">
+                                            class="value-font cakeform">
                                         @error('topic')
                                             <div class="error">{{ $message }}</div>
                                         @enderror
@@ -110,7 +111,7 @@
                 {{-- 説明文//改行適応させたい --}}
                 <div>
                     <p class="form-font">説明文：</p>
-                    <textarea name="explain" cols="80" rows="5">{{ $info->explain }}</textarea>
+                    <textarea name="explain"class="cakeformbox">{{ $info->explain }}</textarea>
                     @error('explain')
                         <div class="error">{{ $message }}</div>
                     @enderror
@@ -140,7 +141,7 @@
                             <div class="flex-row">
                                 <p class="form-font">内容量：</p>
                                 <div>
-                                    <input type="text" name="price" size="10">
+                                    <input type="text" name="price" size="10" class="cakeform">
                                     @error('price')
                                         <div class="error">{{ $message }}</div>
                                     @enderror
@@ -149,7 +150,7 @@
                             <div class="flex-row">
                                 <p class="form-font">価格　：</p>
                                 <div>
-                                    <input type="text" name="capacity" size="10">
+                                    <input type="text" name="capacity" size="10" class="cakeform">
                                     @error('capacity')
                                         <div class="error">{{ $message }}</div>
                                     @enderror
@@ -208,7 +209,7 @@
                     @error('subphotos')
                         <div class="error">{{ $message }}</div>
                     @enderror
-                    <input type="text" name="photoname" size="10" class="value-font">
+                    <input type="text" name="photoname" size="10" class="value-font cakeform">
                     @error('photoname')
                         <div class="error">{{ $message }}</div>
                     @enderror
