@@ -63,7 +63,8 @@ class CakeController extends Controller
         return view('management.create')
             ->with([
                 'cakeinfos' => $infos,
-                'cakecode' => $infos,
+                'cakecodes' => $infos,
+                'cakenames' => $infos,
             ]);
     }
 
@@ -75,10 +76,10 @@ class CakeController extends Controller
 
         //バリデート
         $request->validate([
-            'cakename' => 'required',
+            'cakename' => 'required|unique:cake_infos',
             'topic' => 'required',
             'explain' => 'required',
-            'cakecode' => 'required',
+            'cakecode' => 'required|unique:cake_infos',
             'cakename' => 'required',
             'mainphoto' => 'required',
             'capacity' => 'required',
@@ -86,9 +87,11 @@ class CakeController extends Controller
         ], [
             'users_id.required' => 'ログインしてください',
             'cakename.required' => 'ケーキの名前を入力してください',
+            'cakename.unique' => '同じ商品名がすでに使われています',
             'topic.required' => 'ひとこと説明を入力してください',
             'explain.required' => '説明を入力してください',
             'cakecode.required' => '商品コードを入力してください',
+            'cakecode.unique' => 'この商品コードはすでに使われています',
             'cakename.required' => 'ケーキの名前を入力してください',
             'mainphoto.required' => 'ケーキの写真を追加してください',
             'capacity.required' => '大きさや内容量を入力してください',
@@ -128,18 +131,16 @@ class CakeController extends Controller
 
         //バリデート
         $request->validate([
-            'cakename' => 'required|unique:cake_infos',
+            'cakename' => 'required',
             'mainphoto' => 'required',
             'topic' => 'required',
             'explain' => 'required',
-            'cakecode' => 'required|unique:cake_infos',
+            'cakecode' => 'required',
         ], [
             'cakename.required' => '商品名を入力してください',
-            'cakename.unique' => '商品名がすでに使われています',
             'topic.required' => 'ひとこと説明を入力してください',
             'explain.required' => '説明を入力してください',
             'cakecode.required' => '商品コードを入力してください',
-            'cakecode.unique' => 'この商品コードはすでに使われています',
             'mainphoto.required' => 'ケーキの写真を追加してください',
         ]);
 
