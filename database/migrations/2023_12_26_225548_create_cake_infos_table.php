@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('topic');
             $table->text('explain');
             $table->string('cakecode');
-            $table->boolean('boolean')->default(1);
+            $table->boolean('boolean')->default(0);
         });
     }
 

@@ -1,9 +1,4 @@
 <section>
-    <div>
-        <a href="/management/manage">
-            <h2 class="bigfont">管理画面だよ！</h2>
-        </a>
-    </div>
 
     <div class="flex-column">
         <table class="textbackground">
@@ -34,3 +29,6 @@
 
     </div>
 </section>
+
+
+<script src="{{ url('js/calender.js') }}"></script>

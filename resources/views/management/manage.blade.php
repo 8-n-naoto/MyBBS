@@ -8,15 +8,19 @@
 
 @section('main')
     <section>
+        <div>
+            <a href="/management/manage">
+                <h2 class="bigfont textbackground">管理画面</h2>
+            </a>
+        </div>
 
+        <div class="flex-row">
         @include('include.calender')
 
         <div class="textbackground flex-coulumn">
             <p class="middlefont">{{ $day }}</p>
             @include('include.reservations')
         </div>
-
+</div>
     </section>
-
-    <script src="{{ url('js/calender.js') }}"></script>
 @endsection
