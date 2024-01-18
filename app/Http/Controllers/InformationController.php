@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\CakeInfo;
 use App\Models\Main_reservation;
 use App\Models\Sub_reservation;
+use Illuminate\Support\Facades\Auth;
 
 class InformationController extends Controller
 {
@@ -111,17 +112,51 @@ class InformationController extends Controller
             ]);
     }
 
-    //カート呼び出し
-    public function _store_cart(Request $request){
+    //カート登録
+    public function _cart_add(Request $request)
+    {
 
-        $id=$request->id;
-        $infos=Cart::where('user_id',$id)->get();
+        $request->session()->regenerateToken();
+        $posts = new Cart();
+        $posts->user_id = $request->user_id;
+        $posts->cake_id = $request->cake_id;
+        $posts->save();
 
+
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $subphotos = $request->cakeinfos_id;
+
+        return back()
+            ->with([
+                'infos' => $infos,
+                'subphotos' => $subphotos,
+            ]);
+    }
+    //カート削除
+    public function _cart_destroy(Cart $cart)
+    {
+        $cart->delete();
+
+        $id=Auth::user()->id;
+        $infos = Cart::where('user_id', $id)->get();
 
         return view('user.cart')
-        ->with([
-            'infos'=>$infos,
-        ]);
+            ->with([
+                'infos' => $infos,
+            ]);
+    }
+    //カート呼び出し
+    public function _cart_store(Request $request)
+    {
+
+        $id = $request->id;
+        $infos = Cart::where('user_id', $id)->get();
+
+
+        return view('user.cart',$infos)
+            ->with([
+                'infos' => $infos,
+            ]);
     }
 
     //処理がほとんどカートと同じなので時間があれば実装する

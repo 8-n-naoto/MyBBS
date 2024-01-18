@@ -30,6 +30,7 @@
                     @empty
                         <p class="smallfont">ただいま準備中...</p>
                     @endforelse
+                    @include('include.cartbutton')
                     @isset($cakeinfos->cake_info_subs)
                         <a href="{{ route('front.form', $cakeinfos) }}">
                             <p class="smallfont button">購入へ</p>

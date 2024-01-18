@@ -125,8 +125,12 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
 //ユーザーごとの情報関係
 Route::controller(InformationController::class)->middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'user','as' => 'user.'], function () {
-        // カート
-        Route::post('/cart', '_store_cart')->name('store.cart');
+        // カート登録
+        Route::post('/cart/add', '_cart_add')->name('add.cart');
+        //カート削除
+        Route::delete('/cart/{cart}/destroy', '_cart_destroy')->name('cart.destroy')->where('cart', '[0-9]+');
+        // カート移動
+        Route::post('/cart', '_cart_store')->name('store.cart');
     });
 });
 

@@ -5,6 +5,7 @@
                 <p class="cakenamefont">
                 <img src="{{ asset($info->mainphoto) }}" class="menuphotos" alt="ケーキの写真">
                 {{ e($info->cakename) }}</p>
+                @include('include.cartbutton')
             </a>
         </object>
     @empty
