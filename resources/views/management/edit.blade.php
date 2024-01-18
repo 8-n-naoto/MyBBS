@@ -15,7 +15,7 @@
 
             {{-- メイン情報更新/削除 --}}
             <p class="form-font">&laquo;メイン情報変更&raquo;</p>
-            <form method="post" action="{{ route('cakes.cake.update', $info) }}" enctype="multipart/form-data"
+            <form method="post" action="{{ route('cakes.cake.update', $cakeinfo) }}" enctype="multipart/form-data"
                 id="update_cake" class="update">
                 @method('PATCH')
                 @csrf
@@ -182,7 +182,7 @@
                                 <p class="form-font"> 価格　：</p>
                                 <p class="value-font">{{ $price->price }}円</p>
                             </div>
-                            <input type="hidden" id="info" value="{{ $info }}">
+                            <input type="hidden" name="info" value="{{ $info->id }}">
                             <button class="button">消去</button>
                         </form>
                     @empty
@@ -196,7 +196,7 @@
 
             <h3 class="form-font">&laquo;ギャラリーの設定&raquo;</h3>
             <p class="form-font">新規追加</p>
-            <form method="post" action="{{ route('cakes.photo.criate') }}" enctype="multipart/form-data"
+            <form method="post" action="{{ route('cakes.photo.criate', $info) }}" enctype="multipart/form-data"
                 id="update_subphoto"class="update flex-row">
                 @csrf
                 <input type="hidden" name='cake_photos_id' value="{{ $info->id }}">
@@ -225,7 +225,7 @@
                         @csrf
                         <object>
                             <img src=" {{ asset($subphoto->subphotos) }}" alt=""width="200px">
-                            <input type="hidden" id="subphoto" value="{{ $subphoto }}">
+                            <input type="hidden" name="info" value="{{ $info->id }}">
                             <div class="flex-row item-end">
                                 <p>{{ $subphoto->photoname }}</p>
                                 <button class="button">消去</button>

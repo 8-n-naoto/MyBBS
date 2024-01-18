@@ -177,9 +177,9 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         //商品情報更新処理(main)
         Route::patch('edit/{cakeinfo}/update', '_cake_update')->name('cake.update')->where('cakeinfo', '[0-9]+');
         //商品更新処理（price）
-        Route::post('edit/update/addprice', '_price_criate')->name('price.criate');
+        Route::post('edit/update/{cakeinfo}/addprice', '_price_criate')->name('price.criate');
         //商品更新画面(subphoto)
-        Route::post('edit/update/addphoto', '_photo_criate')->name('photo.criate');
+        Route::post('edit/update/{cakeinfo}/addphoto', '_photo_criate')->name('photo.criate');
         //商品情報削除ページ（main）
         Route::delete('edit/{cakeinfo}/destroy', '_cake_destroy')->name('cake.destroy')->where('cakeinfo', '[0-9]+');
         //商品情報削除ページ（price）

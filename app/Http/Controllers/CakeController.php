@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use  App\Models\CakeInfo;
 use  App\Models\CakeInfoSub;
 use App\Models\CakePhoto;
+use Illuminate\Support\Number;
 
 class CakeController extends Controller
 {
@@ -48,6 +49,7 @@ class CakeController extends Controller
         return view('management.edit')
             ->with([
                 'cakeinfos' => $infos,
+                'cakeinfo'=>$cakeinfo,
                 'info' => $cakeinfo,
                 'prices' => $prices,
                 'cakecodes' => $infos,
@@ -157,12 +159,23 @@ class CakeController extends Controller
         $cakeinfo->save();
 
 
-        return redirect()
-            ->route('cakes.switch');
+        $infos = CakeInfo::all();
+        $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo->id)->get();
+        $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo->id)->get();
+        return view('management.edit')
+            ->with([
+                'cakeinfos' => $infos,
+                'cakeinfo'=>$cakeinfo,
+                'info' => $cakeinfo,
+                'prices' => $prices,
+                'cakecodes' => $infos,
+                'cakenames' => $infos,
+                'subphotos' => $cakephotos
+            ]);
     }
 
     //商品更新処理（price）
-    public function _price_criate(Request $request)
+    public function _price_criate(Request $request,CakeInfo $cakeinfo)
     {
         //トークン再生成
         $request->session()->regenerateToken();
@@ -181,12 +194,24 @@ class CakeController extends Controller
         $post->price = $request->price;
         $post->save();
 
-        return redirect()
-            ->route('cakes.switch');
+
+        $infos = CakeInfo::all();
+        $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo->id)->get();
+        $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo->id)->get();
+        return view('management.edit')
+            ->with([
+                'cakeinfos' => $infos,
+                'cakeinfo'=>$cakeinfo,
+                'info' => $cakeinfo,
+                'prices' => $prices,
+                'cakecodes' => $infos,
+                'cakenames' => $infos,
+                'subphotos' => $cakephotos
+            ]);
     }
 
     //商品更新処理(photo)
-    public function _photo_criate(Request $request)
+    public function _photo_criate(CakeInfo $cakeinfo,Request $request)
     {
         //トークン再生成
         $request->session()->regenerateToken();
@@ -213,8 +238,19 @@ class CakeController extends Controller
         $post->subphotos = 'storage/images/' . $image_path;
         $post->save();
 
-        return redirect()
-            ->route('cakes.switch');
+        $infos = CakeInfo::all();
+        $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo->id)->get();
+        $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo->id)->get();
+        return view('management.edit')
+            ->with([
+                'cakeinfos' => $infos,
+                'cakeinfo'=>$cakeinfo,
+                'info' => $cakeinfo,
+                'prices' => $prices,
+                'cakecodes' => $infos,
+                'cakenames' => $infos,
+                'subphotos' => $cakephotos
+            ]);
     }
 
     //商品情報削除用ページ
@@ -231,31 +267,50 @@ class CakeController extends Controller
             ]);
     }
     //商品情報削除用ページ(price)
-    public function _price_destroy(CakeInfoSub $cakeinfosub)
+    public function _price_destroy(Request $request,CakeInfoSub $cakeinfosub)
     {
 
         $cakeinfosub->delete();
+
         //残りの値を渡して表示する。
-        $cakeinfo = CakeInfo::all();
-        return view('management.edits')
+        $cakeinfo=$request->info;
+        $infos = CakeInfo::all();
+        $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo)->get();
+        $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo)->get();
+        $cakeinfos=CakeInfo::find($cakeinfo);
+        return view('management.edit')
             ->with([
-                'info' => $cakeinfo,
-                'cakeinfos' => $cakeinfo,
+                'cakeinfos' => $infos,
+                'cakeinfo'=>$cakeinfo,
+                'info' => $cakeinfos,
+                'prices' => $prices,
+                'cakecodes' => $infos,
+                'cakenames' => $infos,
+                'subphotos' => $cakephotos
             ]);
     }
 
     //商品情報削除用ページ(photo)
-    public function _photo_destroy(CakePhoto $cakephoto)
+    public function _photo_destroy(Request $request,CakePhoto $cakephoto)
     {
 
         $cakephoto->delete();
+
         //残りの値を渡して表示する。
-        $cakeinfo = CakeInfo::all();
-        return view('management.edits')
+        $cakeinfo=$request->info;
+        $infos = CakeInfo::all();
+        $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo)->get();
+        $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo)->get();
+        $cakeinfos=CakeInfo::find($cakeinfo);
+        return view('management.edit')
             ->with([
-                'info' => $cakeinfo,
-                'cakeinfos' => $cakeinfo,
+                'cakeinfos' => $infos,
+                'cakeinfo'=>$cakeinfo,
+                'info' => $cakeinfos,
+                'prices' => $prices,
+                'cakecodes' => $infos,
+                'cakenames' => $infos,
+                'subphotos' => $cakephotos
             ]);
     }
-
 }
