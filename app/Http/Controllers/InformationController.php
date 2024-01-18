@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cart;
 use App\Models\CakeInfo;
-use App\Models\CakeInfoSub;
 use App\Models\Main_reservation;
 use App\Models\Sub_reservation;
 
@@ -110,6 +110,58 @@ class InformationController extends Controller
                 'subID' => $subID,
             ]);
     }
+
+    //カート呼び出し
+    public function _store_cart(Request $request){
+
+        $id=$request->id;
+        $infos=Cart::where('user_id',$id)->get();
+
+
+        return view('user.cart')
+        ->with([
+            'infos'=>$infos,
+        ]);
+    }
+
+    //処理がほとんどカートと同じなので時間があれば実装する
+    // //お気に入り呼び出し
+    // public function _store_favorite(Request $request){
+
+    //     $id=$request->id;
+    //     $infos=Favorite::where('user_id',$id)->get();
+    //     $id=$infos->cakeID;
+    //     $infos=CakeInfo::where('id',$id);
+
+
+    //     return view('user.cart')
+    //     ->with([
+    //         'infos'=>$infos,
+
+    //     ]);
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     // //価格ソート機能

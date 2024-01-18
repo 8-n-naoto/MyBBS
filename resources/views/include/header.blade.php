@@ -18,6 +18,19 @@
                 <ul class=”menus”>
                     @if (Auth::user())
                         <li>ログインされています</li>
+                        <li>
+                            <form method="POST" action="{{route('user.store.cart')}}">
+                                @csrf
+                                <input type="hidden" name="id" value="{{Auth::user()->id}}">
+                                <button>カート</button>
+                            </form>
+                        </li>
+                        {{-- <li>
+                            <form method="POST" action="/logout">
+                                @csrf
+                                <button>タグ検索</button>
+                            </form>
+                        </li> --}}
                         <li class="">
                             <a href="{{ route('admin.login') }}">管理者としてログイン</a>
                         </li>

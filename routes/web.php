@@ -102,11 +102,13 @@ Route::post('/admin/logout', [Logoutcontroller::class, 'destroy'])
 // ホーム
 Route::get('/', [InformationController::class, 'index'])
     ->name('index');
+
+
 // // ホーム(priceでソート)
 // Route::get('/sortprice', [InformationController::class, '_sort_price'])
 //     ->name('index.price');
 
-//InformationController
+//ケーキ予約受付関係
 Route::controller(InformationController::class)->middleware(['auth'])->group(function () {
     Route::group(['as' => 'front.'], function () {
         //個別ページ
@@ -117,6 +119,14 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
         Route::post('/form/formcheck', '_store_check')->name('check');
         //フォームOK画面
         Route::post('/form/formcheckok', '_store_result')->name('result');
+    });
+});
+
+//ユーザーごとの情報関係
+Route::controller(InformationController::class)->middleware(['auth'])->group(function () {
+    Route::group(['prefix' => 'user','as' => 'user.'], function () {
+        // カート
+        Route::post('/cart', '_store_cart')->name('store.cart');
     });
 });
 
