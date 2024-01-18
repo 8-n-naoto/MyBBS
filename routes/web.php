@@ -48,7 +48,7 @@ use App\Http\Controllers\CakeController;
  *追加・新規作成 update
  *更新 update
  *削除 destroy
-**/
+ **/
 
 //ログインページ
 Route::get('login', [AuthenticatedSessionController::class, 'create'])
@@ -102,6 +102,9 @@ Route::post('/admin/logout', [Logoutcontroller::class, 'destroy'])
 // ホーム
 Route::get('/', [InformationController::class, 'index'])
     ->name('index');
+// // ホーム(priceでソート)
+// Route::get('/sortprice', [InformationController::class, '_sort_price'])
+//     ->name('index.price');
 
 //InformationController
 Route::controller(InformationController::class)->middleware(['auth'])->group(function () {
@@ -128,7 +131,7 @@ Route::controller(ReservationController::class)->middleware(['auth:admin'])->gro
 
 //予約情報処理関係
 Route::controller(ReservationController::class)->middleware(['auth:admin'])->group(function () {
-    Route::group(['prefix' => 'management','as'=>'reservations.'], function () {
+    Route::group(['prefix' => 'management', 'as' => 'reservations.'], function () {
         //日付別総量確認画面(home)
         Route::get('date', '_date_store')->name('date.store');
         //日付別総量確認画面(指定)
@@ -146,7 +149,7 @@ Route::controller(ReservationController::class)->middleware(['auth:admin'])->gro
 
 //ケーキの情報処理関係
 Route::controller(CakeController::class)->middleware(['auth:admin'])->group(function () {
-    Route::group(['prefix' => 'management','as'=>'cakes.'], function () {
+    Route::group(['prefix' => 'management', 'as' => 'cakes.'], function () {
         //ON/OFF画面
         Route::get('edit', '_suitch')->name('switch');
         //商品表示ON/OFF切り替え機能
@@ -171,4 +174,3 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         Route::delete('edit/{cakephoto}/destroyphoto', '_photo_destroy')->name('photo.destroy')->where('cakeinfo', '[0-9]+');
     });
 });
-

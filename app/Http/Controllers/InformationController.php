@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CakeInfo;
+use App\Models\CakeInfoSub;
 use App\Models\Main_reservation;
 use App\Models\Sub_reservation;
 
@@ -12,7 +13,7 @@ class InformationController extends Controller
     // ホーム画面
     public function index()
     {
-        $infos = CakeInfo::where('boolean',1)->get();
+        $infos = CakeInfo::where('boolean', 1)->get();
         return view('index')
             ->with(['infos' => $infos]);
     }
@@ -25,7 +26,7 @@ class InformationController extends Controller
     //ログイン処理
     public function loginok()
     {
-        $infos = CakeInfo::where('boolean',1)->get();
+        $infos = CakeInfo::where('boolean', 1)->get();
         return view('index')
             ->with(['infos' => $infos]);
     }
@@ -33,14 +34,14 @@ class InformationController extends Controller
     //ケーキ詳細表示画面
     public function _store_cake(CakeInfo $cakeinfo)
     {
-        $infos = CakeInfo::where('boolean',1)->get();
-        $subphotos=$cakeinfo;
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $subphotos = $cakeinfo;
 
         return view('cake.cakeinfo')
             ->with([
                 'infos' => $infos,
                 'cakeinfos' => $cakeinfo,
-                'subphotos'=>$subphotos
+                'subphotos' => $subphotos
             ]);
     }
 
@@ -58,22 +59,22 @@ class InformationController extends Controller
     public function _store_check(Request $request)
     {
         $request->validate([
-            'users_name'=>'required',
-            'users_id'=>'required',
-            'birthday'=>'required',
-            'time'=>'required',
-            'cakename'=>'required', //出来るなら既存のデータと照合して、間違っていれば返したい
-            'mainphoto'=>'required',
-            'capacity'=>'required',
-            'price'=>'required',
-            'massage'=>'required',
-        ],[
-            'users_id.required'=>'ログインしてください',
-            'users_id.required'=>'ログインしてください',
-            'birthday.required'=>'受取日を入力してください',
-            'time.required'=>'受け取り時間を入力してください',
-            'capacity.required'=>'大きさ・価格をえらんでください',
-            'massage.required'=>'メッセージなし、もしくはメッセージを入力してください',
+            'users_name' => 'required',
+            'users_id' => 'required',
+            'birthday' => 'required',
+            'time' => 'required',
+            'cakename' => 'required', //出来るなら既存のデータと照合して、間違っていれば返したい
+            'mainphoto' => 'required',
+            'capacity' => 'required',
+            'price' => 'required',
+            'massage' => 'required',
+        ], [
+            'users_id.required' => 'ログインしてください',
+            'users_id.required' => 'ログインしてください',
+            'birthday.required' => '受取日を入力してください',
+            'time.required' => '受け取り時間を入力してください',
+            'capacity.required' => '大きさ・価格をえらんでください',
+            'massage.required' => 'メッセージなし、もしくはメッセージを入力してください',
         ]);
 
 
@@ -101,13 +102,43 @@ class InformationController extends Controller
         $posts->massage = $request->massage;
         $posts->save();
 
-        $mainID=$id;
-        $subID=$posts->id;
+        $mainID = $id;
+        $subID = $posts->id;
         return view('cake.formcheckok')
-        ->with([
-            'mainID' => $mainID,
-            'subID'=>$subID,
-        ]);
+            ->with([
+                'mainID' => $mainID,
+                'subID' => $subID,
+            ]);
     }
 
+
+    // //価格ソート機能
+    // public function _sort_price()
+    // {
+    //     $cakes = CakeInfo::all();
+
+    //     //商品ごとの最小の値を取得して、配列を作る
+    //     $infos=[]; //最終的に作る配列
+
+    //     foreach($cakes as $cake){
+    //         if ($cake->boolean===1) {
+    //             # code...
+    //         }
+    //         $id=$cake->id;
+    //         $price = CakeInfoSub::where('cake_infos_id',$id)->get()->sortByDesc('price');
+    //         $name=$cake->cakename;
+    //         //名前が同じなので上書きされ、最小の値が残る
+    //         $info=[]; //配列の中に入れる配列
+    //         $info['price']=$price;
+    //         $info['id']=$id;
+    //         $info['mainphoto']=$cake->mainphoto;
+    //         $info['cakename']=$name;
+    //         array_push($infos,$info);
+    //     }
+    //     価格がひとつしか伝わっていない
+    //     //取得した値をソートして渡す。
+    //     return view('index')
+    //         ->with(['infos' => $infos]);
+
+    // }
 }
