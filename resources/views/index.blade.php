@@ -1,3 +1,5 @@
+{{-- <?php dd($favorites); ?> --}}
+
 @extends('components.frontlayout')
 @section('css')
 <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">

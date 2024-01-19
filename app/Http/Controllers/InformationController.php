@@ -11,12 +11,16 @@ use Illuminate\Support\Facades\Auth;
 
 class InformationController extends Controller
 {
+
     // ホーム画面
     public function index()
     {
         $infos = CakeInfo::where('boolean', 1)->get();
+
         return view('index')
-            ->with(['infos' => $infos]);
+            ->with([
+                'infos' => $infos,
+            ]);
     }
 
     //ログイン画面
@@ -38,11 +42,15 @@ class InformationController extends Controller
         $infos = CakeInfo::where('boolean', 1)->get();
         $subphotos = $cakeinfo;
 
+        //お気に入り数表示
+        $count = Favorite::where('cake_id', $cakeinfo->id)->count();
+
         return view('cake.cakeinfo')
             ->with([
                 'infos' => $infos,
                 'cakeinfos' => $cakeinfo,
-                'subphotos' => $subphotos
+                'subphotos' => $subphotos,
+                'count' => $count,
             ]);
     }
 
@@ -157,7 +165,7 @@ class InformationController extends Controller
                 'infos' => $infos,
             ]);
     }
-    //お気に入り呼び出し
+    //お気に入り移動
     public function _favorite_store(Request $request)
     {
 
@@ -171,45 +179,18 @@ class InformationController extends Controller
             ]);
     }
 
-    //処理がほとんどカートと同じなので時間があれば実装する
-    // //お気に入り呼び出し
-    // public function _store_favorite(Request $request){
-
-    //     $id=$request->id;
-    //     $infos=Favorite::where('user_id',$id)->get();
-    //     $id=$infos->cakeID;
-    //     $infos=CakeInfo::where('id',$id);
-
-
-    //     return view('user.cart')
-    //     ->with([
-    //         'infos'=>$infos,
-
-    //     ]);
+    // public function _favorite_count()
+    // {
+    //     //お気に入り数取得
+    //     $cakeinfos = CakeInfo::all();
+    //     //名前とお気に入り数の仮想配列を作る
+    //     $favorites = [];
+    //     foreach ($cakeinfos as $cakeinfo) {
+    //         $id = $cakeinfo->id;
+    //         $favorite = Favorite::where('cake_id', $id)->count();
+    //         $favorites[$cakeinfo->cakename] = $favorite;
+    //     }
     // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     // //価格ソート機能
     // public function _sort_price()

@@ -30,7 +30,11 @@
                     @empty
                         <p class="smallfont">ただいま準備中...</p>
                     @endforelse
-                    @include('include.favoritebutton')
+                    <div class="flex-row">
+                        <p>お気に入り数</p>
+                        <p>{{ $count }}件</p>
+                        @include('include.favoritebutton')
+                    </div>
                     @isset($cakeinfos->cake_info_subs)
                         <a href="{{ route('front.form', $cakeinfos) }}">
                             <p class="smallfont button">購入へ</p>
