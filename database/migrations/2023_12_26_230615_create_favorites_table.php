@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('carts', function (Blueprint $table) {
+        Schema::create('favorites', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('user_id');  // 外部キー
-            $table->unsignedBigInteger('cake_id');
+            $table->unsignedBigInteger('cake_id'); //外部キー
             $table
             ->foreign('user_id')
             ->references('id')

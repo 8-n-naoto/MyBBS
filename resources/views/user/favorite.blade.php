@@ -19,7 +19,7 @@
                             {{ e($info->cake_info->cakename) }}
                         </p>
                     </a>
-                    <form method="POST" action="{{ route('user.cart.destroy', $info) }}" class="delete">
+                    <form method="POST" action="{{ route('user.destroy.favorite', $info) }}" class="delete">
                         @method('DELETE')
                         @csrf
                         <button>削除する</button>

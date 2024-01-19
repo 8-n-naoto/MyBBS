@@ -19,10 +19,10 @@
                     @if (Auth::user())
                         <li>ログインされています</li>
                         <li>
-                            <form method="POST" action="{{route('user.store.cart')}}">
+                            <form method="POST" action="{{route('user.store.favorite')}}">
                                 @csrf
                                 <input type="hidden" name="id" value="{{Auth::user()->id}}">
-                                <button>カート</button>
+                                <button>お気に入り一覧</button>
                             </form>
                         </li>
                         {{-- <li>

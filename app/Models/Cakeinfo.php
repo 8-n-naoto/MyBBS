@@ -27,8 +27,8 @@ class CakeInfo extends Model
         return $this->hasMany(CakePhoto::class,'cake_photos_id','id');
     }
 
-    public function carts()
+    public function favorites()
     {
-        return $this->hasMany(Cart::class,'cake_id','id');
+        return $this->hasMany(Favorite::class,'cake_id','id');
     }
 }

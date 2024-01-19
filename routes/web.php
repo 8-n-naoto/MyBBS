@@ -126,11 +126,11 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
 Route::controller(InformationController::class)->middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'user','as' => 'user.'], function () {
         // カート登録
-        Route::post('/cart/add', '_cart_add')->name('add.cart');
+        Route::post('/fovorite/add', '_favorite_add')->name('add.favorite');
         //カート削除
-        Route::delete('/cart/{cart}/destroy', '_cart_destroy')->name('cart.destroy')->where('cart', '[0-9]+');
+        Route::delete('/favorite/{favorite}/destroy', '_favorite_destroy')->name('destroy.favorite')->where('favorite', '[0-9]+');
         // カート移動
-        Route::post('/cart', '_cart_store')->name('store.cart');
+        Route::post('/favorite', '_favorite_store')->name('store.favorite');
     });
 });
 

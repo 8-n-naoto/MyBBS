@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Cart;
+use App\Models\Favorite;
 use App\Models\CakeInfo;
 use App\Models\Main_reservation;
 use App\Models\Sub_reservation;
@@ -68,14 +68,12 @@ class InformationController extends Controller
             'mainphoto' => 'required',
             'capacity' => 'required',
             'price' => 'required',
-            'massage' => 'required',
         ], [
             'users_id.required' => 'ログインしてください',
             'users_id.required' => 'ログインしてください',
             'birthday.required' => '受取日を入力してください',
             'time.required' => '受け取り時間を入力してください',
             'capacity.required' => '大きさ・価格をえらんでください',
-            'massage.required' => 'メッセージなし、もしくはメッセージを入力してください',
         ]);
 
 
@@ -95,6 +93,20 @@ class InformationController extends Controller
         $posts->save();
         $id = $posts->id;
 
+        /**$info=Cart->cakeinfo->cakeinfosubs; //subに必要な情報を取得
+         * $carts=Cart::where('user_id',Auth::user()->id)
+         *foreach($carts as $cart){
+         * $posts = new Sub_reservation();
+         * $posts->main_reservation_id = $id;
+         * $posts->cakename = $cart->cake_info->cakename;
+         * $posts->capacity = $cart->cake_info->cake_info_subs->capacity;
+         * $posts->price = $cart->cake_info->cake_info_subs->price;
+         * $posts->massage = $cart->massage;
+         * $posts->save();
+         *}
+         *
+         * cartの情報を消す（出来ればトランザクション使いたい）
+         **/
         $posts = new Sub_reservation();
         $posts->main_reservation_id = $id;
         $posts->cakename = $request->cakename;
@@ -112,12 +124,12 @@ class InformationController extends Controller
             ]);
     }
 
-    //カート登録
-    public function _cart_add(Request $request)
+    //お気に入り登録
+    public function _favorite_add(Request $request)
     {
 
         $request->session()->regenerateToken();
-        $posts = new Cart();
+        $posts = new Favorite();
         $posts->user_id = $request->user_id;
         $posts->cake_id = $request->cake_id;
         $posts->save();
@@ -132,28 +144,28 @@ class InformationController extends Controller
                 'subphotos' => $subphotos,
             ]);
     }
-    //カート削除
-    public function _cart_destroy(Cart $cart)
+    //お気に入り削除
+    public function _favorite_destroy(Favorite $favorite)
     {
-        $cart->delete();
+        $favorite->delete();
 
-        $id=Auth::user()->id;
-        $infos = Cart::where('user_id', $id)->get();
+        $id = Auth::user()->id;
+        $infos = Favorite::where('user_id', $id)->get();
 
-        return view('user.cart')
+        return view('user.favorite')
             ->with([
                 'infos' => $infos,
             ]);
     }
-    //カート呼び出し
-    public function _cart_store(Request $request)
+    //お気に入り呼び出し
+    public function _favorite_store(Request $request)
     {
 
         $id = $request->id;
-        $infos = Cart::where('user_id', $id)->get();
+        $infos = Favorite::where('user_id', $id)->get();
 
 
-        return view('user.cart',$infos)
+        return view('user.favorite', $infos)
             ->with([
                 'infos' => $infos,
             ]);
