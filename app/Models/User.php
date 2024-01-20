@@ -43,7 +43,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function main_reservations()
+    public function main_reservation()
     {
         return $this->hasMany(Main_reservation::class,'users_id','id');
     }
@@ -51,5 +51,10 @@ class User extends Authenticatable
     public function favorites()
     {
         return $this->hasMany(Favorite::class,'users_id','id');
+    }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class,'cake_info_subs_id','id');
     }
 }

@@ -76,12 +76,14 @@ class InformationController extends Controller
             'mainphoto' => 'required',
             'capacity' => 'required',
             'price' => 'required',
+            'message'=>'required',
         ], [
             'users_id.required' => 'ログインしてください',
             'users_id.required' => 'ログインしてください',
             'birthday.required' => '受取日を入力してください',
             'time.required' => '受け取り時間を入力してください',
             'capacity.required' => '大きさ・価格をえらんでください',
+            'message.required'=>'「メッセージなし」、もしくはメッセージを入力してください'
         ]);
 
 

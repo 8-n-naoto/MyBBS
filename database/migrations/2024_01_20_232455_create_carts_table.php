@@ -11,18 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sub_reservation', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->unsignedBigInteger('main_reservation_id');   //外部キー  購入者ヘッダ
-            $table->string('cakename');
-            $table->string('capacity');
-            $table->integer('price');
+            $table->unsignedBigInteger('user_id');  // 外部キー
+            $table->unsignedBigInteger('cake_info_subs_id'); //外部キー
             $table->text('massage');
             $table
-                ->foreign('main_reservation_id')
+                ->foreign('user_id')
                 ->references('id')
-                ->on('main_reservation')
+                ->on('users')
+                ->onDelete('cascade');
+            $table
+                ->foreign('cake_info_subs_id')
+                ->references('id')
+                ->on('cake_info_subs')
                 ->onDelete('cascade');
         });
     }
@@ -32,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sub_reservation_sub');
+        Schema::dropIfExists('carts');
     }
 };

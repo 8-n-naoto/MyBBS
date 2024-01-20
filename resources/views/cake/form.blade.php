@@ -59,7 +59,7 @@
             </div>
             <div class="flex-row">
                 <p class="font">メッセ―ジ：</p>
-                <textarea name="massage" placeholder="メッセージを入力してください"></textarea>
+                <textarea name="massage" placeholder="メッセージを入力してください">メッセージなし</textarea>
                 @error('massage')
                     <div class="error">{{ $message }}</div>
                 @enderror

@@ -20,4 +20,9 @@ class CakeInfoSub extends Model
     {
         return $this->belongsTo(CakeInfo::class,'cake_infos_id','id');
     }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class,'cake_info_subs_id','id');
+    }
 }
