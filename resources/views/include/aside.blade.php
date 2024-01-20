@@ -30,12 +30,12 @@
             <a href="{{ route('cakes.switch') }}" class="middlefont">表示商品編集</a>
             <ul name="ケーキの種類">
                 @forelse ($cakeinfos as $info)
-                    <li class="smallfont"><a href="{{ route('cakes.store.update', $info) }}">{{ $info->cakename }}</a>
+                    <li class="smallfont"><a href="{{ route('cakes.upudate.store', $info) }}">{{ $info->cakename }}</a>
                     </li>
                 @empty
                     <li class="smallfont">準備中だよ！</li>
                 @endforelse
-                <li class="smallfont"><a href="{{ route('cakes.store.criate') }}">新規追加</a></li>
+                <li class="smallfont"><a href="{{ route('cakes.criate.store') }}">新規追加</a></li>
             </ul>
         </div>
 
@@ -45,7 +45,7 @@
                 <button>管理者ログアウト</button>
             </form>
         </div>
-        
+
     </aside>
     <main class="flex-row">
         @yield('main')

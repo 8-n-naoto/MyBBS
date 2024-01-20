@@ -41,7 +41,7 @@ class CakeController extends Controller
     }
 
     //個別詳細変更画面
-    public function _store_update(CakeInfo $cakeinfo)
+    public function _update_store(CakeInfo $cakeinfo)
     {
         $infos = CakeInfo::all();
         $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo->id)->get();
@@ -59,7 +59,7 @@ class CakeController extends Controller
     }
 
     //商品追加ページ
-    public function _store_criate()
+    public function _criate_store()
     {
         $infos = CakeInfo::all();
         return view('management.create')

@@ -16,7 +16,7 @@ class CakeInfoSub extends Model
         'cakecode',
     ];
 
-    public function cake_infos()
+    public function cake_info()
     {
         return $this->belongsTo(CakeInfo::class,'cake_infos_id','id');
     }

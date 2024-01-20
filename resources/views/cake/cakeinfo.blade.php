@@ -26,6 +26,15 @@
                             <p class="smallfont">サイズ：</p>
                             <p class="smallfont">{{ $info->capacity }}</p>
                             <p class="smallfont">￥{{ $info->price }}円</p>
+                            {{-- カートに追加する --}}
+                            <form method="POST" action="{{ route('user.cart.add') }}">
+                                @csrf
+                                <input type="hidden" name="cakeinfos_id" value="{{ $cakeinfos->id }}">
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="cake_info_subs_id" value="{{ $info->id }}">
+                                <button>カートに追加する</button>
+                            </form>
+
                         </div>
                     @empty
                         <p class="smallfont">ただいま準備中...</p>

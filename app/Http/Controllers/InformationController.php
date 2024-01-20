@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Favorite;
+use App\Models\Cart;
 use App\Models\CakeInfo;
+use App\Models\CakeInfoSub;
 use App\Models\Main_reservation;
 use App\Models\Sub_reservation;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +39,7 @@ class InformationController extends Controller
     }
 
     //ケーキ詳細表示画面
-    public function _store_cake(CakeInfo $cakeinfo)
+    public function _cake_store(CakeInfo $cakeinfo)
     {
         $infos = CakeInfo::where('boolean', 1)->get();
         $subphotos = $cakeinfo;
@@ -54,8 +56,10 @@ class InformationController extends Controller
             ]);
     }
 
+
+    /** 予約フォーム関係 **/
     //予約詳細入力画面
-    public function _store_form(CakeInfo $cakeinfo)
+    public function _form_store(CakeInfo $cakeinfo)
     {
         return view('cake.form')
             ->with([
@@ -63,9 +67,8 @@ class InformationController extends Controller
                 'prices' => $cakeinfo,
             ]);
     }
-
     // 予約情報確認画面
-    public function _store_check(Request $request)
+    public function _check_store(Request $request)
     {
         $request->validate([
             'users_name' => 'required',
@@ -76,24 +79,22 @@ class InformationController extends Controller
             'mainphoto' => 'required',
             'capacity' => 'required',
             'price' => 'required',
-            'message'=>'required',
+            'message' => 'required',
         ], [
             'users_id.required' => 'ログインしてください',
             'users_id.required' => 'ログインしてください',
             'birthday.required' => '受取日を入力してください',
             'time.required' => '受け取り時間を入力してください',
             'capacity.required' => '大きさ・価格をえらんでください',
-            'message.required'=>'「メッセージなし」、もしくはメッセージを入力してください'
+            'message.required' => '「メッセージなし」、もしくはメッセージを入力してください'
         ]);
 
 
         return view('cake.formcheck')
             ->with(['info' => $request]);
     }
-
-
     //予約情報保存画面
-    public function _store_result(Request $request)
+    public function _result_store(Request $request)
     {
         $request->session()->regenerateToken();
         $posts = new Main_reservation();
@@ -134,10 +135,12 @@ class InformationController extends Controller
             ]);
     }
 
+
+    /** お気に入り機能関係 **/
     //お気に入り登録
     public function _favorite_add(Request $request)
     {
-
+        //お気に入り登録
         $request->session()->regenerateToken();
         $posts = new Favorite();
         $posts->user_id = $request->user_id;
@@ -160,9 +163,13 @@ class InformationController extends Controller
         $favorite->delete();
 
         $id = Auth::user()->id;
-        $infos = Favorite::where('user_id', $id)->get();
+        $infos = Favorite::where('user_id', $id)
+            ->whereHas('cake_info', function ($query) {
+                $query->where('boolean', 1);
+            })
+            ->get();
 
-        return view('user.favorite')
+        return view('auth.favorite')
             ->with([
                 'infos' => $infos,
             ]);
@@ -170,16 +177,108 @@ class InformationController extends Controller
     //お気に入り移動
     public function _favorite_store(Request $request)
     {
-
         $id = $request->id;
-        $infos = Favorite::where('user_id', $id)->get();
+        $infos = Favorite::where('user_id', $id)
+            ->whereHas('cake_info', function ($query) {
+                $query->where('boolean', 1);
+            })
+            ->get();
 
-
-        return view('user.favorite', $infos)
+        return view('auth.favorite')
             ->with([
                 'infos' => $infos,
             ]);
     }
+
+
+    /**  カート機能関係 **/
+    //カート追加
+    public function _cart_add(Request $request)
+    {
+        $request->session()->regenerateToken();
+        $posts = new Cart();
+        $posts->user_id = $request->user_id;
+        $posts->cake_info_subs_id = $request->cake_info_subs_id;
+        $posts->message = 'メッセージなし';
+        $posts->save();
+
+
+
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $subphotos = $request->cakeinfos_id;
+
+        return back()
+            ->with([
+                'infos' => $infos,
+                'subphotos' => $subphotos,
+            ]);
+    }
+    //カート削除
+    public function _cart_destroy(Cart $cart)
+    {
+        $cart->delete();
+
+        $id = Auth::user()->id;
+        $infos = CakeInfoSub::with(['cart' => function ($query) use ($id) {
+            $query->where('user_id', $id);
+        }])->whereHas('cake_info', function ($query) {
+            $query->where('boolean', 1);
+        })->get();
+
+        return view('auth.cart')
+            ->with([
+                'infos' => $infos,
+            ]);
+    }
+    //カート移動
+    public function _cart_store(Request $request)
+    {
+        $id = Auth::user()->id;
+        $infos = CakeInfoSub::with(['carts' => function ($query) use ($id) {
+            $query->where('user_id', $id);
+        }])->whereHas('cake_info', function ($query) {
+            $query->where('boolean', 1);
+        })->get();
+
+
+        return view('auth.cart', $infos)
+            ->with([
+                'cartinfos' => $infos,
+            ]);
+    }
+    //カート(メッセージ)更新
+    public function _cart_update(Request $request, Cart $cart)
+    {
+        //更新処理
+        $cart->message = $request->message;
+        $cart->save();
+
+        $id = Auth::user()->id;
+        $infos = CakeInfoSub::with(['carts' => function ($query) use ($id) {
+            $query->where('user_id', $id);
+        }])->whereHas('cake_info', function ($query) {
+            $query->where('boolean', 1);
+        })->get();
+
+        return view('auth.cart', $infos)
+            ->with([
+                'cartinfos' => $infos,
+            ]);
+    }
+
+    // つくるやつ
+    // _form_store
+    // _check_store
+    // _result_store
+    // _home_store
+
+
+
+
+
+
+
+
 
     // public function _favorite_count()
     // {

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('user_id');  // 外部キー
             $table->unsignedBigInteger('cake_info_subs_id'); //外部キー
-            $table->text('massage');
+            $table->text('message');
             $table
                 ->foreign('user_id')
                 ->references('id')

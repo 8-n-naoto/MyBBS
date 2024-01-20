@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('user.add.favorite') }}">
+<form method="POST" action="{{ route('user.favorite.add') }}">
     @csrf
     @isset($cakeinfos)
         <input type="hidden" name="cakeinfos_id" value="{{ $cakeinfos->id }}">

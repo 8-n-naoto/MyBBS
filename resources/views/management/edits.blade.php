@@ -12,7 +12,7 @@
             @forelse ($cakeinfos as $info)
                 <object>
                     {{-- 写真とリンク --}}
-                    <a href="{{ route('cakes.store.update', $info) }}">
+                    <a href="{{ route('cakes.upudate.store', $info) }}">
                         <div class="boolean">
                             <img src="{{ asset($info->mainphoto) }} " class="subphoto" alt="ケーキの写真">
                             <p hidden>{{ $info->boolean }}</p>

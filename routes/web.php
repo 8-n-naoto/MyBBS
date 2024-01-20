@@ -108,34 +108,55 @@ Route::get('/', [InformationController::class, 'index'])
 // Route::get('/sortprice', [InformationController::class, '_sort_price'])
 //     ->name('index.price');
 
-//ケーキ予約受付関係
+/** ケーキ予約受付関係 **/
 Route::controller(InformationController::class)->middleware(['auth'])->group(function () {
     Route::group(['as' => 'front.'], function () {
         //個別ページ
-        Route::get('/cake/{cakeinfo}', '_store_cake')->name('cake')->where('cakeinfo', '[0-9]+');
+        Route::get('/cake/{cakeinfo}', '_cake_store')->name('cake')->where('cakeinfo', '[0-9]+');
         //予約詳細入力画面
-        Route::get('/form/{cakeinfo}', '_store_form')->name('form')->where('cakeinfo', '[0-9]+');
+        Route::get('/form/{cakeinfo}', '_form_store')->name('form')->where('cakeinfo', '[0-9]+');
         //フォーム確認画面
-        Route::post('/form/formcheck', '_store_check')->name('check');
+        Route::post('/form/formcheck', '_check_store')->name('check');
         //フォームOK画面
-        Route::post('/form/formcheckok', '_store_result')->name('result');
+        Route::post('/form/formcheckok', '_result_store')->name('result');
     });
 });
 
-//ユーザーごとの情報関係
+/** ユーザーごとの情報関係 **/
 Route::controller(InformationController::class)->middleware(['auth'])->group(function () {
-    Route::group(['prefix' => 'user','as' => 'user.'], function () {
-        // カート登録
-        Route::post('/fovorite/add', '_favorite_add')->name('add.favorite');
-        //カート削除
-        Route::delete('/favorite/{favorite}/destroy', '_favorite_destroy')->name('destroy.favorite')->where('favorite', '[0-9]+');
+    Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+
+        // お気に入り移動
+        Route::post('/favorite', '_favorite_store')->name('favorite.store');
+        // お気に入り登録
+        Route::post('/fovorite/add', '_favorite_add')->name('favorite.add');
+        //お気に入り削除
+        Route::delete('/favorite/{favorite}/destroy', '_favorite_destroy')->name('favorite.destroy')->where('favorite', '[0-9]+');
+
+        /** カート機能関係 **/
         // カート移動
-        Route::post('/favorite', '_favorite_store')->name('store.favorite');
+        Route::post('/cart', '_cart_store')->name('cart.store');
+        // カート登録
+        Route::post('/cart/add', '_cart_add')->name('cart.add');
+        //カート削除
+        Route::delete('/cart/{cart}/destroy', '_cart_destroy')->name('cart.destroy')->where('cart', '[0-9]+');
+        //カート(メッセージ)更新
+        Route::patch('/cart/{cart}/update', '_cart_update')->name('cart.update')->where('cart', '[0-9]+');
+
+        //まとめて予約移動
+        Route::post('/form','_form_store')->name('form.store');
+        //まとめて予約確認画面へ移動
+        Route::post('/form/check','_check_store')->name('check.store');
+        //まとめて予約処理＋カートの中身削除処理+完了画面へ移動
+        Route::post('/form/result','_result_store')->name('result.store');
+        //ホームに返す
+        Route::get('/form/return','_home_store')->name('home.store');
+
     });
 });
 
 
-//ReservationController
+/** 管理画面系 **/
 Route::controller(ReservationController::class)->middleware(['auth:admin'])->group(function () {
     Route::group(['prefix' => 'management'], function () {
         //管理画面トップ
@@ -143,7 +164,7 @@ Route::controller(ReservationController::class)->middleware(['auth:admin'])->gro
     });
 });
 
-//予約情報処理関係
+/** 予約情報処理関係 **/
 Route::controller(ReservationController::class)->middleware(['auth:admin'])->group(function () {
     Route::group(['prefix' => 'management', 'as' => 'reservations.'], function () {
         //日付別総量確認画面(home)
@@ -161,7 +182,7 @@ Route::controller(ReservationController::class)->middleware(['auth:admin'])->gro
     });
 });
 
-//ケーキの情報処理関係
+/** ケーキの情報処理関係 **/
 Route::controller(CakeController::class)->middleware(['auth:admin'])->group(function () {
     Route::group(['prefix' => 'management', 'as' => 'cakes.'], function () {
         //ON/OFF画面
@@ -169,17 +190,23 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         //商品表示ON/OFF切り替え機能
         Route::patch('{cakeinfo}/edit', '_boolean')->name('boolean')->where('cakeinfo', '[0-9]+');
         //商品追加ページ
-        Route::get('create', '_store_criate')->name('store.criate');
+        Route::get('create', '_criate_store')->name('criate.store');
+        //個別詳細変更画面
+        Route::get('{cakeinfo}/edit', '_update_store')->name('upudate.store')->where('cakeinfo', '[0-9]+');
+
+        /** 追加処理一覧 **/
         //商品新規追加処理処理
         Route::post('store', '_cake_criate')->name('cake.criate');
-        //個別詳細変更画面
-        Route::get('{cakeinfo}/edit', '_store_update')->name('store.update')->where('cakeinfo', '[0-9]+');
-        //商品情報更新処理(main)
-        Route::patch('edit/{cakeinfo}/update', '_cake_update')->name('cake.update')->where('cakeinfo', '[0-9]+');
         //商品更新処理（price）
         Route::post('edit/update/{cakeinfo}/addprice', '_price_criate')->name('price.criate');
         //商品更新画面(subphoto)
         Route::post('edit/update/{cakeinfo}/addphoto', '_photo_criate')->name('photo.criate');
+
+        /** 更新処理一覧 **/
+        //商品情報更新処理(main)
+        Route::patch('edit/{cakeinfo}/update', '_cake_update')->name('cake.update')->where('cakeinfo', '[0-9]+');
+
+        /** 削除処理一覧 **/
         //商品情報削除ページ（main）
         Route::delete('edit/{cakeinfo}/destroy', '_cake_destroy')->name('cake.destroy')->where('cakeinfo', '[0-9]+');
         //商品情報削除ページ（price）
