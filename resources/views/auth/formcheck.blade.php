@@ -1,42 +1,28 @@
-{{-- <?php dd($info); ?> --}}
+{{-- <?php dd($info->capasity); ?> --}}
 @extends('components.frontlayout')
 
 @section('css')
     <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
     <link rel="stylesheet" href="{{ url('css/form.css') }}">
+    <link rel="stylesheet" href="{{ url('css/animation.css') }}">
 @endsection
 
 @section('main')
-    <section class="textbackground">
-        <form method="POST" action="{{ route('user.check.store') }}">
+    <section class="form">
+        <form method="post" action="{{ route('user.result.store') }}" id="form_send" class="sendform">
             @csrf
-            <input type="hidden" name="users_id" id="name" value="{{ Auth::user()->id }}">
-            <div class="flex-row">
-                <p class="font">お名前：</p>
-                <p class="font">{{ Auth::user()->name }}様</p>
-                <input type="hidden" name="users_name" id="name" value="{{ Auth::user()->name }}">
-                @error('users_id')
-                    <div class="error">{{ $message }}</div>
-                @enderror
+            <div>
+                <p>お名前:{{ $info->users_name }}</p>
+                <input type="hidden" name="users_id" id="date" value="{{ $info->users_id }}">
             </div>
             <div>
-                <label for="date" class="flex-row">
-                    <p class="font">受け取り日時:</p>
-                    <input type="date" name="birthday" id="date">
-                </label>
-                @error('birthday')
-                    <div class="error">{{ $message }}</div>
-                @enderror
+                <p>受け取り日時:{{ $info->birthday }}</p>
+                <input type="hidden" name="birthday" id="date" value="{{ $info->birthday }}">
             </div>
             <div>
-                <label for="date" class="flex-row">
-                    <p class="font">受け取り時間:</p>
-                    <input type="time" name="time" id="time">
-                </label>
-                @error('time')
-                    <div class="error">{{ $message }}</div>
-                @enderror
+                <p>受け取り時間:{{ $info->time }}</p>
+                <input type="hidden" name="time" id="time" value="{{ $info->time }}">
             </div>
             {{-- 予約一覧まとめて表示 --}}
             @forelse ($carts as $cart)
@@ -61,8 +47,21 @@
                 <p>予約商品がありません</p>
             @endforelse
             <div>
-                <button class="button">確認画面へ！</button>
+                <button class="sendbutton" id="button">内容を確定する</button>
+            </div>
+
+            {{-- なんかおかしいので直す「flex」が原因 --}}
+            <div class="loader">
+                <div class="sk-chase">
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                </div>
             </div>
         </form>
     </section>
+    <script src="{{ url('js/button.js') }}"></script>
 @endsection

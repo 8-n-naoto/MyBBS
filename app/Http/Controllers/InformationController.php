@@ -10,6 +10,7 @@ use App\Models\CakeInfoSub;
 use App\Models\Main_reservation;
 use App\Models\Sub_reservation;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Stmt\Foreach_;
 
 class InformationController extends Controller
 {
@@ -71,7 +72,6 @@ class InformationController extends Controller
     public function _check_store(Request $request)
     {
         $request->validate([
-            'users_name' => 'required',
             'users_id' => 'required',
             'birthday' => 'required',
             'time' => 'required',
@@ -81,7 +81,6 @@ class InformationController extends Controller
             'price' => 'required',
             'message' => 'required',
         ], [
-            'users_id.required' => 'ログインしてください',
             'users_id.required' => 'ログインしてください',
             'birthday.required' => '受取日を入力してください',
             'time.required' => '受け取り時間を入力してください',
@@ -104,26 +103,12 @@ class InformationController extends Controller
         $posts->save();
         $id = $posts->id;
 
-        /**$info=Cart->cakeinfo->cakeinfosubs; //subに必要な情報を取得
-         * $carts=Cart::where('user_id',Auth::user()->id)
-         *foreach($carts as $cart){
-         * $posts = new Sub_reservation();
-         * $posts->main_reservation_id = $id;
-         * $posts->cakename = $cart->cake_info->cakename;
-         * $posts->capacity = $cart->cake_info->cake_info_subs->capacity;
-         * $posts->price = $cart->cake_info->cake_info_subs->price;
-         * $posts->massage = $cart->massage;
-         * $posts->save();
-         *}
-         *
-         * cartの情報を消す（出来ればトランザクション使いたい）
-         **/
         $posts = new Sub_reservation();
         $posts->main_reservation_id = $id;
         $posts->cakename = $request->cakename;
         $posts->capacity = $request->capacity;
         $posts->price = $request->price;
-        $posts->massage = $request->massage;
+        $posts->message = $request->message;
         $posts->save();
 
         $mainID = $id;
@@ -134,7 +119,80 @@ class InformationController extends Controller
                 'subID' => $subID,
             ]);
     }
+    /** まとめて予約関係 **/
+    //予約詳細入力画面
+    public function _collect_form_store(CakeInfo $cakeinfo)
+    {
+        $id = Auth::user()->id;
+        $carts = Cart::where('user_id', $id)->get();
 
+        return view('auth.form')
+            ->with([
+                'carts' => $carts,
+            ]);
+    }
+    //予約詳細確認画面
+    public function _collect_check_store(Request $request, CakeInfo $cakeinfo,)
+    {
+
+        $request->validate([
+            'users_id' => 'required',
+            'birthday' => 'required',
+            'time' => 'required',
+
+        ], [
+            'users_id.required' => 'ログインしてください',
+            'birthday.required' => '受取日を入力してください',
+            'time.required' => '受け取り時間を入力してください',
+        ]);
+        $id = Auth::user()->id;
+        $carts = Cart::where('user_id', $id)->get();
+
+        return view('auth.formcheck')
+            ->with([
+                'info' => $request,
+                'carts' => $carts,
+            ]);
+    }
+    //予約確定画面
+    public function _collect_result_store(Request $request)
+    {
+        //トークン再生成
+        $request->session()->regenerateToken();
+
+        //main_reservationテーブルの情報を保存
+        $posts = new Main_reservation();
+        $posts->birthday = $request->birthday;
+        $posts->time = $request->time;
+        $posts->users_id = $request->users_id;
+        $posts->save();
+        $id = $posts->id;
+
+        //sub_reservationテーブルの情報を保存
+        $user_id = Auth::user()->id;
+        $carts = Cart::where('user_id', $user_id)->get();
+
+        foreach ($carts as $cart) {
+            if ($cart->cake_info_sub->cake_info->boolean) {
+                $posts = new Sub_reservation();
+                $posts->main_reservation_id = $id;
+                $posts->cakename = $cart->cake_info_sub->cake_info->cakename;
+                $posts->capacity = $cart->cake_info_sub->capacity;
+                $posts->price = $cart->cake_info_sub->price;
+                $posts->message = $cart->message;
+                // $posts->save();
+            }
+                $cart->delete();
+        }
+
+        $mainID = $id;
+        $subID = $posts->id;
+        return view('auth.result')
+            ->with([
+                'mainID' => $mainID,
+                'subID' => $subID,
+            ]);
+    }
 
     /** お気に入り機能関係 **/
     //お気に入り登録
@@ -146,7 +204,6 @@ class InformationController extends Controller
         $posts->user_id = $request->user_id;
         $posts->cake_id = $request->cake_id;
         $posts->save();
-
 
         $infos = CakeInfo::where('boolean', 1)->get();
         $subphotos = $request->cakeinfos_id;
@@ -202,8 +259,6 @@ class InformationController extends Controller
         $posts->message = 'メッセージなし';
         $posts->save();
 
-
-
         $infos = CakeInfo::where('boolean', 1)->get();
         $subphotos = $request->cakeinfos_id;
 
@@ -219,31 +274,22 @@ class InformationController extends Controller
         $cart->delete();
 
         $id = Auth::user()->id;
-        $infos = CakeInfoSub::with(['cart' => function ($query) use ($id) {
-            $query->where('user_id', $id);
-        }])->whereHas('cake_info', function ($query) {
-            $query->where('boolean', 1);
-        })->get();
+        $carts = Cart::where('user_id', $id)->get();
 
         return view('auth.cart')
             ->with([
-                'infos' => $infos,
+                'carts' => $carts,
             ]);
     }
     //カート移動
     public function _cart_store(Request $request)
     {
         $id = Auth::user()->id;
-        $infos = CakeInfoSub::with(['carts' => function ($query) use ($id) {
-            $query->where('user_id', $id);
-        }])->whereHas('cake_info', function ($query) {
-            $query->where('boolean', 1);
-        })->get();
+        $carts = Cart::where('user_id', $id)->get();
 
-
-        return view('auth.cart', $infos)
+        return view('auth.cart')
             ->with([
-                'cartinfos' => $infos,
+                'carts' => $carts,
             ]);
     }
     //カート(メッセージ)更新
@@ -254,23 +300,19 @@ class InformationController extends Controller
         $cart->save();
 
         $id = Auth::user()->id;
-        $infos = CakeInfoSub::with(['carts' => function ($query) use ($id) {
-            $query->where('user_id', $id);
-        }])->whereHas('cake_info', function ($query) {
-            $query->where('boolean', 1);
-        })->get();
+        $carts = Cart::where('user_id', $id)->get();
 
-        return view('auth.cart', $infos)
+        return view('auth.cart')
             ->with([
-                'cartinfos' => $infos,
+                'carts' => $carts,
             ]);
     }
 
     // つくるやつ
-    // _form_store
-    // _check_store
-    // _result_store
-    // _home_store
+    // _collect_form_store
+    // _collect_check_store
+    // _collect_result_store
+    // _collect_home_store
 
 
 

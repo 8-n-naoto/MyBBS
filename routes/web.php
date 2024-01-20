@@ -144,13 +144,13 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
         Route::patch('/cart/{cart}/update', '_cart_update')->name('cart.update')->where('cart', '[0-9]+');
 
         //まとめて予約移動
-        Route::post('/form','_form_store')->name('form.store');
+        Route::get('/form','_collect_form_store')->name('form.store');
         //まとめて予約確認画面へ移動
-        Route::post('/form/check','_check_store')->name('check.store');
+        Route::post('/form/check','_collect_check_store')->name('check.store');
         //まとめて予約処理＋カートの中身削除処理+完了画面へ移動
-        Route::post('/form/result','_result_store')->name('result.store');
+        Route::post('/form/result','_collect_result_store')->name('result.store');
         //ホームに返す
-        Route::get('/form/return','_home_store')->name('home.store');
+        Route::get('/form/return','_collect_home_store')->name('home.store');
 
     });
 });

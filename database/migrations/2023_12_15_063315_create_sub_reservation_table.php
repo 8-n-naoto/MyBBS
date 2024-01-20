@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('cakename');
             $table->string('capacity');
             $table->integer('price');
-            $table->text('massage');
+            $table->text('message');
             $table
                 ->foreign('main_reservation_id')
                 ->references('id')

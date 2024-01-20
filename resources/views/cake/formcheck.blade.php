@@ -37,8 +37,8 @@
                 <input type="hidden" name="price" id="price" value="{{ $info->price }}">
             </div>
             <div>
-                メッセ―ジ：{{ $info->massage }}
-                <input type="hidden" name="massage" id="massage" value="{{ $info->massage }}">
+                メッセ―ジ：{{ $info->message }}
+                <input type="hidden" name="message" id="message" value="{{ $info->message }}">
             </div>
             <div>
                 <button class="sendbutton" id="button">内容を確定する</button>

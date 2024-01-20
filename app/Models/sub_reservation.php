@@ -14,7 +14,7 @@ class Sub_reservation extends Model
         'cakename',
         'capacity',
         'price',
-        'massage',
+        'message',
     ];
 
     public function main_reservation()

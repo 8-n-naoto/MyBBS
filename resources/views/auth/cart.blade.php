@@ -5,40 +5,48 @@
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
     <link rel="stylesheet" href="{{ url('css/form.css') }}">
 @endsection
-
+{{-- <?php dd($cartinfos); ?> --}}
 @section('main')
     <section>
         <h2 class="textbackground bigfont">カート一覧</h2>
         <section>
-            <div class="cakephotos textbackground">
-                @forelse ($cartinfos as $info)
-                    <object>
-                        <a href="{{ route('front.cake', $info->id) }}">
-                            <p class="cakenamefont">
-                                <img src="{{ asset($info->cake_info->mainphoto) }}" class="menuphotos" alt="ケーキの写真">
-                                {{ e($info->cake_info->cakename) }}
-                            </p>
+            <div class="flex-column">
+                @forelse ($carts as $cart)
+                    @if ($cart->cake_info_sub->cake_info->boolean)
+                    <div class="flex-row textbackground">
+                        <a href="{{ route('front.cake', $cart->cake_info_sub->cake_info->id) }}">
+                            <img src="{{ asset($cart->cake_info_sub->cake_info->mainphoto) }}" class="menuphotos"
+                                alt="ケーキの写真">
                         </a>
-
-                        @foreach ($info->carts as $cart)
-                            <div class="flex-row">
-                                <form method="POST" action="{{ route('user.cart.update', $cart) }}">
-                                    @method('PATCH')
-                                    @csrf
-                                    <p class="form-font">メッセージ：</p>
-                                    <input type="text" class="cakeform" name="message" value="{{ $cart->message }}">
-                                    <button>メッセージを変更する</button>
-                                </form>
-                            </div>
-                        @endforeach
-                        <p>{{ $info->cake_info->cakename }}予約合計台：{{ count($info->carts) }}台</p>
-                    </object>
+                        <div>
+                            <p class="cakenamefont">
+                                {{ e($cart->cake_info_sub->cake_info->cakename) }}
+                            </p>
+                            <p class="cakenamefont">
+                                {{ $cart->cake_info_sub->capacity }}
+                                {{ $cart->cake_info_sub->price }}円
+                            </p>
+                            <form method="POST" action="{{ route('user.cart.update', $cart) }}" class="flex-row">
+                                @method('PATCH')
+                                @csrf
+                                <p class="form-font">メッセージ：</p>
+                                <input type="text" class="cakeform" name="message" value="{{ $cart->message }}">
+                                <button>メッセージを変更する</button>
+                            </form>
+                            <form method="POST" action="{{ route('user.cart.destroy', $cart) }}" class="delete">
+                                @method('DELETE')
+                                @csrf
+                                <button>予約情報を削除する</button>
+                            </form>
+                        </div>
+                    </div>
+                    @endif
                 @empty
-                    <p>カートの中身がありません</p>
+                    <p>カートに商品がありません</p>
                 @endforelse
             </div>
         </section>
-        <form method="POST" action="{{ route('user.form.store') }}">
+        <form method="GET" action="{{ route('user.form.store') }}">
             @csrf
             <button>まとめて予約する</button>
         </form>
