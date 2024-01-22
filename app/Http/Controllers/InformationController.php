@@ -180,9 +180,9 @@ class InformationController extends Controller
                 $posts->capacity = $cart->cake_info_sub->capacity;
                 $posts->price = $cart->cake_info_sub->price;
                 $posts->message = $cart->message;
-                // $posts->save();
+                $posts->save();
             }
-                $cart->delete();
+            $cart->delete();
         }
 
         $mainID = $id;

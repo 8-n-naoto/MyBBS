@@ -3,8 +3,9 @@
         <object>
             <a href="{{ route('front.cake', $info->id) }}">
                 <p class="cakenamefont">
-                <img src="{{ asset($info->mainphoto) }}" class="menuphotos" alt="ケーキの写真">
-                {{ e($info->cakename) }}</p>
+                    <img src="{{ asset($info->mainphoto) }}" class="menuphotos" alt="ケーキの写真">
+                    {{ e($info->cakename) }}
+                </p>
                 @include('include.favoritebutton')
             </a>
         </object>

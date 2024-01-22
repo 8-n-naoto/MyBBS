@@ -1,7 +1,9 @@
 @include('include.header')
-    <main>
-    @yield('main')
-    @yield('map')
-    </main>
+<main class="flex-row">
+    @yield('aside')
+    <section class="flex-column">
+        @yield('main')
+        @yield('map')
+    </section>
+</main>
 @include('include.footer')
-
