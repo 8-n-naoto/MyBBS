@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Favorite;
 use App\Models\Cart;
+use App\Models\Tag;
 use App\Models\CakeInfo;
 use App\Models\CakeInfoSub;
 use App\Models\Main_reservation;
@@ -19,10 +20,12 @@ class InformationController extends Controller
     public function index()
     {
         $infos = CakeInfo::where('boolean', 1)->get();
+        $tags=Tag::all();
 
         return view('index')
             ->with([
                 'infos' => $infos,
+                'tags'=>$tags,
             ]);
     }
 

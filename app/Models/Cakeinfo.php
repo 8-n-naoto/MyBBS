@@ -31,4 +31,9 @@ class CakeInfo extends Model
     {
         return $this->hasMany(Favorite::class,'cake_id','id');
     }
+
+    public function tags()
+    {
+        return $this->hasMany(Tag::class,'cake_infos_id','id');
+    }
 }

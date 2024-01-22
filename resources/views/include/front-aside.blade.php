@@ -15,19 +15,19 @@
         </div>
         <div class="sidemenu">
             <a href="">
-                <h2>タグ一覧</h2>
+                <h2 class="form-font">タグ一覧</h2>
             </a>
-            {{-- @forelse ($tags as $tag)
-                <a href="{{ route() }}">
-                    <p class="form-font">{{ $tag->tagname }}</p>
+            @forelse ($tags as $tag)
+                <a href="">
+                    <p class="form-font">{{ $tag->tag}}</p>
                 </a>
             @empty
                 <p class="form-font">ただいま準備中！</p>
-            @endforelse --}}
+            @endforelse
         </div>
         <div class="sidemenu">
             <a href="">
-                <h2>最新情報</h2>
+                <h2 class="form-font">最新情報</h2>
             </a>
             {{-- API利用して表示する --}}
         </div>
