@@ -1,4 +1,4 @@
-{{-- <?php dd($favorites); ?> --}}
+{{-- <?php dd($tags); ?> --}}
 
 @extends('components.frontlayout')
 @section('css')

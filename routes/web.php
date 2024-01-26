@@ -110,11 +110,13 @@ Route::get('/', [InformationController::class, 'index'])
 
 /** ケーキ予約受付関係 **/
 Route::controller(InformationController::class)->middleware(['auth'])->group(function () {
-    Route::group(['as' => 'front.'], function () {
+    Route::group(['prefix' => 'front','as' => 'front.'], function () {
         //個別ページ
-        Route::get('/cake/{cakeinfo}', '_cake_store')->name('cake')->where('cakeinfo', '[0-9]+');
+        Route::get('/{cakeinfo}/cake', '_cake_store')->name('cake')->where('cakeinfo', '[0-9]+');
+        //tag別ページ
+        Route::get('/{tag}/tag', '_tag_store')->name('tag');
         //予約詳細入力画面
-        Route::get('/form/{cakeinfo}', '_form_store')->name('form')->where('cakeinfo', '[0-9]+');
+        Route::get('/{cakeinfo}/form', '_form_store')->name('form')->where('cakeinfo', '[0-9]+');
         //フォーム確認画面
         Route::post('/form/formcheck', '_check_store')->name('check');
         //フォームOK画面
@@ -201,6 +203,8 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         Route::post('edit/update/{cakeinfo}/addprice', '_price_criate')->name('price.criate');
         //商品更新画面(subphoto)
         Route::post('edit/update/{cakeinfo}/addphoto', '_photo_criate')->name('photo.criate');
+        //商品更新画面(tag)
+        Route::post('edit/update/{cakeinfo}/addtag', '_tag_criate')->name('tag.criate');
 
         /** 更新処理一覧 **/
         //商品情報更新処理(main)
@@ -210,8 +214,10 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         //商品情報削除ページ（main）
         Route::delete('edit/{cakeinfo}/destroy', '_cake_destroy')->name('cake.destroy')->where('cakeinfo', '[0-9]+');
         //商品情報削除ページ（price）
-        Route::delete('edit/{cakeinfosub}/destroyprice', '_price_destroy')->name('price.destroy')->where('cakeinfo', '[0-9]+');
+        Route::delete('edit/{cakeinfosub}/destroyprice', '_price_destroy')->name('price.destroy')->where('cakeinfosub', '[0-9]+');
         //商品情報削除ページ（photo）
-        Route::delete('edit/{cakephoto}/destroyphoto', '_photo_destroy')->name('photo.destroy')->where('cakeinfo', '[0-9]+');
+        Route::delete('edit/{cakephoto}/destroyphoto', '_photo_destroy')->name('photo.destroy')->where('cakephoto', '[0-9]+');
+        //商品情報削除ページ（tag）
+        Route::delete('edit/{tag}/destroytag', '_tag_destroy')->name('tag.destroy')->where('tag', '[0-9]+');
     });
 });

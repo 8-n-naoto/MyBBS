@@ -3,7 +3,12 @@
 @section('css')
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
     <link rel="stylesheet" href="{{ url('css/form.css') }}">
+    <link rel="stylesheet" href="{{ url('css/aside.css') }}">
     <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
+@endsection
+
+@section('aside')
+    @include('include.front-aside')
 @endsection
 
 @section('main')
@@ -20,12 +25,12 @@
 
                 {{-- 説明など --}}
                 <div class="textbackground">
-                    <h3 class="middlefont">サイズ一覧</h3>
+                    <h3 class="form-font">サイズ一覧</h3>
                     @forelse ($cakeinfos->cake_info_subs as $info)
                         <div class="flex-row">
-                            <p class="smallfont">サイズ：</p>
-                            <p class="smallfont">{{ $info->capacity }}</p>
-                            <p class="smallfont">￥{{ $info->price }}円</p>
+                            <p class="form-font">サイズ：</p>
+                            <p class="form-font">{{ $info->capacity }}</p>
+                            <p class="form-font">￥{{ $info->price }}円</p>
                             {{-- カートに追加する --}}
                             <form method="POST" action="{{ route('user.cart.add') }}">
                                 @csrf
@@ -37,22 +42,22 @@
 
                         </div>
                     @empty
-                        <p class="smallfont">ただいま準備中...</p>
+                        <p class="form-font">ただいま準備中...</p>
                     @endforelse
                     <div class="flex-row">
-                        <p>お気に入り数</p>
-                        <p>{{ $count }}件</p>
+                        <p class="form-font">お気に入り数</p>
+                        <p class="form-font">{{ $count }}件</p>
                         @include('include.favoritebutton')
                     </div>
                     @isset($cakeinfos->cake_info_subs)
                         <a href="{{ route('front.form', $cakeinfos) }}">
-                            <p class="smallfont button">購入へ</p>
+                            <p class="button">購入へ</p>
                         </a>
                     @endisset
                     <div>
                         <div class="flex-row">
-                            <h3 class="middlefont">商品説明</h3>
-                            <h3 class="middlefont">{{ $cakeinfos->topic }}</h3>
+                            <h3 class="form-font">商品説明</h3>
+                            <h3 class="form-font">{{ $cakeinfos->topic }}</h3>
                         </div>
                         <p class="smallfont">{{ $cakeinfos->explain }}</p>
                     </div>

@@ -20,12 +20,28 @@ class InformationController extends Controller
     public function index()
     {
         $infos = CakeInfo::where('boolean', 1)->get();
-        $tags=Tag::all();
+        $tags = Tag::all()->unique('tag');
 
         return view('index')
             ->with([
                 'infos' => $infos,
-                'tags'=>$tags,
+                'tags' => $tags,
+            ]);
+    }
+
+    // tag別画面
+    public function _tag_store(Tag $tag)
+    {
+        $infos=CakeInfo::all();
+        $cakeinfo = Tag::where('tag',$tag->tag)->get();
+        $tags = Tag::all()->unique('tag');
+
+        return view('cake.tag')
+            ->with([
+                'infos' => $infos,
+                'cakeinfo'=>$cakeinfo,
+                'tags' => $tags,
+                'tag'=>$tag,
             ]);
     }
 
@@ -46,6 +62,7 @@ class InformationController extends Controller
     public function _cake_store(CakeInfo $cakeinfo)
     {
         $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
         $subphotos = $cakeinfo;
 
         //お気に入り数表示
@@ -57,6 +74,7 @@ class InformationController extends Controller
                 'cakeinfos' => $cakeinfo,
                 'subphotos' => $subphotos,
                 'count' => $count,
+                'tags' => $tags,
             ]);
     }
 

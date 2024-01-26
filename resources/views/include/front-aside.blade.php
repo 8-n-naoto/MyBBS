@@ -18,8 +18,8 @@
                 <h2 class="form-font">タグ一覧</h2>
             </a>
             @forelse ($tags as $tag)
-                <a href="">
-                    <p class="form-font">{{ $tag->tag}}</p>
+                <a href="{{ route('front.tag', $tag) }}">
+                    <p class="form-font">{{ $tag->tag }}</p>
                 </a>
             @empty
                 <p class="form-font">ただいま準備中！</p>

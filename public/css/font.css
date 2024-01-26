@@ -31,7 +31,7 @@
 /* テキスト用 */
 .smallfont {
     font-size: 16px;
-    font-weight: 500;
+    word-break: break-all;
     border-radius: 8px;
     padding: 4px 8px;
 }
