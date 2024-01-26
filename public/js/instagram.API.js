@@ -1,7 +1,8 @@
 (function ($) {
     $.ajax({  // jQueryのajaxでjsonデータを取得しますね
         type: 'GET',
-        url: 'https://graph.facebook.com/v13.0/「InstagramビジネスID」?access_token=「アクセスTOKEN」&fields=name,media{caption,like_count,media_url,permalink,timestamp,username}',
+        // url: 'https://graph.facebook.com/v13.0/「InstagramビジネスID」?access_token=「アクセスTOKEN」&fields=name,media{caption,like_count,media_url,permalink,timestamp,username}',
+        url: 'http://localhost:3000/bookList/',  //自作API　Node.jsのバージョンを上げれば使用できる
         dataType: 'json',
         success: function (json) {
             var insta = json.media.data;
@@ -15,7 +16,7 @@
 <li>
   <a href="${href}" target="qoo_insta">
     <img src="${url}" alt="${caption}">
-    <p>${caption}</p>   
+    <p>${caption}</p>
     <p><span>${like}</span> Likes!!</p>
   </a>
 </li>
