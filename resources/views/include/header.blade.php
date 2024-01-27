@@ -28,11 +28,17 @@
                         <li>
                             <form method="POST" action="{{route('user.cart.store')}}">
                                 @csrf
-                                <button>カート</button>
+                                <button>カート(リレーション用)</button>
+                            </form>
+                        </li>
+                        <li>
+                            <form method="POST" action="{{route('user.session.cart.store')}}">
+                                @csrf
+                                <button>カート(セッション用)</button>
                             </form>
                         </li>
                         {{-- <li>
-                            <form method="POST" action="/logout">
+                            <form method="POST" action="{{route()}}">
                                 @csrf
                                 <button>タグ検索</button>
                             </form>

@@ -135,7 +135,7 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
         //お気に入り削除
         Route::delete('/favorite/{favorite}/destroy', '_favorite_destroy')->name('favorite.destroy')->where('favorite', '[0-9]+');
 
-        /** カート機能関係 **/
+        /** カート機能関係・リレーション使用 **/
         // カート移動
         Route::post('/cart', '_cart_store')->name('cart.store');
         // カート登録
@@ -144,6 +144,17 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
         Route::delete('/cart/{cart}/destroy', '_cart_destroy')->name('cart.destroy')->where('cart', '[0-9]+');
         //カート(メッセージ)更新
         Route::patch('/cart/{cart}/update', '_cart_update')->name('cart.update')->where('cart', '[0-9]+');
+        /** カート機能関係・セッション使用 **/
+        // カート移動
+        Route::post('/session/cart', '_session_cart_store')->name('session.cart.store');
+        //カート必要情報入力
+        Route::post('/session/cart/reservation', '_session_cart_reservation')->name('session.cart.reservation');
+        // カート登録
+        Route::post('/session/cart/add', '_session_cart_add')->name('session.cart.add');
+        //カート削除
+        Route::delete('/session/cart/{key}/destroy', '_session_cart_destroy')->name('session.cart.destroy')->where('cart', '[0-9]+');
+        //カート(メッセージ)更新
+        Route::patch('/session/cart/{cart}/update', '_session_cart_update')->name('session.cart.update')->where('cart', '[0-9]+');
 
         //まとめて予約移動
         Route::get('/form','_collect_form_store')->name('form.store');

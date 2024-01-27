@@ -30,7 +30,7 @@ class ProductController extends Controller
 
         //sessionにcartData配列が「無い」場合、商品情報の配列をcartData(key)という名で$cartDataをSessionに追加
         if (!$request->session()->has('cartData')) {
-            $request->session()->push('cartData', $cartData);
+            $request->session()->put('cartData', $cartData);
         } else {
             //すでにあるsessionにcartData配列が「有る」場合、情報取得
             $sessionCartData = $request->session()->get('cartData');

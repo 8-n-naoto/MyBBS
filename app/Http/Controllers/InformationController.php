@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cake_info_sub;
 use Illuminate\Http\Request;
 use App\Models\Favorite;
 use App\Models\Cart;
@@ -10,6 +11,7 @@ use App\Models\CakeInfo;
 use App\Models\CakeInfoSub;
 use App\Models\Main_reservation;
 use App\Models\Sub_reservation;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Stmt\Foreach_;
 
@@ -32,16 +34,16 @@ class InformationController extends Controller
     // tag別画面
     public function _tag_store(Tag $tag)
     {
-        $infos=CakeInfo::all();
-        $cakeinfo = Tag::where('tag',$tag->tag)->get();
+        $infos = CakeInfo::all();
+        $cakeinfo = Tag::where('tag', $tag->tag)->get();
         $tags = Tag::all()->unique('tag');
 
         return view('cake.tag')
             ->with([
                 'infos' => $infos,
-                'cakeinfo'=>$cakeinfo,
+                'cakeinfo' => $cakeinfo,
                 'tags' => $tags,
-                'tag'=>$tag,
+                'tag' => $tag,
             ]);
     }
 
@@ -269,7 +271,7 @@ class InformationController extends Controller
     }
 
 
-    /**  カート機能関係 **/
+    /**  カート機能関係・リレーション用 **/
     //カート追加
     public function _cart_add(Request $request)
     {
@@ -307,11 +309,24 @@ class InformationController extends Controller
     {
         $id = Auth::user()->id;
         $carts = Cart::where('user_id', $id)->get();
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
 
-        return view('auth.cart')
-            ->with([
-                'carts' => $carts,
+        if (!empty($carts)) {
+            //中身があればこっち
+            return view('auth.cart')
+                ->with([
+                    'infos' => $infos,
+                    'tags' => $tags,
+                    'carts' => $carts,
+                ]);
+        } else {
+            //中身がなければこっち
+            return view('auth.nocartlist')->with([
+                'infos' => $infos,
+                'tags' => $tags,
             ]);
+        }
     }
     //カート(メッセージ)更新
     public function _cart_update(Request $request, Cart $cart)
@@ -329,60 +344,99 @@ class InformationController extends Controller
             ]);
     }
 
-    // つくるやつ
-    // _collect_form_store
-    // _collect_check_store
-    // _collect_result_store
-    // _collect_home_store
+    /** カート機能・セッション用 **/
+    //カート画面の移動
+    public function _session_cart_store(Request $request)
+    {
+        //removeメソッドでの配列削除時の配列連番抜け対策
+        if ($request->session()->has('cartData')) {
+            $cartData = array_values($request->session()->get('cartData'));
+        }
 
+        if (!empty($cartData)) {
+            //中身があればこっち
+            $infos = CakeInfo::where('boolean', 1)->get();
+            $tags = Tag::all()->unique('tag');
+            return view('auth.cartlist')->with([
+                'session' => $request->session()->get('cartData'),
+                'cartData' => $cartData,
+                'infos' => $infos,
+                'tags' => $tags,
+            ]);
+        } else {
+            //中身がなければこっち
+            $infos = CakeInfo::where('boolean', 1)->get();
+            $tags = Tag::all()->unique('tag');
+            return view('auth.nocartlist')->with([
+                'infos' => $infos,
+                'tags' => $tags,
+            ]);
+        }
+    }
+    //カートの不足している情報記入画面へ移動
+    public function _session_cart_reservation(Request $request)
+    {
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
+        $cakeinfos = CakeInfo::where('id', $request->cake_info_id)->get();
+        $cakeinfosubs = Cakeinfosub::where('id', $request->cake_info_sub_id)->get();
 
+        return view('auth.cartinfoadd')->with([
+            'infos' => $infos,
+            'tags' => $tags,
+            'cakeinfos' => $cakeinfos,
+            'cakeinfosubs' => $cakeinfosubs,
+        ]);
+    }
+    //カートに情報を保存する
+    public function _session_cart_add(Request $request)
+    {
+        //inputタグのname属性を指定し$requestからPOST送信された内容を取得する。
+        $cartData = [
+            'cake_info_id' => $request->cake_info_id,  //
+            'cake_info_sub_id' => $request->cake_info_sub_id,
+            'mainphoto' => $request->mainphoto,  //
+            'birthday' => $request->birthday, //
+            'time' => $request->time, //
+            'cakename' => $request->cakename,  //
+            'capacity' => $request->capacity, //
+            'price' => $request->price, //
+            'message' => $request->message, //
+        ];
 
+        $request->session()->push('cartData', $cartData);
 
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
+        return view('auth.cartresult')->with([
+            'infos' => $infos,
+            'tags' => $tags,
+        ]);
+    }
+    //カートの情報削除
+    public function _session_cart_destroy(Request $request, $key)
+    {
+        //これで削除
+        $request->session()->forget('cartData.' . $key);
 
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
 
+        //session情報があればこっち
+        if ($request->session()->has('cartData')) {
+            //削除後の情報を取得
+            $cartData = $request->session()->get('cartData');
+            return view('auth.cartlist')->with([
+                'session' => $request->session()->get('cartData'),
+                'cartData' => $cartData,
+                'infos' => $infos,
+                'tags' => $tags,
+            ]);
+        }
 
-
-
-    // public function _favorite_count()
-    // {
-    //     //お気に入り数取得
-    //     $cakeinfos = CakeInfo::all();
-    //     //名前とお気に入り数の仮想配列を作る
-    //     $favorites = [];
-    //     foreach ($cakeinfos as $cakeinfo) {
-    //         $id = $cakeinfo->id;
-    //         $favorite = Favorite::where('cake_id', $id)->count();
-    //         $favorites[$cakeinfo->cakename] = $favorite;
-    //     }
-    // }
-
-    // //価格ソート機能
-    // public function _sort_price()
-    // {
-    //     $cakes = CakeInfo::all();
-
-    //     //商品ごとの最小の値を取得して、配列を作る
-    //     $infos=[]; //最終的に作る配列
-
-    //     foreach($cakes as $cake){
-    //         if ($cake->boolean===1) {
-    //             # code...
-    //         }
-    //         $id=$cake->id;
-    //         $price = CakeInfoSub::where('cake_infos_id',$id)->get()->sortByDesc('price');
-    //         $name=$cake->cakename;
-    //         //名前が同じなので上書きされ、最小の値が残る
-    //         $info=[]; //配列の中に入れる配列
-    //         $info['price']=$price;
-    //         $info['id']=$id;
-    //         $info['mainphoto']=$cake->mainphoto;
-    //         $info['cakename']=$name;
-    //         array_push($infos,$info);
-    //     }
-    //     価格がひとつしか伝わっていない
-    //     //取得した値をソートして渡す。
-    //     return view('index')
-    //         ->with(['infos' => $infos]);
-
-    // }
+        return view('auth.nocartlist')->with([
+            'infos' => $infos,
+            'tags' => $tags,
+        ]);
+    }
 }

@@ -37,8 +37,16 @@
                                 <input type="hidden" name="cakeinfos_id" value="{{ $cakeinfos->id }}">
                                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                 <input type="hidden" name="cake_info_subs_id" value="{{ $info->id }}">
-                                <button>カートに追加する</button>
+                                <button>カートに追加する(リレーション用)</button>
                             </form>
+                            <form method="POST" action="{{ route('user.session.cart.reservation') }}">
+                                @csrf
+                                <input type="hidden" name="cake_info_id" value="{{ $cakeinfos->id }}">
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="cake_info_sub_id" value="{{ $info->id }}">
+                                <button>カートに追加する(セッション用)</button>
+                            </form>
+
 
                         </div>
                     @empty

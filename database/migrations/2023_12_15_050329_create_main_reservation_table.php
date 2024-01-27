@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('users_id');
             $table->date('birthday');
-            $table->time('time'); //誤字訂正する
+            $table->time('time'); 
             $table
                 ->foreign('users_id')
                 ->references('id')
