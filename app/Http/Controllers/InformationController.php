@@ -149,7 +149,7 @@ class InformationController extends Controller
         $id = Auth::user()->id;
         $carts = Cart::where('user_id', $id)->get();
 
-        return view('auth.form')
+        return view('auth.relation.form')
             ->with([
                 'carts' => $carts,
             ]);
@@ -171,7 +171,7 @@ class InformationController extends Controller
         $id = Auth::user()->id;
         $carts = Cart::where('user_id', $id)->get();
 
-        return view('auth.formcheck')
+        return view('auth.relation.formcheck')
             ->with([
                 'info' => $request,
                 'carts' => $carts,
@@ -210,7 +210,7 @@ class InformationController extends Controller
 
         $mainID = $id;
         $subID = $posts->id;
-        return view('auth.result')
+        return view('auth.relation.result')
             ->with([
                 'mainID' => $mainID,
                 'subID' => $subID,
@@ -298,9 +298,13 @@ class InformationController extends Controller
 
         $id = Auth::user()->id;
         $carts = Cart::where('user_id', $id)->get();
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
 
-        return view('auth.cart')
+        return view('auth.relation.cart')
             ->with([
+                'infos' => $infos,
+                'tags' => $tags,
                 'carts' => $carts,
             ]);
     }
@@ -312,9 +316,9 @@ class InformationController extends Controller
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
 
-        if (!empty($carts)) {
+        if (!$carts) {
             //中身があればこっち
-            return view('auth.cart')
+            return view('auth.relation.cart')
                 ->with([
                     'infos' => $infos,
                     'tags' => $tags,
@@ -338,7 +342,7 @@ class InformationController extends Controller
         $id = Auth::user()->id;
         $carts = Cart::where('user_id', $id)->get();
 
-        return view('auth.cart')
+        return view('auth.relation.cart')
             ->with([
                 'carts' => $carts,
             ]);
@@ -357,8 +361,7 @@ class InformationController extends Controller
             //中身があればこっち
             $infos = CakeInfo::where('boolean', 1)->get();
             $tags = Tag::all()->unique('tag');
-            return view('auth.cartlist')->with([
-                'session' => $request->session()->get('cartData'),
+            return view('auth.session.cartlist')->with([
                 'cartData' => $cartData,
                 'infos' => $infos,
                 'tags' => $tags,
@@ -381,7 +384,7 @@ class InformationController extends Controller
         $cakeinfos = CakeInfo::where('id', $request->cake_info_id)->get();
         $cakeinfosubs = Cakeinfosub::where('id', $request->cake_info_sub_id)->get();
 
-        return view('auth.cartinfoadd')->with([
+        return view('auth.session.cartinfoadd')->with([
             'infos' => $infos,
             'tags' => $tags,
             'cakeinfos' => $cakeinfos,
@@ -408,7 +411,7 @@ class InformationController extends Controller
 
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
-        return view('auth.cartresult')->with([
+        return view('auth.relation.cartresult')->with([
             'infos' => $infos,
             'tags' => $tags,
         ]);
@@ -426,8 +429,7 @@ class InformationController extends Controller
         if ($request->session()->has('cartData')) {
             //削除後の情報を取得
             $cartData = $request->session()->get('cartData');
-            return view('auth.cartlist')->with([
-                'session' => $request->session()->get('cartData'),
+            return view('auth.session.cartlist')->with([
                 'cartData' => $cartData,
                 'infos' => $infos,
                 'tags' => $tags,
@@ -435,6 +437,52 @@ class InformationController extends Controller
         }
 
         return view('auth.nocartlist')->with([
+            'infos' => $infos,
+            'tags' => $tags,
+        ]);
+    }
+    //予約情報確認画面
+    public function _session_collect_form_store(Request $request)
+    {
+        //removeメソッドでの配列削除時の配列連番抜け対策
+        $cartData = array_values($request->session()->get('cartData'));
+
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
+        return view('auth.session.form')->with([
+            'cartData' => $cartData,
+            'infos' => $infos,
+            'tags' => $tags,
+        ]);
+    }
+    //予約情報保存＋カートの情報削除＋完了画面へ移動
+    public function _session_collect_result_store(Request $request)
+    {
+        $cartData = $request->session()->get('cartData');
+        $userID = Auth::user()->id;
+
+        foreach ($cartData as $data) {
+            $posts = new Main_reservation();
+            $posts->birthday = $data['birthday'];
+            $posts->time = $data['time'];
+            $posts->users_id = $userID;
+            $posts->save();
+            $id = $posts->id;
+
+            $posts = new Sub_reservation();
+            $posts->main_reservation_id = $id;
+            $posts->cakename = $data['cakename'];
+            $posts->capacity = $data['capacity'];
+            $posts->price = $data['price'];
+            $posts->message = $data['message'];
+            $posts->save();
+        }
+
+        $cartData = $request->session()->forget('cartData');
+
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
+        return view('auth.session.result')->with([
             'infos' => $infos,
             'tags' => $tags,
         ]);

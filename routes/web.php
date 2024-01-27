@@ -144,6 +144,15 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
         Route::delete('/cart/{cart}/destroy', '_cart_destroy')->name('cart.destroy')->where('cart', '[0-9]+');
         //カート(メッセージ)更新
         Route::patch('/cart/{cart}/update', '_cart_update')->name('cart.update')->where('cart', '[0-9]+');
+        //まとめて予約移動
+        Route::get('/form','_collect_form_store')->name('form.store');
+        //まとめて予約確認画面へ移動
+        Route::post('/form/check','_collect_check_store')->name('check.store');
+        //まとめて予約処理＋カートの中身削除処理+完了画面へ移動
+        Route::post('/form/result','_collect_result_store')->name('result.store');
+        //ホームに返す
+        Route::get('/form/return','_collect_home_store')->name('home.store');
+
         /** カート機能関係・セッション使用 **/
         // カート移動
         Route::post('/session/cart', '_session_cart_store')->name('session.cart.store');
@@ -153,17 +162,14 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
         Route::post('/session/cart/add', '_session_cart_add')->name('session.cart.add');
         //カート削除
         Route::delete('/session/cart/{key}/destroy', '_session_cart_destroy')->name('session.cart.destroy')->where('cart', '[0-9]+');
-        //カート(メッセージ)更新
-        Route::patch('/session/cart/{cart}/update', '_session_cart_update')->name('session.cart.update')->where('cart', '[0-9]+');
-
-        //まとめて予約移動
-        Route::get('/form','_collect_form_store')->name('form.store');
         //まとめて予約確認画面へ移動
-        Route::post('/form/check','_collect_check_store')->name('check.store');
+        Route::get('/session/form','_session_collect_form_store')->name('session.form.store');
         //まとめて予約処理＋カートの中身削除処理+完了画面へ移動
-        Route::post('/form/result','_collect_result_store')->name('result.store');
+        Route::post('/session/form/result','_session_collect_result_store')->name('session.result.store');
         //ホームに返す
-        Route::get('/form/return','_collect_home_store')->name('home.store');
+        Route::get('/session/form/return','_session_collect_home_store')->name('session.home.store');
+
+
 
     });
 });

@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{{ url('css/form.css') }}">
     <link rel="stylesheet" href="{{ url('css/aside.css') }}">
 @endsection
-{{-- <?php dd($session); ?> --}}
 
 @section('aside')
     @include('include.front-aside')
@@ -14,7 +13,7 @@
 
 @section('main')
     <section>
-        <h2 class="textbackground bigfont">カート一覧</h2>
+        <h2 class="textbackground bigfont">予約内容の確認</h2>
         <section>
             <div class="flex-column">
                 @foreach ($cartData as $key => $data)
@@ -41,19 +40,14 @@
                             <p class="cakenamefont">
                                 メッセージ：{{ $data['message'] }}
                             </p>
-                            <form method="POST" action="{{ route('user.session.cart.destroy', $key) }}" class="delete">
-                                @method('DELETE')
-                                @csrf
-                                <button>予約情報を削除する</button>
-                            </form>
                         </div>
                     </div>
                 @endforeach
             </div>
+            <form action="{{ route('user.session.result.store') }}" method="post">
+                @csrf
+                <button>予約内容を確定する</button>
+            </form>
         </section>
-        <form method="GET" action="{{ route('user.form.store') }}">
-            @csrf
-            <button>まとめて予約する</button>
-        </form>
     </section>
 @endsection

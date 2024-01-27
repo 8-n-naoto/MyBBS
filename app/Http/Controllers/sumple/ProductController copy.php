@@ -35,7 +35,7 @@ class ProductController extends Controller
 
         $request->session()->push('cartData', $cartData);
 
-        return route('auth.cartresult');
+        return route('auth.relation.cartresult');
     }
 
     /*
@@ -52,7 +52,7 @@ class ProductController extends Controller
 
         if (!empty($cartData)) {
             //中身があればこっち
-            return view('auth.cartlist')->with([
+            return view('auth.relation.cartlist')->with([
                 'cartData' => $cartData,
             ]);
         } else {
@@ -109,39 +109,39 @@ class ProductController extends Controller
     // | カート内商品注文確定(DB登録)
     // |--------------------------------------------------------------------------
     // */
-    // public function store(Request $request)
-    // {
-    //     //$request->session()->forget('cartData');
-    //     $cartData = $request->session()->get('cartData');
+    public function store(Request $request)
+    {
+        //$request->session()->forget('cartData');
+        $cartData = $request->session()->get('cartData');
 
-    //     //オブジェクト生成
-    //     $order = new \App\Models\Sub_reservation();
-    //     //指定値をオブジェクト代入
-    //     $order->user_id = Auth::user()->id;
-    //     $order->order_number = rand();
-    //     //認証済みのユーザーのみオブジェクトへ保存
-    //     Auth::user()->main_reservation()->sub_reservations()->save($order);
+        //オブジェクト生成
+        $order = new \App\Models\Sub_reservation();
+        //指定値をオブジェクト代入
+        $order->user_id = Auth::user()->id;
+        $order->order_number = rand();
+        //認証済みのユーザーのみオブジェクトへ保存
+        Auth::user()->main_reservation()->sub_reservations()->save($order);
 
-    //     //Qrderテーブルの カラム「order_number」が「$order->order_number」の値を取得
-    //     $savedOrder = Order::where('order_number', $order->order_number)->get();
-    //     //上記Collectionから id の値だけを取得した配列に変換
-    //     $savedOrderId = $savedOrder->pluck('id')->toArray();
+        //Qrderテーブルの カラム「order_number」が「$order->order_number」の値を取得
+        $savedOrder = Order::where('order_number', $order->order_number)->get();
+        //上記Collectionから id の値だけを取得した配列に変換
+        $savedOrderId = $savedOrder->pluck('id')->toArray();
 
-    //     //注文詳細情報保存を注文数分繰り返す １回のリクエストを複数カラムに分けDB登録
-    //     foreach ($cartData as $data) {
-    //         //注文詳細情報に関わるオブジェクト生成
-    //         $orderDetail = new \App\OrderDetail;
-    //         $orderDetail->product_id = $data['session_products_id'];
-    //         $orderDetail->order_id = $savedOrderId[0];
-    //         $orderDetail->shipment_status_id = 1;
-    //         $orderDetail->order_quantity = $data['session_quantity'];
-    //         $orderDetail->save();
-    //     }
+        //注文詳細情報保存を注文数分繰り返す １回のリクエストを複数カラムに分けDB登録
+        foreach ($cartData as $data) {
+            //注文詳細情報に関わるオブジェクト生成
+            $orderDetail = new \App\OrderDetail;
+            $orderDetail->product_id = $data['session_products_id'];
+            $orderDetail->order_id = $savedOrderId[0];
+            $orderDetail->shipment_status_id = 1;
+            $orderDetail->order_quantity = $data['session_quantity'];
+            $orderDetail->save();
+        }
 
-    //     //session削除
-    //     $request->session()->forget('cartData');
-    //     return view('products/purchase_completed', compact('order'));
-    // }
+        //session削除
+        $request->session()->forget('cartData');
+        return view('products/purchase_completed', compact('order'));
+    }
 
     // /*
     // |--------------------------------------------------------------------------
