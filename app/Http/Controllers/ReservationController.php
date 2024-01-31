@@ -105,8 +105,9 @@ class ReservationController extends Controller
     public function _count_store(CakeInfo $cakeinfo)
     {
         $infos = CakeInfo::all();
+        $today = Carbon::today();
         $cakename = $cakeinfo->cakename;
-        $reservations = Sub_reservation::where('cakename', $cakename)->get();
+        $reservations = Sub_reservation::where('cakename', $cakename)->get();  //条件追加する
         $count = $reservations->count();
 
         return view('management.count')

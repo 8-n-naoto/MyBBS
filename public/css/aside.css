@@ -2,21 +2,25 @@
 .conteiner{
     display: flex;
     justify-content: space-between;
-    margin-right: 24px;
 }
 
 aside{
-    background: rgb(255, 196, 112);
+    background: rgba(255, 195, 112, 0.684);
     padding: 0.5rem;
     display: flex;
     flex-direction: column;
     justify-content: left;
-    width: 200px;
+    width: 220px;
     flex: none;
+    border-radius: 8px;
 }
 .sidemenu{
     padding: 0.5rem 0;
     margin-bottom: 0.5rem;
     background: rgba(255, 255, 255, 0.496);
     border-radius: 0.5rem;
+}
+
+.sidemenu .asidemenu-font{
+    padding-left: 1rem;
 }

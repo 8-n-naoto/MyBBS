@@ -21,6 +21,5 @@
             <p class="middlefont">{{ $day }}</p>
             @include('include.reservations')
         </div>
-</div>
     </section>
 @endsection

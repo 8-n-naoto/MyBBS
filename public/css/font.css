@@ -52,6 +52,22 @@
     color: red;
 }
 
+/** aside・見出し用フォント **/
+.aside-font{
+    font-size: 20px;
+    font-weight: 600;
+    padding: 2px 0;
+    white-space: nowrap;
+}
+/** aside・中身用フォント **/
+.asidemenu-font{
+    font-size: 16px;
+    font-weight: 600;
+    padding: 2px 0;
+    white-space: nowrap;
+    color: rgb(57, 57, 57);
+}
+
 /* form小見出し */
 .form-font{
     font-size: 16px;
@@ -93,4 +109,49 @@
     margin: 12px 0;
     padding: 8px;
 }
+
+/* tag用フォント */
+.tag {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 0 auto;
+    padding: 0.5rem 1rem  0.5rem 3rem;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px rgb(0 0 0 / 30%), 0 2px 3px -2px rgb(0 0 0 / 20%);
+    background-color: #fe9595;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1em;
+    transition: transform .3s ease-in-out, box-shadow .3s ease-in-out;
+}
+
+.tag:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 15px 30px -5px rgb(0 0 0 / 20%), 0 0 5px rgb(0 0 0 / 10%);
+}
+
+.tag::before {
+    position: absolute;
+    top: 0;
+    left: 9px;
+    width: 30px;
+    height: 85%;
+    background-color: #fff;
+    clip-path: polygon(0 0, 0 100%, 50% 75%, 100% 100%, 100% 0);
+    content: '';
+}
+
+.tag::after {
+    position: absolute;
+    top: 33%;
+    left: 24px;
+    transform: translate(-50%, -50%);
+    color: #fe9595;
+    font-size: 1.2em;
+    content: '★';
+}
+
 

@@ -1,11 +1,17 @@
 /* 全画面共通部分 */
 main {
     background: repeat url(../img/decoratephotos/backgroundimg.jpg);
-    padding: 20px 120px;
+    padding: 20px 60px;
     display: flex;
     flex-direction: column;
     flex: 1;
     min-height: 100vh;
+    width: 100%;
+}
+
+.front-main{
+    padding-left: 32px;
+    padding-top: 24px;
 }
 /* ヘッダー */
 header {

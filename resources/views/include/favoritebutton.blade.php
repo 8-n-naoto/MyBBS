@@ -6,6 +6,6 @@
         @endisset
         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
         <input type="hidden" name="cake_id" value="{{ $info->id }}">
-        <button>お気に入り登録</button>
+        <button class="favorite">♥</button>
     </form>
 @endif

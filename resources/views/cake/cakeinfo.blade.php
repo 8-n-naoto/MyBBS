@@ -37,14 +37,14 @@
                                 <input type="hidden" name="cakeinfos_id" value="{{ $cakeinfos->id }}">
                                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                 <input type="hidden" name="cake_info_subs_id" value="{{ $info->id }}">
-                                <button>カートに追加する(リレーション用)</button>
+                                <button class="cart">カートに追加する(リレーション用)</button>
                             </form>
                             <form method="POST" action="{{ route('user.session.cart.reservation') }}">
                                 @csrf
                                 <input type="hidden" name="cake_info_id" value="{{ $cakeinfos->id }}">
                                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                 <input type="hidden" name="cake_info_sub_id" value="{{ $info->id }}">
-                                <button>カートに追加する(セッション用)</button>
+                                <button class="cart">カートに追加する(セッション用)</button>
                             </form>
 
 
@@ -56,12 +56,12 @@
                         <p class="form-font">お気に入り数</p>
                         <p class="form-font">{{ $count }}件</p>
                         @include('include.favoritebutton')
-                    </div>
                     @isset($cakeinfos->cake_info_subs)
                         <a href="{{ route('front.form', $cakeinfos) }}">
-                            <p class="button">購入へ</p>
+                            <p class="cart">購入へ</p>
                         </a>
                     @endisset
+                    </div>
                     <div>
                         @if ($cakeinfos->topic)
                         <div class="flex-row">
@@ -73,7 +73,7 @@
                         <div class="flex-row">
                             @forelse ($caketags as $tag)
                                 <a href="{{ route('front.tag', $tag) }}">
-                                    <p class="form-font">{{ $tag->tag }}</p>
+                                    <p class="tag">{{ $tag->tag }}</p>
                                 </a>
                             @empty
                             @endforelse

@@ -1,3 +1,6 @@
+button{
+    all: unset;
+}
 /* ログイン/form画面 */
 .form {
     display: flex;
@@ -90,3 +93,47 @@ input[type="date"] {
     background-color: #f2f2f2;
     font-weight: 600;
 }
+
+/* お気に入りボタン */
+.favorite {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: none;
+    border-radius: 50%;
+    color: #ffffff;
+    background-color: #ff1818;
+    font-size: 1rem;
+    vertical-align: bottom;
+}
+
+.favorite:hover {
+    border: 1px solid  #ff1818;
+    color: #ff1818;
+    background-color: #fff;
+}
+
+/* カートボタン */
+.cart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:0 auto;
+    padding: .1em 0.5em;
+    border: none;
+    border-bottom: solid 5px  #f5a368;
+    border-radius: 25px;
+    background-color:  #f5a368;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1em;
+    transition: .5s ease;
+}
+
+.cart:hover {
+    transform: translateY(3px);
+    border-bottom-width: 2px;
+}
+
