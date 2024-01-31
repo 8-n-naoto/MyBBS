@@ -11,7 +11,7 @@ class Tag extends Model
 
     protected $fillable = [
         'tag',
-        'cake_info_id',
+        'cake_infos_id',
     ];
 
     public function cake_Info()

@@ -63,11 +63,21 @@
                         </a>
                     @endisset
                     <div>
+                        @if ($cakeinfos->topic)
                         <div class="flex-row">
-                            <h3 class="form-font">商品説明</h3>
+                            <h3 class="form-font">商品説明：</h3>
                             <h3 class="form-font">{{ $cakeinfos->topic }}</h3>
                         </div>
+                        @endif
                         <p class="smallfont">{{ $cakeinfos->explain }}</p>
+                        <div class="flex-row">
+                            @forelse ($caketags as $tag)
+                                <a href="{{ route('front.tag', $tag) }}">
+                                    <p class="form-font">{{ $tag->tag }}</p>
+                                </a>
+                            @empty
+                            @endforelse
+                        </div>
                     </div>
                 </div>
             </div>

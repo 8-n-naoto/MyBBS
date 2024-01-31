@@ -84,7 +84,7 @@ class CakeController extends Controller
         //バリデート
         $request->validate([
             'cakename' => 'required|unique:cake_infos',
-            'topic' => 'required',
+            // 'topic' => 'required',
             'explain' => 'required',
             'cakecode' => 'required|unique:cake_infos',
             'cakename' => 'required',
@@ -95,7 +95,7 @@ class CakeController extends Controller
             'users_id.required' => 'ログインしてください',
             'cakename.required' => 'ケーキの名前を入力してください',
             'cakename.unique' => '同じ商品名がすでに使われています',
-            'topic.required' => 'ひとこと説明を入力してください',
+            // 'topic.required' => 'ひとこと説明を入力してください',
             'explain.required' => '説明を入力してください',
             'cakecode.required' => '商品コードを入力してください',
             'cakecode.unique' => 'この商品コードはすでに使われています',
@@ -140,12 +140,12 @@ class CakeController extends Controller
         $request->validate([
             'cakename' => 'required',
             'mainphoto' => 'required',
-            'topic' => 'required',
+            // 'topic' => 'required',
             'explain' => 'required',
             'cakecode' => 'required',
         ], [
             'cakename.required' => '商品名を入力してください',
-            'topic.required' => 'ひとこと説明を入力してください',
+            // 'topic.required' => 'ひとこと説明を入力してください',
             'explain.required' => '説明を入力してください',
             'cakecode.required' => '商品コードを入力してください',
             'mainphoto.required' => 'ケーキの写真を追加してください',
@@ -311,8 +311,11 @@ class CakeController extends Controller
 
 
     //商品情報削除用ページ
-    public function _cake_destroy(CakeInfo $cakeinfo)
+    public function _cake_destroy(CakeInfo $cakeinfo, Request $request)
     {
+        //トークン再生成
+        $request->session()->regenerateToken();
+
         //削除
         $cakeinfo->delete();
         //残りの値を渡して表示する。
@@ -326,6 +329,8 @@ class CakeController extends Controller
     //商品情報削除用ページ(price)
     public function _price_destroy(Request $request, CakeInfoSub $cakeinfosub)
     {
+        //トークン再生成
+        $request->session()->regenerateToken();
 
         $cakeinfosub->delete();
 
@@ -353,6 +358,8 @@ class CakeController extends Controller
     //商品情報削除用ページ(photo)
     public function _photo_destroy(Request $request, CakePhoto $cakephoto)
     {
+        //トークン再生成
+        $request->session()->regenerateToken();
 
         $cakephoto->delete();
 
@@ -377,30 +384,32 @@ class CakeController extends Controller
             ]);
     }
 
-        //商品情報削除用ページ(tag)
-        public function _tag_destroy(Request $request, Tag $tag)
-        {
+    //商品情報削除用ページ(tag)
+    public function _tag_destroy(Request $request, Tag $tag)
+    {
+        //トークン再生成
+        $request->session()->regenerateToken();
 
-            $tag->delete();
+        $tag->delete();
 
-            //残りの値を渡して表示する。
-            $cakeinfo = $request->info;
-            $infos = CakeInfo::all();
-            $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo)->get();
-            $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo)->get();
-            $cakeinfos = CakeInfo::find($cakeinfo);
-            $tags = Tag::where('cake_infos_id', $cakeinfo)->get();
+        //残りの値を渡して表示する。
+        $cakeinfo = $request->info;
+        $infos = CakeInfo::all();
+        $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo)->get();
+        $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo)->get();
+        $cakeinfos = CakeInfo::find($cakeinfo);
+        $tags = Tag::where('cake_infos_id', $cakeinfo)->get();
 
-            return view('management.edit')
-                ->with([
-                    'cakeinfos' => $infos,
-                    'cakeinfo' => $cakeinfo,
-                    'info' => $cakeinfos,
-                    'prices' => $prices,
-                    'cakecodes' => $infos,
-                    'cakenames' => $infos,
-                    'subphotos' => $cakephotos,
-                    'tags' => $tags,
-                ]);
-        }
+        return view('management.edit')
+            ->with([
+                'cakeinfos' => $infos,
+                'cakeinfo' => $cakeinfo,
+                'info' => $cakeinfos,
+                'prices' => $prices,
+                'cakecodes' => $infos,
+                'cakenames' => $infos,
+                'subphotos' => $cakephotos,
+                'tags' => $tags,
+            ]);
+    }
 }

@@ -14,54 +14,40 @@
 <body>
     <header>
         <a href="{{ route('index') }}" class="">
-            <h1 class="sitefont">サイト名</h1><a>
-                <ul class=”menus”>
-                    @if (Auth::user())
-                        <li>ログインされています</li>
-                        <li>
-                            <form method="POST" action="{{route('user.favorite.store')}}">
-                                @csrf
-                                <input type="hidden" name="id" value="{{Auth::user()->id}}">
-                                <button>お気に入り一覧</button>
-                            </form>
-                        </li>
-                        <li>
-                            <form method="POST" action="{{route('user.cart.store')}}">
-                                @csrf
-                                <button>カート(リレーション用)</button>
-                            </form>
-                        </li>
-                        <li>
-                            <form method="POST" action="{{route('user.session.cart.store')}}">
-                                @csrf
-                                <button>カート(セッション用)</button>
-                            </form>
-                        </li>
-                        {{-- <li>
-                            <form method="POST" action="{{route()}}">
-                                @csrf
-                                <button>タグ検索</button>
-                            </form>
-                        </li> --}}
-                        <li class="">
-                            <a href="{{ route('admin.login') }}">管理者としてログイン</a>
-                        </li>
-                        <li class="">
-                            <a href="{{ route('management') }}">管理画面へ</a>
-                        </li>
-                        <li>
-                            <form method="POST" action="/logout">
-                                @csrf
-                                <button>ログアウト</button>
-                            </form>
-                        </li>
-                    @else
-                        <li class="">
-                            <a href="{{ route('register') }}"> ログイン登録</a>
-                        </li>
-                        <li class="">
-                            <a href="{{ route('login') }}"> ログイン</a>
-                        </li>
-                    @endif
-                </ul>
+            <h1 class="sitefont">サイト名</h1>
+        </a>
+        <ul class=”menus” >
+            @if (Auth::user())
+                <li>ログインされています</li>
+                <li>
+                    <a href="{{ route('user.cart.store') }}">
+                        <p class="form-font">カート(リレーション用)</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('user.session.cart.store') }}">
+                        <p class="form-font">カート(セッション用)</p>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="{{ route('admin.login') }}">管理者としてログイン</a>
+                </li>
+                <li class="">
+                    <a href="{{ route('management') }}">管理画面へ</a>
+                </li>
+                <li>
+                    <form method="POST" action="/logout">
+                        @csrf
+                        <button>ログアウト</button>
+                    </form>
+                </li>
+            @else
+                <li class="">
+                    <a href="{{ route('register') }}"> ログイン登録</a>
+                </li>
+                <li class="">
+                    <a href="{{ route('login') }}"> ログイン</a>
+                </li>
+            @endif
+        </ul>
     </header>

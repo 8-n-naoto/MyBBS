@@ -14,9 +14,12 @@
             @endforelse
         </div>
         <div class="sidemenu">
-            <a href="">
-                <h2 class="form-font">タグ一覧</h2>
+            <a href="{{ route('user.favorite.store') }}">
+                <p class="form-font">お気に入り一覧</p>
             </a>
+        </div>
+        <div class="sidemenu">
+                <h2 class="form-font">タグ一覧</h2>
             @forelse ($tags as $tag)
                 <a href="{{ route('front.tag', $tag) }}">
                     <p class="form-font">{{ $tag->tag }}</p>
@@ -24,6 +27,11 @@
             @empty
                 <p class="form-font">ただいま準備中！</p>
             @endforelse
+        </div>
+        <div class="sidemenu">
+            <a href="{{ route('user.reservations.store') }}">
+                <p class="form-font">予約情報確認</p>
+            </a>
         </div>
         <div class="sidemenu">
             <a href="">

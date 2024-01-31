@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cake_info_sub;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\Favorite;
 use App\Models\Cart;
 use App\Models\Tag;
@@ -65,6 +66,7 @@ class InformationController extends Controller
     {
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
+        $caketags = Tag::where('cake_infos_id', $cakeinfo->id)->get();
         $subphotos = $cakeinfo;
 
         //お気に入り数表示
@@ -77,6 +79,7 @@ class InformationController extends Controller
                 'subphotos' => $subphotos,
                 'count' => $count,
                 'tags' => $tags,
+                'caketags' => $caketags,
             ]);
     }
 
@@ -94,6 +97,9 @@ class InformationController extends Controller
     // 予約情報確認画面
     public function _check_store(Request $request)
     {
+        //トークン再生成
+        $request->session()->regenerateToken();
+
         $request->validate([
             'users_id' => 'required',
             'birthday' => 'required',
@@ -118,7 +124,9 @@ class InformationController extends Controller
     //予約情報保存画面
     public function _result_store(Request $request)
     {
+        //トークン再生成
         $request->session()->regenerateToken();
+
         $posts = new Main_reservation();
         $posts->birthday = $request->birthday;
         $posts->time = $request->time;
@@ -157,6 +165,8 @@ class InformationController extends Controller
     //予約詳細確認画面
     public function _collect_check_store(Request $request, CakeInfo $cakeinfo,)
     {
+        //トークン再生成
+        $request->session()->regenerateToken();
 
         $request->validate([
             'users_id' => 'required',
@@ -223,6 +233,15 @@ class InformationController extends Controller
     {
         //お気に入り登録
         $request->session()->regenerateToken();
+
+        // $request->validate([
+        //     'user_id' => 'required',
+        //     'cake_id' => 'required',
+        // ], [
+        //     'user_id.required' => 'ログインしてください',
+        //     'cake_id.required' => 'ログインしてください',
+        // ]);
+
         $posts = new Favorite();
         $posts->user_id = $request->user_id;
         $posts->cake_id = $request->cake_id;
@@ -238,8 +257,11 @@ class InformationController extends Controller
             ]);
     }
     //お気に入り削除
-    public function _favorite_destroy(Favorite $favorite)
+    public function _favorite_destroy(Favorite $favorite, Request $request)
     {
+        //トークン再生成
+        $request->session()->regenerateToken();
+
         $favorite->delete();
 
         $id = Auth::user()->id;
@@ -255,9 +277,9 @@ class InformationController extends Controller
             ]);
     }
     //お気に入り移動
-    public function _favorite_store(Request $request)
+    public function _favorite_store()
     {
-        $id = $request->id;
+        $id = Auth::user()->id;
         $infos = Favorite::where('user_id', $id)
             ->whereHas('cake_info', function ($query) {
                 $query->where('boolean', 1);
@@ -275,7 +297,9 @@ class InformationController extends Controller
     //カート追加
     public function _cart_add(Request $request)
     {
+        //トークン再生成
         $request->session()->regenerateToken();
+
         $posts = new Cart();
         $posts->user_id = $request->user_id;
         $posts->cake_info_subs_id = $request->cake_info_subs_id;
@@ -292,8 +316,11 @@ class InformationController extends Controller
             ]);
     }
     //カート削除
-    public function _cart_destroy(Cart $cart)
+    public function _cart_destroy(Cart $cart, Request $request)
     {
+        //トークン再生成
+        $request->session()->regenerateToken();
+
         $cart->delete();
 
         $id = Auth::user()->id;
@@ -309,7 +336,7 @@ class InformationController extends Controller
             ]);
     }
     //カート移動
-    public function _cart_store(Request $request)
+    public function _cart_store()
     {
         $id = Auth::user()->id;
         $carts = Cart::where('user_id', $id)->get();
@@ -335,6 +362,9 @@ class InformationController extends Controller
     //カート(メッセージ)更新
     public function _cart_update(Request $request, Cart $cart)
     {
+        //トークン再生成
+        $request->session()->regenerateToken();
+
         //更新処理
         $cart->message = $request->message;
         $cart->save();
@@ -394,6 +424,9 @@ class InformationController extends Controller
     //カートに情報を保存する
     public function _session_cart_add(Request $request)
     {
+        //トークン再生成
+        $request->session()->regenerateToken();
+
         //inputタグのname属性を指定し$requestからPOST送信された内容を取得する。
         $cartData = [
             'cake_info_id' => $request->cake_info_id,  //
@@ -419,6 +452,9 @@ class InformationController extends Controller
     //カートの情報削除
     public function _session_cart_destroy(Request $request, $key)
     {
+        //トークン再生成
+        $request->session()->regenerateToken();
+
         //これで削除
         $request->session()->forget('cartData.' . $key);
 
@@ -458,6 +494,9 @@ class InformationController extends Controller
     //予約情報保存＋カートの情報削除＋完了画面へ移動
     public function _session_collect_result_store(Request $request)
     {
+        //トークン再生成
+        $request->session()->regenerateToken();
+
         $cartData = $request->session()->get('cartData');
         $userID = Auth::user()->id;
 
@@ -485,6 +524,22 @@ class InformationController extends Controller
         return view('auth.session.result')->with([
             'infos' => $infos,
             'tags' => $tags,
+        ]);
+    }
+
+    //予約情報確認画面
+    public function _reservations_store()
+    {
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
+        $id = Auth::user()->id;
+        $today = Carbon::today();
+        $reservations = Main_reservation::where('users_id', $id)->where('birthday', '>=', $today)->get();
+
+        return view('auth.reservations')->with([
+            'infos' => $infos,
+            'tags' => $tags,
+            'reservations' => $reservations,
         ]);
     }
 }

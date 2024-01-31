@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('cakename');
             $table->string('mainphoto');
-            $table->string('topic');
+            $table->string('topic')->nullable();
             $table->text('explain');
             $table->string('cakecode');
             $table->boolean('boolean')->default(0);

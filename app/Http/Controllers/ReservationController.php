@@ -68,7 +68,6 @@ class ReservationController extends Controller
                 'id' => null,
             ]);
     }
-
     //予約検索用
     public function _information_get(Request $request)
     {
@@ -82,6 +81,25 @@ class ReservationController extends Controller
                 'id' => $request,
             ]);
     }
+    //予約情報削除
+    public function _information_destroy(Request $request,Sub_reservation $sub_reservation)
+    {
+        //トークン再生成
+        $request->session()->regenerateToken();
+
+        $sub_reservation->delete();
+
+        $info = CakeInfo::all();
+        $main = Main_reservation::where('id', $request->id)->get();
+
+        return view('management.reservationscheck')
+            ->with([
+                'cakeinfos' => $info,
+                'reservations' => $main,
+                'id' => $request,
+            ]);
+    }
+
 
     //商品別総数表示ページ種類別
     public function _count_store(CakeInfo $cakeinfo)

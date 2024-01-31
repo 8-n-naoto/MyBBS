@@ -71,17 +71,4 @@
 @endsection
 
 
-{{--
-    $cakeinfoの情報
-    id＝1
-    cakename=ケーキの名前
-    mainphoto＝写真
-    topic＝ひとこと
-    explain＝説明
-    cakekode＝商品コード
-    +
-    必要な情報
-    user_id->Auth::user()->idで取得
-    messageー＞入力してもらう
-    cake_quantityー＞入力してもらう
---}}
+

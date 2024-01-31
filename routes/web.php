@@ -128,16 +128,22 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
 Route::controller(InformationController::class)->middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
 
+        /** お気に入り機能 **/
         // お気に入り移動
-        Route::post('/favorite', '_favorite_store')->name('favorite.store');
+        Route::get('/favorite', '_favorite_store')->name('favorite.store');
         // お気に入り登録
         Route::post('/fovorite/add', '_favorite_add')->name('favorite.add');
         //お気に入り削除
         Route::delete('/favorite/{favorite}/destroy', '_favorite_destroy')->name('favorite.destroy')->where('favorite', '[0-9]+');
 
+        /** 予約情報の確認 **/
+        //予約確認画面移動
+        Route::get('/reservations', '_reservations_store')->name('reservations.store');
+
+
         /** カート機能関係・リレーション使用 **/
         // カート移動
-        Route::post('/cart', '_cart_store')->name('cart.store');
+        Route::get('/cart', '_cart_store')->name('cart.store');
         // カート登録
         Route::post('/cart/add', '_cart_add')->name('cart.add');
         //カート削除
@@ -155,7 +161,7 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
 
         /** カート機能関係・セッション使用 **/
         // カート移動
-        Route::post('/session/cart', '_session_cart_store')->name('session.cart.store');
+        Route::get('/session/cart', '_session_cart_store')->name('session.cart.store');
         //カート必要情報入力
         Route::post('/session/cart/reservation', '_session_cart_reservation')->name('session.cart.reservation');
         // カート登録
@@ -187,17 +193,19 @@ Route::controller(ReservationController::class)->middleware(['auth:admin'])->gro
 Route::controller(ReservationController::class)->middleware(['auth:admin'])->group(function () {
     Route::group(['prefix' => 'management', 'as' => 'reservations.'], function () {
         //日付別総量確認画面(home)
-        Route::get('date', '_date_store')->name('date.store');
+        Route::get('/date', '_date_store')->name('date.store');
         //日付別総量確認画面(指定)
-        Route::post('date', '_date_get')->name('date.get');
+        Route::post('/date', '_date_get')->name('date.get');
         //商品別総数表示ページ種類別(累計)
-        Route::get('{cakeinfo}/count', '_count_store')->name('count.store')->where('cakeinfo', '[0-9]+');
+        Route::get('/{cakeinfo}/count', '_count_store')->name('count.store')->where('cakeinfo', '[0-9]+');
         //商品別総数表示ページ種類別(指定)
-        Route::post('{cakeinfo}/count', '_count_get')->name('count.get')->where('cakeinfo', '[0-9]+');
+        Route::post('/{cakeinfo}/count', '_count_get')->name('count.get')->where('cakeinfo', '[0-9]+');
         //予約情報確認画面
-        Route::get('information', '_information_store')->name('information.store');
+        Route::get('/information', '_information_store')->name('information.store');
         //予約検索処理
-        Route::post('information', '_information_get')->name('information.get');
+        Route::post('/information', '_information_get')->name('information.get');
+        //予約削除処理
+        Route::delete('/information/{sub_reservation}', '_information_destroy')->name('information.destroy');
     });
 });
 
