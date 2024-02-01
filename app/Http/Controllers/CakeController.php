@@ -7,7 +7,6 @@ use App\Models\CakeInfo;
 use App\Models\Tag;
 use App\Models\CakeInfoSub;
 use App\Models\CakePhoto;
-use Illuminate\Support\Number;
 
 class CakeController extends Controller
 {

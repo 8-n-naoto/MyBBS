@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cake_info_sub;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Favorite;
@@ -12,9 +11,7 @@ use App\Models\CakeInfo;
 use App\Models\CakeInfoSub;
 use App\Models\Main_reservation;
 use App\Models\Sub_reservation;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Auth;
-use PhpParser\Node\Stmt\Foreach_;
 
 class InformationController extends Controller
 {
