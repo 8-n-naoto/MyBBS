@@ -16,7 +16,6 @@
         <!-- 画面上側 -->
         <section>
             {{-- メイン情報 --}}
-            <h2 class="bigfont textbackground">{{ $cakeinfos->cakename }}</h2>
             <div class="maininfo flex-row">
                 {{-- ケーキの写真 --}}
                 <div>
@@ -25,10 +24,25 @@
 
                 {{-- 説明など --}}
                 <div class="textbackground">
-                    <h3 class="form-font">サイズ一覧</h3>
+                    <h2 class="bigfont">{{ $cakeinfos->cakename }}</h2>
+                    @if ($cakeinfos->topic)
+                        <div class="flex-row">
+                            <h3 class="form-font">商品説明：</h3>
+                            <h3 class="form-font">{{ $cakeinfos->topic }}</h3>
+                        </div>
+                    @endif
+                    <p class="smallfont" style="white-space:pre-wrap;">{{ $cakeinfos->explain }}</p>
+                    <div class="flex-row">
+                        @forelse ($caketags as $tag)
+                            <a href="{{ route('front.tag', $tag) }}">
+                                <p class="tag">{{ $tag->tag }}</p>
+                            </a>
+                        @empty
+                        @endforelse
+                    </div>
+                    <p class="form-font">大きさ一覧</p>
                     @forelse ($cakeinfos->cake_info_subs as $info)
                         <div class="flex-row">
-                            <p class="form-font">サイズ：</p>
                             <p class="form-font">{{ $info->capacity }}</p>
                             <p class="form-font">￥{{ $info->price }}円</p>
                             {{-- カートに追加する --}}
@@ -56,28 +70,11 @@
                         <p class="form-font">お気に入り数</p>
                         <p class="form-font">{{ $count }}件</p>
                         @include('include.favoritebutton')
-                    @isset($cakeinfos->cake_info_subs)
-                        <a href="{{ route('front.form', $cakeinfos) }}">
-                            <p class="cart">購入へ</p>
-                        </a>
-                    @endisset
-                    </div>
-                    <div>
-                        @if ($cakeinfos->topic)
-                        <div class="flex-row">
-                            <h3 class="form-font">商品説明：</h3>
-                            <h3 class="form-font">{{ $cakeinfos->topic }}</h3>
-                        </div>
-                        @endif
-                        <p class="smallfont">{{ $cakeinfos->explain }}</p>
-                        <div class="flex-row">
-                            @forelse ($caketags as $tag)
-                                <a href="{{ route('front.tag', $tag) }}">
-                                    <p class="tag">{{ $tag->tag }}</p>
-                                </a>
-                            @empty
-                            @endforelse
-                        </div>
+                        @isset($cakeinfos->cake_info_subs)
+                            <a href="{{ route('front.form', $cakeinfos) }}">
+                                <p class="cart">購入へ</p>
+                            </a>
+                        @endisset
                     </div>
                 </div>
             </div>

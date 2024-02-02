@@ -11,6 +11,7 @@ use App\Models\CakeInfo;
 use App\Models\CakeInfoSub;
 use App\Models\Main_reservation;
 use App\Models\Sub_reservation;
+use  App\Models\Information;
 use Illuminate\Support\Facades\Auth;
 
 class InformationController extends Controller
@@ -21,11 +22,13 @@ class InformationController extends Controller
     {
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
+        $informations=Information::all();
 
         return view('index')
             ->with([
                 'infos' => $infos,
                 'tags' => $tags,
+                'informations'=>$informations,
             ]);
     }
 
@@ -539,4 +542,31 @@ class InformationController extends Controller
             'reservations' => $reservations,
         ]);
     }
+
+    //お知らせ個別ページ移動
+    public function _introduce_store(Information $Information)
+    {
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
+        // $atention=Information::all();
+        $information=Information::where('id',$Information->id)->get();
+
+        return view('cake.information')->with([
+            'infos' => $infos,
+            'tags' => $tags,
+            // 'atention'=>$atention,
+            'information'=>$information,
+        ]);
+    }
 }
+
+// public function ()
+// {
+//     $infos = CakeInfo::where('boolean', 1)->get();
+//     $tags = Tag::all()->unique('tag');
+
+//     return view('')->with([
+//         'infos' => $infos,
+//         'tags' => $tags,
+//     ]);
+// }

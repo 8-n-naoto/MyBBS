@@ -23,18 +23,7 @@
                 <a href="{{ route('login') }}"> ログイン</a>
             </li>
         @endif
-        <li>
-            <a href="https://www.instagram.com/" class="flex-row">
-                <img src="{{ asset('img\S__9035785_0.jpg') }}" alt="instagram" width="18px" height="18px">
-                <p>instagram</p>
-            </a>
-        </li>
-        <li>
-            <a href="https://www.twitter.com/" class="flex-row">
-                <img src="{{ asset('img\S__9035785_0.jpg') }}" alt="instagram" width="18px" height="18px">
-                <p>twitter</p>
-            </a>
-        </li>
+
     </ul>
     <small>©このひとがつくりました？</small>
 </footer>

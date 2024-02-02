@@ -52,20 +52,28 @@
     color: red;
 }
 
-/** aside・見出し用フォント **/
+/** aside・見出し用フォント/リンクなし **/
 .aside-font{
+    font-size: 20px;
+    font-weight: 600;
+    padding: 0.5rem;
+    white-space: nowrap;
+    background:  rgba(255, 172, 55, 0.684);
+    border-radius: 8px ;
+}
+
+/** aside・中身用フォント **/
+.asidemenu-font{
     font-size: 20px;
     font-weight: 600;
     padding: 2px 0;
     white-space: nowrap;
-}
-/** aside・中身用フォント **/
-.asidemenu-font{
-    font-size: 16px;
-    font-weight: 600;
-    padding: 2px 0;
-    white-space: nowrap;
     color: rgb(57, 57, 57);
+}
+/** リンク用 **/
+.link:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 15px 30px -5px rgb(0 0 0 / 20%), 0 0 5px rgb(0 0 0 / 10%);
 }
 
 /* form小見出し */
@@ -99,6 +107,9 @@
     width: 100%;
     margin: 12px 0;
     padding: 16px 40px;
+}
+.map-font{
+    font-size: 20px;
 }
 
 /* 不透明背景 */
@@ -152,6 +163,18 @@
     color: #fe9595;
     font-size: 1.2em;
     content: '★';
+}
+
+/* お店紹介用 */
+.about-me-main-font{
+    color: white;
+    font-size: 24px;
+    text-align: center;
+}
+.about-me-font{
+    color: white;
+    font-size: 16px;
+    text-align: center;
 }
 
 

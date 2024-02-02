@@ -146,8 +146,8 @@
                                 <div class="flex-row">
                                     <p class="form-font">内容量：</p>
                                     <div>
-                                        <input type="text" name="price" size="10" class="cakeform">
-                                        @error('price')
+                                        <input type="text" name="capacity" size="10" class="cakeform">
+                                        @error('capacity')
                                             <div class="error">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -155,8 +155,8 @@
                                 <div class="flex-row">
                                     <p class="form-font">価格　：</p>
                                     <div>
-                                        <input type="text" name="capacity" size="10" class="cakeform">
-                                        @error('capacity')
+                                        <input type="text" name="price" size="10" class="cakeform">
+                                        @error('price')
                                             <div class="error">{{ $message }}</div>
                                         @enderror
                                     </div>

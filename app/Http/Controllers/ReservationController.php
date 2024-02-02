@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use  App\Models\CakeInfo;
+use  App\Models\Information;
 use  App\Models\Main_reservation;
 use  App\Models\Sub_reservation;
 use Carbon\Carbon;
@@ -82,7 +83,7 @@ class ReservationController extends Controller
             ]);
     }
     //予約情報削除
-    public function _information_destroy(Request $request,Sub_reservation $sub_reservation)
+    public function _information_destroy(Request $request, Sub_reservation $sub_reservation)
     {
         //トークン再生成
         $request->session()->regenerateToken();
@@ -151,8 +152,131 @@ class ReservationController extends Controller
                 'count' => $count,
             ]);
     }
+
+    //お知らせ一覧
+    public function _information_edits_store()
+    {
+        $info = CakeInfo::all();
+        $information = Information::all();
+
+        return view('management.informations')
+            ->with([
+                'cakeinfos' => $info,
+                'informations' => $information,
+            ]);
+    }
+
+    //お知らせ個別編集画面
+    public function _information_edit_store(Information $information)
+    {
+        $info = CakeInfo::all();
+
+        return view('management.information')
+            ->with([
+                'cakeinfos' => $info,
+                'information' => $information,
+            ]);
+    }
+    //お知らせ個別編集画面
+    public function _information_criate_store()
+    {
+        $info = CakeInfo::all();
+
+        return view('management.information-criate')
+            ->with([
+                'cakeinfos' => $info,
+            ]);
+    }
+
+    //お知らせ投稿処理
+    public function _information_criate_post(Information $information, Request $request)
+    {
+        //トークン再生成
+        $request->session()->regenerateToken();
+
+        $request->validate([
+            'topic' => 'required',
+            'information' => 'required',
+        ], [
+            'topic.required' => '題名を入力してください',
+            'information.required' => 'お知らせを記入してください',
+        ]);
+
+        $posts = new Information();
+        $posts->topic = $request->topic;
+        $posts->information = $request->information;
+        $posts->save();
+
+
+        $info = CakeInfo::all();
+        $information = Information::all();
+
+        return view('management.informations')
+            ->with([
+                'cakeinfos' => $info,
+                'informations' => $information,
+            ]);
+    }
+
+    //お知らせ削除処理
+    public function _information_edit_destroy(Information $information, Request $request)
+    {
+        //トークン再生成
+        $request->session()->regenerateToken();
+
+        $information->delete();
+
+        $info = CakeInfo::all();
+        $information = Information::all();
+
+        return view('management.informations')
+            ->with([
+                'cakeinfos' => $info,
+                'information' => $information,
+            ]);
+    }
+
+    //お知らせ更新処理
+    public function _information_edit_update(Information $information, Request $request)
+    {
+        //トークン再生成
+        $request->session()->regenerateToken();
+
+        $request->validate([
+            'topic' => 'required',
+            'information' => 'required',
+        ], [
+            'topic.required' => '題名を入力してください',
+            'information.required' => '題名を入力してください',
+        ]);
+
+        $information->topic = $request->topic;
+        $information->information = $request->information;
+        $information->save();
+
+        $info = CakeInfo::all();
+        $informations = Information::all();
+
+        return view('management.informations')
+            ->with([
+                'cakeinfos' => $info,
+                'informations'=>$informations,
+            ]);
+    }
 }
 
+// public function ()
+// {
+//     $info = CakeInfo::all();
+
+//     return view('management.manage')
+//         ->with([
+//             'cakeinfos' => $info,
+//         ]);a
+// }
+
+//トークン再生成
+// $request->session()->regenerateToken();
 /**
  *関数の説明
  *

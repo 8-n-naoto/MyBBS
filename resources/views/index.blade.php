@@ -18,15 +18,32 @@
 @endsection
 
 @section('main')
-    <section>
+    <div>
         <h1 class="bigfont textbackground">デコレーションケーキ</h1>
-
         @include('include.cakes')
-    </section>
+    </div>
 
+    <div class="about-me section">
+        <h2 class="about-me-main-font">お店の紹介</h2>
+        <p class="about-me-font">当店は○○○○○○○○で</p>
+        <p class="about-me-font">○○○○○○○○</p>
+        <p class="about-me-font">○○○○なお店です</p>
+    </div>
     {{-- instagramAPI --}}
-    <h3 class="middlefont textbackground">最新情報一覧</h3>
-    <ul class="insta_list"></ul>
-
+    <div class="section">
+        <h3 class="bigfont textbackground">最新情報一覧</h3>
+        <ul class="insta_list"></ul>
+    </div>
+    <div class="textbackground section">
+        <h3 class="bigfont">お知らせ</h3>
+        @forelse ($informations as $information)
+            <a href="{{ route('front.information.store', $inforexitmation) }}">
+                <p>投稿日：{{ $information->created_at }}</p>
+                <p>{{ $information->topic }}</p>
+            </a>
+        @empty
+            <p>お知らせはまだありません</p>
+        @endforelse
+    </div>
     @include('include.google-map')
 @endsection

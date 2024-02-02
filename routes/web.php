@@ -103,12 +103,7 @@ Route::post('/admin/logout', [Logoutcontroller::class, 'destroy'])
 Route::get('/', [InformationController::class, 'index'])
     ->name('index');
 
-
-// // ホーム(priceでソート)
-// Route::get('/sortprice', [InformationController::class, '_sort_price'])
-//     ->name('index.price');
-
-/** ケーキ予約受付関係 **/
+/** ケーキ予約受付関係やお知らせ **/
 Route::controller(InformationController::class)->middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'front','as' => 'front.'], function () {
         //個別ページ
@@ -121,6 +116,9 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
         Route::post('/form/formcheck', '_check_store')->name('check');
         //フォームOK画面
         Route::post('/form/formcheckok', '_result_store')->name('result');
+
+        //お知らせ個別ページ
+        Route::get('/{information}/post', '_introduce_store')->name('information.store')->where('information','[0-9]+');
     });
 });
 
@@ -174,9 +172,6 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
         Route::post('/session/form/result','_session_collect_result_store')->name('session.result.store');
         //ホームに返す
         Route::get('/session/form/return','_session_collect_home_store')->name('session.home.store');
-
-
-
     });
 });
 
@@ -186,6 +181,19 @@ Route::controller(ReservationController::class)->middleware(['auth:admin'])->gro
     Route::group(['prefix' => 'management'], function () {
         //管理画面トップ
         Route::get('/', 'management')->name('management');   //_store
+
+        //お知らせ一覧
+        Route::get('/edits', '_information_edits_store')->name('information.edits.store');
+        //お知らせ個別編集画面
+        Route::get('/{information}/edit','_information_edit_store')->name('information.edit.store')->where('information', '[0-9]+');
+        //お知らせ個別編集画面
+        Route::get('/criate/post','_information_criate_store')->name('information.criate.store');
+        //お知らせ投稿処理
+        Route::post('/information/post','_information_criate_post')->name('information.criate.post');
+        //お知らせ削除処理
+        Route::delete('/{information}/edit/destroy','_information_edit_destroy')->name('information.edit.destroy')->where('information', '[0-9]+');
+        //お知らせ更新処理
+        Route::patch('/{information}/edit/update','_information_edit_update')->name('information.edit.update')->where('information', '[0-9]+');
     });
 });
 
