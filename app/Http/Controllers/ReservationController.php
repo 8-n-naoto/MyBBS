@@ -91,7 +91,8 @@ class ReservationController extends Controller
         $sub_reservation->delete();
 
         $info = CakeInfo::all();
-        $main = Main_reservation::where('id', $request->id)->get();
+        $today = Carbon::today();
+        $main = Main_reservation::where('id', $request->id)->where('birthday','>=',$today)->get();
 
         return view('management.reservationscheck')
             ->with([

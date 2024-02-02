@@ -22,13 +22,13 @@ class InformationController extends Controller
     {
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
-        $informations=Information::all();
+        $informations = Information::all();
 
         return view('index')
             ->with([
                 'infos' => $infos,
                 'tags' => $tags,
-                'informations'=>$informations,
+                'informations' => $informations,
             ]);
     }
 
@@ -544,18 +544,16 @@ class InformationController extends Controller
     }
 
     //お知らせ個別ページ移動
-    public function _introduce_store(Information $Information)
+    public function _information_store(Information $Information)
     {
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
-        // $atention=Information::all();
-        $information=Information::where('id',$Information->id)->get();
+        $information = Information::where('id', $Information->id)->get();
 
         return view('cake.information')->with([
             'infos' => $infos,
             'tags' => $tags,
-            // 'atention'=>$atention,
-            'information'=>$information,
+            'informations' => $information,
         ]);
     }
 }

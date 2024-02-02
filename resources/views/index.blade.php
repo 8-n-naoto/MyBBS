@@ -37,7 +37,7 @@
     <div class="textbackground section">
         <h3 class="bigfont">お知らせ</h3>
         @forelse ($informations as $information)
-            <a href="{{ route('front.information.store', $inforexitmation) }}">
+            <a href="{{ route('front.information.store', $information) }}">
                 <p>投稿日：{{ $information->created_at }}</p>
                 <p>{{ $information->topic }}</p>
             </a>

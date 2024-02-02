@@ -1,5 +1,4 @@
 @extends('components.frontlayout')
-
 @section('css')
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
     <link rel="stylesheet" href="{{ url('css/form.css') }}">
@@ -10,11 +9,12 @@
 @section('aside')
     @include('include.front-aside')
 @endsection
-
 @section('main')
     <section class="">
         <h3>おしらせ</h3>
-        <p>{{$information->topic}}</p>
-        <p>{{$information->information}}</p>
+        @foreach ($informations as $information)
+        <p>{{ $information->topic }}</p>
+        <p>{{ $information->information }}</p>
+        @endforeach
     </section>
 @endsection

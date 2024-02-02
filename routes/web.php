@@ -118,7 +118,7 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
         Route::post('/form/formcheckok', '_result_store')->name('result');
 
         //お知らせ個別ページ
-        Route::get('/{information}/post', '_introduce_store')->name('information.store')->where('information','[0-9]+');
+        Route::get('/{information}/post', '_information_store')->name('information.store')->where('information','[0-9]+');
     });
 });
 
