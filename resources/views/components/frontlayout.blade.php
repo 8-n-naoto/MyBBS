@@ -5,5 +5,6 @@
         @yield('main')
         @yield('map')
     </section>
+    @yield('js')
 </main>
 @include('include.footer')

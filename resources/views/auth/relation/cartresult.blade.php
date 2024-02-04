@@ -12,5 +12,7 @@
 @endsection
 
 @section('main')
-<p>カートに情報が保存されました</p>
+<p class="textbackground ">カートに情報が保存されました</p>
 @endsection
+
+

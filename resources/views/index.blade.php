@@ -34,16 +34,7 @@
         <h3 class="bigfont textbackground">最新情報一覧</h3>
         <ul class="insta_list"></ul>
     </div>
-    <div class="textbackground section">
-        <h3 class="bigfont">お知らせ</h3>
-        @forelse ($informations as $information)
-            <a href="{{ route('front.information.store', $information) }}">
-                <p>投稿日：{{ $information->created_at }}</p>
-                <p>{{ $information->topic }}</p>
-            </a>
-        @empty
-            <p>お知らせはまだありません</p>
-        @endforelse
-    </div>
-    @include('include.google-map')
+
+        @include('include.google-map')
+
 @endsection

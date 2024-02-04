@@ -1,5 +1,4 @@
 @extends('components.frontlayout')
-
 @section('css')
     <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
@@ -51,7 +50,12 @@
         </section>
         <form method="GET" action="{{ route('user.form.store') }}">
             @csrf
-            <button>まとめて予約する</button>
+            <button class="form-font">まとめて予約する</button>
         </form>
     </section>
+@endsection
+
+
+@section('js')
+    <script src="{{ url('js/button.js') }}"></script>
 @endsection

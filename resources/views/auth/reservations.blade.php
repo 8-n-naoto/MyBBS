@@ -1,3 +1,4 @@
+
 @extends('components.frontlayout')
 
 @section('css')
@@ -16,4 +17,9 @@
         <h3 class="textbackground form-font">ご予約情報の確認</h3>
         @include('include.reservations')
     </section>
+@endsection
+
+
+@section('js')
+<script src="{{ url('js/button.js') }}"></script>
 @endsection

@@ -10,10 +10,10 @@
     @include('include.front-aside')
 @endsection
 @section('main')
-    <section class="">
-        <h3>おしらせ</h3>
+    <section class="textbackground">
+        <h3 class="middlefont">おしらせ</h3>
         @foreach ($informations as $information)
-        <p>{{ $information->topic }}</p>
+        <p class="form-font">{{ $information->topic }}</p>
         <p>{{ $information->information }}</p>
         @endforeach
     </section>

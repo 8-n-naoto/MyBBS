@@ -1,8 +1,10 @@
 @extends('components.frontlayout')
 
 @section('css')
-<link rel="stylesheet" href="{{ url('css/font.css') }}">
-<link rel="stylesheet" href="{{ url('css/form.css') }}">
+    <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
+    <link rel="stylesheet" href="{{ url('css/font.css') }}">
+    <link rel="stylesheet" href="{{ url('css/form.css') }}">
+    <link rel="stylesheet" href="{{ url('css/aside.css') }}">
 @endsection
 
 @section('aside')

@@ -256,7 +256,7 @@ class ReservationController extends Controller
         $information->save();
 
         $info = CakeInfo::all();
-        $informations = Information::all();
+        $informations = Information::orderByDEsc('updated_at')->get();
 
         return view('management.informations')
             ->with([

@@ -22,7 +22,7 @@ class InformationController extends Controller
     {
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
-        $informations = Information::all();
+        $informations = Information::orderByDEsc('updated_at')->get();
 
         return view('index')
             ->with([
@@ -38,6 +38,7 @@ class InformationController extends Controller
         $infos = CakeInfo::all();
         $cakeinfo = Tag::where('tag', $tag->tag)->get();
         $tags = Tag::all()->unique('tag');
+        $informations = Information::orderByDEsc('updated_at')->get();
 
         return view('cake.tag')
             ->with([
@@ -45,6 +46,7 @@ class InformationController extends Controller
                 'cakeinfo' => $cakeinfo,
                 'tags' => $tags,
                 'tag' => $tag,
+                'informations' => $informations,
             ]);
     }
 
@@ -67,7 +69,7 @@ class InformationController extends Controller
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
         $caketags = Tag::where('cake_infos_id', $cakeinfo->id)->get();
-        $subphotos = $cakeinfo;
+        $informations = Information::orderByDEsc('updated_at')->get();
 
         //お気に入り数表示
         $count = Favorite::where('cake_id', $cakeinfo->id)->count();
@@ -76,10 +78,11 @@ class InformationController extends Controller
             ->with([
                 'infos' => $infos,
                 'cakeinfos' => $cakeinfo,
-                'subphotos' => $subphotos,
+                'subphotos' => $cakeinfo,
                 'count' => $count,
                 'tags' => $tags,
                 'caketags' => $caketags,
+                'informations' => $informations,
             ]);
     }
 
@@ -327,13 +330,24 @@ class InformationController extends Controller
         $carts = Cart::where('user_id', $id)->get();
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
+        $count = Cart::where('user_id', $id)->count();
 
-        return view('auth.relation.cart')
+
+        if ($count) {
+            //中身があればこっち
+            return view('auth.relation.cart')
             ->with([
                 'infos' => $infos,
                 'tags' => $tags,
                 'carts' => $carts,
             ]);
+        } else {
+            //中身がなければこっち
+            return view('auth.nocartlist')->with([
+                'infos' => $infos,
+                'tags' => $tags,
+            ]);
+        }
     }
     //カート移動
     public function _cart_store()
@@ -342,8 +356,9 @@ class InformationController extends Controller
         $carts = Cart::where('user_id', $id)->get();
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
+        $count = Cart::where('user_id', $id)->count();
 
-        if (!$carts) {
+        if ($count) {
             //中身があればこっち
             return view('auth.relation.cart')
                 ->with([
@@ -354,6 +369,7 @@ class InformationController extends Controller
         } else {
             //中身がなければこっち
             return view('auth.nocartlist')->with([
+                'data' => $count,
                 'infos' => $infos,
                 'tags' => $tags,
             ]);

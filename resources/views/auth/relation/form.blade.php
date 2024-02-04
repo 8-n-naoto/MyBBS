@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
     <link rel="stylesheet" href="{{ url('css/form.css') }}">
+    <link rel="stylesheet" href="{{ url('css/main.css') }}">
 @endsection
 
 @section('main')
@@ -61,7 +62,7 @@
                 <p>予約商品がありません</p>
             @endforelse
             <div>
-                <button class="button">確認画面へ！</button>
+                <button class="">確認画面へ！</button>
             </div>
         </form>
     </section>

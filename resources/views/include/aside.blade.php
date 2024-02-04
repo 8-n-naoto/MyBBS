@@ -13,7 +13,7 @@
             <p class="aside-font">商品別予約一覧</p>
             <ul name="ケーキの種類">
                 @forelse ($cakeinfos as $info)
-                    <li class="asidemanu-font link">
+                    <li>
                         <a href="{{ route('reservations.count.store', $info) }}">
                             <p class="asidemenu-font link">{{ $info->cakename }}</p>
                         </a>
@@ -74,6 +74,7 @@
     </aside>
         </div>
         @yield('main')
+        @yield('js')
     </main>
 </div>
 {{-- 文字が折り返し表示されないにしたい --}}

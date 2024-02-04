@@ -178,7 +178,7 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
 
 /** 管理画面系 **/
 Route::controller(ReservationController::class)->middleware(['auth:admin'])->group(function () {
-    Route::group(['prefix' => 'management'], function () {
+    Route::group(['prefix' => 'management/informations'], function () {
         //管理画面トップ
         Route::get('/', 'management')->name('management');   //_store
 
@@ -189,7 +189,7 @@ Route::controller(ReservationController::class)->middleware(['auth:admin'])->gro
         //お知らせ個別編集画面
         Route::get('/criate/post','_information_criate_store')->name('information.criate.store');
         //お知らせ投稿処理
-        Route::post('/information/post','_information_criate_post')->name('information.criate.post');
+        Route::post('/post','_information_criate_post')->name('information.criate.post');
         //お知らせ削除処理
         Route::delete('/{information}/edit/destroy','_information_edit_destroy')->name('information.edit.destroy')->where('information', '[0-9]+');
         //お知らせ更新処理
@@ -199,7 +199,7 @@ Route::controller(ReservationController::class)->middleware(['auth:admin'])->gro
 
 /** 予約情報処理関係 **/
 Route::controller(ReservationController::class)->middleware(['auth:admin'])->group(function () {
-    Route::group(['prefix' => 'management', 'as' => 'reservations.'], function () {
+    Route::group(['prefix' => 'management/reservations', 'as' => 'reservations.'], function () {
         //日付別総量確認画面(home)
         Route::get('/date', '_date_store')->name('date.store');
         //日付別総量確認画面(指定)
@@ -213,44 +213,44 @@ Route::controller(ReservationController::class)->middleware(['auth:admin'])->gro
         //予約検索処理
         Route::post('/information', '_information_get')->name('information.get');
         //予約削除処理
-        Route::delete('/information/{sub_reservation}', '_information_destroy')->name('information.destroy');
+        Route::delete('/{sub_reservation}information', '_information_destroy')->name('information.destroy');
     });
 });
 
 /** ケーキの情報処理関係 **/
 Route::controller(CakeController::class)->middleware(['auth:admin'])->group(function () {
-    Route::group(['prefix' => 'management', 'as' => 'cakes.'], function () {
+    Route::group(['prefix' => 'management/cake', 'as' => 'cakes.'], function () {
         //ON/OFF画面
-        Route::get('edit', '_suitch')->name('switch');
+        Route::get('/edit', '_suitch')->name('switch');
         //商品表示ON/OFF切り替え機能
-        Route::patch('{cakeinfo}/edit', '_boolean')->name('boolean')->where('cakeinfo', '[0-9]+');
+        Route::patch('/{cakeinfo}/edit', '_boolean')->name('boolean')->where('cakeinfo', '[0-9]+');
         //商品追加ページ
-        Route::get('create', '_criate_store')->name('criate.store');
+        Route::get('/create', '_criate_store')->name('criate.store');
         //個別詳細変更画面
-        Route::get('{cakeinfo}/edit', '_update_store')->name('upudate.store')->where('cakeinfo', '[0-9]+');
+        Route::get('/{cakeinfo}/edit', '_update_store')->name('upudate.store')->where('cakeinfo', '[0-9]+');
 
         /** 追加処理一覧 **/
         //商品新規追加処理処理
-        Route::post('store', '_cake_criate')->name('cake.criate');
+        Route::post('/store', '_cake_criate')->name('cake.criate');
         //商品更新処理（price）
-        Route::post('edit/update/{cakeinfo}/addprice', '_price_criate')->name('price.criate');
+        Route::post('/edit/update/{cakeinfo}/addprice', '_price_criate')->name('price.criate');
         //商品更新画面(subphoto)
-        Route::post('edit/update/{cakeinfo}/addphoto', '_photo_criate')->name('photo.criate');
+        Route::post('/edit/update/{cakeinfo}/addphoto', '_photo_criate')->name('photo.criate');
         //商品更新画面(tag)
-        Route::post('edit/update/{cakeinfo}/addtag', '_tag_criate')->name('tag.criate');
+        Route::post('/edit/update/{cakeinfo}/addtag', '_tag_criate')->name('tag.criate');
 
         /** 更新処理一覧 **/
         //商品情報更新処理(main)
-        Route::patch('edit/{cakeinfo}/update', '_cake_update')->name('cake.update')->where('cakeinfo', '[0-9]+');
+        Route::patch('/edit/{cakeinfo}/update', '_cake_update')->name('cake.update')->where('cakeinfo', '[0-9]+');
 
         /** 削除処理一覧 **/
         //商品情報削除ページ（main）
-        Route::delete('edit/{cakeinfo}/destroy', '_cake_destroy')->name('cake.destroy')->where('cakeinfo', '[0-9]+');
+        Route::delete('/edit/{cakeinfo}/destroy', '_cake_destroy')->name('cake.destroy')->where('cakeinfo', '[0-9]+');
         //商品情報削除ページ（price）
-        Route::delete('edit/{cakeinfosub}/destroyprice', '_price_destroy')->name('price.destroy')->where('cakeinfosub', '[0-9]+');
+        Route::delete('/edit/{cakeinfosub}/destroyprice', '_price_destroy')->name('price.destroy')->where('cakeinfosub', '[0-9]+');
         //商品情報削除ページ（photo）
-        Route::delete('edit/{cakephoto}/destroyphoto', '_photo_destroy')->name('photo.destroy')->where('cakephoto', '[0-9]+');
+        Route::delete('/edit/{cakephoto}/destroyphoto', '_photo_destroy')->name('photo.destroy')->where('cakephoto', '[0-9]+');
         //商品情報削除ページ（tag）
-        Route::delete('edit/{tag}/destroytag', '_tag_destroy')->name('tag.destroy')->where('tag', '[0-9]+');
+        Route::delete('/edit/{tag}/destroytag', '_tag_destroy')->name('tag.destroy')->where('tag', '[0-9]+');
     });
 });

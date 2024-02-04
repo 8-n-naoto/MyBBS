@@ -212,7 +212,7 @@
                             @csrf
                             <div class="flex-row">
                                 <p class="form-font">{{ $tag->tag }}</p>
-                                <input type="hidden" name="info" value="{{$info->id}}">
+                                <input type="hidden" name="info" value="{{ $info->id }}">
                                 <button>削除</button>
                             </div>
                         </form>
@@ -268,5 +268,8 @@
 
         </section>
     </section>
+@endsection
+
+@section('js')
     <script src="{{ url('js/button.js') }}"></script>
 @endsection

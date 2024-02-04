@@ -109,5 +109,9 @@
             </form>
         </section>
     </section>
+@endsection
+
+@section('js')
     <script src="{{ url('js/button.js') }}"></script>
 @endsection
+

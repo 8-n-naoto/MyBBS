@@ -13,15 +13,15 @@
         <form method="post" action="{{ route('user.result.store') }}" id="form_send" class="sendform">
             @csrf
             <div>
-                <p>お名前:{{ $info->users_name }}</p>
+                <p class="form-font">お名前:{{ $info->users_name }}</p>
                 <input type="hidden" name="users_id" id="date" value="{{ $info->users_id }}">
             </div>
             <div>
-                <p>受け取り日時:{{ $info->birthday }}</p>
+                <p class="form-font">受け取り日時:{{ $info->birthday }}</p>
                 <input type="hidden" name="birthday" id="date" value="{{ $info->birthday }}">
             </div>
             <div>
-                <p>受け取り時間:{{ $info->time }}</p>
+                <p class="form-font">受け取り時間:{{ $info->time }}</p>
                 <input type="hidden" name="time" id="time" value="{{ $info->time }}">
             </div>
             {{-- 予約一覧まとめて表示 --}}
@@ -63,5 +63,9 @@
             </div>
         </form>
     </section>
+@endsection
+
+@section('js')
     <script src="{{ url('js/button.js') }}"></script>
 @endsection
+

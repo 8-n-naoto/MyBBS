@@ -24,9 +24,6 @@ class AdminLoginController extends Controller
     // ログイン実行
     public function login(LoginRequest $request): RedirectResponse
     {
-        // $request->authenticate();
-        // $request->session()->regenerate();
-        // return redirect('/management');
         $day = Carbon::today()->format('m月d日のご予約');
         $info = CakeInfo::all();
         $infosub = Sub_reservation::all();
@@ -58,6 +55,4 @@ class AdminLoginController extends Controller
 
         return redirect('/');
     }
-
-
 }
