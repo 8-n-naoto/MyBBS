@@ -100,7 +100,7 @@
                                         @forelse ($cakenames as $cakename)
                                             <div class="flex-row">
                                                 <p class="form-font"> 商品名：</p>
-                                                <p class="value-font">{{ $cakecode->cakename }}</p>
+                                                <p class="value-font">{{ $cakename->cakename }}</p>
                                             </div>
                                         @empty
                                             <p class="value-font">まだ商品がありません</p>

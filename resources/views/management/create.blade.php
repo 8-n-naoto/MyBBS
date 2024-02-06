@@ -20,7 +20,7 @@
                     <div class="error">{{ $message }}</div>
                 @enderror
                 <div class="flex-row">
-                    <p class="form-font">ケーキの名前：</p>
+                    <p class="form-font">商品名：</p>
                     <div>
                         <input type="text" name="cakename" size="20" class="cakeform" value="{{old('cakename')}}">
                         @error('cakename')
