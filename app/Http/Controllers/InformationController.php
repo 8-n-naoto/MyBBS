@@ -387,10 +387,14 @@ class InformationController extends Controller
 
         $id = Auth::user()->id;
         $carts = Cart::where('user_id', $id)->get();
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
 
         return view('auth.relation.cart')
             ->with([
                 'carts' => $carts,
+                'infos' => $infos,
+                'tags' => $tags,
             ]);
     }
 
