@@ -1,6 +1,6 @@
 /* 全画面共通部分 */
 main {
-    background: repeat url(../img/decoratephotos/backgroundimg.jpg);
+    background: repeat url(../img/decoratephotos/cback1902.gif);
     padding: 20px 60px;
     display: flex;
     flex-direction: column;
@@ -16,11 +16,31 @@ main {
 /* ヘッダー */
 header {
     justify-content: space-between;
-    background: center /cover url(../img/decoratephotos/topimg1.webp);
-    padding: 24px 120px;
+    background: center /cover url(../img/decoratephotos/1.JPG);
+    padding: 140px 120px;
     display: flex;
     align-items: center;
+    overflow: hidden;
+    background-blend-mode: color ;
+    position: relative;
+    z-index: 0;
 }
+header:before{
+    content: '';
+    background: inherit;/*.bgImageで設定した背景画像を継承する*/
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+    position: absolute;
+    /*ブラー効果で画像の端がボヤけた分だけ位置を調整*/
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    z-index: -1;/*重なり順序を一番下にしておく*/
+  }
 .menus {
     padding: 2px;
     margin: 0 12px;

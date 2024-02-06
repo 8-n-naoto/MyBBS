@@ -16,7 +16,7 @@
         <div>
             <div class="flex-row">
                 <div>
-                    <p class="map-font">住所：〒098-6758 北海道稚内市宗谷岬３</p>
+                    <p class="map-font">住所：〒000-00000 ××xxxxx洲xxxxxx市xxxxx</p>
                     <p class="map-font">最寄り駅：○○駅徒歩〇分～</p>
                     <p class="map-font">TEL：000-0000-0000</p>
                     <p class="map-font">e-mail：xxxxxxxx@xxxxx.xx.xx.xx</p>

@@ -25,7 +25,7 @@
         @endif
 
     </ul>
-    <small>©このひとがつくりました？</small>
+    <small>©このひとがつくりました</small>
 </footer>
 
 </body>
