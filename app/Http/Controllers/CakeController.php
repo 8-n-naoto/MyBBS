@@ -275,6 +275,16 @@ class CakeController extends Controller
         //トークン再生成
         $request->session()->regenerateToken();
 
+        $already=Tag::query()
+        ->where('tag',$request->input('tag'))
+        ->where('cake_infos_id',$request->input('cake_infos_id'))
+        ->exists();
+
+        if($already){
+            return back()->withErrors([
+                'tag'=>'既に登録されております。'
+            ]);
+        }
         //バリデート
         $request->validate([
             'cake_infos_id' => 'required',
@@ -283,6 +293,8 @@ class CakeController extends Controller
             'cake_infos_id.required' => '情報が不足しています',
             'tag.required' => 'タグ名を入力してください',
         ]);
+
+
 
         $post = new Tag();
         $post->cake_infos_id = $cakeinfo->id;

@@ -23,12 +23,14 @@ class InformationController extends Controller
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
         $informations = Information::orderByDEsc('updated_at')->get();
+        $sliders=Tag::where('tag','イチオシ！')->get();
 
         return view('index')
             ->with([
                 'infos' => $infos,
                 'tags' => $tags,
                 'informations' => $informations,
+                'sliders'=>$sliders,
             ]);
     }
 
@@ -237,13 +239,16 @@ class InformationController extends Controller
         //お気に入り登録
         $request->session()->regenerateToken();
 
-        // $request->validate([
-        //     'user_id' => 'required',
-        //     'cake_id' => 'required',
-        // ], [
-        //     'user_id.required' => 'ログインしてください',
-        //     'cake_id.required' => 'ログインしてください',
-        // ]);
+        $already=Favorite::query()
+        ->where('user_id',$request->input('user_id'))
+        ->where('cake_id',$request->input('cake_id'))
+        ->exists();
+
+        if($already){
+            return back()->withErrors([
+                'cake_id'=>'すでに登録されております。'
+            ]);
+        }
 
         $posts = new Favorite();
         $posts->user_id = $request->user_id;

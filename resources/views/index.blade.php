@@ -19,7 +19,9 @@
 @endsection
 
 @section('main')
-    <h2 class="bigfont textbackground">イチオシ商品</h2>
+    <div>
+        <h2 class="bigfont textbackground">イチオシ商品</h2>
+    </div>
     @include('include.slider')
     <div>
         <h1 class="bigfont textbackground">デコレーションケーキ</h1>

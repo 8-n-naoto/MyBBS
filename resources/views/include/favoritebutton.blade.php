@@ -7,5 +7,8 @@
         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
         <input type="hidden" name="cake_id" value="{{ $info->id }}">
         <button class="favorite">♥</button>
+        @error('cake_id')
+            <p>{{ $message }}</p>
+        @enderror
     </form>
 @endif
