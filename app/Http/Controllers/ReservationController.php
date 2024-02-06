@@ -73,12 +73,12 @@ class ReservationController extends Controller
     public function _information_get(Request $request)
     {
         $info = CakeInfo::all();
-        $main = Main_reservation::where('id', $request->MainReservationsID)->get();
+        $reservation = Sub_reservation::where('id', $request->subID)->get();
 
         return view('management.reservationscheck')
             ->with([
                 'cakeinfos' => $info,
-                'reservations' => $main,
+                'reservations' => $reservation,
                 'id' => $request,
             ]);
     }
