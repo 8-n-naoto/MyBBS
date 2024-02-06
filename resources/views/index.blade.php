@@ -11,6 +11,7 @@
 
 @section('js')
     <script src="{{ url('js/instagram.API.js') }}"></script>
+    <script src="{{ url('js/slider.js') }}"></script>
 @endsection
 
 @section('aside')
@@ -18,6 +19,7 @@
 @endsection
 
 @section('main')
+@include('include.slider')
     <div>
         <h1 class="bigfont textbackground">デコレーションケーキ</h1>
         @include('include.cakes')
@@ -35,6 +37,5 @@
         <ul class="insta_list"></ul>
     </div>
 
-        @include('include.google-map')
-
+    @include('include.google-map')
 @endsection

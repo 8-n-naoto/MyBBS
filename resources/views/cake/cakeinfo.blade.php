@@ -11,6 +11,10 @@
     @include('include.front-aside')
 @endsection
 
+@section('js')
+    <script src="{{ url('js/arrow-slider.js') }}"></script>
+@endsection
+
 @section('main')
     <section class="">
         <!-- 画面上側 -->
@@ -19,7 +23,19 @@
             <div class="maininfo flex-row">
                 {{-- ケーキの写真 --}}
                 <div>
-                    <img src="{{ asset($cakeinfos->mainphoto) }}" class="mainphoto">
+                    <div class="slider-container">
+                        <div class="arrow-slide">
+                            {{-- <img src="image1.jpg" alt="画像1"> --}}
+                            <img src="{{ asset($cakeinfos->mainphoto) }}" class="mainphoto slider-photo">
+                        </div>
+                        @foreach ($subphotos->cake_photos as $info)
+                            <div class="arrow-slide">
+                                <img src="{{ asset($info->subphotos) }}" alt="商品画像" class="mainphoto slider-photo">
+                            </div>
+                        @endforeach
+                        <button class="arrow prev" onclick="switchSlide(-1)">＜</button>
+                        <button class="arrow next" onclick="switchSlide(1)">＞</button>
+                    </div>
                 </div>
 
                 {{-- 説明など --}}
