@@ -1,9 +1,4 @@
 /* aside用 */
-.conteiner{
-    display: flex;
-    justify-content: space-between;
-}
-
 aside{
     box-sizing: border-box;
     background: rgba(255, 243, 225, 0.684);

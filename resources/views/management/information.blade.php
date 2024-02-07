@@ -13,7 +13,7 @@
 @section('main')
     <ul>
         <div>
-            <form method="POST" action="{{ route('information.edit.update', $information) }}" class="update textbackground">
+            <form method="POST" action="{{ route('information.edit.update', $information) }}" class="update textbackground flex-column">
                 @csrf
                 @method('PATCH')
                 <p class="form-font">題名</p>
@@ -22,7 +22,7 @@
                     <p class="error">{{ $message }}</p>
                 @enderror
                 <p class="form-font">お知らせ内容</p>
-                <textarea name="information" id="" cols="30" rows="10">{{ $information->information }}</textarea>
+                <textarea name="information" id="" cols="30" rows="10"class="cakeformbox">{{ $information->information }}</textarea>
                 @error('information')
                     <p class="error">{{ $message }}</p>
                 @enderror

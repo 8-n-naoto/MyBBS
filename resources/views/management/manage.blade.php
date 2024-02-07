@@ -8,7 +8,6 @@
 @endsection
 
 @section('main')
-    <section>
         <div>
             <a href="/management/manage">
                 <h2 class="bigfont textbackground">管理画面</h2>
@@ -22,5 +21,4 @@
             <p class="middlefont">{{ $day }}</p>
             @include('include.reservations')
         </div>
-    </section>
 @endsection

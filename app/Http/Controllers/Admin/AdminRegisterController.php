@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -22,7 +23,7 @@ class AdminRegisterController extends Controller
         */
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|email|unique:admins',  //???????????????????????????????????????????
+            'email' => 'required|email|unique:admins',
             'password' => 'required|confirmed|min:8',
         ]);
 
@@ -35,9 +36,10 @@ class AdminRegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        Auth::login($admin);
+        event(new Registered($admin));
+        Auth::guard('admin')->login($admin);
 
-        return redirect('/management');
+        return redirect('/management/informations');
     }
 
     /**
