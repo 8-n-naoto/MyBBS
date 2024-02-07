@@ -15,8 +15,11 @@
     <form method="POST" action="{{ route('user.session.cart.add') }}" class="flex-culomn textbackground">
         @csrf
         @foreach ($cakeinfos as $cakeinfo)
-            <input type="hidden" name="cake_info_id" value="{{ $cakeinfo->id }}">
             <input type="hidden" name="mainphoto" value="{{ $cakeinfo->mainphoto }}">
+        @endforeach
+        
+        @foreach ($cakeinfos as $cakeinfo)
+            <input type="hidden" name="cake_info_id" value="{{ $cakeinfo->id }}">
             <input type="hidden" name="cakename" value="{{ $cakeinfo->cakename }}">
             <a href="{{ route('front.cake', $cakeinfo->id) }}">
                 <img src="{{ asset($cakeinfo->mainphoto) }}" class="mainphoto">

@@ -287,8 +287,10 @@ class InformationController extends Controller
     //お気に入り移動
     public function _favorite_store()
     {
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
         $id = Auth::user()->id;
-        $infos = Favorite::where('user_id', $id)
+        $favorites = Favorite::where('user_id', $id)
             ->whereHas('cake_info', function ($query) {
                 $query->where('boolean', 1);
             })
@@ -296,6 +298,8 @@ class InformationController extends Controller
 
         return view('auth.favorite')
             ->with([
+                'favorites' => $favorites,
+                'tags' => $tags,
                 'infos' => $infos,
             ]);
     }

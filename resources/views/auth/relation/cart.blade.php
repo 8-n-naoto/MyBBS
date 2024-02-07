@@ -18,8 +18,7 @@
                 @forelse ($carts as $cart)
                     <div class="flex-row textbackground">
                         <a href="{{ route('front.cake', $cart->cake_info_sub->cake_info->id) }}">
-                            <img src="{{ asset($cart->cake_info_sub->cake_info->mainphoto) }}" class="menuphotos"
-                                alt="ケーキの写真">
+                            <img src="{{ asset($cart->cake_info_sub->cake_info->mainphoto) }}" class="cartphotos" alt="ケーキの写真">
                         </a>
                         <div>
                             <p class="cakenamefont">

@@ -5,6 +5,7 @@
 }
 
 aside{
+    box-sizing: border-box;
     background: rgba(255, 243, 225, 0.684);
     padding: 0.5rem;
     display: flex;

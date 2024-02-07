@@ -4,14 +4,19 @@
     <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
     <link rel="stylesheet" href="{{ url('css/form.css') }}">
+    <link rel="stylesheet" href="{{ url('css/aside.css') }}">
     <link rel="stylesheet" href="{{ url('css/instagram.css') }}">
+@endsection
+
+@section('aside')
+    @include('include.front-aside')
 @endsection
 
 @section('main')
     <section>
-        <h1 class="bigfont textbackground">カート</h1>
+        <h1 class="bigfont textbackground">お気に入り一覧</h1>
         <div class="cakephotos">
-            @forelse ($infos as $info)
+            @forelse ($favorites as $info)
                 <object>
                     <a href="{{ route('front.cake', $info->cake_id) }}">
                         <p class="cakenamefont">
