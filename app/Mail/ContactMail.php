@@ -13,12 +13,32 @@ class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $content;
+
     /**
      * Create a new message instance.
+     *
+     * @return void
      */
-    public function __construct()
+    public function __construct($cartData)
     {
-        //
+        $this->content = $cartData;
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        // return $this->from('******@example.com') // 送信元
+        return $this->view('emails.reservation') // テンプレート
+            ->from('nfam8naoto@gmail.com','test') // 送信元
+            ->subject('ご予約完了のお知らせ') // メールタイトル
+            ->with([
+                'content' => $this->content,
+            ]); // withオプションでセットしたデータをテンプレートへ
     }
 
     /**

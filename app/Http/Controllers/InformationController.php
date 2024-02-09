@@ -13,6 +13,8 @@ use App\Models\Main_reservation;
 use App\Models\Sub_reservation;
 use  App\Models\Information;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\ContactMail;
+use Illuminate\Support\Facades\Mail;
 
 class InformationController extends Controller
 {
@@ -23,14 +25,14 @@ class InformationController extends Controller
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
         $informations = Information::orderByDEsc('updated_at')->get();
-        $sliders=Tag::where('tag','イチオシ！')->get();
+        $sliders = Tag::where('tag', 'イチオシ！')->get();
 
         return view('index')
             ->with([
                 'infos' => $infos,
                 'tags' => $tags,
                 'informations' => $informations,
-                'sliders'=>$sliders,
+                'sliders' => $sliders,
             ]);
     }
 
@@ -227,8 +229,6 @@ class InformationController extends Controller
         $subID = $posts->id;
         return view('auth.relation.result')
             ->with([
-                'mainID' => $mainID,
-                'subID' => $subID,
             ]);
     }
 
@@ -239,14 +239,14 @@ class InformationController extends Controller
         //お気に入り登録
         $request->session()->regenerateToken();
 
-        $already=Favorite::query()
-        ->where('user_id',$request->input('user_id'))
-        ->where('cake_id',$request->input('cake_id'))
-        ->exists();
+        $already = Favorite::query()
+            ->where('user_id', $request->input('user_id'))
+            ->where('cake_id', $request->input('cake_id'))
+            ->exists();
 
-        if($already){
+        if ($already) {
             return back()->withErrors([
-                'cake_id'=>'すでに登録されております。'
+                'cake_id' => 'すでに登録されております。'
             ]);
         }
 
@@ -345,11 +345,11 @@ class InformationController extends Controller
         if ($count) {
             //中身があればこっち
             return view('auth.relation.cart')
-            ->with([
-                'infos' => $infos,
-                'tags' => $tags,
-                'carts' => $carts,
-            ]);
+                ->with([
+                    'infos' => $infos,
+                    'tags' => $tags,
+                    'carts' => $carts,
+                ]);
         } else {
             //中身がなければこっち
             return view('auth.nocartlist')->with([
@@ -529,6 +529,11 @@ class InformationController extends Controller
         $cartData = $request->session()->get('cartData');
         $userID = Auth::user()->id;
 
+        // //メール送る
+        // $user = auth()->user();
+        // Mail::to($user->email)->send(new ContactMail($cartData));
+
+        //データ保存処理
         foreach ($cartData as $data) {
             $posts = new Main_reservation();
             $posts->birthday = $data['birthday'];

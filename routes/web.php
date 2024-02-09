@@ -13,10 +13,6 @@
 // |
 // */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -29,6 +25,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminRegisterController;
 use App\Http\Controllers\CakeController;
+use App\Http\Controllers\Api\ContactController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -105,7 +102,7 @@ Route::get('/', [InformationController::class, 'index'])
 
 /** ケーキ予約受付関係やお知らせ **/
 Route::controller(InformationController::class)->middleware(['auth'])->group(function () {
-    Route::group(['prefix' => 'front','as' => 'front.'], function () {
+    Route::group(['prefix' => 'front', 'as' => 'front.'], function () {
         //個別ページ
         Route::get('/{cakeinfo}/cake', '_cake_store')->name('cake')->where('cakeinfo', '[0-9]+');
         //tag別ページ
@@ -118,7 +115,7 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
         Route::post('/form/formcheckok', '_result_store')->name('result');
 
         //お知らせ個別ページ
-        Route::get('/{information}/post', '_information_store')->name('information.store')->where('information','[0-9]+');
+        Route::get('/{information}/post', '_information_store')->name('information.store')->where('information', '[0-9]+');
     });
 });
 
@@ -149,13 +146,13 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
         //カート(メッセージ)更新
         Route::patch('/cart/{cart}/update', '_cart_update')->name('cart.update')->where('cart', '[0-9]+');
         //まとめて予約移動
-        Route::get('/form','_collect_form_store')->name('form.store');
+        Route::get('/form', '_collect_form_store')->name('form.store');
         //まとめて予約確認画面へ移動
-        Route::post('/form/check','_collect_check_store')->name('check.store');
+        Route::post('/form/check', '_collect_check_store')->name('check.store');
         //まとめて予約処理＋カートの中身削除処理+完了画面へ移動
-        Route::post('/form/result','_collect_result_store')->name('result.store');
+        Route::post('/form/result', '_collect_result_store')->name('result.store');
         //ホームに返す
-        Route::get('/form/return','_collect_home_store')->name('home.store');
+        Route::get('/form/return', '_collect_home_store')->name('home.store');
 
         /** カート機能関係・セッション使用 **/
         // カート移動
@@ -167,11 +164,11 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
         //カート削除
         Route::delete('/session/cart/{key}/destroy', '_session_cart_destroy')->name('session.cart.destroy')->where('cart', '[0-9]+');
         //まとめて予約確認画面へ移動
-        Route::get('/session/form','_session_collect_form_store')->name('session.form.store');
+        Route::get('/session/form', '_session_collect_form_store')->name('session.form.store');
         //まとめて予約処理＋カートの中身削除処理+完了画面へ移動
-        Route::post('/session/form/result','_session_collect_result_store')->name('session.result.store');
+        Route::post('/session/form/result', '_session_collect_result_store')->name('session.result.store');
         //ホームに返す
-        Route::get('/session/form/return','_session_collect_home_store')->name('session.home.store');
+        Route::get('/session/form/return', '_session_collect_home_store')->name('session.home.store');
     });
 });
 
@@ -185,15 +182,15 @@ Route::controller(ReservationController::class)->middleware(['auth:admin'])->gro
         //お知らせ一覧
         Route::get('/edits', '_information_edits_store')->name('information.edits.store');
         //お知らせ個別編集画面
-        Route::get('/{information}/edit','_information_edit_store')->name('information.edit.store')->where('information', '[0-9]+');
+        Route::get('/{information}/edit', '_information_edit_store')->name('information.edit.store')->where('information', '[0-9]+');
         //お知らせ個別編集画面
-        Route::get('/criate/post','_information_criate_store')->name('information.criate.store');
+        Route::get('/criate/post', '_information_criate_store')->name('information.criate.store');
         //お知らせ投稿処理
-        Route::post('/post','_information_criate_post')->name('information.criate.post');
+        Route::post('/post', '_information_criate_post')->name('information.criate.post');
         //お知らせ削除処理
-        Route::delete('/{information}/edit/destroy','_information_edit_destroy')->name('information.edit.destroy')->where('information', '[0-9]+');
+        Route::delete('/{information}/edit/destroy', '_information_edit_destroy')->name('information.edit.destroy')->where('information', '[0-9]+');
         //お知らせ更新処理
-        Route::patch('/{information}/edit/update','_information_edit_update')->name('information.edit.update')->where('information', '[0-9]+');
+        Route::patch('/{information}/edit/update', '_information_edit_update')->name('information.edit.update')->where('information', '[0-9]+');
     });
 });
 
@@ -252,5 +249,13 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         Route::delete('/edit/{cakephoto}/destroyphoto', '_photo_destroy')->name('photo.destroy')->where('cakephoto', '[0-9]+');
         //商品情報削除ページ（tag）
         Route::delete('/edit/{tag}/destroytag', '_tag_destroy')->name('tag.destroy')->where('tag', '[0-9]+');
+    });
+});
+
+
+//メール関係
+Route::controller(ContactController::class)->middleware(['auth'])->group(function () {
+    Route::group(['prefix' => 'mail', 'as' => 'mail.'], function () {
+        Route::post('contact', '_send_ContactMail')->name('reservation');
     });
 });
