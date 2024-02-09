@@ -14,7 +14,7 @@
 <body>
     <header>
         <a href="{{ route('index') }}" class="">
-            <h1 class="sitefont">サイト名</h1>
+            <h1 class="sitefont">ケーキ予約サイト</h1>
         </a>
 
     </header>
