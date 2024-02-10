@@ -12,13 +12,20 @@ use  App\Models\CakeInfo;
 use  App\Models\Main_reservation;
 use  App\Models\Sub_reservation;
 use Carbon\Carbon;
+use App\Models\Tag;
 
 class AdminLoginController extends Controller
 {
     // ログイン画面呼び出し
     public function showLoginPage(): View
     {
-        return view('admin.auth.login');
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
+
+        return view('admin.auth.login')->with([
+            'infos' => $infos,
+            'tags' => $tags,
+        ]);
     }
 
     // ログイン実行
