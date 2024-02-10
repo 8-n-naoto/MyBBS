@@ -9,6 +9,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Models\Tag;
+use App\Models\CakeInfo;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -17,7 +19,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
+
+        return view('auth.login')->with([
+            'infos' => $infos,
+            'tags' => $tags,
+        ]);
     }
 
     /**

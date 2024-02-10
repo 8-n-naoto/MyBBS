@@ -15,7 +15,6 @@
 
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -25,7 +24,6 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminRegisterController;
 use App\Http\Controllers\CakeController;
-use App\Http\Controllers\Api\ContactController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -249,13 +247,5 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         Route::delete('/edit/{cakephoto}/destroyphoto', '_photo_destroy')->name('photo.destroy')->where('cakephoto', '[0-9]+');
         //商品情報削除ページ（tag）
         Route::delete('/edit/{tag}/destroytag', '_tag_destroy')->name('tag.destroy')->where('tag', '[0-9]+');
-    });
-});
-
-
-//メール関係
-Route::controller(ContactController::class)->middleware(['auth'])->group(function () {
-    Route::group(['prefix' => 'mail', 'as' => 'mail.'], function () {
-        Route::post('contact', '_send_ContactMail')->name('reservation');
     });
 });

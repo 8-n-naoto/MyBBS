@@ -124,6 +124,7 @@
 /* tag用フォント */
 .tag {
     display: flex;
+    white-space: nowrap;
     justify-content: center;
     align-items: center;
     position: relative;

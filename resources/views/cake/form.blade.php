@@ -4,6 +4,11 @@
 @section('css')
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
     <link rel="stylesheet" href="{{ url('css/form.css') }}">
+    <link rel="stylesheet" href="{{ url('css/aside.css') }}">
+@endsection
+
+@section('aside')
+    @include('include.front-aside')
 @endsection
 
 @section('main')
@@ -59,7 +64,7 @@
             </div>
             <div class="flex-row">
                 <p class="font">メッセ―ジ：</p>
-                <textarea name="message" placeholder="メッセージを入力してください">メッセージなし</textarea>
+                <textarea name="message" placeholder="メッセージを入力してください" class="cakeform">メッセージなし</textarea>
                 @error('message')
                     <div class="error">{{ $message }}</div>
                 @enderror

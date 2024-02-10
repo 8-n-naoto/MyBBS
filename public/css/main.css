@@ -11,12 +11,13 @@ main {
     min-height: 100vh;
     width: 1200px;
     margin: 0 auto;
-    justify-content: center;
 }
 
 .front-main{
     box-sizing: border-box;
     padding: 24px 28px 0 28px;
+    flex: auto;
+
 }
 /* ヘッダー */
 header {
@@ -105,3 +106,5 @@ button {
     gap: 20px;
     margin: 12px 0px;
 }
+
+

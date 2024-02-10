@@ -95,8 +95,12 @@ class InformationController extends Controller
     //予約詳細入力画面
     public function _form_store(CakeInfo $cakeinfo)
     {
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
         return view('cake.form')
             ->with([
+                'infos' => $infos,
+                'tags' => $tags,
                 'info' => $cakeinfo,
                 'prices' => $cakeinfo,
             ]);
@@ -124,9 +128,15 @@ class InformationController extends Controller
             'message.required' => '「メッセージなし」、もしくはメッセージを入力してください'
         ]);
 
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
 
         return view('cake.formcheck')
-            ->with(['info' => $request]);
+            ->with([
+                'info' => $request,
+                'infos' => $infos,
+                'tags' => $tags,
+            ]);
     }
     //予約情報保存画面
     public function _result_store(Request $request)
@@ -149,12 +159,15 @@ class InformationController extends Controller
         $posts->message = $request->message;
         $posts->save();
 
-        $mainID = $id;
         $subID = $posts->id;
+
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
         return view('cake.formcheckok')
             ->with([
-                'mainID' => $mainID,
-                'subID' => $subID,
+                'infos' => $infos,
+                'tags' => $tags,
+                'subID'=>$subID,
             ]);
     }
     /** まとめて予約関係 **/
@@ -228,8 +241,7 @@ class InformationController extends Controller
         $mainID = $id;
         $subID = $posts->id;
         return view('auth.relation.result')
-            ->with([
-            ]);
+            ->with([]);
     }
 
     /** お気に入り機能関係 **/
@@ -529,9 +541,6 @@ class InformationController extends Controller
         $cartData = $request->session()->get('cartData');
         $userID = Auth::user()->id;
 
-        // //メール送る
-        // $user = auth()->user();
-        // Mail::to($user->email)->send(new ContactMail($cartData));
 
         //データ保存処理
         foreach ($cartData as $data) {
@@ -550,6 +559,10 @@ class InformationController extends Controller
             $posts->message = $data['message'];
             $posts->save();
         }
+
+        // //メール送る
+        $user = auth()->user();
+        Mail::to($user->email)->send(new ContactMail($cartData));
 
         $cartData = $request->session()->forget('cartData');
 

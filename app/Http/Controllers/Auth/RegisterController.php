@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Tag;
+use App\Models\CakeInfo;
 
 class RegisterController extends Controller
 {
@@ -44,7 +46,13 @@ class RegisterController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
+
+        return view('auth.register')->with([
+            'infos' => $infos,
+            'tags' => $tags,
+        ]);
     }
 
     // /**

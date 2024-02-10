@@ -1,10 +1,10 @@
 @include('include.header')
 <main class="flex-row">
     @yield('aside')
-    <section class="flex-column front-main">
+    <div class="flex-column front-main">
         @yield('main')
         @yield('map')
-    </section>
+    </div>
     @yield('js')
 </main>
 @include('include.footer')

@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Tag;
+use App\Models\CakeInfo;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,7 +47,12 @@ class AdminRegisterController extends Controller
      */
     public function create()
     {
-        return view('admin.auth.register');
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
+        return view('admin.auth.register')->with([
+            'infos' => $infos,
+            'tags' => $tags,
+        ]);
     }
 
     // /**
