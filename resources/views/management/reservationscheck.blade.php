@@ -9,9 +9,11 @@
 @section('main')
     <section>
         {{-- 検索フォーム --}}
+
+        <p class="textbackground bigfont">予約情報検索</p>
         <form method="POST" action="{{ route('reservations.information.get') }}">
             @csrf
-            <p>予約番号を入力してください</p>
+            <p class="textbackground form-font">予約番号を入力してください</p>
             <label class="textbackground flex-row">
                 <input type="text" name="subID">
                 <button>検索</button>

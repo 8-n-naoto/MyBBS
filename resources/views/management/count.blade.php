@@ -8,6 +8,7 @@
 
 @section('main')
     <section>
+        <p class="textbackground bigfont">商品別予約商品</p>
         <h2 class="bigfont textbackground">{{ $cakeinfo->cakename }}</h2>
         {{-- 検索フォーム --}}
         <form method="POST" action="{{ route('reservations.count.get', $cakeinfo) }}" class="textbackground ">

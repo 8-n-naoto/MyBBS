@@ -107,4 +107,12 @@ button {
     margin: 12px 0px;
 }
 
+.informations{
+    width: 914px;
+    background-color: rgba(255, 255, 255, 0.598);
+    border-radius: 8px;
+    margin: 12px 0;
+    padding: 8px;
+}
+
 

@@ -22,7 +22,7 @@
                     <p class="error">{{ $message }}</p>
                 @enderror
                 <p class="form-font">お知らせ内容</p>
-                <textarea name="information" id="" cols="30" rows="10"class="cakeformbox">{{ $information->information }}</textarea>
+                <textarea name="information" id="" cols="30" rows="10"class="informationformbox">{{ $information->information }}</textarea>
                 @error('information')
                     <p class="error">{{ $message }}</p>
                 @enderror

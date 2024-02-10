@@ -9,6 +9,7 @@
 @section('main')
     <section class="flex-center">
         <!-- 画面左側 -->
+        <p class="textbackground bigfont">商品新規作成</p>
         <section class="textbackground">
             <form method="post" action="{{ route('cakes.cake.criate') }}" enctype="multipart/form-data" id="add_cake">
                 @csrf

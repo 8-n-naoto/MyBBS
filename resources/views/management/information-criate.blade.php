@@ -11,6 +11,7 @@
 @endsection
 
 @section('main')
+<p class="textbackground bigfont">お知らせ新規追加</p>
         <div class="textbackground">
             <form method="POST" action="{{ route('information.criate.post') }}" class="update">
                 @csrf

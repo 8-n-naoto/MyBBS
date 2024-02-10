@@ -11,11 +11,11 @@
 @endsection
 
 @section('main')
+        <p class="textbackground form-font">お知らせ一覧</p>
     <ul class="textbackground">
-        <li class="form-font">お知らせ一覧</li>
         @forelse ($informations as $information)
             <a href="{{route('information.edit.store',$information)}}">
-                <li class="form-font link">{{ $information->topic }}</li>
+                <li class="form-font link">更新日：{{$information->updated_at->format('Y年m月d日')}} {{ $information->topic }}</li>
             </a>
         @empty
             <li class="fonm-font">コンテンツがありません</li>

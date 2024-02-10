@@ -8,6 +8,7 @@
 
 @section('main')
     <section>
+        <p class="textbackground bigfont">商品表示切替</p>
         <div class="cakephotos">
             @forelse ($cakeinfos as $info)
                 <object>
