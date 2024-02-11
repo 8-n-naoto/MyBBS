@@ -33,7 +33,36 @@
             <div>
                 <label for="date" class="flex-row">
                     <p class="font">受け取り時間:</p>
-                    <input type="time" name="time" id="time">
+                     <ul>
+                        <li class="flex-row">
+                            <input type="radio" name="time" id="time1" value="10:00:00">
+                            <label class="font" for="time1">10時～11時</label>
+                        </li>
+                        <li class="flex-row">
+                            <input type="radio" name="time" id="time2" value="11:00:00">
+                            <label class="font" for="time2">11時～12時</label>
+                        </li>
+                        <li class="flex-row">
+                            <input type="radio" name="time" id="time3" value="12:00:00">
+                            <label class="font" for="time3">12時～13時</label>
+                        </li>
+                        <li class="flex-row">
+                            <input type="radio" name="time" id="time4" value="13:00:00">
+                            <label class="font" for="time4">13時～14時</label>
+                        </li>
+                        <li class="flex-row">
+                            <input type="radio" name="time" id="time5" value="14:00:00">
+                            <label class="font" for="time5">14時～15時</label>
+                        </li>
+                        <li class="flex-row">
+                            <input type="radio" name="time" id="time6" value="15:00:00">
+                            <label class="font" for="time6">15時～16時</label>
+                        </li>
+                        <li class="flex-row">
+                            <input type="radio" name="time" id="time7" value="16:00:00">
+                            <label class="font" for="time7">16時～17時</label>
+                        </li>
+                    </ul>
                 </label>
                 @error('time')
                     <div class="error">{{ $message }}</div>

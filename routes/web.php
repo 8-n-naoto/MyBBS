@@ -156,7 +156,7 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
         // カート移動
         Route::get('/session/cart', '_session_cart_store')->name('session.cart.store');
         //カート必要情報入力
-        Route::post('/session/cart/reservation', '_session_cart_reservation')->name('session.cart.reservation');
+        Route::get('/session/cart/reservation', '_session_cart_reservation')->name('session.cart.reservation');
         // カート登録
         Route::post('/session/cart/add', '_session_cart_add')->name('session.cart.add');
         //カート削除

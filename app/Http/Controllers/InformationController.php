@@ -14,6 +14,7 @@ use App\Models\Sub_reservation;
 use  App\Models\Information;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\ContactMail;
+use App\Models\Cake_info_sub;
 use Illuminate\Support\Facades\Mail;
 
 class InformationController extends Controller
@@ -167,7 +168,7 @@ class InformationController extends Controller
             ->with([
                 'infos' => $infos,
                 'tags' => $tags,
-                'subID'=>$subID,
+                'subID' => $subID,
             ]);
     }
     /** まとめて予約関係 **/
@@ -468,17 +469,34 @@ class InformationController extends Controller
         //トークン再生成
         $request->session()->regenerateToken();
 
+        $request->validate([
+            'cake_info_id' => 'required',
+            'cake_info_sub_id' => 'required',
+            'birthday' => 'required',
+            'time' => 'required',
+            'message' => 'required',
+        ], [
+            'cake_info_id.required' => '不正な移動です',
+            'cake_info_sub_id.required' => 'どれかひとつ選択してください',
+            'birthday.required' => '受取日を指定してください',
+            'time.required' => '受け取り時間を選択してください',
+            'message.required' => '誕生日メッセージを入力してください',
+        ]);
+
+        $cakeinfo = CakeInfo::find($request->cake_info_id);
+        $cakeinfosub = CakeInfoSub::find($request->cake_info_sub_id);
+
         //inputタグのname属性を指定し$requestからPOST送信された内容を取得する。
         $cartData = [
             'cake_info_id' => $request->cake_info_id,  //
             'cake_info_sub_id' => $request->cake_info_sub_id,
-            'mainphoto' => $request->mainphoto,  //
+            'mainphoto' => $cakeinfo->mainphoto,  //
             'birthday' => $request->birthday, //
             'time' => $request->time, //
-            'cakename' => $request->cakename,  //
-            'capacity' => $request->capacity, //
-            'price' => $request->price, //
             'message' => $request->message, //
+            'cakename' => $cakeinfo->cakename,
+            'capacity' => $cakeinfosub->capacity,
+            'price' => $cakeinfosub->price,
         ];
 
         $request->session()->push('cartData', $cartData);

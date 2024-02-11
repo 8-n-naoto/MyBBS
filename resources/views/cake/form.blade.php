@@ -19,7 +19,7 @@
             <div class="flex-row">
                 <p class="font">お名前：</p>
                 <p class="font">{{ Auth::user()->name }}様</p>
-                    <input type="hidden" name="users_name" id="name" value="{{ Auth::user()->name }}">
+                <input type="hidden" name="users_name" id="name" value="{{ Auth::user()->name }}">
                 @error('users_id')
                     <div class="error">{{ $message }}</div>
                 @enderror
@@ -33,34 +33,61 @@
                     <div class="error">{{ $message }}</div>
                 @enderror
             </div>
-            <div>
-                <label for="date" class="flex-row">
-                    <p class="font">受け取り時間:</p>
-                    <input type="time" name="time" id="time"></label>
+            <div class="flex-row">
+                <p class="font">受け取り時間:</p>
+                <ul>
+                    <li class="flex-row">
+                        <input type="radio" name="time" id="time1" value="10:00:00">
+                        <label class="font" for="time1">10時～11時</label>
+                    </li>
+                    <li class="flex-row">
+                        <input type="radio" name="time" id="time2" value="11:00:00">
+                        <label class="font" for="time2">11時～12時</label>
+                    </li>
+                    <li class="flex-row">
+                        <input type="radio" name="time" id="time3" value="12:00:00">
+                        <label class="font" for="time3">12時～13時</label>
+                    </li>
+                    <li class="flex-row">
+                        <input type="radio" name="time" id="time4" value="13:00:00">
+                        <label class="font" for="time4">13時～14時</label>
+                    </li>
+                    <li class="flex-row">
+                        <input type="radio" name="time" id="time5" value="14:00:00">
+                        <label class="font" for="time5">14時～15時</label>
+                    </li>
+                    <li class="flex-row">
+                        <input type="radio" name="time" id="time6" value="15:00:00">
+                        <label class="font" for="time6">15時～16時</label>
+                    </li>
+                    <li class="flex-row">
+                        <input type="radio" name="time" id="time7" value="16:00:00">
+                        <label class="font" for="time7">16時～17時</label>
+                    </li>
+                </ul>
                 @error('time')
                     <div class="error">{{ $message }}</div>
                 @enderror
             </div>
-            <div>
+            <div class="flex-row">
                 <img src="{{ asset($info->mainphoto) }}" width="240px">
-                <label for="cake" class="flex-row">
-                    <p class="font">ケーキの種類:</p>
-                    <input type="text" name="cakename" id="cake" value="{{ $info->cakename }}" readonly></label>
-                <input type="hidden" name="mainphoto" id="cake" value="{{ $info->mainphoto }}" readonly></label>
-            </div>
-            <div>
-                @forelse ($prices->cake_info_subs as $price)
-                    <label class="flex-row">
-                        <input type="radio" name="capacity" value="{{ $price->capacity }}">
-                        <p class="font">大きさ：{{ $price->capacity }}お値段：{{ $price->price }}円</p>
-                    </label>
-                    <input type="hidden" name="price" value="{{ $price->price }}">
-                    @error('capacity')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
-                @empty
-                    <p>ただいま準備中...</p>
-                @endforelse
+                <div>
+                    <p class="font">ケーキの種類:{{ $info->cakename }}</p>
+                    <input type="hidden" name="cakename" id="cake" value="{{ $info->cakename }}" readonly>
+                    <input type="hidden" name="mainphoto" id="cake" value="{{ $info->mainphoto }}" readonly>
+                    @forelse ($prices->cake_info_subs as $price)
+                        <label class="flex-row">
+                            <input type="radio" name="capacity" value="{{ $price->capacity }}">
+                            <p class="font">大きさ：{{ $price->capacity }} お値段：{{ $price->price }}円</p>
+                        </label>
+                        <input type="hidden" name="price" value="{{ $price->price }}">
+                        @error('capacity')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
+                    @empty
+                        <p>ただいま準備中...</p>
+                    @endforelse
+                </div>
             </div>
             <div class="flex-row">
                 <p class="font">メッセ―ジ：</p>

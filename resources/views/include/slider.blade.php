@@ -7,6 +7,13 @@
             <div>
                 <p class="bigfont">{{ $info->cake_info->cakename }}</p>
                 <p class="smallfont">{{ $info->cake_info->topic }}</p>
+                @forelse ($info->cake_info->cake_info_subs as $item)
+                <div class="flex-row smallfont">
+                    <p>内容量：{{ $item->capacity }}</p>
+                    <p>価格：{{ $item->price }}円</p>
+                </div>
+                @empty
+                @endforelse
             </div>
         </div>
     @endforeach
