@@ -10,7 +10,7 @@
         <h2 class="textbackground bigfont">ご予約商品一覧</h2>
         <section>
             <div class="flex-column">
-                @foreach ($cartData as $key => $data)
+                @foreach ($content as $key => $data)
                     <div class="flex-row textbackground">
                         <a href="{{ route('front.cake', $data['cake_info_id']) }}">
                             <img src="{{ asset($data['mainphoto']) }}" class="cartphotos" alt="ケーキの写真">

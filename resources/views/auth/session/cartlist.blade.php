@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ url('css/form.css') }}">
     <link rel="stylesheet" href="{{ url('css/aside.css') }}">
 @endsection
-{{-- <?php dd($session); ?> --}}
+{{-- <?php dd($cartData); ?> --}}
 
 @section('aside')
     @include('include.front-aside')

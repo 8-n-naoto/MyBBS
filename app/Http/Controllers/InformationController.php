@@ -554,11 +554,10 @@ class InformationController extends Controller
     public function _session_collect_result_store(Request $request)
     {
         //トークン再生成
-        $request->session()->regenerateToken();
+        // $request->session()->regenerateToken();
 
         $cartData = $request->session()->get('cartData');
         $userID = Auth::user()->id;
-
 
         //データ保存処理
         foreach ($cartData as $data) {
@@ -566,7 +565,7 @@ class InformationController extends Controller
             $posts->birthday = $data['birthday'];
             $posts->time = $data['time'];
             $posts->users_id = $userID;
-            $posts->save();
+            // $posts->save();
             $id = $posts->id;
 
             $posts = new Sub_reservation();
@@ -575,14 +574,14 @@ class InformationController extends Controller
             $posts->capacity = $data['capacity'];
             $posts->price = $data['price'];
             $posts->message = $data['message'];
-            $posts->save();
+            // $posts->save();
         }
 
         // //メール送る
         $user = auth()->user();
         Mail::to($user->email)->send(new ContactMail($cartData));
 
-        $cartData = $request->session()->forget('cartData');
+        // $cartData = $request->session()->forget('cartData');
 
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');

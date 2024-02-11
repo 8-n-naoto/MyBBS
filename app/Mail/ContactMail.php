@@ -34,7 +34,7 @@ class ContactMail extends Mailable
     {
         // return $this->from('******@example.com') // 送信元
         return $this->view('emails.reservation') // テンプレート
-            ->from('nfam8naoto@gmail.com','test') // 送信元
+            ->from('nfam8naoto@gmail.com') // 送信元
             ->subject('ご予約完了のお知らせ') // メールタイトル
             ->with([
                 'content' => $this->content,
@@ -54,12 +54,12 @@ class ContactMail extends Mailable
     /**
      * Get the message content definition.
      */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
+    // public function content(): Content
+    // {
+    //     return new Content(
+    //         view: 'view.name',
+    //     );
+    // }
 
     /**
      * Get the attachments for the message.
