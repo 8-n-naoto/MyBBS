@@ -69,7 +69,7 @@
                 @foreach ($cakeinfos as $cakeinfo)
                     <input type="hidden" name="cake_info_id" value="{{ $cakeinfo->id }}">
                     <a href="{{ route('front.cake', $cakeinfo->id) }}">
-                        <img src="{{ asset($cakeinfo->mainphoto) }}" class="management-photo">
+                        <img src="{{ asset($cakeinfo->mainphoto) }}" class="cartphotos">
                     </a>
                 @endforeach
             </div>

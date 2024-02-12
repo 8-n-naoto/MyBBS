@@ -28,7 +28,7 @@
             @forelse ($carts as $cart)
                 @if ($cart->cake_info_sub->cake_info->boolean)
                     <div class="flex-row textbackground">
-                        <img src="{{ asset($cart->cake_info_sub->cake_info->mainphoto) }}" class="mainphoto"
+                        <img src="{{ asset($cart->cake_info_sub->cake_info->mainphoto) }}" class="cartphotos"
                             alt="ケーキの写真">
                         <div>
                             <p class="cakenamefont">

@@ -9,7 +9,7 @@
 @endsection
 
 @section('main')
-    <section class="textbackground">
+    <section class="form">
         <form method="POST" action="{{ route('user.check.store') }}">
             @csrf
             <input type="hidden" name="users_id" id="name" value="{{ Auth::user()->id }}">
@@ -72,13 +72,13 @@
             @forelse ($carts as $cart)
                 @if ($cart->cake_info_sub->cake_info->boolean)
                     <div class="flex-row textbackground">
-                        <img src="{{ asset($cart->cake_info_sub->cake_info->mainphoto) }}" class="mainphoto"
+                        <img src="{{ asset($cart->cake_info_sub->cake_info->mainphoto) }}" class="cartphotos"
                             alt="ケーキの写真">
                         <div>
-                            <p class="cakenamefont">
+                            <p class="form-font">
                                 {{ e($cart->cake_info_sub->cake_info->cakename) }}
                             </p>
-                            <p class="cakenamefont">
+                            <p class="form-font">
                                 {{ $cart->cake_info_sub->capacity }}
                                 {{ $cart->cake_info_sub->price }}円
                             </p>

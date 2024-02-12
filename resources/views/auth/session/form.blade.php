@@ -19,7 +19,7 @@
                 @foreach ($cartData as $key => $data)
                     <div class="flex-row textbackground">
                         <a href="{{ route('front.cake', $data['cake_info_id']) }}">
-                            <img src="{{ asset($data['mainphoto']) }}" class="mainphoto" alt="ケーキの写真">
+                            <img src="{{ asset($data['mainphoto']) }}" class="cartphotos" alt="ケーキの写真">
                         </a>
                         <div>
                             <p class="cakenamefont">
