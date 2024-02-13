@@ -7,6 +7,8 @@ use App\Models\CakeInfo;
 use App\Models\Tag;
 use App\Models\CakeInfoSub;
 use App\Models\CakePhoto;
+use App\Models\BasicIngredient;
+use App\Models\EachIngredient;
 
 class CakeController extends Controller
 {
@@ -275,14 +277,14 @@ class CakeController extends Controller
         //トークン再生成
         $request->session()->regenerateToken();
 
-        $already=Tag::query()
-        ->where('tag',$request->input('tag'))
-        ->where('cake_infos_id',$request->input('cake_infos_id'))
-        ->exists();
+        $already = Tag::query()
+            ->where('tag', $request->input('tag'))
+            ->where('cake_infos_id', $request->input('cake_infos_id'))
+            ->exists();
 
-        if($already){
+        if ($already) {
             return back()->withErrors([
-                'tag'=>'既に登録されております。'
+                'tag' => '既に登録されております。'
             ]);
         }
         //バリデート
@@ -422,5 +424,23 @@ class CakeController extends Controller
                 'subphotos' => $cakephotos,
                 'tags' => $tags,
             ]);
+    }
+
+    //
+    public function _ingredient_criate_store(BasicIngredient $bacicIngredient)
+    {
+        $infos = CakeInfo::all();
+        return view('management.ingredientcriate')->with([
+            'cakeinfos' => $infos,
+        ]);
+    }
+
+    //
+    public function _ingredient_order_store()
+    {
+        $infos = CakeInfo::all();
+        return view('management.ingredientorder')->with([
+            'cakeinfos' => $infos,
+        ]);
     }
 }

@@ -17,7 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('basic_ingredients_id'); //外部キー  basic_ingredients_id
             $table->string('ingredient_name');
             $table->integer('ingredient_amount');
+            $table->integer('lot-amount');
             $table->string('lot_unit');
+            $table->integer('expiration');
             $table
                 ->foreign('basic_ingredients_id')
                 ->references('id')

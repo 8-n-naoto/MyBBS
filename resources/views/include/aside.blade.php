@@ -55,6 +55,29 @@
                 </ul>
             </div>
             <div class="sidemenu">
+                <ul name="ケーキの種類">
+                    @forelse ($cakeinfos as $info)
+                        <li>
+                            <a href="{{ route('cakes.intgredient.criate.store', $info) }}">
+                                <p class="aside-font link">材料発注試算</p>
+                            </a>
+                        </li>
+                    @empty
+                        <li class="aside-font">準備中だよ！</li>
+                    @endforelse
+                    <li>
+                        <a href="{{ route('cakes.intgredient.criate.store.none') }}">
+                            <p class="asidemenu-font link">新規登録</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="sidemenu">
+                <a href="{{ route('cakes.intgredient.order.store') }}">
+                    <p class="aside-font link">発注試算表</p>
+                </a>
+            </div>
+            <div class="sidemenu">
                 <a href="{{ route('information.edits.store') }}">
                     <p class="aside-font link">お知らせ一覧</p>
                 </a>
@@ -70,4 +93,4 @@
             </div>
         </aside>
     </div>
-{{-- 文字が折り返し表示されないにしたい --}}
+    {{-- 文字が折り返し表示されないにしたい --}}

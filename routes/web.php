@@ -215,16 +215,22 @@ Route::controller(ReservationController::class)->middleware(['auth:admin'])->gro
 /** ケーキの情報処理関係 **/
 Route::controller(CakeController::class)->middleware(['auth:admin'])->group(function () {
     Route::group(['prefix' => 'management/cake', 'as' => 'cakes.'], function () {
+        /** ページ移動 **/
         //ON/OFF画面
         Route::get('/edit', '_suitch')->name('switch');
-        //商品表示ON/OFF切り替え機能
-        Route::patch('/{cakeinfo}/edit', '_boolean')->name('boolean')->where('cakeinfo', '[0-9]+');
         //商品追加ページ
         Route::get('/create', '_criate_store')->name('criate.store');
         //個別詳細変更画面
         Route::get('/{cakeinfo}/edit', '_update_store')->name('upudate.store')->where('cakeinfo', '[0-9]+');
+        //材料登録画面
+        Route::get('/ingredient/criate', '_ingredient_criate_store')->name('intgredient.criate.store.none');
+        Route::get('/{basicIngredient}/ingredient/criate', '_ingredient_criate_store')->name('intgredient.criate.store')->where('basicIngredient', '[0-9]+');
+        //発注資産画面
+        Route::get('/ingredient/order', '_ingredient_order_store')->name('intgredient.order.store');
 
-        /** 追加処理一覧 **/
+        /** 商品情報追加・更新処理一覧 **/
+        //商品表示ON/OFF切り替え機能
+        Route::patch('/{cakeinfo}/edit', '_boolean')->name('boolean')->where('cakeinfo', '[0-9]+');
         //商品新規追加処理処理
         Route::post('/store', '_cake_criate')->name('cake.criate');
         //商品更新処理（price）
@@ -233,12 +239,11 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         Route::post('/edit/update/{cakeinfo}/addphoto', '_photo_criate')->name('photo.criate');
         //商品更新画面(tag)
         Route::post('/edit/update/{cakeinfo}/addtag', '_tag_criate')->name('tag.criate');
-
         /** 更新処理一覧 **/
         //商品情報更新処理(main)
         Route::patch('/edit/{cakeinfo}/update', '_cake_update')->name('cake.update')->where('cakeinfo', '[0-9]+');
 
-        /** 削除処理一覧 **/
+        /** 商品情報削除処理一覧 **/
         //商品情報削除ページ（main）
         Route::delete('/edit/{cakeinfo}/destroy', '_cake_destroy')->name('cake.destroy')->where('cakeinfo', '[0-9]+');
         //商品情報削除ページ（price）
