@@ -54,8 +54,11 @@
             @endif
 
             <x-primary-button class="ms-3">
-                {{ __('Log in') }}
+                {{ __('ログイン') }}
             </x-primary-button>
+            <a class="" href="{{ route('register') }}">
+                {{ __('登録がまだの方はこちらからログイン登録画面へ!') }}
+            </a>
         </div>
     </form>
 </section>
