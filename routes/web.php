@@ -226,7 +226,9 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         Route::get('/ingredient/criate', '_ingredient_criate_store')->name('intgredient.criate.store.none');
         Route::get('/{cakeinfo}/ingredient/criate', '_ingredient_criate_store')->name('intgredient.criate.store')->where('cakeinfo', '[0-9]+');
         //材料詳細画面
-        Route::get('/ingredient/criate', '_ingredient_edit_store')->name('intgredient.edit.store');
+        Route::get('/ingredient/edit/{basicIngredient}/store', '_ingredient_edit_store')->name('ingredient.edit.store');
+        //材料詳細追加処理
+        Route::post('/ingredient/edit/{basicIngredient}/post', '_ingredient_edit_post')->name('ingredient.edit.post');
 
 
 
@@ -260,5 +262,7 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         Route::delete('/edit/{cakephoto}/destroyphoto', '_photo_destroy')->name('photo.destroy')->where('cakephoto', '[0-9]+');
         //商品情報削除ページ（tag）
         Route::delete('/edit/{tag}/destroytag', '_tag_destroy')->name('tag.destroy')->where('tag', '[0-9]+');
+        //材料登録画面
+        Route::delete('/ingredient/{basicIngredient}/destroy', '_ingredient_destroy')->name('ingredient.destroy')->where('basicIngredient', '[0-9]+');
     });
 });

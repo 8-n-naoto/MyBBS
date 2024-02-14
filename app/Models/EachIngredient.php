@@ -15,7 +15,7 @@ class EachIngredient extends Model
         'ingredient_amount',
         'lot_amount',
         'lot_unit',
-        'expiration'
+        'expiration',
     ];
 
     public function basic_ingredient()

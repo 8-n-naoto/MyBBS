@@ -9,6 +9,7 @@ use App\Models\CakeInfoSub;
 use App\Models\CakePhoto;
 use App\Models\BasicIngredient;
 use App\Models\EachIngredient;
+use GuzzleHttp\Promise\Each;
 
 class CakeController extends Controller
 {
@@ -430,10 +431,12 @@ class CakeController extends Controller
     public function _ingredient_criate_store(CakeInfo $cakeinfo)
     {
         $infos = CakeInfo::all();
+        $exists= BasicIngredient::where('cake_infos_id', $cakeinfo->id)->count();
+
         //登録してあるか判断
-        if ($cakeinfo->basic_ingredients) {
+        if ($exists) {
             //登録済みならこっち
-            $basicIngredient = BasicIngredient::where('cake_infos_id',$cakeinfo->id)->get();
+            $basicIngredient = BasicIngredient::where('cake_infos_id', $cakeinfo->id)->get();
             return view('management.ingredientcriate')->with([
                 'cakeinfos' => $infos,
                 'basic' => $basicIngredient,
@@ -475,16 +478,16 @@ class CakeController extends Controller
         }
 
         //情報保存
-        $posts=new BasicIngredient();
-        $posts->cake_infos_id=$request->cake_infos_id;
-        $posts->basic_amount=$request->basic_amount;
-        $posts->ingredient_unit=$request->ingredient_unit;
+        $posts = new BasicIngredient();
+        $posts->cake_infos_id = $request->cake_infos_id;
+        $posts->basic_amount = $request->basic_amount;
+        $posts->ingredient_unit = $request->ingredient_unit;
         $posts->save();
 
 
         $id = $posts->cake_infos_id;
         $infos = CakeInfo::all();
-        $basicIngredient = BasicIngredient::where('cake_infos_if',$id)->get();
+        $basicIngredient = BasicIngredient::where('cake_infos_id', $id)->get();
         return view('management.ingredientcriate')->with([
             'cakeinfos' => $infos,
             'basic' => $basicIngredient,
@@ -517,27 +520,123 @@ class CakeController extends Controller
         }
 
         //情報保存
-        $basicIngredient->cake_infos_id=$request->cake_infos_id;
-        $basicIngredient->basic_amount=$request->basic_amount;
-        $basicIngredient->ingredient_unit=$request->ingredient_unit;
+        $basicIngredient->cake_infos_id = $request->cake_infos_id;
+        $basicIngredient->basic_amount = $request->basic_amount;
+        $basicIngredient->ingredient_unit = $request->ingredient_unit;
         $basicIngredient->save();
 
 
         $id = $basicIngredient->cake_infos_id;
         $infos = CakeInfo::all();
-        $basicIngredient = BasicIngredient::where('cake_infos_id',$id)->get();
+        $basicIngredient = BasicIngredient::where('cake_infos_id', $id)->get();
         return view('management.ingredientcriate')->with([
             'cakeinfos' => $infos,
             'basic' => $basicIngredient,
         ]);
     }
+    //BasicIngredientテーブル情報削除処理
+    public function _ingredient_destroy(BasicIngredient $basicIngredient, Request $request)
+    {
+        //トークン再生成
+        $request->session()->regenerateToken();
 
-    //
-    public function _ingredient_order_store(BasicIngredient $basicIngredient, Request $request)
+        $id = $basicIngredient->cake_infos_id;
+        $basicIngredient->delete();
+
+        $infos = CakeInfo::all();
+        $exists = BasicIngredient::where('cake_infos_id', $id)->count();
+
+        //登録してあるか判断
+        if ($exists) {
+            //登録済みならこっち
+            $basicIngredient = BasicIngredient::where('cake_infos_id', $id)->get();
+            return view('management.ingredientcriate')->with([
+                'cakeinfos' => $infos,
+                'basic' => $basicIngredient,
+            ]);
+        } else {
+            //未登録ならこっち
+            $menus = Cakeinfo::all();
+            $none = 'まだ登録されておりません';
+            return view('management.ingredientcriate')->with([
+                'cakeinfos' => $infos,
+                'menus' => $menus,
+                'none' => $none,
+            ]);
+        }
+    }
+
+    //配合個別詳細画面
+    public function _ingredient_edit_store(BasicIngredient $basicIngredient)
     {
         $infos = CakeInfo::all();
-        return view('management.ingredientorder')->with([
+        $each=EachIngredient::where('basic_ingredients_id',$basicIngredient->id)->get();
+        return view('management.ingredient.edit')->with([
             'cakeinfos' => $infos,
+            'basic' => $basicIngredient,
+            'each' => $each,
         ]);
     }
+
+    //配合個別詳細追加処理
+    public function _ingredient_edit_post(BasicIngredient $basicIngredient, Request $request)
+    {
+        // トークン再生成
+        $request->session()->regenerateToken();
+        $request->validate([
+            'basic_ingredients_id' => 'required',
+            'ingredient_name' => 'required',
+            'ingredient_amount' => 'required|integer',
+            'lot_amount' => 'required|integer',
+            'lot_unit' => 'required',
+            'expiration' => 'integer',
+        ], [
+            'basic_ingredients_id.required' => '不正な遷移です',
+            'ingredient_name.required' => '共通単位を入力してください',
+            'ingredient_amount.required' => '分量を選択してください',
+            'lot_amount.required'=>'最低ロットを記入してください',
+            'lot_unit.required'=>'最低ロットの単位を入力してください',
+            'ingredient_amount.integer' => '半角数字のみで入力してください',
+            'lot_amount.integer' => '半角数字のみで入力してください',
+            'expretion.integer' => '半角数字のみで入力してください',
+        ]);
+        //該当商品があるか検索
+        $already = EachIngredient::query()
+            ->where('basic_ingredients_id', $request->input('basic_ingredients_id'))
+            ->where('ingredient_name', $request->input('ingredient_name'))
+            ->exists();
+        if ($already) {
+            return back()->withErrors([
+                'ingredient_name' => 'すでに同じものが登録されています'
+            ]);
+        }
+
+        //情報保存
+        $posts = new EachIngredient();
+        $posts->basic_ingredients_id = $request->basic_ingredients_id;
+        $posts->ingredient_name = $request->ingredient_name;
+        $posts->ingredient_amount = $request->ingredient_amount;
+        $posts->lot_amount = $request->lot_amount;
+        $posts->lot_unit = $request->lot_unit;
+        $posts->expiration = $request->expiration;
+        $posts->save();
+
+
+        $infos = CakeInfo::all();
+        $each=EachIngredient::where('basic_ingredients_id',$basicIngredient->id)->get();
+        return view('management.ingredient.edit')->with([
+            'cakeinfos' => $infos,
+            'basic'=>$basicIngredient,
+            'each' => $each,
+
+        ]);
+    }
+    // //
+    // public function _ingredient_order_store(BasicIngredient $basicIngredient, Request $request)
+    // {
+    //     $infos = CakeInfo::all();
+    //     return view('management.ingredientorder')->with([
+    //         'cakeinfos' => $infos,
+    //     ]);
+    // }
 }
