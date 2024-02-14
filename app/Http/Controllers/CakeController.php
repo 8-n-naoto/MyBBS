@@ -426,17 +426,114 @@ class CakeController extends Controller
             ]);
     }
 
-    //
-    public function _ingredient_criate_store(BasicIngredient $bacicIngredient)
+    //材料新規登録、更新画面移動
+    public function _ingredient_criate_store(CakeInfo $cakeinfo)
     {
         $infos = CakeInfo::all();
+        //登録してあるか判断
+        if ($cakeinfo->basic_ingredients) {
+            //登録済みならこっち
+            $basicIngredient = BasicIngredient::where('cake_infos_id',$cakeinfo->id)->get();
+            return view('management.ingredientcriate')->with([
+                'cakeinfos' => $infos,
+                'basic' => $basicIngredient,
+            ]);
+        } else {
+            //未登録ならこっち
+            $menus = Cakeinfo::all();
+            $none = 'まだ登録されておりません';
+            return view('management.ingredientcriate')->with([
+                'cakeinfos' => $infos,
+                'menus' => $menus,
+                'none' => $none,
+            ]);
+        }
+    }
+    //BasicIngredientテーブル新規追加処理
+    public function _ingredient_post(Request $request)
+    {
+        //トークン再生成
+        // $request->session()->regenerateToken();                      後でコメントアウトはずす
+        $request->validate([
+            'basic_amount' => 'required',
+            'ingredient_unit' => 'required',
+            'cake_infos_id' => 'required',
+        ], [
+            'basic_amount.required' => '基本量を入力してください',
+            'ingredient_unit.required' => '共通単位を入力してください',
+            'cake_infos_id.required' => 'ケーキの種類を選択してください',
+        ]);
+        //該当商品があるか検索
+        $already = BasicIngredient::query()
+            ->where('cake_infos_id', $request->input('cake_infos_id'))
+            ->where('basic_amount', $request->input('basic_amount'))
+            ->exists();
+        if ($already) {
+            return back()->withErrors([
+                'basic_amount' => 'すでに同じ配合が登録されています'
+            ]);
+        }
+
+        //情報保存
+        $posts=new BasicIngredient();
+        $posts->cake_infos_id=$request->cake_infos_id;
+        $posts->basic_amount=$request->basic_amount;
+        $posts->ingredient_unit=$request->ingredient_unit;
+        $posts->save();
+
+
+        $id = $posts->cake_infos_id;
+        $infos = CakeInfo::all();
+        $basicIngredient = BasicIngredient::where('cake_infos_if',$id)->get();
         return view('management.ingredientcriate')->with([
             'cakeinfos' => $infos,
+            'basic' => $basicIngredient,
+        ]);
+    }
+    //BasicIngredientテーブル更新処理
+    public function _ingredient_update(BasicIngredient $basicIngredient, Request $request)
+    {
+        //トークン再生成
+        // $request->session()->regenerateToken();                      後でコメントアウトはずす
+        $request->validate([
+            'basic_amount' => 'required',
+            'ingredient_unit' => 'required',
+            'cake_infos_id' => 'required',
+        ], [
+            'basic_amount.required' => '基本量を入力してください',
+            'ingredient_unit.required' => '共通単位を入力してください',
+            'cake_infos_id.required' => 'ケーキの種類を選択してください',
+        ]);
+        //該当商品があるか検索
+        $already = BasicIngredient::query()
+            ->where('cake_infos_id', $request->input('cake_infos_id'))
+            ->where('basic_amount', $request->input('basic_amount'))
+            ->exists();
+
+        if ($already) {
+            return back()->withErrors([
+                'basic_amount' => 'すでに同じ配合が登録されています'
+            ]);
+        }
+
+        //情報保存
+        $basicIngredient->cake_infos_id=$request->cake_infos_id;
+        $basicIngredient->basic_amount=$request->basic_amount;
+        $basicIngredient->ingredient_unit=$request->ingredient_unit;
+        $basicIngredient->save();
+
+
+        $id = $basicIngredient->cake_infos_id;
+        $infos = CakeInfo::all();
+        $basicIngredient = BasicIngredient::where('cake_infos_id',$id)->get();
+        return view('management.ingredientcriate')->with([
+            'cakeinfos' => $infos,
+            'basic' => $basicIngredient,
         ]);
     }
 
     //
-    public function _ingredient_order_store()
+    public function _ingredient_order_store(BasicIngredient $basicIngredient, Request $request)
     {
         $infos = CakeInfo::all();
         return view('management.ingredientorder')->with([

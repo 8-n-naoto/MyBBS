@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ url('css/form.css') }}">
     <link rel="stylesheet" href="{{ url('css/calender.css') }}">
 @endsection
-
+{{-- <?php dd($basic); ?> --}}
 @section('main')
     <table>
         <thead>
@@ -16,81 +16,95 @@
                 <th>単位(レシピの分量)</th>
                 <th>ケーキの種類</th>
                 <th>処理ボタン</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td>例</td>
-                <td></td>
-                <td></td>
-                <td>リストにして選んでもらう</td>
+                <td>〇〇型〇枚分</td>
+                <td>g/kgなど、共通のもの</td>
+                <td>どれか一つ選択してください</td>
                 <td>登録ボタン</td>
             </tr>
-            @empty($record)
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="text" name="basic_amount" placeholder="〇〇型〇枚分" class="cakeform">
-                        @error('basic_amount')
-                            <p class="error">{{ $message }}</p>
-                        @enderror
-                    </td>
-                    <td>
-                        <input type="text" name="ingredient_unit" placeholder="g/kgなど、共通のもの" class="cakeform">
-                        @error('ingredient_unit')
-                            <p class="error">{{ $message }}</p>
-                        @enderror
-                    </td>
-                    <td>
-                        {{-- @forelse ($collection as $item) --}}
-                        <input type="radio" name="cake_infos_id" value="">
-                        @error('cake_infos_id')
-                            <p class="error">{{ $message }}</p>
-                        @enderror
-                        {{-- @empty --}}
-                        <p>商品情報を作成してからご利用ください</p>
-                        {{-- @endforelse --}}
-                    </td>
-                    <td>
-                        <form action="" method="post">
-                            @csrf
+            @isset($none)
+                <form action="{{ route('cakes.ingredient.post') }}" method="post">
+                    @csrf
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="text" name="basic_amount" placeholder="〇〇型〇枚分" value="{{ old('basic_amount') }}"
+                                class="cakeform">
+                            @error('basic_amount')
+                                <p class="error">{{ $message }}</p>
+                            @enderror
+                        </td>
+                        <td>
+                            <input type="text" name="ingredient_unit" placeholder="g/kgなど、共通のもの"
+                                value="{{ old('ingredient_unit') }}" class="cakeform">
+                            @error('ingredient_unit')
+                                <p class="error">{{ $message }}</p>
+                            @enderror
+                        </td>
+                        <td>
+                            @forelse ($menus as $info)
+                                <label for="cake_id">{{ $info->cakename }}</label>
+                                <input type="radio" name="cake_infos_id" id="cake_id" value="{{ $info->id }}">
+                                @error('cake_infos_id')
+                                    <p class="error">{{ $message }}</p>
+                                @enderror
+                            @empty
+                                <p>商品情報を作成してからご利用ください</p>
+                            @endforelse
+                        </td>
+                        <td>
                             <button>登録</button>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="text" name="basic_amount" placeholder="前の情報" class="cakeform">
-                        @error('basic_amount')
-                            <p class="error">{{ $message }}</p>
-                        @enderror
-                    </td>
-                    <td>
-                        <input type="text" name="ingredient_unit" placeholder="前の情報" class="cakeform">
-                        @error('ingredient_unit')
-                            <p class="error">{{ $message }}</p>
-                        @enderror
-                    </td>
-                    <td>
-                        <p>ケーキの名前（前の情報）</p>
-                        <input type="hidden" name="cake_infos_id" value="前と同じもの">
-                        @error('cake_infos_id')
-                            <p class="error">{{ $message }}</p>
-                        @enderror
-                    </td>
-                    <td>
-                        <form action="" method="post">
+                        </td>
+                    </tr>
+                </form>
+            @endisset
+            @isset($basic)
+                @foreach ($basic as $item)
+                    <tr>
+                        <form action="{{ route('cakes.ingredient.update', $item->id) }}" method="post">
                             @csrf
-                            <button>更新・削除ボタン</button>
+                            @method('PATCH')
+                            <td></td>
+                            <td>
+                                <input type="text" name="basic_amount" placeholder="{{ old('basic_amount') }}"
+                                    class="cakeform" value="{{ $item->basic_amount }}">
+                                @error('basic_amount')
+                                    <p class="error">{{ $message }}</p>
+                                @enderror
+                            </td>
+                            <td>
+                                <input type="text" name="ingredient_unit" placeholder="{{ old('ingredient_unit') }}"
+                                    class="cakeform" value="{{ $item->ingredient_unit }}">
+                                @error('ingredient_unit')
+                                    <p class="error">{{ $message }}</p>
+                                @enderror
+                            </td>
+                            <td>
+                                <p>{{ $item->cake_info->cakename }}</p>
+                                <input type="hidden" name="cake_infos_id" value="{{ $item->cake_infos_id }}">
+                                @error('cake_infos_id')
+                                    <p class="error">{{ $message }}</p>
+                                @enderror
+                            </td>
+                            <td>
+                                <button>更新する</button>
+                            </td>
                         </form>
-                    </td>
-                </tr>
-            @endempty
-            @isset($record)
+                        <td>
+                            <a href="{{route('cakes.ingredient.edit.store',$item)}}">配合詳細画面へ</a>
+                        </td>
+                    </tr>
+                @endforeach
             @endisset
         </tbody>
     </table>
+
+
     <table>
         <thead>
             <tr>

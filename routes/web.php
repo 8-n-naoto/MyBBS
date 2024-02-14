@@ -224,7 +224,12 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         Route::get('/{cakeinfo}/edit', '_update_store')->name('upudate.store')->where('cakeinfo', '[0-9]+');
         //材料登録画面
         Route::get('/ingredient/criate', '_ingredient_criate_store')->name('intgredient.criate.store.none');
-        Route::get('/{basicIngredient}/ingredient/criate', '_ingredient_criate_store')->name('intgredient.criate.store')->where('basicIngredient', '[0-9]+');
+        Route::get('/{cakeinfo}/ingredient/criate', '_ingredient_criate_store')->name('intgredient.criate.store')->where('cakeinfo', '[0-9]+');
+        //材料詳細画面
+        Route::get('/ingredient/criate', '_ingredient_edit_store')->name('intgredient.edit.store');
+
+
+
         //発注資産画面
         Route::get('/ingredient/order', '_ingredient_order_store')->name('intgredient.order.store');
 
@@ -239,9 +244,12 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         Route::post('/edit/update/{cakeinfo}/addphoto', '_photo_criate')->name('photo.criate');
         //商品更新画面(tag)
         Route::post('/edit/update/{cakeinfo}/addtag', '_tag_criate')->name('tag.criate');
-        /** 更新処理一覧 **/
         //商品情報更新処理(main)
         Route::patch('/edit/{cakeinfo}/update', '_cake_update')->name('cake.update')->where('cakeinfo', '[0-9]+');
+        //BasicIngredientテーブル新規作成処理
+        Route::post('/ingredient/post', '_ingredient_post')->name('ingredient.post');
+        //BasicIngredientテーブル更新処理
+        Route::patch('/ingredient/{basicIngredient}/post', '_ingredient_update')->name('ingredient.update');
 
         /** 商品情報削除処理一覧 **/
         //商品情報削除ページ（main）

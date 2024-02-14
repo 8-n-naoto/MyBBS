@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('cake_infos_id'); //外部キー  cake_infos
-            $table->integer('basic_amount');
+            $table->string('basic_amount');
             $table->string('ingredient_unit');
             $table
                 ->foreign('cake_infos_id')

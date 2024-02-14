@@ -37,9 +37,9 @@ class CakeInfo extends Model
         return $this->hasMany(Tag::class,'cake_infos_id','id');
     }
 
-    public function basic_ingredient()
+    public function basic_ingredients()
     {
-        return $this->hasOne(BasicIngredient::class,'cake_infos_id','id');
+        return $this->hasMany(BasicIngredient::class,'cake_infos_id','id');
     }
 
 }

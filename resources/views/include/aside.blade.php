@@ -45,7 +45,7 @@
                             </a>
                         </li>
                     @empty
-                        <li class="aside-font">準備中だよ！</li>
+                        <li class="asidemenu-font">準備中だよ！</li>
                     @endforelse
                     <li>
                         <a href="{{ route('cakes.criate.store') }}">
@@ -56,14 +56,15 @@
             </div>
             <div class="sidemenu">
                 <ul name="ケーキの種類">
+                    <p class="aside-font link">基本量一覧</p>
                     @forelse ($cakeinfos as $info)
                         <li>
-                            <a href="{{ route('cakes.intgredient.criate.store', $info) }}">
-                                <p class="aside-font link">材料発注試算</p>
+                            <a href="{{ route('cakes.intgredient.criate.store', $info->id) }}">
+                                <p class="asidemenu-font link">{{ $info->cakename }}</p>
                             </a>
                         </li>
                     @empty
-                        <li class="aside-font">準備中だよ！</li>
+                        <li class="asidemenu-font">準備中だよ！</li>
                     @endforelse
                     <li>
                         <a href="{{ route('cakes.intgredient.criate.store.none') }}">
