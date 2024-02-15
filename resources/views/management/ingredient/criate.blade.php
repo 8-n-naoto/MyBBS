@@ -47,17 +47,17 @@
                                 <p class="error">{{ $message }}</p>
                             @enderror
                         </td>
-                        <td>
-                            @forelse ($menus as $info)
-                                <label for="{{ $info->cakename }}">{{ $info->cakename }}</label>
-                                <input type="radio" name="cake_infos_id" id="{{ $info->cakename }}"
-                                    value="{{ $info->id }}">
-                                @error('cake_infos_id')
-                                    <p class="error">{{ $message }}</p>
-                                @enderror
-                            @empty
-                                <p>商品情報を作成してからご利用ください</p>
-                            @endforelse
+                        <td class="flex-row">
+                            <select name="cake_infos_id" id="">
+                                @forelse ($menus as $info)
+                                <option value="{{ $info->id }}">{{ $info->cakename }}</option>
+                                    @error('cake_infos_id')
+                                        <p class="error">{{ $message }}</p>
+                                    @enderror
+                                @empty
+                                    <p>商品情報を作成してからご利用ください</p>
+                                @endforelse
+                            </select>
                         </td>
                         <td>
                             <button>登録</button>
@@ -85,16 +85,16 @@
                             @enderror
                         </td>
                         <td>
-                            @forelse ($cakeinfos as $info)
-                                <label for="{{ $info->cakename }}">{{ $info->cakename }}</label>
-                                <input type="radio" name="cake_infos_id" id="{{ $info->cakename }}"
-                                    value="{{ $info->id }}">
-                                @error('cake_infos_id')
-                                    <p class="error">{{ $message }}</p>
-                                @enderror
-                            @empty
-                                <p>商品情報を作成してからご利用ください</p>
-                            @endforelse
+                            <select name="cake_infos_id" id="">
+                                @forelse ($cakeinfos as $info)
+                                <option value="{{ $info->id }}">{{ $info->cakename }}</option>
+                                    @error('cake_infos_id')
+                                        <p class="error">{{ $message }}</p>
+                                    @enderror
+                                @empty
+                                    <p>商品情報を作成してからご利用ください</p>
+                                @endforelse
+                            </select>
                         </td>
                         <td>
                             <button>登録</button>
@@ -142,7 +142,7 @@
                         </td>
                         <td class="flex-column">
                             <a href="{{ route('cakes.ingredient.edit.store', $item) }}">配合詳細画面へ</a>
-                            <a href="{{route('cakes.ingredient.edit.order.store',$item)}}">発注試算画面へ</a>
+                            <a href="{{ route('cakes.ingredient.edit.order.store', $item) }}">発注試算画面へ</a>
                         </td>
                     </tr>
                 @endforeach
