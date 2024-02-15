@@ -140,8 +140,9 @@
                             </form>
 
                         </td>
-                        <td>
+                        <td class="flex-column">
                             <a href="{{ route('cakes.ingredient.edit.store', $item) }}">配合詳細画面へ</a>
+                            <a href="{{route('cakes.ingredient.edit.order.store',$item)}}">発注試算画面へ</a>
                         </td>
                     </tr>
                 @endforeach

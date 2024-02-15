@@ -224,14 +224,12 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         Route::get('/{cakeinfo}/edit', '_update_store')->name('upudate.store')->where('cakeinfo', '[0-9]+');
         //材料登録画面
         Route::get('/ingredient/criate', '_ingredient_criate_store')->name('intgredient.criate.store.none');
-        Route::get('/{cakeinfo}/ingredient/criate', '_ingredient_criate_store')->name('intgredient.criate.store')->where('cakeinfo', '[0-9]+');
+        Route::get('/ingredient/{cakeinfo}/criate', '_ingredient_criate_store')->name('intgredient.criate.store')->where('cakeinfo', '[0-9]+');
         //材料詳細画面
         Route::get('/ingredient/edit/{basicIngredient}/store', '_ingredient_edit_store')->name('ingredient.edit.store')->where('basicIngredient', '[0-9]+');
+        //発注試算表画面
+        Route::get('/ingredient/edit/{basicIngredient}/order', '_ingredient_edit_order_store')->name('ingredient.edit.order.store')->where('basicIngredient', '[0-9]+');
 
-        //材料詳細更新処理
-        Route::patch('/ingredient/edit/{eachIngredient}/update', '_ingredient_edit_update')->name('ingredient.edit.update')->where('eachIngredient', '[0-9]+');
-        //材料詳細削除処理
-        Route::delete('/ingredient/edit/{eachIngredient}/destroy', '_ingredient_edit_destroy')->name('ingredient.edit.destroy')->where('eachIngredient', '[0-9]+');
 
 
         //発注資産画面
@@ -256,6 +254,8 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         Route::post('/ingredient/post', '_ingredient_post')->name('ingredient.post');
         //BasicIngredientテーブル更新処理
         Route::patch('/ingredient/{basicIngredient}/post', '_ingredient_update')->name('ingredient.update');
+        //材料詳細更新処理
+        Route::patch('/ingredient/edit/{eachIngredient}/update', '_ingredient_edit_update')->name('ingredient.edit.update')->where('eachIngredient', '[0-9]+');
 
         /** 商品情報削除処理一覧 **/
         //商品情報削除ページ（main）
@@ -268,5 +268,7 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         Route::delete('/edit/{tag}/destroytag', '_tag_destroy')->name('tag.destroy')->where('tag', '[0-9]+');
         //材料登録画面
         Route::delete('/ingredient/{basicIngredient}/destroy', '_ingredient_destroy')->name('ingredient.destroy')->where('basicIngredient', '[0-9]+');
+        //材料詳細削除処理
+        Route::delete('/ingredient/edit/{eachIngredient}/destroy', '_ingredient_edit_destroy')->name('ingredient.edit.destroy')->where('eachIngredient', '[0-9]+');
     });
 });

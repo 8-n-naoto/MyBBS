@@ -74,11 +74,6 @@
                 </ul>
             </div>
             <div class="sidemenu">
-                <a href="{{ route('cakes.intgredient.order.store') }}">
-                    <p class="aside-font link">発注試算表</p>
-                </a>
-            </div>
-            <div class="sidemenu">
                 <a href="{{ route('information.edits.store') }}">
                     <p class="aside-font link">お知らせ一覧</p>
                 </a>

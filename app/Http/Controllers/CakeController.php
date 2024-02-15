@@ -691,12 +691,16 @@ class CakeController extends Controller
 
         ]);
     }
-    // //
-    // public function _ingredient_order_store(BasicIngredient $basicIngredient, Request $request)
-    // {
-    //     $infos = CakeInfo::all();
-    //     return view('management.ingredientorder')->with([
-    //         'cakeinfos' => $infos,
-    //     ]);
-    // }
+
+    //材料発注画面移動
+    public function _ingredient_edit_order_store(BasicIngredient $basicIngredient)
+    {
+        $infos = CakeInfo::all();
+        $each = EachIngredient::where('basic_ingredients_id', $basicIngredient->id)->get();
+        return view('management.ingredient.order')->with([
+            'cakeinfos' => $infos,
+            'basic' => $basicIngredient,
+            'each' => $each,
+        ]);
+    }
 }
