@@ -38,7 +38,7 @@
                         <p class="smallfont">予約名：{{ $reservation->main_reservation->user->name }}様</p>
                         <p class="smallfont">商品名：{{ $reservation->cakename }}</p>
                         <p class="smallfont">大きさ：{{ $reservation->capacity }}</p>
-                        <p class="smallfont">値段：{{ $reservation->price }}</p>
+                        <p class="smallfont">値段：{{ $reservation->price }}円</p>
                         <p class="smallfont">メッセージ：{{ $reservation->message }} </p>
                     </div>
                 @endisset

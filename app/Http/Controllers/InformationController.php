@@ -14,7 +14,7 @@ use App\Models\Sub_reservation;
 use  App\Models\Information;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\ContactMail;
-use App\Models\Cake_info_sub;
+use DateTime;
 use Illuminate\Support\Facades\Mail;
 
 class InformationController extends Controller
@@ -110,7 +110,32 @@ class InformationController extends Controller
     public function _check_store(Request $request)
     {
         //トークン再生成
-        $request->session()->regenerateToken();
+        // $request->session()->regenerateToken();
+
+        //日にちの期間確認
+        $startlimit = Carbon::today()->addDay(3);
+        $endlimit = Carbon::today()->addMonth(2);
+        $day = $request->birthday;
+
+        $birthday = new DateTime($day);
+        $holiday = intval($birthday->format('w'));
+        if ($day < $startlimit  || $endlimit < $day) {
+            return back()->withErrors([
+                'birthday' => '３日後から２ヶ月の間で選択してください'
+            ]);
+        } elseif ($holiday === 3 || $holiday === 4) {
+            // 休日以外か判別する
+            // 0:日 1:月 2:火 3:水 4:木 5:金 6:土
+            return back()->withErrors([
+                'birthday' => '水曜日、木曜日は定休日です'
+            ]);
+        }
+
+
+
+
+
+
 
         $request->validate([
             'users_id' => 'required',
@@ -129,6 +154,8 @@ class InformationController extends Controller
             'message.required' => '「メッセージなし」、もしくはメッセージを入力してください'
         ]);
 
+
+
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
 
@@ -143,7 +170,7 @@ class InformationController extends Controller
     public function _result_store(Request $request)
     {
         //トークン再生成
-        $request->session()->regenerateToken();
+        // $request->session()->regenerateToken();
 
         $posts = new Main_reservation();
         $posts->birthday = $request->birthday;

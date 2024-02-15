@@ -25,7 +25,7 @@
                 <td>例</td>
                 <td>〇〇型〇枚分</td>
                 <td>g/kgなど、共通のもの</td>
-                <td>どれか一つ選択してください</td>
+                <td></td>
                 <td></td>
             </tr>
             @isset($none)
@@ -49,6 +49,7 @@
                         </td>
                         <td class="flex-row">
                             <select name="cake_infos_id" id="">
+                                <option value="">選択してください▼</option>
                                 @forelse ($menus as $info)
                                 <option value="{{ $info->id }}">{{ $info->cakename }}</option>
                                     @error('cake_infos_id')
@@ -86,6 +87,7 @@
                         </td>
                         <td>
                             <select name="cake_infos_id" id="">
+                                <option value="">選択してください▼</option>
                                 @forelse ($cakeinfos as $info)
                                 <option value="{{ $info->id }}">{{ $info->cakename }}</option>
                                     @error('cake_infos_id')

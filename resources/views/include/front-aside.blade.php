@@ -10,7 +10,7 @@
                     <p class="asidemenu-font link">{{ $info->cakename }}</p>
                 </a>
             @empty
-                <p class="aside-font">ただいま準備中！</p>
+                <p class="asidemenu-font">ただいま準備中！</p>
             @endforelse
         </div>
         <div class="sidemenu">
@@ -25,7 +25,7 @@
                     <p class="asidemenu-font link">{{ $tag->tag }}</p>
                 </a>
             @empty
-                <p class="aside-font">ただいま準備中！</p>
+                <p class="asidemenu-font">ただいま準備中！</p>
             @endforelse
         </div>
         <div class="sidemenu">
