@@ -18,6 +18,7 @@
                 <th>最低ロット(単位)</th>
                 <th>賞味期限(日)</th>
                 <th>処理ボタン</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -28,7 +29,7 @@
                 <td>450</td>
                 <td>袋、ダースなど</td>
                 <td>約7日</td>
-                <td>更新・削除ボタン</td>
+                <td>処理ボタン</td>
             </tr>
             <tr>
                 <form action="{{ route('cakes.ingredient.edit.post', $basic) }}" method="post">
@@ -70,7 +71,7 @@
                         @enderror
                     </td>
                     <td>
-                        <button>追加する</button>
+                        <button>追加</button>
                     </td>
                 </form>
             </tr>
@@ -78,24 +79,41 @@
             {{-- 既存の材料 --}}
             @forelse ($each as $item)
                 <tr>
-                    <td></td>
-                    <td>{{ $item->ingredient_name }}</td>
-                    <td>{{ $item->ingredient_amount }}</td>
-                    <td>{{ $item->lot_amount }}</td>
-                    <td>{{ $item->lot_unit }}</td>
-                    <td>{{ $item->expiration }}</td>
-                    <td class="flex-row">
-                        <form action="" method="post">
+                    <form action="{{ route('cakes.ingredient.edit.update', $item) }}" method="post">
+                        @csrf
+                        @method('PATCH')
+                        <td></td>
+                        <td>
+                            {{ $item->ingredient_name }}
+                            <input type="hidden" name="ingredient_name" value="{{ $item->ingredient_name }}">
+                        </td>
+                        <td>
+                            <input type="text" name="ingredient_amount" value="{{ $item->ingredient_amount }}"
+                                class="cakeform">
+                        </td>
+                        <td>
+                            <input type="text" name="lot_amount" value="{{ $item->lot_amount }}" class="cakeform">
+
+                        </td>
+                        <td>
+                            <input type="text" name="lot_unit" value="{{ $item->lot_unit }}" class="cakeform">
+                        </td>
+                        <td>
+                            <input type="text" name="expiration" value="{{ $item->expiration }}" class="cakeform">
+                        </td>
+                        <td class="flex-row">
+                            <input type="hidden" name="basic_ingredients_id" value="{{$basic->id}}">
+                            <button>変更</button>
+                        </td>
+                    </form>
+                    <td>
+                        <form action="{{ route('cakes.ingredient.edit.destroy', $item) }}" method="post">
                             @csrf
                             @method('DELETE')
+                            <input type="hidden" name="basic_ingredients_id" value="{{$basic->id}}">
                             <button>削除</button>
                         </form>
-                        <p class="form-font">/</p>
-                        <form action="" method="post">
-                            @csrf
-                            @method('PATCH')
-                            <button>更新</button>
-                        </form>
+
                     </td>
                 </tr>
             @empty

@@ -431,7 +431,7 @@ class CakeController extends Controller
     public function _ingredient_criate_store(CakeInfo $cakeinfo)
     {
         $infos = CakeInfo::all();
-        $exists= BasicIngredient::where('cake_infos_id', $cakeinfo->id)->count();
+        $exists = BasicIngredient::where('cake_infos_id', $cakeinfo->id)->count();
 
         //登録してあるか判断
         if ($exists) {
@@ -570,14 +570,13 @@ class CakeController extends Controller
     public function _ingredient_edit_store(BasicIngredient $basicIngredient)
     {
         $infos = CakeInfo::all();
-        $each=EachIngredient::where('basic_ingredients_id',$basicIngredient->id)->get();
+        $each = EachIngredient::where('basic_ingredients_id', $basicIngredient->id)->get();
         return view('management.ingredient.edit')->with([
             'cakeinfos' => $infos,
             'basic' => $basicIngredient,
             'each' => $each,
         ]);
     }
-
     //配合個別詳細追加処理
     public function _ingredient_edit_post(BasicIngredient $basicIngredient, Request $request)
     {
@@ -594,11 +593,11 @@ class CakeController extends Controller
             'basic_ingredients_id.required' => '不正な遷移です',
             'ingredient_name.required' => '共通単位を入力してください',
             'ingredient_amount.required' => '分量を選択してください',
-            'lot_amount.required'=>'最低ロットを記入してください',
-            'lot_unit.required'=>'最低ロットの単位を入力してください',
+            'lot_amount.required' => '最低ロットを記入してください',
+            'lot_unit.required' => '最低ロットの単位を入力してください',
             'ingredient_amount.integer' => '半角数字のみで入力してください',
             'lot_amount.integer' => '半角数字のみで入力してください',
-            'expretion.integer' => '半角数字のみで入力してください',
+            'expiration.integer' => '半角数字のみで入力してください',
         ]);
         //該当商品があるか検索
         $already = EachIngredient::query()
@@ -623,10 +622,71 @@ class CakeController extends Controller
 
 
         $infos = CakeInfo::all();
-        $each=EachIngredient::where('basic_ingredients_id',$basicIngredient->id)->get();
+        $each = EachIngredient::where('basic_ingredients_id', $basicIngredient->id)->get();
         return view('management.ingredient.edit')->with([
             'cakeinfos' => $infos,
-            'basic'=>$basicIngredient,
+            'basic' => $basicIngredient,
+            'each' => $each,
+
+        ]);
+    }
+    //材料詳細更新処理
+    public function _ingredient_edit_update(EachIngredient $eachIngredient, Request $request)
+    {
+        // トークン再生成
+        $request->session()->regenerateToken();
+        $request->validate([
+            'basic_ingredients_id' => 'required',
+            'ingredient_name' => 'required',
+            'ingredient_amount' => 'required|integer',
+            'lot_amount' => 'required|integer',
+            'lot_unit' => 'required',
+            'expiration' => 'integer',
+        ], [
+            'basic_ingredients_id.required' => '不正な遷移です',
+            'ingredient_name.required' => '共通単位を入力してください',
+            'ingredient_amount.required' => '分量を選択してください',
+            'lot_amount.required' => '最低ロットを記入してください',
+            'lot_unit.required' => '最低ロットの単位を入力してください',
+            'ingredient_amount.integer' => '半角数字のみで入力してください',
+            'lot_amount.integer' => '半角数字のみで入力してください',
+            'expiration.integer' => '半角数字のみで入力してください',
+        ]);
+
+        //情報保存
+        $eachIngredient->basic_ingredients_id = $request->basic_ingredients_id;
+        $eachIngredient->ingredient_name = $request->ingredient_name;
+        $eachIngredient->ingredient_amount = $request->ingredient_amount;
+        $eachIngredient->lot_amount = $request->lot_amount;
+        $eachIngredient->lot_unit = $request->lot_unit;
+        $eachIngredient->expiration = $request->expiration;
+        $eachIngredient->save();
+
+
+        $infos = CakeInfo::all();
+        $basicIngredient = BasicIngredient::find($request->basic_ingredients_id);
+        $each = EachIngredient::where('basic_ingredients_id', $request->basic_ingredients_id)->get();
+        return view('management.ingredient.edit')->with([
+            'cakeinfos' => $infos,
+            'basic' => $basicIngredient,
+            'each' => $each,
+
+        ]);
+    }
+    //材料詳細削除処理
+    public function _ingredient_edit_destroy(EachIngredient $eachIngredient, Request $request)
+    {
+        // トークン再生成
+        $request->session()->regenerateToken();
+
+        $eachIngredient->delete();
+
+        $infos = CakeInfo::all();
+        $basicIngredient = BasicIngredient::find($request->basic_ingredients_id);
+        $each = EachIngredient::where('basic_ingredients_id', $request->basic_ingredients_id)->get();
+        return view('management.ingredient.edit')->with([
+            'cakeinfos' => $infos,
+            'basic' => $basicIngredient,
             'each' => $each,
 
         ]);

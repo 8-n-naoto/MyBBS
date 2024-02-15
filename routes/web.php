@@ -226,10 +226,12 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         Route::get('/ingredient/criate', '_ingredient_criate_store')->name('intgredient.criate.store.none');
         Route::get('/{cakeinfo}/ingredient/criate', '_ingredient_criate_store')->name('intgredient.criate.store')->where('cakeinfo', '[0-9]+');
         //材料詳細画面
-        Route::get('/ingredient/edit/{basicIngredient}/store', '_ingredient_edit_store')->name('ingredient.edit.store');
-        //材料詳細追加処理
-        Route::post('/ingredient/edit/{basicIngredient}/post', '_ingredient_edit_post')->name('ingredient.edit.post');
+        Route::get('/ingredient/edit/{basicIngredient}/store', '_ingredient_edit_store')->name('ingredient.edit.store')->where('basicIngredient', '[0-9]+');
 
+        //材料詳細更新処理
+        Route::patch('/ingredient/edit/{eachIngredient}/update', '_ingredient_edit_update')->name('ingredient.edit.update')->where('eachIngredient', '[0-9]+');
+        //材料詳細削除処理
+        Route::delete('/ingredient/edit/{eachIngredient}/destroy', '_ingredient_edit_destroy')->name('ingredient.edit.destroy')->where('eachIngredient', '[0-9]+');
 
 
         //発注資産画面
@@ -246,6 +248,8 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         Route::post('/edit/update/{cakeinfo}/addphoto', '_photo_criate')->name('photo.criate');
         //商品更新画面(tag)
         Route::post('/edit/update/{cakeinfo}/addtag', '_tag_criate')->name('tag.criate');
+        //材料詳細追加処理
+        Route::post('/ingredient/edit/{basicIngredient}/post', '_ingredient_edit_post')->name('ingredient.edit.post');
         //商品情報更新処理(main)
         Route::patch('/edit/{cakeinfo}/update', '_cake_update')->name('cake.update')->where('cakeinfo', '[0-9]+');
         //BasicIngredientテーブル新規作成処理

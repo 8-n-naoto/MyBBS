@@ -49,8 +49,9 @@
                         </td>
                         <td>
                             @forelse ($menus as $info)
-                                <label for="cake_id">{{ $info->cakename }}</label>
-                                <input type="hidden" name="cake_infos_id" id="cake_id" value="{{ $info->id }}">
+                                <label for="{{ $info->cakename }}">{{ $info->cakename }}</label>
+                                <input type="radio" name="cake_infos_id" id="{{ $info->cakename }}"
+                                    value="{{ $info->id }}">
                                 @error('cake_infos_id')
                                     <p class="error">{{ $message }}</p>
                                 @enderror
@@ -85,8 +86,9 @@
                         </td>
                         <td>
                             @forelse ($cakeinfos as $info)
-                                <label for="cake_id">{{ $info->cakename }}</label>
-                                <input type="hidden" name="cake_infos_id" id="cake_id" value="{{ $info->id }}">
+                                <label for="{{ $info->cakename }}">{{ $info->cakename }}</label>
+                                <input type="radio" name="cake_infos_id" id="{{ $info->cakename }}"
+                                    value="{{ $info->id }}">
                                 @error('cake_infos_id')
                                     <p class="error">{{ $message }}</p>
                                 @enderror
