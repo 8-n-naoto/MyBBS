@@ -497,7 +497,7 @@ class CakeController extends Controller
     public function _ingredient_update(BasicIngredient $basicIngredient, Request $request)
     {
         //トークン再生成
-        $request->session()->regenerateToken();                     
+        $request->session()->regenerateToken();
         $request->validate([
             'basic_amount' => 'required',
             'ingredient_unit' => 'required',
@@ -692,6 +692,7 @@ class CakeController extends Controller
         ]);
     }
 
+    
     //材料発注画面移動
     public function _ingredient_edit_order_store(BasicIngredient $basicIngredient)
     {
