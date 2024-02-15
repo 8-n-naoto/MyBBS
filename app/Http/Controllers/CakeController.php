@@ -437,7 +437,7 @@ class CakeController extends Controller
         if ($exists) {
             //登録済みならこっち
             $basicIngredient = BasicIngredient::where('cake_infos_id', $cakeinfo->id)->get();
-            return view('management.ingredientcriate')->with([
+            return view('management.ingredient.criate')->with([
                 'cakeinfos' => $infos,
                 'basic' => $basicIngredient,
             ]);
@@ -445,7 +445,7 @@ class CakeController extends Controller
             //未登録ならこっち
             $menus = Cakeinfo::all();
             $none = 'まだ登録されておりません';
-            return view('management.ingredientcriate')->with([
+            return view('management.ingredient.criate')->with([
                 'cakeinfos' => $infos,
                 'menus' => $menus,
                 'none' => $none,
@@ -488,7 +488,7 @@ class CakeController extends Controller
         $id = $posts->cake_infos_id;
         $infos = CakeInfo::all();
         $basicIngredient = BasicIngredient::where('cake_infos_id', $id)->get();
-        return view('management.ingredientcriate')->with([
+        return view('management.ingredient.criate')->with([
             'cakeinfos' => $infos,
             'basic' => $basicIngredient,
         ]);
@@ -529,7 +529,7 @@ class CakeController extends Controller
         $id = $basicIngredient->cake_infos_id;
         $infos = CakeInfo::all();
         $basicIngredient = BasicIngredient::where('cake_infos_id', $id)->get();
-        return view('management.ingredientcriate')->with([
+        return view('management.ingredient.criate')->with([
             'cakeinfos' => $infos,
             'basic' => $basicIngredient,
         ]);
@@ -550,7 +550,7 @@ class CakeController extends Controller
         if ($exists) {
             //登録済みならこっち
             $basicIngredient = BasicIngredient::where('cake_infos_id', $id)->get();
-            return view('management.ingredientcriate')->with([
+            return view('management.ingredient.criate')->with([
                 'cakeinfos' => $infos,
                 'basic' => $basicIngredient,
             ]);
@@ -558,7 +558,7 @@ class CakeController extends Controller
             //未登録ならこっち
             $menus = Cakeinfo::all();
             $none = 'まだ登録されておりません';
-            return view('management.ingredientcriate')->with([
+            return view('management.ingredient.criate')->with([
                 'cakeinfos' => $infos,
                 'menus' => $menus,
                 'none' => $none,
