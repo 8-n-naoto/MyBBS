@@ -131,12 +131,6 @@ class InformationController extends Controller
             ]);
         }
 
-
-
-
-
-
-
         $request->validate([
             'users_id' => 'required',
             'birthday' => 'required',
@@ -188,6 +182,7 @@ class InformationController extends Controller
         $posts->save();
 
         $subID = $posts->id;
+        
 
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
@@ -496,6 +491,25 @@ class InformationController extends Controller
         //トークン再生成
         $request->session()->regenerateToken();
 
+        //日にちの期間確認
+        $startlimit = Carbon::today()->addDay(3);
+        $endlimit = Carbon::today()->addMonth(2);
+        $day = $request->birthday;
+
+        $birthday = new DateTime($day);
+        $holiday = intval($birthday->format('w'));
+        if ($day < $startlimit  || $endlimit < $day) {
+            return back()->withErrors([
+                'birthday' => '３日後から２ヶ月の間で選択してください'
+            ]);
+        } elseif ($holiday === 3 || $holiday === 4) {
+            // 休日以外か判別する
+            // 0:日 1:月 2:火 3:水 4:木 5:金 6:土
+            return back()->withErrors([
+                'birthday' => '水曜日、木曜日は定休日です'
+            ]);
+        }
+
         $request->validate([
             'cake_info_id' => 'required',
             'cake_info_sub_id' => 'required',
@@ -588,6 +602,24 @@ class InformationController extends Controller
 
         //データ保存処理
         foreach ($cartData as $data) {
+            //日にちの期間確認
+            $startlimit = Carbon::today()->addDay(3);
+            $endlimit = Carbon::today()->addMonth(2);
+            $day = $data['birthday'];
+
+            $birthday = new DateTime($day);
+            $holiday = intval($birthday->format('w'));
+            if ($day < $startlimit  || $endlimit < $day) {
+                return back()->withErrors([
+                    'birthday' => '３日後から２ヶ月の間で選択してください'
+                ]);
+            } elseif ($holiday === 3 || $holiday === 4) {
+                // 休日以外か判別する
+                // 0:日 1:月 2:火 3:水 4:木 5:金 6:土
+                return back()->withErrors([
+                    'birthday' => '水曜日、木曜日は定休日です'
+                ]);
+            }
             $posts = new Main_reservation();
             $posts->birthday = $data['birthday'];
             $posts->time = $data['time'];
