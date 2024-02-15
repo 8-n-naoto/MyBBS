@@ -110,7 +110,7 @@ class InformationController extends Controller
     public function _check_store(Request $request)
     {
         //トークン再生成
-        // $request->session()->regenerateToken();
+        $request->session()->regenerateToken();
 
         //日にちの期間確認
         $startlimit = Carbon::today()->addDay(3);
@@ -164,7 +164,7 @@ class InformationController extends Controller
     public function _result_store(Request $request)
     {
         //トークン再生成
-        // $request->session()->regenerateToken();
+        $request->session()->regenerateToken();
 
         $posts = new Main_reservation();
         $posts->birthday = $request->birthday;
@@ -182,7 +182,7 @@ class InformationController extends Controller
         $posts->save();
 
         $subID = $posts->id;
-        
+
 
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
@@ -637,10 +637,10 @@ class InformationController extends Controller
         }
 
         // //メール送る
-        $user = auth()->user();
-        Mail::to($user->email)->send(new ContactMail($cartData));
+        // $user = auth()->user();
+        // Mail::to($user->email)->send(new ContactMail($cartData));
 
-        // $cartData = $request->session()->forget('cartData');
+        $cartData = $request->session()->forget('cartData');
 
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');

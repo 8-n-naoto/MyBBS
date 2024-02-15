@@ -456,7 +456,7 @@ class CakeController extends Controller
     public function _ingredient_post(Request $request)
     {
         //トークン再生成
-        // $request->session()->regenerateToken();                      後でコメントアウトはずす
+        $request->session()->regenerateToken();
         $request->validate([
             'basic_amount' => 'required',
             'ingredient_unit' => 'required',
@@ -497,7 +497,7 @@ class CakeController extends Controller
     public function _ingredient_update(BasicIngredient $basicIngredient, Request $request)
     {
         //トークン再生成
-        // $request->session()->regenerateToken();                      後でコメントアウトはずす
+        $request->session()->regenerateToken();                     
         $request->validate([
             'basic_amount' => 'required',
             'ingredient_unit' => 'required',
