@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="{{ url('css/form.css') }}">
     <link rel="stylesheet" href="{{ url('css/calender.css') }}">
 @endsection
+
+@section('js')
+    <script src="{{ url('js/button.js') }}"></script>
+@endsection
+
 {{-- <?php dd($none); ?> --}}
 @section('main')
     <table>
@@ -29,7 +34,7 @@
                 <td></td>
             </tr>
             @isset($none)
-                <form action="{{ route('cakes.ingredient.post') }}" method="post">
+                <form action="{{ route('cakes.ingredient.post') }}" method="post" class="criate">
                     @csrf
                     <tr>
                         <td></td>
@@ -68,7 +73,7 @@
             @endisset
             @isset($basic)
                 <tr>
-                    <form action="{{ route('cakes.ingredient.post') }}" method="post">
+                    <form action="{{ route('cakes.ingredient.post') }}" method="post"class="criate">
                         @csrf
                         <td></td>
                         <td>
@@ -105,7 +110,7 @@
                 </tr>
                 @foreach ($basic as $item)
                     <tr>
-                        <form action="{{ route('cakes.ingredient.update', $item->id) }}" method="post">
+                        <form action="{{ route('cakes.ingredient.update', $item->id) }}" method="post" class="update">
                             @csrf
                             @method('PATCH')
                             <td></td>
@@ -135,7 +140,7 @@
                             </td>
                         </form>
                         <td>
-                            <form action="{{ route('cakes.ingredient.destroy', $item) }}" method="post">
+                            <form action="{{ route('cakes.ingredient.destroy', $item) }}" method="post" class="delete">
                                 @csrf
                                 @method('DELETE')
                                 <button>削除する</button>

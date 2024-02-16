@@ -9,6 +9,19 @@
         }
     });
 
+
+    // ボタン削除用
+    document.querySelectorAll('.criate').forEach(element => {
+        element.addEventListener('submit', e => {
+            e.preventDefault();
+            if (!confirm('登録しますか？')) {
+                return;
+            }
+            e.target.submit();
+        })
+
+    });
+
     // ボタン更新用
     document.querySelectorAll('.update').forEach(element => {
         element.addEventListener('submit', e => {
