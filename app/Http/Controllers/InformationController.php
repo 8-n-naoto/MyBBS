@@ -640,7 +640,7 @@ class InformationController extends Controller
         $user = auth()->user();
         Mail::to($user->email)->send(new ContactMail($cartData));
 
-        // $cartData = $request->session()->forget('cartData');
+        $cartData = $request->session()->forget('cartData');
 
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
