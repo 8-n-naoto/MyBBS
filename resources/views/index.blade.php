@@ -45,7 +45,7 @@
 
     @include('include.google-map')
 
-    <script>
+    {{-- <script>
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -72,5 +72,5 @@
                 console.log('実行しました');
             });
         });
-    </script>
+    </script> --}}
 @endsection
