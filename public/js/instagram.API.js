@@ -31,7 +31,7 @@
 (function ($) {
     $.ajax({  // jQueryのajaxでjsonデータを取得しますね
         type: 'GET',
-        url: '/public/js/SNS.json',  //自作API　Node.jsのバージョンを上げれば使用可能？
+        url: 'http://localhost:8569/js/SNS.json',  //自作API　Node.jsのバージョンを上げれば使用できる
         dataType: 'json',
         success: function (json) {
             var insta = json.media.data;

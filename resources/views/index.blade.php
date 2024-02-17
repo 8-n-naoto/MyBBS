@@ -10,7 +10,7 @@
 @endsection
 
 @section('head-js')
-    <script src="{{ url('js/instagram.API.js') }}"></script>
+    {{-- <script src="{{ url('js/instagram.API.js') }}"></script> --}}
 @endsection
 
 @section('js')
@@ -45,5 +45,32 @@
 
     @include('include.google-map')
 
-
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        })
+        $('.favorite').on('click', function() {
+            user_id = $('#favorite[name=user_id]').val();
+            cake_id = $('#favorite[name=cake_id]').val();
+            cakeinfos_id = $('#favorite[name=cakeinfos_id]').val();
+            $.ajax({
+                url: "{{ route('user.favorite.add') }}",
+                method: "POST",
+                data: {
+                    user_id : user_id,
+                    cake_id : cake_id,
+                    cakeinfos_id : cakeinfos_id,
+                },
+                dataType: "json",
+            }).done(function(res) {
+                console.log('通信成功');
+            }).fail(function() {
+                console.log('通信失敗');
+            }).always(function(data) {
+                console.log('実行しました');
+            });
+        });
+    </script>
 @endsection

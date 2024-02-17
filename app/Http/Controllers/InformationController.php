@@ -290,14 +290,14 @@ class InformationController extends Controller
         $posts->cake_id = $request->cake_id;
         $posts->save();
 
-        $infos = CakeInfo::where('boolean', 1)->get();
-        $subphotos = $request->cakeinfos_id;
+        // $infos = CakeInfo::where('boolean', 1)->get();
+        // $subphotos = $request->cakeinfos_id;
 
-        return back()
-            ->with([
-                'infos' => $infos,
-                'subphotos' => $subphotos,
-            ]);
+        // return back()
+        //     ->with([
+        //         'infos' => $infos,
+        //         'subphotos' => $subphotos,
+        //     ]);
     }
     //お気に入り削除
     public function _favorite_destroy(Favorite $favorite, Request $request)
@@ -313,10 +313,12 @@ class InformationController extends Controller
                 $query->where('boolean', 1);
             })
             ->get();
+        $tags = Tag::all()->unique('tag');
 
         return view('auth.favorite')
             ->with([
                 'infos' => $infos,
+                'tags' => $tags,
             ]);
     }
     //お気に入り移動
