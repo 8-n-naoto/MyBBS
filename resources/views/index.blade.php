@@ -45,13 +45,14 @@
 
     @include('include.google-map')
 
-    {{-- <script>
+    <script>
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         })
-        $('.favorite').on('click', function() {
+        $('.favorite').on('click', function(e) {
+            e.preventDefault();
             user_id = $('#favorite[name=user_id]').val();
             cake_id = $('#favorite[name=cake_id]').val();
             cakeinfos_id = $('#favorite[name=cakeinfos_id]').val();
@@ -59,9 +60,9 @@
                 url: "{{ route('user.favorite.add') }}",
                 method: "POST",
                 data: {
-                    user_id : user_id,
-                    cake_id : cake_id,
-                    cakeinfos_id : cakeinfos_id,
+                    user_id: user_id,
+                    cake_id: cake_id,
+                    cakeinfos_id: cakeinfos_id,
                 },
                 dataType: "json",
             }).done(function(res) {
@@ -72,5 +73,5 @@
                 console.log('実行しました');
             });
         });
-    </script> --}}
+    </script>
 @endsection

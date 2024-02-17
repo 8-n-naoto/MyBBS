@@ -40,7 +40,7 @@ class InformationController extends Controller
     // tag別画面
     public function _tag_store(Tag $tag)
     {
-        $infos = CakeInfo::all();
+        $infos = CakeInfo::where('boolean', 1)->get();
         $cakeinfo = Tag::where('tag', $tag->tag)->get();
         $tags = Tag::all()->unique('tag');
         $informations = Information::orderByDEsc('updated_at')->get();
