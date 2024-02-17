@@ -44,8 +44,14 @@
     </div>
 
     @include('include.google-map')
-    <button id="test">ajax</button>
-    <div class="result"></div>
+    
+    <form method="post">
+        <p>世界で一番美しい人物の名前を答えなさい</p>
+        <p>あなたの答え：<input type="text" name="answer" id="answer"></p>
+      </form>
+
+      <button id="ajax">Ajax通信</button>
+      <div class="result"></div>
 
     <script>
         $(function(){
