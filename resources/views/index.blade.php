@@ -53,16 +53,16 @@
         })
         $('.favorite').on('click', function(e) {
             e.preventDefault();
-            user_id = $('#favorite[name=user_id]').val();
-            cake_id = $('#favorite[name=cake_id]').val();
-            cakeinfos_id = $('#favorite[name=cakeinfos_id]').val();
+            // user_id = $('#favorite[name=user_id]').val();
+            // cake_id = $('#favorite[name=cake_id]').val();
+            // cakeinfos_id = $('#favorite[name=cakeinfos_id]').val();
             $.ajax({
-                url: "{{ route('user.favorite.add') }}",
-                method: "POST",
+                url: "{{ route('index') }}",
+                method: "GET",
                 data: {
-                    user_id: user_id,
-                    cake_id: cake_id,
-                    cakeinfos_id: cakeinfos_id,
+                    // user_id: user_id,
+                    // cake_id: cake_id,
+                    // cakeinfos_id: cakeinfos_id,
                 },
                 dataType: "json",
             }).done(function(res) {

@@ -1,5 +1,5 @@
 @if (Auth::user())
-    <form id="favorite">
+    <form method="POST" action="{{ route('user.favorite.add') }}" id="favorite">
         @csrf
         @isset($cakeinfos)
             <input type="hidden" name="cakeinfos_id" value="{{ $cakeinfos->id }}">
