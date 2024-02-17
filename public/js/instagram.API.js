@@ -2,7 +2,7 @@
     $.ajax({  // jQueryのajaxでjsonデータを取得する
         type: 'GET',
         // url: 'https://graph.facebook.com/v13.0/「InstagramビジネスID」?access_token=「アクセスTOKEN」&fields=name,media{caption,like_count,media_url,permalink,timestamp,username}',
-        url: 'http://localhost:8569',  //自作API　Node.jsのバージョンを上げれば使用できる？
+        url: 'http://57.181.132.42/',  //自作API　Node.jsのバージョンを上げれば使用できる？
         dataType: 'json',
         success: function (json) {
             var insta = json.media.data;
