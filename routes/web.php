@@ -24,6 +24,10 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminRegisterController;
 use App\Http\Controllers\CakeController;
+
+use App\Http\Controllers\ApiProductController;
+use Spatie\FlareClient\Api;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -272,3 +276,5 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         Route::delete('/ingredient/edit/{eachIngredient}/destroy', '_ingredient_edit_destroy')->name('ingredient.edit.destroy')->where('eachIngredient', '[0-9]+');
     });
 });
+
+// Route::apiResource('products', ApiProductController::class);

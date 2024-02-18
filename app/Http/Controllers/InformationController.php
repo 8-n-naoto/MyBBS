@@ -272,7 +272,7 @@ class InformationController extends Controller
     public function _favorite_add(Request $request)
     {
         //お気に入り登録
-        $request->session()->regenerateToken();
+        // $request->session()->regenerateToken();
 
         $already = Favorite::query()
             ->where('user_id', $request->input('user_id'))
@@ -285,18 +285,29 @@ class InformationController extends Controller
             ]);
         }
 
-        $posts = new Favorite();
-        $posts->user_id = $request->user_id;
-        $posts->cake_id = $request->cake_id;
-        $posts->save();
+        // $posts = new Favorite();
+        // $posts->user_id = $request->user_id;
+        // $posts->cake_id = $request->cake_id;
+        // $posts->save();
 
-        $infos = CakeInfo::where('boolean', 1)->get();
-        $subphotos = $request->cakeinfos_id;
+
+        $request = $request->request->all();
+        foreach ($request as $key => $value) {
+            $posts = new Favorite();
+            $posts->user_id = $key['user_id'];
+            $posts->cake_id = $key['cake_id'];
+            $posts->save();
+        }
+
+
+
+        // $infos = CakeInfo::where('boolean', 1)->get();
+        // $subphotos = $request->cakeinfos_id;
 
         return back()
             ->with([
-                'infos' => $infos,
-                'subphotos' => $subphotos,
+                // 'infos' => $infos,
+                // 'subphotos' => $subphotos,
             ]);
     }
     //お気に入り削除
@@ -685,13 +696,3 @@ class InformationController extends Controller
     }
 }
 
-// public function ()
-// {
-//     $infos = CakeInfo::where('boolean', 1)->get();
-//     $tags = Tag::all()->unique('tag');
-
-//     return view('')->with([
-//         'infos' => $infos,
-//         'tags' => $tags,
-//     ]);
-// }

@@ -1,4 +1,4 @@
-{{-- <?php dd($tags); ?> --}}
+{{-- <?php dd($infos); ?> --}}
 
 @extends('components.frontlayout')
 @section('css')
@@ -46,31 +46,29 @@
     @include('include.google-map')
 
     <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        })
         $('.favorite').on('click', function(e) {
             e.preventDefault();
-            // user_id = $('#favorite[name=user_id]').val();
-            // cake_id = $('#favorite[name=cake_id]').val();
-            // cakeinfos_id = $('#favorite[name=cakeinfos_id]').val();
             $.ajax({
-                url: "{{ route('index') }}",
-                method: "GET",
+                url: "{{ route('user.favorite.add') }}",
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
+                },
+                method: "POST",
                 data: {
-                    // user_id: user_id,
-                    // cake_id: cake_id,
-                    // cakeinfos_id: cakeinfos_id,
+                    "user_id": $('#favorite[name="user_id"]').val(),
+                    "cake_id": $('#favorite[name="cake_id"]').val(),
+                    "cakeinfos_id": $('#favorite[name="cakeinfos_id"]').val(),
                 },
                 dataType: "json",
             }).done(function(res) {
                 console.log('通信成功');
             }).fail(function() {
                 console.log('通信失敗');
+                alert('通信失敗');
             }).always(function(data) {
                 console.log('実行しました');
+                console.log($('#favorite[name="user_id"]').val());
+
             });
         });
     </script>

@@ -6,8 +6,8 @@
                     <img src="{{ asset($info->mainphoto) }}" class="menuphotos" alt="ケーキの写真">
                     {{ e($info->cakename) }}
                 </p>
-                @include('include.favoritebutton')
             </a>
+                @include('include.favoritebutton')
         </object>
     @empty
         <p>ただいま準備中！</p>
