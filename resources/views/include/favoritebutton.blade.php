@@ -9,4 +9,3 @@
         <button class="favorite">♥</button>
     </form>
 @endif
-

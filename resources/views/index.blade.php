@@ -47,6 +47,7 @@
 
     <script>
         $('.favorite').on('click', function(e) {
+            var elm=$(this);
             e.preventDefault();
             $.ajax({
                 url: "{{ route('user.favorite.add') }}",
@@ -69,7 +70,7 @@
                 console.log('実行しました');
                 console.log($('#favorite [name="user_id"]').val());
                 console.log($('#favorite [name="cake_id"]').val());
-                console.log($('#favorite [name="cakeinfos_id"] ').val());
+                console.log(elm.nextUntil('#favorite [name="cake_id"]'));
 
             });
         });

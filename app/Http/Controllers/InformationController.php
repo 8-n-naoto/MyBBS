@@ -273,29 +273,25 @@ class InformationController extends Controller
     {
         //お気に入り登録
 
-        // $already = Favorite::query()
-        //     ->where('user_id', $request->input('user_id'))
-        //     ->where('cake_id', $request->input('cake_id'))
-        //     ->exists();
-        // if ($already) {
-        //     return back()->withErrors([
-        //         'cake_id' => 'すでに登録されております。'
-        //     ]);
-        // }
+        $already = Favorite::query()
+            ->where('user_id', $request->input('user_id'))
+            ->where('cake_id', $request->input('cake_id'))
+            ->exists();
+        if ($already) {
+            return back()->withErrors([
+                'cake_id' => 'すでに登録されております。'
+            ]);
+        }
 
         // $posts = new Favorite();
         // $posts->user_id = $request->user_id;
         // $posts->cake_id = $request->cake_id;
         // $posts->save();
 
-
-        $request = $request->request->all();
-        foreach ($request as $key=>$value) {
-            $posts = new Favorite();
-            $posts->user_id = $value['user_id'];
-            $posts->cake_id = $value['cake_id'];
-            $posts->save();
-        }
+        $posts = new Favorite();
+        $posts->user_id = $request->user_id;
+        $posts->cake_id = $request->cake_id;
+        $posts->save();
 
         // $infos = CakeInfo::where('boolean', 1)->get();
         // $subphotos = $request->cakeinfos_id;
@@ -691,4 +687,3 @@ class InformationController extends Controller
         ]);
     }
 }
-
