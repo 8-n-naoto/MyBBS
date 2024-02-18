@@ -296,11 +296,11 @@ class InformationController extends Controller
         // $infos = CakeInfo::where('boolean', 1)->get();
         // $subphotos = $request->cakeinfos_id;
 
-        return back()
-            ->with([
-                // 'infos' => $infos,
-                // 'subphotos' => $subphotos,
-            ]);
+        // return back()
+        //     ->with([
+        //         // 'infos' => $infos,
+        //         // 'subphotos' => $subphotos,
+        //     ]);
     }
     //お気に入り削除
     public function _favorite_destroy(Favorite $favorite, Request $request)
