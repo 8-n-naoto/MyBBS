@@ -1,5 +1,7 @@
 @extends('components.frontlayout')
 
+@section('title','お客様ログイン情報登録')
+
 @section('css')
     <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
     <link rel="stylesheet" href="{{ url('css/font.css') }}">

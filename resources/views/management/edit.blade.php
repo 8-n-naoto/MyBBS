@@ -1,5 +1,7 @@
 @extends('components.managementlayout')
 
+@section('title','商品詳細編集')
+
 {{-- <?php dd($tags); ?> --}}
 @section('css')
     <link rel="stylesheet" href="{{ url('css/font.css') }}">

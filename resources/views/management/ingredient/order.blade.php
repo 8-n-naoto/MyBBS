@@ -1,5 +1,7 @@
 @extends('components.managementlayout')
 
+@section('title','発注試算シュミレーター')
+
 @section('css')
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
     <link rel="stylesheet" href="{{ url('css/aside.css') }}">

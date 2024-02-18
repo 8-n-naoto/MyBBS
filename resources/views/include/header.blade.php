@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta  name="csrf-token" content="{{ csrf_token() }}">
-    <title>ケーキ受注システム</title>
+    <title>@yield('title')</title>
     <link rel="stylesheet" href="https://unpkg.com/destyle.css@1.0.5/destyle.css">
     <link rel="stylesheet" href="{{ url('css/main.css') }}">
     @yield('css')

@@ -1,6 +1,8 @@
 {{-- <?php dd($info); ?> --}}
 @extends('components.frontlayout')
 
+@section('title','購入フォーム')
+
 @section('css')
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
     <link rel="stylesheet" href="{{ url('css/form.css') }}">

@@ -1,6 +1,8 @@
 {{-- <?php dd($info->capasity); ?> --}}
 @extends('components.frontlayout')
 
+@section('title','予約情報確認（relation）')
+
 @section('css')
     <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
     <link rel="stylesheet" href="{{ url('css/font.css') }}">

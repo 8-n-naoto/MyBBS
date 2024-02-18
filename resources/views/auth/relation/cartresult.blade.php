@@ -1,5 +1,7 @@
 @extends('components.frontlayout')
 
+@section('title','カート情報保存（relation）')
+
 @section('css')
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
     <link rel="stylesheet" href="{{ url('css/form.css') }}">

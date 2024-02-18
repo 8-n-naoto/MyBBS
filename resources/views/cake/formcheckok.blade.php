@@ -1,5 +1,7 @@
 @extends('components.frontlayout')
 
+@section('title','予約完了画面')
+
 @section('css')
 <link rel="stylesheet" href="{{ url('css/font.css') }}">
 <link rel="stylesheet" href="{{ url('css/form.css') }}">

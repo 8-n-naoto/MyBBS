@@ -1,4 +1,9 @@
 @extends('components.frontlayout')
+
+@section('title','カート一覧（relation）')
+
+@endsection
+
 @section('css')
     <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
     <link rel="stylesheet" href="{{ url('css/font.css') }}">

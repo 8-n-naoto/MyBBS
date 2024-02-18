@@ -1,5 +1,8 @@
 @extends('components.frontlayout')
 
+@section('title','管理者ログイン')
+
+
 @section('css')
     <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
     <link rel="stylesheet" href="{{ url('css/font.css') }}">

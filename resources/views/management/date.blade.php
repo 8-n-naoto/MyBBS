@@ -1,5 +1,7 @@
 @extends('components.managementlayout')
 
+@section('title','日付別予約商品')
+
 @section('css')
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
     <link rel="stylesheet" href="{{ url('css/form.css') }}">

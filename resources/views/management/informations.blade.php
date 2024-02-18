@@ -1,5 +1,7 @@
 @extends('components.managementlayout')
 
+@section('title','おしらせ')
+
 @section('css')
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
     <link rel="stylesheet" href="{{ url('css/form.css') }}">

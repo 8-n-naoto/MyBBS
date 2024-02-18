@@ -1,6 +1,8 @@
 {{-- <?php dd($info->capasity); ?> --}}
 @extends('components.frontlayout')
 
+@section('title','送信内容確認画面')
+
 @section('css')
 <link rel="stylesheet" href="{{ url('css/font.css') }}">
 <link rel="stylesheet" href="{{ url('css/form.css') }}">

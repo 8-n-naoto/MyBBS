@@ -1,5 +1,7 @@
 @extends('components.managementlayout')
 
+@section('title','商品情報新規作成')
+
 @section('css')
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
     <link rel="stylesheet" href="{{ url('css/aside.css') }}">

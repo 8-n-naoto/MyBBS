@@ -1,6 +1,8 @@
 {{-- <?php dd($infos); ?> --}}
-
 @extends('components.frontlayout')
+
+@section('title','タグを含む商品')
+
 @section('css')
     <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
