@@ -1,4 +1,4 @@
-{{-- <?php dd($infos); ?> --}}
+{{-- <?php dd($info); ?> --}}
 
 @extends('components.frontlayout')
 @section('css')
@@ -69,7 +69,7 @@
                 console.log('実行しました');
                 console.log($('#favorite [name="user_id"]').val());
                 console.log($('#favorite [name="cake_id"]').val());
-                console.log($('#favorite [name="cakeinfos_id"]').val());
+                console.log($('#favorite [name="cakeinfos_id"] ').val());
 
             });
         });

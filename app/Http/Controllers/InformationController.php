@@ -272,13 +272,11 @@ class InformationController extends Controller
     public function _favorite_add(Request $request)
     {
         //お気に入り登録
-        // $request->session()->regenerateToken();
 
         // $already = Favorite::query()
         //     ->where('user_id', $request->input('user_id'))
         //     ->where('cake_id', $request->input('cake_id'))
         //     ->exists();
-
         // if ($already) {
         //     return back()->withErrors([
         //         'cake_id' => 'すでに登録されております。'
@@ -292,7 +290,7 @@ class InformationController extends Controller
 
 
         $request = $request->request->all();
-        foreach ($request as $key => $value) {
+        foreach ($request as $key=>$value) {
             $posts = new Favorite();
             $posts->user_id = $value['user_id'];
             $posts->cake_id = $value['cake_id'];
@@ -302,11 +300,11 @@ class InformationController extends Controller
         // $infos = CakeInfo::where('boolean', 1)->get();
         // $subphotos = $request->cakeinfos_id;
 
-        // return back()
-        //     ->with([
-        //         // 'infos' => $infos,
-        //         // 'subphotos' => $subphotos,
-        //     ]);
+        return back()
+            ->with([
+                // 'infos' => $infos,
+                // 'subphotos' => $subphotos,
+            ]);
     }
     //お気に入り削除
     public function _favorite_destroy(Favorite $favorite, Request $request)
