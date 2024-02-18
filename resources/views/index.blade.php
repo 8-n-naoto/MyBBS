@@ -55,11 +55,11 @@
                 },
                 method: "POST",
                 data: {
-                    "user_id": $('#favorite[name="user_id"]').val(),
-                    "cake_id": $('#favorite[name="cake_id"]').val(),
-                    "cakeinfos_id": $('#favorite[name="cakeinfos_id"]').val(),
+                    "user_id": $('#favorite [name="user_id"]').val(),
+                    "cake_id": $('#favorite [name="cake_id"]').val(),
+                    "cakeinfos_id": $('#favorite [name="cakeinfos_id"]').val(),
                 },
-                dataType: "json",
+                // dataType: "",
             }).done(function(res) {
                 console.log('通信成功');
             }).fail(function() {
@@ -67,7 +67,9 @@
                 alert('通信失敗');
             }).always(function(data) {
                 console.log('実行しました');
-                console.log($('#favorite[name="user_id"]').val());
+                console.log($('#favorite [name="user_id"]').val());
+                console.log($('#favorite [name="cake_id"]').val());
+                console.log($('#favorite [name="cakeinfos_id"]').val());
 
             });
         });
