@@ -1,13 +1,14 @@
 {{-- <?php dd($info->capasity); ?> --}}
 @extends('components.frontlayout')
 
-@section('title','予約情報確認（relation）')
+@section('title', '予約情報確認（relation）')
 
 @section('css')
-    <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
-    <link rel="stylesheet" href="{{ url('css/font.css') }}">
-    <link rel="stylesheet" href="{{ url('css/form.css') }}">
-    <link rel="stylesheet" href="{{ url('css/animation.css') }}">
+    <link rel="stylesheet" href="{{ url('css/front.min.css') }}">
+@endsection
+
+@section('aside')
+    @include('include.front-aside')
 @endsection
 
 @section('main')
@@ -15,33 +16,31 @@
         <form method="post" action="{{ route('user.result.store') }}" id="form_send" class="sendform">
             @csrf
             <div>
-                <p class="form-font">お名前:{{ $info->users_name }}</p>
+                <p class="form-font items">お名前:{{ $info->users_name }}</p>
                 <input type="hidden" name="users_id" id="date" value="{{ $info->users_id }}">
             </div>
             <div>
-                <p class="form-font">受け取り日時:{{ $info->birthday }}</p>
+                <p class="form-font items">受け取り日時:{{ $info->birthday }}</p>
                 <input type="hidden" name="birthday" id="date" value="{{ $info->birthday }}">
             </div>
             <div>
-                <p class="form-font">受け取り時間:{{ $info->time }}</p>
+                <p class="form-font items">受け取り時間:{{ $info->time }}</p>
                 <input type="hidden" name="time" id="time" value="{{ $info->time }}">
             </div>
             {{-- 予約一覧まとめて表示 --}}
             @forelse ($carts as $cart)
                 @if ($cart->cake_info_sub->cake_info->boolean)
                     <div class="flex-row textbackground">
-                        <img src="{{ asset($cart->cake_info_sub->cake_info->mainphoto) }}" class="cartphotos"
-                            alt="ケーキの写真">
-                        <div>
-                            <p class="cakenamefont">
-                                {{ e($cart->cake_info_sub->cake_info->cakename) }}
+                        <img src="{{ asset($cart->cake_info_sub->cake_info->mainphoto) }}" class="formphoto" alt="ケーキの写真">
+                        <div class="flex-column">
+                            <p class="form-font items">
+                                購入商品：{{ e($cart->cake_info_sub->cake_info->cakename) }}
                             </p>
-                            <p class="cakenamefont">
-                                {{ $cart->cake_info_sub->capacity }}
-                                {{ $cart->cake_info_sub->price }}円
+                            <p class="form-font items">
+                                内容量：{{ $cart->cake_info_sub->capacity }}
+                                ￥{{ $cart->cake_info_sub->price }}円
                             </p>
-                            <p class="form-font">メッセージ：</p>
-                            <p class="form-font">{{ $cart->message }}</p>
+                            <p class="form-font items">メッセージ：{{ $cart->message }}</p>
                         </div>
                     </div>
                 @endif
@@ -70,4 +69,3 @@
 @section('js')
     <script src="{{ url('js/button.js') }}"></script>
 @endsection
-

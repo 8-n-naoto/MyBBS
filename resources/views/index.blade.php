@@ -4,11 +4,7 @@
 @section('title', 'ホーム')
 
 @section('css')
-    <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
-    <link rel="stylesheet" href="{{ url('css/font.css') }}">
-    <link rel="stylesheet" href="{{ url('css/form.css') }}">
-    <link rel="stylesheet" href="{{ url('css/aside.css') }}">
-    <link rel="stylesheet" href="{{ url('css/instagram.css') }}">
+    <link rel="stylesheet" href="{{ url('css/front.min.css') }}">
 @endsection
 
 @section('js')
@@ -24,13 +20,13 @@
 @section('main')
     @if ($sliderscount !== 0)
         <div class="main-content">
-            <h2 class="bigfont textbackground">イチオシ商品</h2>
+            <h2 class="topic-font">イチオシ商品</h2>
         </div>
         @include('include.slider')
     @endif
 
     <div class="main-content">
-        <h1 class="bigfont textbackground">デコレーションケーキ</h1>
+        <h1 class="topic-font">デコレーションケーキ</h1>
         @include('include.cakes')
     </div>
 
@@ -42,7 +38,7 @@
     </div>
     {{-- instagramAPI --}}
     <div class="section main-content">
-        <h3 class="bigfont textbackground">最新情報一覧</h3>
+        <h3 class="topic-font">最新情報一覧</h3>
         <ul class="insta_list"></ul>
     </div>
 

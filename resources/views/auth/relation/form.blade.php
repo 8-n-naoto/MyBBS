@@ -4,11 +4,13 @@
 @section('title','予約情報入力(relation)')
 
 @section('css')
-    <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
-    <link rel="stylesheet" href="{{ url('css/font.css') }}">
-    <link rel="stylesheet" href="{{ url('css/form.css') }}">
-    <link rel="stylesheet" href="{{ url('css/main.css') }}">
+    <link rel="stylesheet" href="{{ url('css/front.min.css') }}">
 @endsection
+
+@section('aside')
+    @include('include.front-aside')
+@endsection
+
 
 @section('main')
     <section class="form">
@@ -74,18 +76,17 @@
             @forelse ($carts as $cart)
                 @if ($cart->cake_info_sub->cake_info->boolean)
                     <div class="flex-row textbackground">
-                        <img src="{{ asset($cart->cake_info_sub->cake_info->mainphoto) }}" class="cartphotos"
+                        <img src="{{ asset($cart->cake_info_sub->cake_info->mainphoto) }}" class="formphoto"
                             alt="ケーキの写真">
-                        <div>
-                            <p class="form-font">
-                                {{ e($cart->cake_info_sub->cake_info->cakename) }}
+                        <div class="flex-column">
+                            <p class="form-font items">
+                            購入商品：{{ e($cart->cake_info_sub->cake_info->cakename) }}
                             </p>
-                            <p class="form-font">
-                                {{ $cart->cake_info_sub->capacity }}
-                                {{ $cart->cake_info_sub->price }}円
+                            <p class="form-font items">
+                                内容量：{{ $cart->cake_info_sub->capacity }}
+                                ￥{{ $cart->cake_info_sub->price }}円
                             </p>
-                            <p class="form-font">メッセージ：</p>
-                            <p class="form-font">{{ $cart->message }}</p>
+                            <p class="form-font items">メッセージ：{{ $cart->message }}</p>
                         </div>
                     </div>
                 @endif

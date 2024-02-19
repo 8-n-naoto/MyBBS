@@ -3,10 +3,7 @@
 @section('title', '商品詳細画面')
 
 @section('css')
-    <link rel="stylesheet" href="{{ url('css/font.css') }}">
-    <link rel="stylesheet" href="{{ url('css/form.css') }}">
-    <link rel="stylesheet" href="{{ url('css/aside.css') }}">
-    <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
+    <link rel="stylesheet" href="{{ url('css/front.min.css') }}">
 @endsection
 
 @section('aside')
@@ -26,7 +23,6 @@
         <div>
             <div class="slider-container">
                 <div class="arrow-slide">
-                    {{-- <img src="image1.jpg" alt="画像1"> --}}
                     <img src="{{ asset($cakeinfos->mainphoto) }}" class="mainphoto slider-photo">
                 </div>
                 @foreach ($subphotos->cake_photos as $info)
@@ -44,12 +40,13 @@
             <h2 class="topic-font">{{ $cakeinfos->cakename }}</h2>
             @if ($cakeinfos->topic)
                 <div class="flex-row">
-                    <h3 class="form-font">商品説明：</h3>
-                    <h3 class="form-font">{{ $cakeinfos->topic }}</h3>
+                    <h3 class="form-font items">商品説明</h3>
+                    <p class="form-ront">：</p>
+                    <h3 class="form-font items">{{ $cakeinfos->topic }}</h3>
                 </div>
             @endif
             <p class="smallfont">{{ $cakeinfos->explain }}</p>
-            <div class="flex-row tag_area">
+            <div class="flex-row tag-area">
                 @forelse ($caketags as $tag)
                     <a href="{{ route('front.tag', $tag) }}">
                         <p class="tag">{{ $tag->tag }}</p>
@@ -57,35 +54,34 @@
                 @empty
                 @endforelse
             </div>
-            <p class="form-font">取り扱い商品一覧</p>
-            @forelse ($cakeinfos->cake_info_subs as $info)
-                <div class="flex-row">
-                    <p class="form-font">大きさ：{{ $info->capacity }}</p>
-                    <p class="form-font">価格：￥{{ $info->price }}円</p>
-                    {{-- カートに追加する --}}
-                    <form method="POST" action="{{ route('user.cart.add') }}">
-                        @csrf
-                        <input type="hidden" name="cakeinfos_id" value="{{ $cakeinfos->id }}">
-                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                        <input type="hidden" name="cake_info_subs_id" value="{{ $info->id }}">
-                        <button class="cart">購入relation</button>
-                    </form>
-                    <form method="GET" action="{{ route('user.session.cart.reservation') }}">
-                        @csrf
-                        <input type="hidden" name="cake_info_id" value="{{ $cakeinfos->id }}">
-                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                        <input type="hidden" name="cake_info_sub_id" value="{{ $info->id }}">
-                        <button class="cart">購入session</button>
-                    </form>
-
-
-                </div>
-            @empty
-                <p class="form-font">ただいま準備中...</p>
-            @endforelse
+            <p class="form-font items">取り扱い商品一覧</p>
+            <div class="flex-column">
+                @forelse ($cakeinfos->cake_info_subs as $info)
+                    <div class="flex-row">
+                        <p class="form-font items">大きさ：{{ $info->capacity }}</p>
+                        <p class="form-font items">価格：￥{{ $info->price }}円</p>
+                        {{-- カートに追加する --}}
+                        <form method="POST" action="{{ route('user.cart.add') }}">
+                            @csrf
+                            <input type="hidden" name="cakeinfos_id" value="{{ $cakeinfos->id }}">
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            <input type="hidden" name="cake_info_subs_id" value="{{ $info->id }}">
+                            <button class="cart">購入relation</button>
+                        </form>
+                        <form method="GET" action="{{ route('user.session.cart.reservation') }}">
+                            @csrf
+                            <input type="hidden" name="cake_info_id" value="{{ $cakeinfos->id }}">
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            <input type="hidden" name="cake_info_sub_id" value="{{ $info->id }}">
+                            <button class="cart">購入session</button>
+                        </form>
+                    </div>
+                @empty
+                    <p class="form-font">ただいま準備中...</p>
+                @endforelse
+            </div>
             <div class="flex-row">
-                <p class="form-font">お気に入り数</p>
-                <p class="form-font">{{ $count }}件</p>
+                <p class="form-font items">お気に入り数：{{ $count }}件</p>
                 @include('include.favoritebutton')
                 @isset($cakeinfos->cake_info_subs)
                     <a href="{{ route('front.form', $cakeinfos) }}">
@@ -95,18 +91,18 @@
             </div>
         </div>
     </div>
+
     <!-- ギャラリー -->
     <h3 class="topic-font">gallery</h3>
-    <div class="gallery">
+    <div class="cakephotos">
         @forelse ($subphotos->cake_photos as $info)
-            <object>
-                <img src=" {{ asset($info->subphotos) }}" class="subphoto">
-                <p class="form-font textbackground">{{ $info->photoname }}</p>
+            <object class="gallery">
+                <img src=" {{ asset($info->subphotos) }}" class="menuphotos">
+                <p class="cakenamefont">{{ $info->photoname }}</p>
             </object>
         @empty
             <p>現在準備中です...</p>
         @endforelse
-
     </div>
 
     <!-- ほかの写真たち -->

@@ -4,10 +4,7 @@
 @section('title','お気に入り商品')
 
 @section('css')
-    <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
-    <link rel="stylesheet" href="{{ url('css/font.css') }}">
-    <link rel="stylesheet" href="{{ url('css/form.css') }}">
-    <link rel="stylesheet" href="{{ url('css/aside.css') }}">
+    <link rel="stylesheet" href="{{ url('css/front.min.css') }}">
 @endsection
 
 @section('aside')
@@ -19,10 +16,10 @@
         <h1 class="topic-font">お気に入り一覧</h1>
         <div class="cakephotos">
             @forelse ($favorites as $info)
-                <object>
+                <object class="gallery">
                     <a href="{{ route('front.cake', $info->cake_id) }}">
                         <p class="cakenamefont">
-                            <img src="{{ asset($info->cake_info->mainphoto) }}" class="favorite-photo" alt="ケーキの写真">
+                            <img src="{{ asset($info->cake_info->mainphoto) }}" class="menuphotos" alt="ケーキの写真">
                             {{ e($info->cake_info->cakename) }}
                         </p>
                     </a>

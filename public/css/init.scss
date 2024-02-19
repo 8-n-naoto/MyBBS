@@ -21,3 +21,302 @@ $cart-color:#f5a368;
     white-space: nowrap;
     font-weight: 600;
 }
+
+/* 全画面共通部分 */
+
+body {
+    background: repeat url(../img/decoratephotos/cback1902.gif);
+}
+
+main {
+    background-color: $background-color;
+    flex: 1;
+    min-height: 100vh;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/* フッター */
+footer {
+    justify-content: space-between;
+    background: center /cover url(../img/decoratephotos/w-wws10.jpg);
+    padding: 12px;
+    text-align: center;
+    width: 100%;
+    min-width: 1200px;
+}
+
+/* ヘッダー */
+header {
+    background: center /cover url(../img/decoratephotos/1.JPG);
+    padding: 140px 120px;
+    overflow: hidden;
+    background-blend-mode: color;
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    min-width: 1200px;
+}
+
+header:before {
+    content: '';
+    background: inherit;
+    /*.bgImageで設定した背景画像を継承する*/
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+    position: absolute;
+    /*ブラー効果で画像の端がボヤけた分だけ位置を調整*/
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    z-index: -1;
+    /*重なり順序を一番下にしておく*/
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    vertical-align: bottom;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.front-main {
+    box-sizing: border-box;
+    padding: 24px 28px 0 28px;
+    flex: auto;
+}
+
+.main-content+.main-content {
+    margin-top: 20px;
+}
+
+
+aside{
+    margin-top: 12px;
+    box-sizing: border-box;
+    background: $sideback-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 230px;
+    flex: none;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.sidemenu{
+    background: $sidemain-color;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.sidemenu .asidemenu-font{
+    margin-left: 1rem;
+}
+
+
+/* サイト名 */
+.sitefont {
+    @include no-wrap(60px, black);
+
+    background-color: $topic-color;
+    border-radius: 8px;
+    padding: 8px;
+    display: inline;
+}
+
+/* 見出し用 */
+.topic-font {
+    font-size: 32px;
+    color:  $test-color;
+    font-weight: 600;
+    border-bottom: 4px $test-color solid;
+    display: inline-block;
+    box-decoration-break: clone;
+    width: fit-content;
+    border-radius: 8px;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    background-color: $background-color;
+    margin: 12px 0;
+    padding: 8px;
+}
+
+/* 大見出し */
+.bigfont {
+    @include no-wrap(28px, black);
+    border-radius: 8px;
+    padding: 0px 8px;
+    display: inline;
+}
+
+
+/* 中見出し */
+.middlefont {
+    @include no-wrap(18px, black);
+    border-radius: 8px;
+    padding: 0px 8px;
+    box-decoration-break: clone;
+    display: inline;
+}
+
+/* テキスト用 */
+.smallfont {
+    font-size: 16px;
+    word-break: break-all;
+    border-radius: 8px;
+    padding: 4px 8px;
+}
+
+/* ケーキ名用 */
+.cakenamefont {
+    color: $cakefont-color;
+    background-color: $background-color;
+    font-size: 28px;
+    font-weight: 300;
+    border-bottom: solid 2px $test-color;
+    border-radius: 0 0 8px 8px;
+    padding: 0;
+    text-align: center;
+    flex: 0;
+}
+
+/* エラー用 */
+.error {
+    color: red;
+}
+
+/** aside・見出し用フォント/リンクなし **/
+.aside-font {
+    @include no-wrap(20px, black);
+    margin: 0;
+    padding: 0.5rem;
+    background: $topic-color;
+    border-radius: 8px;
+}
+
+/** aside・中身用フォント **/
+.asidemenu-font {
+    @include no-wrap(20px, rgb(57, 57, 57));
+    padding: 2px 0;
+}
+
+/** リンク用 **/
+.link:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 15px 30px -5px rgb(0 0 0 / 20%), 0 0 5px rgb(0 0 0 / 10%);
+}
+
+/* form小見出し */
+.form-font {
+    @include no-wrap(16px, black);
+    padding: 2px 0;
+}
+
+/* form　value部分 */
+.value-font {
+    @include no-wrap(16px, black);
+    padding: 2px 0;
+}
+
+/* その他一般用 */
+.font {
+    @include no-wrap(18px, black);
+    border-radius: 8px;
+    padding: 4px 8px;
+}
+
+/* map背景 */
+.map-background {
+    background-color: rgba(255, 255, 255, 0.598);
+    border-radius: 8px;
+    width: 100%;
+    margin: 12px 0;
+    padding: 16px 40px;
+}
+
+.map-font {
+    font-size: 20px;
+}
+
+/* 不透明背景 */
+.textbackground {
+    background-color: rgba(255, 255, 255, 0.598);
+    border-radius: 8px;
+    width: 100%;
+    margin: 12px 0;
+    padding: 8px;
+}
+
+/* お店紹介用 */
+.about-me-main-font {
+    color: white;
+    font-size: 40px;
+    text-align: center;
+}
+
+.about-me-font {
+    color: white;
+    font-size: 32px;
+    text-align: center;
+}
+
+/* スライドショー矢印 */
+.arrow {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-40%);
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.information-font {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 2px 0;
+    overflow-wrap: break-word;
+}
+
+
+.hidden{
+    overflow: hidden;
+   }
+
+/* お気に入りボタン */
+.favorite {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: none;
+    border-radius: 50%;
+    color: #ffffff;
+    background-color: #ff1818;
+    font-size: 1rem;
+    vertical-align: bottom;
+}
+
+.favorite:hover {
+    border: 1px solid  #ff1818;
+    color: #ff1818;
+    background-color: #fff;
+}

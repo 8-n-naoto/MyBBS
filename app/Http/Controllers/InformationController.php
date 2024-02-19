@@ -205,17 +205,21 @@ class InformationController extends Controller
     {
         $id = Auth::user()->id;
         $carts = Cart::where('user_id', $id)->get();
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
 
         return view('auth.relation.form')
             ->with([
                 'carts' => $carts,
+                'infos'=>$infos,
+                'tags'=>$tags,
             ]);
     }
     //予約詳細確認画面
     public function _collect_check_store(Request $request, CakeInfo $cakeinfo,)
     {
         //トークン再生成
-        $request->session()->regenerateToken();
+        // $request->session()->regenerateToken();
 
         $request->validate([
             'users_id' => 'required',
@@ -228,19 +232,23 @@ class InformationController extends Controller
             'time.required' => '受け取り時間を入力してください',
         ]);
         $id = Auth::user()->id;
+        $infos = CakeInfo::where('boolean', 1)->get();
+        $tags = Tag::all()->unique('tag');
         $carts = Cart::where('user_id', $id)->get();
 
         return view('auth.relation.formcheck')
             ->with([
                 'info' => $request,
                 'carts' => $carts,
+                'infos'=>$infos,
+                'tags'=>$tags,
             ]);
     }
     //予約確定画面
     public function _collect_result_store(Request $request)
     {
         //トークン再生成
-        $request->session()->regenerateToken();
+        // $request->session()->regenerateToken();
 
         //main_reservationテーブルの情報を保存
         $posts = new Main_reservation();
@@ -267,10 +275,13 @@ class InformationController extends Controller
             $cart->delete();
         }
 
-        $mainID = $id;
-        $subID = $posts->id;
+        $tags = Tag::all()->unique('tag');
+        $infos = CakeInfo::where('boolean', 1)->get();
+
         return view('auth.relation.result')
-            ->with([]);
+            ->with([
+                'infos'=>$infos,
+                'tags'=>$tags,]);
     }
 
     /** お気に入り機能関係 **/
@@ -670,12 +681,12 @@ class InformationController extends Controller
     {
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
-        $information = Information::where('id', $Information->id)->get();
+        $information = Information::find($Information->id);
 
         return view('cake.information')->with([
             'infos' => $infos,
             'tags' => $tags,
-            'informations' => $information,
+            'information' => $information,
         ]);
     }
 }
