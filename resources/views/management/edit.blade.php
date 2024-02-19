@@ -33,7 +33,7 @@
                         </div>
                         <div class="flex-column">
                             {{-- 写真の選択 --}}
-                            <input type="file" name="mainphoto" value="{{ $info->mainphoto }}">
+                            <input type="file" name="mainphoto" value="{{ $info->mainphoto }}" class="form-control form-control-sm" >
                             @error('mainphoto')
                                 <div class="error">{{ $message }}</div>
                             @enderror

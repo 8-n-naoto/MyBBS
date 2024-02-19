@@ -13,57 +13,76 @@
                 <p class="asidemenu-font">ただいま準備中！</p>
             @endforelse
         </div>
-        <div class="sidemenu">
-            <a href="{{ route('user.favorite.store') }}">
-                <h2 class="aside-font link">お気に入り一覧</h2>
-            </a>
-        </div>
-        <div class="sidemenu">
-            <h2 class="aside-font">タグ一覧</h2>
-            @forelse ($tags as $tag)
-                <a href="{{ route('front.tag', $tag) }}">
-                    <p class="asidemenu-font link">{{ $tag->tag }}</p>
-                </a>
-            @empty
-                <p class="asidemenu-font">ただいま準備中！</p>
-            @endforelse
-        </div>
-        <div class="sidemenu">
-            <a href="{{ route('user.reservations.store') }}">
-                <h2 class="aside-font link">予約情報確認</h2>
-            </a>
-        </div>
-        <div class="sidemenu">
-            <a href="">
-                <h2 class="aside-font link">最新情報</h2>
-            </a>
-            <p>APIで取得した情報を表示する</p>
-            {{-- API利用して表示する --}}
-        <div class="sidemenu">
-            <p class="aside-font">公式ＳＮＳ一覧</p>
-            <a href="https://www.instagram.com/" class="flex-row">
-                <img src="{{ asset('img\S__9035785_0.jpg') }}" alt="instagram" width="18px" height="18px">
-                <p class="asidemenu-font link">instagram</p>
-            </a>
-            <a href="https://www.twitter.com/" class="flex-row">
-                <img src="{{ asset('img\S__9035785_0.jpg') }}" alt="instagram" width="18px" height="18px">
-                <p class="asidemenu-font link">twitter</p>
-            </a>
-        </div>
-        </div>
+
+
+
+
         @if (Auth::user())
             <div class="sidemenu">
-                <h2 class="aside-font">カート</h2>
-                <a href="{{ route('user.cart.store') }}">
-                    <p class="asidemenu-font link">カートへ</p>
-                    <p class="asidemenu-font link">※リレーション用</p>
-                </a>
-                <a href="{{ route('user.session.cart.store') }}">
-                    <p class="asidemenu-font link">カートへ</p>
-                    <p class="asidemenu-font link">※セッション用</p>
+                <a href="{{ route('user.favorite.store') }}">
+                    <h2 class="aside-font link">お気に入り一覧</h2>
                 </a>
             </div>
 
+
+            <div class="sidemenu">
+                <a href="{{ route('user.reservations.store') }}">
+                    <h2 class="aside-font link">予約情報確認</h2>
+                </a>
+            </div>
+
+
+            <div class="sidemenu">
+                <h2 class="aside-font">カート</h2>
+                <a href="{{ route('user.cart.store') }}">
+                    <p class="asidemenu-font link">カートへ/relation</p>
+                </a>
+                <a href="{{ route('user.session.cart.store') }}">
+                    <p class="asidemenu-font link">カートへ/session</p>
+                </a>
+            </div>
+
+            <div class="sidemenu">
+                <h3 class="aside-font">タグ一覧</h3>
+                @forelse ($tags as $tag)
+                    <a href="{{ route('front.tag', $tag) }}">
+                        <p class="asidemenu-font link">{{ $tag->tag }}</p>
+                    </a>
+                @empty
+                    <p class="asidemenu-font">ただいま準備中！</p>
+                @endforelse
+            </div>
+
+        @endif
+
+
+        <div class="sidemenu">
+            <h2 class="aside-font">最新情報</h2>
+            <p>APIで取得した情報を表示する</p>
+            {{-- API利用して表示する --}}
+            <div class="sidemenu">
+                <p class="aside-font">公式ＳＮＳ一覧</p>
+                <a href="https://www.instagram.com/" class="flex-row">
+                    <img src="{{ asset('img\S__9035785_0.jpg') }}" alt="instagram" width="18px" height="18px">
+                    <p class="asidemenu-font link">instagram</p>
+                </a>
+                <a href="https://www.twitter.com/" class="flex-row">
+                    <img src="{{ asset('img\S__9035785_0.jpg') }}" alt="instagram" width="18px" height="18px">
+                    <p class="asidemenu-font link">X(旧twitter)</p>
+                </a>
+            </div>
+        </div>
+
+
+        @if (!Auth::user())
+            <div class="sidemenu flex-row">
+                <a href="{{ route('register') }}" class="form-font"> ログイン登録</a>
+                <p> / </p>
+                <a href="{{ route('login') }}" class="form-font"> ログイン</a>
+            </div>
+        @endif
+
+        @if (Auth::user())
             <div class="sidemenu">
                 <p class="asidemenu-font">ログインされています</p>
                 <form method="POST" action="/logout">
@@ -71,15 +90,12 @@
                     <button class="asidemenu-font link">ログアウト</button>
                 </form>
             </div>
-            <a href="{{ route('admin.login') }}">管理者としてログイン</a>
-            <a href="{{ route('management') }}">管理画面へ</a>
-        @else
-            <div class="sidemenu">
-                <a href="{{ route('register') }}"> ログイン登録</a>
-            </div>
-            <div class="sidemenu">
-                <a href="{{ route('login') }}"> ログイン</a>
+            <div class="flex-row">
+                <a href="{{ route('admin.login') }}">管理者ログイン</a>
+                <p>/</p>
+                <a href="{{ route('management') }}">管理画面へ</a>
             </div>
         @endif
+
     </aside>
 </div>

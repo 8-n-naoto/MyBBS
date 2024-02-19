@@ -107,6 +107,9 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
     Route::group(['prefix' => 'front', 'as' => 'front.'], function () {
         //個別ページ
         Route::get('/{cakeinfo}/cake', '_cake_store')->name('cake')->where('cakeinfo', '[0-9]+');
+        // お気に入り登録（ajxa）
+        Route::post('/{favorite}/user/fovorite/add', '_favorite_add')->where('favorite', '[0-9]+');
+
         //tag別ページ
         Route::get('/{tag}/tag', '_tag_store')->name('tag');
         //予約詳細入力画面

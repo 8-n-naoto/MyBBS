@@ -1,6 +1,6 @@
 @extends('components.frontlayout')
 
-@section('title','商品詳細画面')
+@section('title', '商品詳細画面')
 
 @section('css')
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
@@ -41,15 +41,15 @@
 
         {{-- 説明など --}}
         <div class="textbackground">
-            <h2 class="bigfont">{{ $cakeinfos->cakename }}</h2>
+            <h2 class="topic-font">{{ $cakeinfos->cakename }}</h2>
             @if ($cakeinfos->topic)
                 <div class="flex-row">
                     <h3 class="form-font">商品説明：</h3>
                     <h3 class="form-font">{{ $cakeinfos->topic }}</h3>
                 </div>
             @endif
-            <p class="smallfont" style="white-space:pre-wrap;">{{ $cakeinfos->explain }}</p>
-            <div class="flex-row">
+            <p class="smallfont">{{ $cakeinfos->explain }}</p>
+            <div class="flex-row tag_area">
                 @forelse ($caketags as $tag)
                     <a href="{{ route('front.tag', $tag) }}">
                         <p class="tag">{{ $tag->tag }}</p>
@@ -57,25 +57,25 @@
                 @empty
                 @endforelse
             </div>
-            <p class="form-font">大きさ一覧</p>
+            <p class="form-font">取り扱い商品一覧</p>
             @forelse ($cakeinfos->cake_info_subs as $info)
                 <div class="flex-row">
-                    <p class="form-font">{{ $info->capacity }}</p>
-                    <p class="form-font">￥{{ $info->price }}円</p>
+                    <p class="form-font">大きさ：{{ $info->capacity }}</p>
+                    <p class="form-font">価格：￥{{ $info->price }}円</p>
                     {{-- カートに追加する --}}
                     <form method="POST" action="{{ route('user.cart.add') }}">
                         @csrf
                         <input type="hidden" name="cakeinfos_id" value="{{ $cakeinfos->id }}">
                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                         <input type="hidden" name="cake_info_subs_id" value="{{ $info->id }}">
-                        <button class="cart">カートに追加する(リレーション用)</button>
+                        <button class="cart">購入relation</button>
                     </form>
                     <form method="GET" action="{{ route('user.session.cart.reservation') }}">
                         @csrf
                         <input type="hidden" name="cake_info_id" value="{{ $cakeinfos->id }}">
                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                         <input type="hidden" name="cake_info_sub_id" value="{{ $info->id }}">
-                        <button class="cart">カートに追加する(セッション用)</button>
+                        <button class="cart">購入session</button>
                     </form>
 
 
@@ -96,7 +96,7 @@
         </div>
     </div>
     <!-- ギャラリー -->
-    <h3 class="form-font textbackground">gallery</h3>
+    <h3 class="topic-font">gallery</h3>
     <div class="gallery">
         @forelse ($subphotos->cake_photos as $info)
             <object>
@@ -110,7 +110,7 @@
     </div>
 
     <!-- ほかの写真たち -->
-    <h3 class="bigfont textbackground">デコレーションケーキ一覧</h3>
+    <h3 class="topic-font ">デコレーションケーキ一覧</h3>
     @include('include.cakes')
 
     @include('include.google-map')
@@ -118,9 +118,9 @@
     <script>
         $('.favorite').on('click', function(e) {
             e.preventDefault();
-            var user_id=$(this).siblings('#favorite [name="user_id"]').val();
-            var cake_id=$(this).siblings('#favorite [name="cake_id"]').val();
-            var cakeinfos_id=$(this).siblings('#favorite [name="cakeinfos_id"]').val();
+            var user_id = $(this).siblings('#favorite [name="user_id"]').val();
+            var cake_id = $(this).siblings('#favorite [name="cake_id"]').val();
+            var cakeinfos_id = $(this).siblings('#favorite [name="cakeinfos_id"]').val();
             $.ajax({
                 url: "{{ route('user.favorite.add') }}",
                 headers: {

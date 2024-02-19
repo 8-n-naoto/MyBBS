@@ -1,6 +1,6 @@
 <div class="textbackground flex-row">
     <div class="textbackground section information">
-        <h3 class="bigfont">お知らせ</h3>
+        <h3 class="topic-font ">お知らせ</h3>
         @forelse ($informations as $information)
             <p class="form-font">
                 投稿日：{{ $information->updated_at->format('Y年m月d日') }}
@@ -13,7 +13,7 @@
         @endforelse
     </div>
     <div class="map-background map">
-        <h3 class="bigfont">アクセス</h3>
+        <h3 class="topic-font">アクセス</h3>
         <div>
             <div class="flex-row">
                 <div>

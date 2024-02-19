@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{ url('css/font.css') }}">
     <link rel="stylesheet" href="{{ url('css/form.css') }}">
     <link rel="stylesheet" href="{{ url('css/aside.css') }}">
-    <link rel="stylesheet" href="{{ url('css/instagram.css') }}">
 @endsection
 
 @section('aside')
@@ -17,13 +16,13 @@
 
 @section('main')
     <section>
-        <h1 class="bigfont textbackground">お気に入り一覧</h1>
+        <h1 class="topic-font">お気に入り一覧</h1>
         <div class="cakephotos">
             @forelse ($favorites as $info)
                 <object>
                     <a href="{{ route('front.cake', $info->cake_id) }}">
                         <p class="cakenamefont">
-                            <img src="{{ asset($info->cake_info->mainphoto) }}" class="menuphotos" alt="ケーキの写真">
+                            <img src="{{ asset($info->cake_info->mainphoto) }}" class="favorite-photo" alt="ケーキの写真">
                             {{ e($info->cake_info->cakename) }}
                         </p>
                     </a>

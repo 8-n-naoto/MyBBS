@@ -27,6 +27,7 @@ class InformationController extends Controller
         $tags = Tag::all()->unique('tag');
         $informations = Information::orderByDEsc('updated_at')->get();
         $sliders = Tag::where('tag', 'イチオシ！')->get();
+        $sliderscount = Tag::where('tag', 'イチオシ！')->count();
 
         return view('index')
             ->with([
@@ -34,6 +35,7 @@ class InformationController extends Controller
                 'tags' => $tags,
                 'informations' => $informations,
                 'sliders' => $sliders,
+                'sliderscount'=>$sliderscount,
             ]);
     }
 
@@ -41,7 +43,11 @@ class InformationController extends Controller
     public function _tag_store(Tag $tag)
     {
         $infos = CakeInfo::where('boolean', 1)->get();
-        $cakeinfo = Tag::where('tag', $tag->tag)->get();
+        $cakeinfo = Tag::query()
+        ->where('tag', $tag->tag)
+        ->whereHas('cake_info',function($query){
+            $query->where('boolean',1);
+        })->get();
         $tags = Tag::all()->unique('tag');
         $informations = Information::orderByDEsc('updated_at')->get();
 
@@ -272,35 +278,21 @@ class InformationController extends Controller
     public function _favorite_add(Request $request)
     {
         //お気に入り登録
-
-        $already = Favorite::query()
-            ->where('user_id', $request->input('user_id'))
-            ->where('cake_id', $request->input('cake_id'))
-            ->exists();
-        if ($already) {
-            return back()->withErrors([
-                'cake_id' => 'すでに登録されております。'
-            ]);
-        }
-
-        // $posts = new Favorite();
-        // $posts->user_id = $request->user_id;
-        // $posts->cake_id = $request->cake_id;
-        // $posts->save();
-
+        // $already = Favorite::query()
+        //     ->where('user_id', $request->input('user_id'))
+        //     ->where('cake_id', $request->input('cake_id'))
+        //     ->exists();
+        // if ($already) {
+        //     return back()->withErrors([
+        //         'cake_id' => 'すでに登録されております。'
+        //     ]);
+        // }
+        //保存
         $posts = new Favorite();
         $posts->user_id = $request->user_id;
         $posts->cake_id = $request->cake_id;
         $posts->save();
 
-        // $infos = CakeInfo::where('boolean', 1)->get();
-        // $subphotos = $request->cakeinfos_id;
-
-        // return back()
-        //     ->with([
-        //         // 'infos' => $infos,
-        //         // 'subphotos' => $subphotos,
-        //     ]);
     }
     //お気に入り削除
     public function _favorite_destroy(Favorite $favorite, Request $request)

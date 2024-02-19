@@ -5,6 +5,7 @@
         @yield('main')
         @yield('map')
     </div>
+    <script src="{{ url('js/bootstrap.js') }}"></script>
     @yield('js')
 </main>
 @include('include.footer')
