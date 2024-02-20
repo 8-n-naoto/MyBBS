@@ -84,9 +84,10 @@
     width: 180px;
     border-radius: 8px 8px 0px 0px;
 }
+
 .formphoto {
     width: 180px;
-    border-radius: 8px ;
+    border-radius: 8px;
 }
 
 .gallery {
@@ -216,5 +217,51 @@
     word-break: break-all;
     width: 900px;
     background-color: init.$background-color;
+}
+
+.login-form {
+    background-color: init.$background-color;
+    border-collapse: collapse;
+    border-radius: 8px;
+
+    tr {
+        height: 22px;
+        padding: 4px;
+
+        td {
+            padding: 2px 4px;
+        }
+
+        td:nth-child(1) {
+            width: 132px;
+            background: init.$sidemain-color;
+            border-bottom: solid 1px init.$test-color;
+        }
+
+        td:nth-child(2) {
+            border-bottom: solid 1px init.$test-color;
+
+        }
+
+        td:nth-child(3) {
+            width: 260px;
+            border-bottom: solid 1px init.$test-color;
+        }
+    }
+}
+
+tr:nth-child(9),
+tr:nth-child(10) {
+    text-align: end;
+
+}
+
+#send_form {
+    background-color: init.$cart-color;
+    width: fit-content;
+    border-radius: 8px;
+    padding-top: 12px;
+    overflow: hidden;
+
 
 }

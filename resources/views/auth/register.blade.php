@@ -1,13 +1,9 @@
 @extends('components.frontlayout')
 
-@section('title','お客様ログイン情報登録')
+@section('title', 'お客様ログイン情報登録')
 
 @section('css')
-    <link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
-    <link rel="stylesheet" href="{{ url('css/font.css') }}">
-    <link rel="stylesheet" href="{{ url('css/form.css') }}">
-    <link rel="stylesheet" href="{{ url('css/aside.css') }}">
-    <link rel="stylesheet" href="{{ url('css/instagram.css') }}">
+    <link rel="stylesheet" href="{{ url('css/front.min.css') }}">
 @endsection
 
 @section('aside')
@@ -15,60 +11,141 @@
 @endsection
 
 @section('main')
-    <section class="textbackground">
-    <form method="POST" action="{{ route('register') }}" id="send_form">
-        @csrf
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('お名前')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+    <section class="">
+        <form method="POST" action="{{ route('register') }}" id="send_form">
+            @csrf
+            <p class="bigfont">お客様情報を入力してください</p>
+            <table>
+                <tbody class="login-form">
+                    <!-- name -->
+                    <tr>
+                        <td>
+                            <label for="name">お名前</label>
+                        </td>
+                        <td>
+                            ：
+                        </td>
+                        <td>
+                            <input type="text" id="name" name="name" value="{{ old('name') }}" required
+                                autofocus autocomplete="name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            @error('name')
+                                <p class="error">{{ $message }}</p>
+                            @enderror
+                        </td>
+                    </tr>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('E-mail')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+                    <!-- Email Address -->
+                    <tr>
+                        <td>
+                            <label for="email">Email</label>
+                        </td>
+                        <td>：</td>
+                        <td>
+                            <input type="email" id="email" name="email" value="{{ old('email') }}" required
+                                autofocus autocomplete="email">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            @error('email')
+                                <p class="error">{{ $message }}</p>
+                            @enderror
+                        </td>
+                    </tr>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('パスワード※8文字以上半角英数で入力してください')" />
+                    <!-- Password -->
+                    <div class="mt-4">
+                    </div>
+                    <tr>
+                        <td>
+                            <label for="password">パスワード</label>
+                        </td>
+                        <td>：</td>
+                        <td>
+                            <input type="password" id="password" name="password" value="{{ old('password') }}" required
+                                autofocus autocomplete="password">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <p>※8文字以上で入力してください</p>
+                            @error('password')
+                                <p class="error">{{ $message }}</p>
+                            @enderror
+                        </td>
+                    </tr>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+                    <!-- Confirm password_confirmation -->
+                    <tr>
+                        <td>
+                            <label for="password_confirmation">パスワード確認</label>
+                        </td>
+                        <td>：
+                        </td>
+                        <td>
+                            <input type="password" id="password_confirmation" name="password_confirmation"
+                                value="{{ old('password_confirmation') }}" required autofocus
+                                autocomplete="password_confirmation">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <p>※8文字以上で入力してください</p>
+                            @error('password_confirmation')
+                                <p class="error">{{ $message }}</p>
+                            @enderror
+                        </td>
+                    </tr>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <button class="form-font">登録する</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <a href="{{ route('login') }}" class="form-font">
+                                登録済みの方はこちらへ
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('パスワード確認※もう一度同じパスワードを入力してください')" />
+        </form>
+    </section>
+    </table>
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button class="ms-4 form-font">
-                {{ __('登録する') }}
-            </x-primary-button>
-
-            <a class="textbackground" href="{{ route('login') }}">
-                {{ __('登録済みの方はこちらからログイン画面へ') }}
-            </a>
-        </div>
-    </form>
-</section>
     <script>
-        'use strict'
+        'use strict';
         {
             document.getElementById('send_form').addEventListener('submit', e => {
                 e.preventDefault();

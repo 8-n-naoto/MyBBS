@@ -2,6 +2,14 @@
 /* _init.scss */
 /* 色一覧*/
 /* 文字設定 */
+* {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
 /* 全画面共通部分 */
 body {
   background: repeat url(../img/decoratephotos/cback1902.gif);
@@ -544,5 +552,45 @@ aside {
   word-break: break-all;
   width: 900px;
   background-color: rgba(255, 255, 255, 0.598);
+}
+
+.login-form {
+  background-color: rgba(255, 255, 255, 0.598);
+  border-collapse: collapse;
+  border-radius: 8px;
+}
+.login-form tr {
+  height: 22px;
+  padding: 4px;
+}
+.login-form tr td {
+  padding: 2px 4px;
+}
+.login-form tr td:nth-child(1) {
+  width: 132px;
+  background: rgba(255, 201, 120, 0.782);
+  border-bottom: solid 1px black;
+}
+.login-form tr td:nth-child(2) {
+  border-bottom: solid 1px black;
+}
+.login-form tr td:nth-child(3) {
+  width: 260px;
+  border-bottom: solid 1px black;
+}
+
+tr:nth-child(9),
+tr:nth-child(10) {
+  text-align: end;
+}
+
+#send_form {
+  background-color: #f5a368;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 8px;
+  padding-top: 12px;
+  overflow: hidden;
 }
 /*# sourceMappingURL=front.css.map */

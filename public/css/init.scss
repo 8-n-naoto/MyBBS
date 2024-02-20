@@ -2,15 +2,15 @@
 /* 色一覧*/
 // 文字
 $cakefont-color: rgb(57, 57, 57);
-$test-color:black;
+$test-color: black;
 
 // 背景
 $background-color: rgba(255, 255, 255, 0.598);
 $topic-color: rgba(255, 167, 66, 0.841);
 $sidemain-color: rgba(255, 201, 120, 0.782);
 $sideback-color: rgba(255, 243, 225, 0.684);
-$tag-color:#fe9595;
-$cart-color:#f5a368;
+$tag-color: #fe9595;
+$cart-color: #f5a368;
 
 
 /* 文字設定 */
@@ -20,6 +20,14 @@ $cart-color:#f5a368;
     color: $color;
     white-space: nowrap;
     font-weight: 600;
+}
+
+* {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
 }
 
 /* 全画面共通部分 */
@@ -99,7 +107,7 @@ header:before {
 }
 
 
-aside{
+aside {
     margin-top: 12px;
     box-sizing: border-box;
     background: $sideback-color;
@@ -111,13 +119,14 @@ aside{
     border-radius: 8px;
     overflow: hidden;
 }
-.sidemenu{
+
+.sidemenu {
     background: $sidemain-color;
     margin-bottom: 0.5rem;
     border-radius: 0.5rem;
 }
 
-.sidemenu .asidemenu-font{
+.sidemenu .asidemenu-font {
     margin-left: 1rem;
 }
 
@@ -135,7 +144,7 @@ aside{
 /* 見出し用 */
 .topic-font {
     font-size: 32px;
-    color:  $test-color;
+    color: $test-color;
     font-weight: 600;
     border-bottom: 4px $test-color solid;
     display: inline-block;
@@ -296,9 +305,9 @@ aside{
 }
 
 
-.hidden{
+.hidden {
     overflow: hidden;
-   }
+}
 
 /* お気に入りボタン */
 .favorite {
@@ -316,7 +325,7 @@ aside{
 }
 
 .favorite:hover {
-    border: 1px solid  #ff1818;
+    border: 1px solid #ff1818;
     color: #ff1818;
     background-color: #fff;
 }

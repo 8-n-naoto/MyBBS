@@ -2,6 +2,14 @@
 /* _init.scss */
 /* 色一覧*/
 /* 文字設定 */
+* {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
 /* 全画面共通部分 */
 body {
   background: repeat url(../img/decoratephotos/cback1902.gif);
