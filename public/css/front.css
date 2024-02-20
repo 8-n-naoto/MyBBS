@@ -225,6 +225,14 @@ aside {
   padding: 2px 0;
 }
 
+.form-wrap-font {
+  font-size: 16px;
+  color: black;
+  white-space: wrap;
+  font-weight: 600;
+  padding: 2px 0;
+}
+
 /* form　value部分 */
 .value-font {
   font-size: 16px;
@@ -553,6 +561,18 @@ aside {
   width: 900px;
   background-color: rgba(255, 255, 255, 0.598);
 }
+.informations .information {
+  width: 350px;
+  margin: 0 12px;
+}
+.informations .information p {
+  overflow: hidden;
+}
+.informations .map {
+  width: 550px;
+  flex: 3;
+  margin: 0 12px;
+}
 
 .login-form {
   background-color: rgba(255, 255, 255, 0.598);
@@ -579,8 +599,8 @@ aside {
   border-bottom: solid 1px black;
 }
 
-tr:nth-child(9),
-tr:nth-child(10) {
+tr:nth-last-child(2),
+tr:nth-last-child(1) {
   text-align: end;
 }
 
@@ -592,5 +612,11 @@ tr:nth-child(10) {
   border-radius: 8px;
   padding-top: 12px;
   overflow: hidden;
+}
+
+.message-textarea {
+  resize: none;
+  width: 350px;
+  height: 24px;
 }
 /*# sourceMappingURL=front.css.map */

@@ -219,7 +219,7 @@ class InformationController extends Controller
     public function _collect_check_store(Request $request, CakeInfo $cakeinfo,)
     {
         //トークン再生成
-        // $request->session()->regenerateToken();
+        $request->session()->regenerateToken();
 
         $request->validate([
             'users_id' => 'required',
@@ -248,7 +248,7 @@ class InformationController extends Controller
     public function _collect_result_store(Request $request)
     {
         //トークン再生成
-        // $request->session()->regenerateToken();
+        $request->session()->regenerateToken();
 
         //main_reservationテーブルの情報を保存
         $posts = new Main_reservation();
@@ -485,13 +485,13 @@ class InformationController extends Controller
     {
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
-        $cakeinfos = CakeInfo::where('id', $request->cake_info_id)->get();
+        $cakeinfo = CakeInfo::find($request->cake_info_id);
         $cakeinfosubs = Cakeinfosub::where('id', $request->cake_info_sub_id)->get();
 
         return view('auth.session.cartinfoadd')->with([
             'infos' => $infos,
             'tags' => $tags,
-            'cakeinfos' => $cakeinfos,
+            'cakeinfo' => $cakeinfo,
             'cakeinfosubs' => $cakeinfosubs,
         ]);
     }

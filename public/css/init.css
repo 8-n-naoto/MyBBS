@@ -225,6 +225,14 @@ aside {
   padding: 2px 0;
 }
 
+.form-wrap-font {
+  font-size: 16px;
+  color: black;
+  white-space: wrap;
+  font-weight: 600;
+  padding: 2px 0;
+}
+
 /* form　value部分 */
 .value-font {
   font-size: 16px;

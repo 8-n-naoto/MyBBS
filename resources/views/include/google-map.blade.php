@@ -1,4 +1,4 @@
-<div class="textbackground flex-row">
+<div class="informations flex-row">
     <div class="textbackground section information">
         <h3 class="topic-font ">お知らせ</h3>
         @forelse ($informations as $information)
@@ -12,7 +12,7 @@
             <p>お知らせはまだありません</p>
         @endforelse
     </div>
-    <div class="map-background map">
+    <div class="map">
         <h3 class="topic-font">アクセス</h3>
         <div>
             <div class="flex-row">
