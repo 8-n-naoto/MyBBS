@@ -1,9 +1,9 @@
 @extends('components.managementlayout')
 
-@section('title','配合登録')
+@section('title', '配合登録')
 
 @section('css')
-<link rel="stylesheet" href="{{ url('css/management.css') }}">
+    <link rel="stylesheet" href="{{ url('css/management.css') }}">
 @endsection
 
 @section('js')
@@ -12,6 +12,7 @@
 
 {{-- <?php dd($none); ?> --}}
 @section('main')
+    <p class="topic-font">ルセット管理</p>
     <table>
         <thead>
             <tr>
@@ -55,7 +56,7 @@
                             <select name="cake_infos_id" id="">
                                 <option value="">選択してください▼</option>
                                 @forelse ($menus as $info)
-                                <option value="{{ $info->id }}">{{ $info->cakename }}</option>
+                                    <option value="{{ $info->id }}">{{ $info->cakename }}</option>
                                     @error('cake_infos_id')
                                         <p class="error">{{ $message }}</p>
                                     @enderror
@@ -93,7 +94,7 @@
                             <select name="cake_infos_id" id="">
                                 <option value="">選択してください▼</option>
                                 @forelse ($cakeinfos as $info)
-                                <option value="{{ $info->id }}">{{ $info->cakename }}</option>
+                                    <option value="{{ $info->id }}">{{ $info->cakename }}</option>
                                     @error('cake_infos_id')
                                         <p class="error">{{ $message }}</p>
                                     @enderror
@@ -135,14 +136,14 @@
                                 @enderror
                             </td>
                             <td>
-                                <button>更新する</button>
+                                <button>更新</button>
                             </td>
                         </form>
                         <td>
                             <form action="{{ route('cakes.ingredient.destroy', $item) }}" method="post" class="delete">
                                 @csrf
                                 @method('DELETE')
-                                <button>削除する</button>
+                                <button>削除</button>
                             </form>
 
                         </td>

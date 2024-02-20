@@ -7,7 +7,7 @@
 @endsection
 
 @section('main')
-    <p class="textbackground bigfont">日付別予約商品検索</p>
+    <p class="topic-font">日付別予約商品検索</p>
     <section>
         <form method="POST" action="{{ route('reservations.date.get') }}">
             @csrf

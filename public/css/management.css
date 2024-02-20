@@ -152,7 +152,7 @@ aside {
 
 /* 中見出し */
 .middlefont {
-  font-size: 18px;
+  font-size: 28px;
   color: black;
   white-space: nowrap;
   font-weight: 600;
@@ -243,15 +243,6 @@ aside {
 }
 
 /* その他一般用 */
-.font {
-  font-size: 18px;
-  color: black;
-  white-space: nowrap;
-  font-weight: 600;
-  border-radius: 8px;
-  padding: 4px 8px;
-}
-
 /* map背景 */
 .map-background {
   background-color: rgba(255, 255, 255, 0.598);
@@ -310,7 +301,7 @@ aside {
 .informations {
   overflow-wrap: break-word;
   word-break: break-all;
-  width: 900px;
+  width: 914px;
   background-color: rgba(255, 255, 255, 0.598);
 }
 .informations .information {
@@ -356,6 +347,24 @@ aside {
   border: 1px solid #ff1818;
   color: #ff1818;
   background-color: #fff;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 0.2em 1em;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 0 3px rgba(255, 167, 66, 0.841);
+  background-color: rgba(255, 167, 66, 0.841);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1em;
 }
 
 /* _calender.scss */
@@ -412,5 +421,46 @@ td.today {
   word-break: normal;
   overflow-wrap: normal;
   margin: 0 20px;
+}
+
+.editphoto {
+  width: 300px;
+}
+
+.file {
+  border: 1px solid black;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  background-color: rgba(255, 243, 225, 0.684);
+}
+
+.shadow {
+  filter: grayscale(100%);
+}
+
+/* メニューのケーキ */
+.cakephotos {
+  box-sizing: border-box;
+  width: 900px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 20px;
+  gap: 20px;
+  margin: 0 auto;
+}
+
+.menuphotos {
+  width: 180px;
+  border-radius: 8px 8px 0px 0px;
+}
+
+.formphoto {
+  width: 180px;
+  border-radius: 8px;
+}
+
+.gallery {
+  width: 180px;
 }
 /*# sourceMappingURL=management.css.map */

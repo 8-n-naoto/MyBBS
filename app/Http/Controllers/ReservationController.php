@@ -107,17 +107,11 @@ class ReservationController extends Controller
     public function _count_store(CakeInfo $cakeinfo)
     {
         $infos = CakeInfo::all();
-        $today = Carbon::today();
-        $cakename = $cakeinfo->cakename;
-        $reservations = Sub_reservation::where('cakename', $cakename)->get();  //条件追加する
-        $count = $reservations->count();
 
         return view('management.count')
             ->with([
                 'cakeinfos' => $infos,
                 'cakeinfo' => $cakeinfo,
-                'reservations' => $reservations,
-                'count' => $count,
             ]);
     }
 
@@ -142,7 +136,11 @@ class ReservationController extends Controller
             ->get();
         //上のデータを指定した商品名のもののみ抽出したい
 
-        $count = $info->count();
+        $count = Sub_reservation::query()
+        ->whereHas('main_reservation',function($query)use($startdate,$enddate){
+            $query->whereBetween('birthday', [$startdate, $enddate]);
+        })
+        ->count();
 
         return view('management.count')
             ->with([
@@ -151,6 +149,8 @@ class ReservationController extends Controller
                 'reservations' => $info,
                 'getcount' => $info,
                 'count' => $count,
+                'startdate'=>$startdate,
+                'enddate'=>$enddate,
             ]);
     }
 

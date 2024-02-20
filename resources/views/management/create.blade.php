@@ -15,7 +15,7 @@
                 @csrf
                 <div class="flex-row">
                     <p class="form-font">写真更新用:</p>
-                    <input type="file" name="mainphoto" accept=".jpg,.png">
+                    <input type="file" name="mainphoto" accept=".jpg,.png" class="file">
                 </div>
                 @error('mainphoto')
                     <div class="error">{{ $message }}</div>

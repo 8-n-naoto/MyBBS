@@ -10,29 +10,30 @@
     <section>
         {{-- 検索フォーム --}}
 
-        <p class="textbackground bigfont">予約情報検索</p>
+        <p class="topic-font">予約情報検索</p>
         <form method="POST" action="{{ route('reservations.information.get') }}">
             @csrf
-            <p class="textbackground form-font">予約番号を入力してください</p>
+            <p class="form-font">予約番号を入力してください</p>
             <label class="textbackground flex-row">
                 <input type="text" name="subID">
                 <button>検索</button>
             </label>
         </form>
+        
         @isset($id)
-            <h1 class="textbackground">予約番号{{ $id->subID }}</h1>
+            <h1 class="form-font">予約番号{{ $id->subID }}</h1>
             {{-- 検索結果出力箇所 --}}
             {{-- @include('include.reservations') --}}
             <div class="textbackground">
                 @forelse ($reservations as $reservation)
                     <div class="textbackground">
-                        <p class="smallfont">予約名：{{ $reservation->main_reservation->user->name }}様</p>
-                        <p class="smallfont">受取日：{{ $reservation->main_reservation->birthday }}
-                        <p class="smallfont">受け取り時間：{{ $reservation->main_reservation->time }}</p>
-                        <p class="smallfont">商品名：{{ $reservation->cakename }}</p>
-                        <p class="smallfont">大きさ：{{ $reservation->capacity }}</p>
-                        <p class="smallfont"> 値段：{{ $reservation->price }}</p>
-                        <p class="smallfont">メッセージ：{{ $reservation->message }} </p>
+                        <p class="form-font">予約名：{{ $reservation->main_reservation->user->name }}様</p>
+                        <p class="form-font">受取日：{{ $reservation->main_reservation->birthday }}
+                        <p class="form-font">受け取り時間：{{ $reservation->main_reservation->time }}</p>
+                        <p class="form-font">商品名：{{ $reservation->cakename }}</p>
+                        <p class="form-font">大きさ：{{ $reservation->capacity }}</p>
+                        <p class="form-font"> 値段：{{ $reservation->price }}</p>
+                        <p class="form-font">メッセージ：{{ $reservation->message }} </p>
                         <form action="{{ route('reservations.information.destroy', $reservation) }}" method="post"
                             class="delete">
                             @method('DELETE')

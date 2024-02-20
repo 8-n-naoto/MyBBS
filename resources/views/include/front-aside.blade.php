@@ -4,14 +4,19 @@
             <a href="{{ route('index') }}">
                 <h2 class="aside-font link">デコレーションケーキ</h2>
             </a>
-
-            @forelse ($infos as $info)
-                <a href="{{ route('front.cake', $info->id) }}">
-                    <p class="asidemenu-font link items">{{ $info->cakename }}</p>
-                </a>
-            @empty
-                <p class="asidemenu-font">ただいま準備中！</p>
-            @endforelse
+            <ul>
+                @forelse ($infos as $info)
+                    <li>
+                        <a href="{{ route('front.cake', $info->id) }}">
+                            <p class="asidemenu-font link items">{{ $info->cakename }}</p>
+                        </a>
+                    </li>
+                @empty
+                    <li>
+                        <p class="asidemenu-font">ただいま準備中！</p>
+                    </li>
+                @endforelse
+            </ul>
         </div>
 
 

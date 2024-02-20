@@ -42,6 +42,7 @@ main {
     min-height: 100vh;
     width: 1200px;
     margin: 0 auto;
+
 }
 
 /* フッター */
@@ -169,7 +170,7 @@ aside {
 
 /* 中見出し */
 .middlefont {
-    @include no-wrap(18px, black);
+    @include no-wrap(28px, black);
     border-radius: 8px;
     padding: 0px 8px;
     box-decoration-break: clone;
@@ -243,11 +244,11 @@ aside {
 }
 
 /* その他一般用 */
-.font {
-    @include no-wrap(18px, black);
-    border-radius: 8px;
-    padding: 4px 8px;
-}
+// .font {
+//     @include no-wrap(18px, black);
+//     border-radius: 8px;
+//     padding: 4px 8px;
+// }
 
 /* map背景 */
 .map-background {
@@ -307,7 +308,7 @@ aside {
 .informations {
     overflow-wrap: break-word;
     word-break: break-all;
-    width: 900px;
+    width: 914px;
     background-color: $background-color;
 
     .information{
@@ -355,4 +356,20 @@ aside {
     border: 1px solid #ff1818;
     color: #ff1818;
     background-color: #fff;
+}
+
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    margin: 0 auto;
+    padding: .2em 1em;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 0 3px $topic-color;
+    background-color: $topic-color;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1em;
 }

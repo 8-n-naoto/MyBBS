@@ -1,17 +1,17 @@
 @extends('components.managementlayout')
 
-@section('title','発注試算シュミレーター')
+@section('title', '発注試算シュミレーター')
 
 @section('css')
-<link rel="stylesheet" href="{{ url('css/management.css') }}">
+    <link rel="stylesheet" href="{{ url('css/management.css') }}">
 @endsection
 
 @section('js')
-<script src="{{ url('js/exel.js') }}"></script>
+    <script src="{{ url('js/exel.js') }}"></script>
 @endsection
 
 @section('main')
-    <p class="textbackground bigfont">発注試算ツール</p>
+    <p class="topic-font">発注試算ツール</p>
     {{-- 検索フォーム --}}
     {{-- <form method="POST" action="" class="textbackground ">
         @csrf
@@ -39,8 +39,8 @@
 
     {{-- @isset($basic) --}}
     <div class="flex-row">
-        <p class="form-font">基本量：{{ $basic->basic_amount }}</p>
-        <p class="form-font" id="count"></p>
+        <p class="middlefont">基本量：{{ $basic->basic_amount }}</p>
+        <p class="middke" id="count"></p>
     </div>
 
     <table id="exel_table">
@@ -80,4 +80,3 @@
     </table>
     {{-- @endisset --}}
 @endsection
-

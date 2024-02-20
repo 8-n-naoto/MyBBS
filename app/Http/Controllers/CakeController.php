@@ -20,6 +20,7 @@ class CakeController extends Controller
         return view('management.edits')
             ->with([
                 'cakeinfos' => $infos,
+                'infos' => $infos,
             ]);
     }
 
@@ -497,7 +498,7 @@ class CakeController extends Controller
     public function _ingredient_update(BasicIngredient $basicIngredient, Request $request)
     {
         //トークン再生成
-        $request->session()->regenerateToken();                     
+        $request->session()->regenerateToken();
         $request->validate([
             'basic_amount' => 'required',
             'ingredient_unit' => 'required',

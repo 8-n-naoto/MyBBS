@@ -56,7 +56,7 @@
             </div>
             <div class="sidemenu">
                 <ul name="ケーキの種類">
-                    <p class="aside-font">基本量一覧</p>
+                    <p class="aside-font">ルセット管理</p>
                     @forelse ($cakeinfos as $info)
                         <li>
                             <a href="{{ route('cakes.intgredient.criate.store', $info->id) }}">

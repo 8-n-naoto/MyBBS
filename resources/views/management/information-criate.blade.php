@@ -11,17 +11,17 @@
 @endsection
 
 @section('main')
-<p class="textbackground bigfont">お知らせ新規追加</p>
+<p class="topic-font">お知らせ新規追加</p>
         <div class="textbackground">
-            <form method="POST" action="{{ route('information.criate.post') }}" class="update">
+            <form method="POST" action="{{ route('information.criate.post') }}" class="update flex-column">
                 @csrf
-                <p class="form-font">題名</p>
-                <input type="text" name="topic" value="">
+                <p class="middlefont">題名</p>
+                <input type="text" name="topic" value="" class="form-font">
                 @error('topic')
                 <p class="error">{{$message}}</p>
                 @enderror
-                <p class="form-font">お知らせ内容</p>
-                <textarea name="information" id="" cols="30" rows="10"></textarea>
+                <p class="middlefont">お知らせ内容</p>
+                <textarea name="information" id="" cols="30" rows="10" class=""></textarea>
                 @error('information')
                 <p class="error">{{$message}}</p>
                 @enderror
