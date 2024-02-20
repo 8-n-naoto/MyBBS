@@ -3,9 +3,7 @@
 @section('title','表示商品切り替え')
 
 @section('css')
-<link rel="stylesheet" href="{{ url('css/font.css') }}">
-<link rel="stylesheet" href="{{ url('css/aside.css') }}">
-<link rel="stylesheet" href="{{ url('css/cakephotos.css') }}">
+<link rel="stylesheet" href="{{ url('css/management.css') }}">
 @endsection
 
 @section('main')

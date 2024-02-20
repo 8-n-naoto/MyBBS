@@ -357,4 +357,60 @@ aside {
   color: #ff1818;
   background-color: #fff;
 }
-/*# sourceMappingURL=init.css.map */
+
+/* _calender.scss */
+/* カレンダー */
+table {
+  border-collapse: collapse;
+  border: 2px solid rgba(255, 255, 255, 0.598);
+}
+
+thead,
+tfoot {
+  background: rgba(255, 167, 66, 0.841);
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+}
+
+tbody td:first-child {
+  color: red;
+}
+
+tbody td:last-child {
+  color: blue;
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+td.disabled {
+  opacity: 0.3;
+}
+
+td.today {
+  font-weight: bold;
+}
+
+#prev,
+#next,
+#today {
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.calender {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  word-break: normal;
+  overflow-wrap: normal;
+  margin: 0 20px;
+}
+/*# sourceMappingURL=calender.css.map */

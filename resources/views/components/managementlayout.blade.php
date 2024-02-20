@@ -1,7 +1,7 @@
 @include('include.header')
 <main class="flex-row">
     @include('include.aside')
-    <section class="background">
+    <section class="informations">
         @yield('main')
     </section>
 </main>

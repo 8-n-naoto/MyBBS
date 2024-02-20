@@ -3,10 +3,7 @@
 @section('title','配合詳細')
 
 @section('css')
-    <link rel="stylesheet" href="{{ url('css/font.css') }}">
-    <link rel="stylesheet" href="{{ url('css/aside.css') }}">
-    <link rel="stylesheet" href="{{ url('css/form.css') }}">
-    <link rel="stylesheet" href="{{ url('css/calender.css') }}">
+<link rel="stylesheet" href="{{ url('css/management.css') }}">
 @endsection
 
 @section('js')

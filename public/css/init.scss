@@ -304,6 +304,26 @@ aside {
     right: 10px;
 }
 
+.informations {
+    overflow-wrap: break-word;
+    word-break: break-all;
+    width: 900px;
+    background-color: $background-color;
+
+    .information{
+        width: 350px;
+        margin: 0 12px;
+        p{
+        overflow: hidden;
+        }
+    }
+    .map{
+        width: 550px;
+        flex: 3;
+        margin: 0 12px;
+    }
+
+}
 .information-font {
     font-size: 16px;
     font-weight: 600;

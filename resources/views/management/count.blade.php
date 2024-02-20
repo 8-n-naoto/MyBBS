@@ -3,9 +3,7 @@
 @section('title','商品別予約数確認')
 
 @section('css')
-    <link rel="stylesheet" href="{{ url('css/font.css') }}">
-    <link rel="stylesheet" href="{{ url('css/form.css') }}">
-    <link rel="stylesheet" href="{{ url('css/aside.css') }}">
+    <link rel="stylesheet" href="{{ url('css/front.css') }}">
 @endsection
 
 @section('main')

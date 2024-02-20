@@ -1,7 +1,5 @@
-<section>
-
-    <div class="flex-column">
-        <table class="textbackground">
+    <div>
+        <table class="calender">
             <thead>
                 <tr>
                     <th id="prev">&laquo;</th>
@@ -26,9 +24,6 @@
                 </tr>
             </tfoot>
         </table>
-
     </div>
-</section>
 
 
-<script src="{{ url('js/calender.js') }}"></script>

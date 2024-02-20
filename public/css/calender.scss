@@ -1,17 +1,23 @@
+/* _calender.scss */
 /* カレンダー */
-body {
-    font-family: 'Courier New', monospace;
-    font-size: 14px;
-}
+@use'init';
+
+
+// body {
+//     font-family: 'Courier New', monospace;
+//     font-size: 14px;
+// }
+
+
 
 table {
     border-collapse: collapse;
-    border: 2px solid #eee;
+    border: 2px solid init.$background-color;
 }
 
 thead,
 tfoot {
-    background: #eee;
+    background: init.$topic-color;
 }
 
 th,
@@ -45,4 +51,11 @@ td.today {
 #today {
     cursor: pointer;
     user-select: none;
+}
+
+.calender {
+    width:fit-content;
+    word-break: normal;
+    overflow-wrap: normal;
+    margin: 0 20px;
 }

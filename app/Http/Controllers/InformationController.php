@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 use App\Models\Favorite;
 use App\Models\Cart;
@@ -11,11 +13,9 @@ use App\Models\CakeInfo;
 use App\Models\CakeInfoSub;
 use App\Models\Main_reservation;
 use App\Models\Sub_reservation;
-use  App\Models\Information;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Information;
 use App\Mail\ContactMail;
 use DateTime;
-use Illuminate\Support\Facades\Mail;
 
 class InformationController extends Controller
 {

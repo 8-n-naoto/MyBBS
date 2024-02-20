@@ -3,9 +3,7 @@
 @section('title','予約情報検索')
 
 @section('css')
-    <link rel="stylesheet" href="{{ url('css/font.css') }}">
-    <link rel="stylesheet" href="{{ url('css/form.css') }}">
-    <link rel="stylesheet" href="{{ url('css/aside.css') }}">
+<link rel="stylesheet" href="{{ url('css/management.css') }}">
 @endsection
 
 @section('main')
@@ -44,7 +42,7 @@
                         </form>
                     </div>
                 @empty
-                    <p>予約がないよ！</p>
+                    <p>ご予約がありません</p>
                 @endforelse
             </div>
         @endisset
