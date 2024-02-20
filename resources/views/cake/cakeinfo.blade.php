@@ -3,7 +3,7 @@
 @section('title', '商品詳細画面')
 
 @section('css')
-    <link rel="stylesheet" href="{{ url('css/front.min.css') }}">
+    <link rel="stylesheet" href="{{ url('css/front.css') }}">
 @endsection
 
 @section('aside')

@@ -3,7 +3,7 @@
 @section('title','予約完了画面(relation)')
 
 @section('css')
-    <link rel="stylesheet" href="{{ url('css/front.min.css') }}">
+    <link rel="stylesheet" href="{{ url('css/front.css') }}">
 @endsection
 
 @section('aside')

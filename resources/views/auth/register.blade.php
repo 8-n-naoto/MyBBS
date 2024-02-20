@@ -3,7 +3,7 @@
 @section('title', 'お客様ログイン情報登録')
 
 @section('css')
-    <link rel="stylesheet" href="{{ url('css/front.min.css') }}">
+    <link rel="stylesheet" href="{{ url('css/front.css') }}">
 @endsection
 
 @section('aside')
