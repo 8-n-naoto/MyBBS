@@ -311,8 +311,7 @@ class CakeController extends Controller
         $cakeID = $cakeinfo->id;
         $tags = Tag::where('cake_infos_id', $cakeID)->get();
 
-
-        return back('management.edit')
+        return view('management.edit')
             ->with([
                 'cakeinfos' => $infos,
                 'cakeinfo' => $cakeinfo,
@@ -358,10 +357,10 @@ class CakeController extends Controller
         $cakeinfos = CakeInfo::find($cakeinfo);
         $tags = Tag::where('cake_infos_id', $cakeinfo)->get();
 
-        return view('management.edit')
+        return back()
             ->with([
                 'cakeinfos' => $infos,
-                'cakeinfo' => $cakeinfos,
+                'cakeinfo' => $cakeinfo,
                 'info' => $cakeinfos,
                 'prices' => $prices,
                 'cakecodes' => $infos,

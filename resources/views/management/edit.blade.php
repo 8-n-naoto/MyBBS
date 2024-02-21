@@ -70,7 +70,6 @@
                             </table>
 
 
-                            @if ($cakeinfo->cakecode)
                                 <p class="middlefont">既存の商品コード</p>
                                 <table class="cakecode">
                                     @forelse ($cakeinfos as $cakeinfo)
@@ -89,8 +88,6 @@
                                         </tr>
                                     @endforelse
                                 </table>
-
-                            @endif
 
                         </div>
                     </div>
@@ -115,63 +112,69 @@
             </div>
             </div>
 
-            {{-- 大きさと価格の追加/削除 --}}
-            <h3 class="middlefont">&laquo;内容量と価格の設定&raquo;</h3>
+            <div>
+                {{-- 大きさと価格の追加/削除 --}}
+                <h3 class="middlefont">&laquo;内容量と価格の設定&raquo;</h3>
 
-            <table class="cakecode">
-                <tr>
-                    <td class="form-font">内容量</td>
-                    <td class="form-font">
-                        <input type="text" name="capacity" class="form-font">
-                        @error('capacity')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
-                    </td>
-                    <td class="form-font">価格</td>
-                    <td class="form-font">
-                        ￥<input type="text" name="price">円
-                        @error('price')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
-                    </td>
-                    <td>
-                        <form method="post" action="{{ route('cakes.price.criate', $info) }}" id="update_price"
-                            class="flex-row update">
-                            @csrf
-                            <button class="button">追加</button>
-                        </form>
-                    </td>
-                </tr>
-                {{-- 既存の大きさと価格の表示 --}}
-
-                @if ($prices)
-                    @forelse ($prices as $price)
+                <table class="cakecode">
+                    <form method="post" action="{{ route('cakes.price.criate', $info) }}" id="update_price"
+                        class="flex-row update">
+                        @csrf
                         <tr>
                             <td class="form-font">内容量</td>
-                            <td class="form-font">{{ $price->capacity }}</td>
+                            <td class="form-font">
+                                <input type="text" name="capacity" class="form-font">
+                                @error('capacity')
+                                    <div class="error">{{ $message }}</div>
+                                @enderror
+                            </td>
                             <td class="form-font">価格</td>
-                            <td class="form-font">￥{{ $price->price }}円</td>
+                            <td class="form-font">
+                                ￥<input type="text" name="price">円
+                                @error('price')
+                                    <div class="error">{{ $message }}</div>
+                                @enderror
+                            </td>
                             <td>
-                                <form method="post" action="{{ route('cakes.price.destroy', $price) }}"
-                                    class="flex-row delete">
-                                    @method('DELETE')
-                                    @csrf
-                                    <input type="hidden" name='id' value="{{ $cakeinfo->id }}">
-                                    <button class="button">消去</button>
-                                </form>
+                                <input type="hidden" name='id' value="{{ $info->id }}">
+                                <button class="button">追加</button>
                             </td>
                         </tr>
-                    @empty
-                        <tr>
-                            <td class="form-font"></td>
-                            <td class="form-font"></td>
-                            <td class="form-font">まだ商品がありません</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    @endforelse
-            </table>
-            @endif
+                    </form>
+                    {{-- 既存の大きさと価格の表示 --}}
+
+                    @if ($prices)
+                        @forelse ($prices as $price)
+                            <tr>
+                                <td class="form-font">内容量</td>
+                                <td class="form-font">{{ $price->capacity }}</td>
+                                <td class="form-font">価格</td>
+                                <td class="form-font">￥{{ $price->price }}円</td>
+                                <td>
+                                    <form method="post" action="{{ route('cakes.price.destroy', $price) }}"
+                                        class="flex-row delete">
+                                        @method('DELETE')
+                                        @csrf
+                                        <input type="hidden" name='id' value="{{ $cakeinfo->id }}">
+                                        <button class="button">消去</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td class="form-font"></td>
+                                <td class="form-font"></td>
+                                <td class="form-font">まだ商品がありません</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        @endforelse
+                </table>
+
+
+                @endif
+
+            </div>
 
 
 
@@ -204,6 +207,20 @@
                 <p class="form-font">まだ設定されていません</p>
             @endforelse
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <h3 class="middlefont">&laquo;ギャラリーの設定&raquo;</h3>
             <p class="form-font">新規追加</p>
