@@ -28,7 +28,7 @@
                             {{ e($info->cake_info->cakename) }}
                         </p>
                         {{-- お気に入りボタン --}}
-                        @include('include.favoritebutton')
+                        {{-- @include('include.favoritebutton') --}}
                     </a>
                 </object>
             @empty
