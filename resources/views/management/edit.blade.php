@@ -2,7 +2,7 @@
 
 @section('title', '商品詳細編集')
 
-{{-- <?php dd($tags); ?> --}}
+{{-- <?php dd($cakeinfo); ?> --}}
 @section('css')
     <link rel="stylesheet" href="{{ url('css/management.css') }}">
 @endsection
@@ -95,7 +95,6 @@
                         </div>
                     </div>
 
-
                     {{-- 説明文//改行適応させたい --}}
                     <div>
                         <p class="middlefont">説明文</p>
@@ -116,92 +115,94 @@
             </div>
             </div>
 
-
-
             {{-- 大きさと価格の追加/削除 --}}
-            <div class="flex-culomn">
-                <h3 class="middlefont">&laquo;内容量と価格の設定&raquo;</h3>
-                <div class="flex-column">
-                    <form method="post" action="{{ route('cakes.price.criate', $info) }}" id="update_price"
-                        class="flex-row update">
-                        @csrf
-                        <input type="hidden" name='id' value="{{ $info->id }}">
-                        <div class="flex-row">
-                            <div class="flex-row">
-                                <p class="form-font">内容量：</p>
-                                <div>
-                                    <input type="text" name="capacity" size="10" class="cakeform">
-                                    @error('capacity')
-                                        <div class="error">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="flex-row">
-                                <p class="form-font">価格　：</p>
-                                <div>
-                                    <input type="text" name="price" size="10" class="cakeform">
-                                    @error('price')
-                                        <div class="error">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <button class="button">追加</button>
-                        </div>
-                    </form>
+            <h3 class="middlefont">&laquo;内容量と価格の設定&raquo;</h3>
 
-                    {{-- 既存の大きさと価格の表示 --}}
-                    <div>
-                        @forelse ($prices as $price)
-                            <form method="post" action="{{ route('cakes.price.destroy', $price) }}"
-                                class="flex-row delete">
-                                @method('DELETE')
-                                @csrf
-                                <div class="flex-row">
-                                    <p class="form-font">内容量：</p>
-                                    <p class="value-font">{{ $price->capacity }}</p>
-                                </div>
-                                <div class="flex-row">
-                                    <p class="form-font"> 価格　：</p>
-                                    <p class="value-font">￥{{ $price->price }}円</p>
-                                </div>
-                                <input type="hidden" name="info" value="{{ $info->id }}">
-                                <button class="button">消去</button>
-                            </form>
-                        @empty
-                            <p>バリエーションを追加してください</p>
-                        @endforelse
-                    </div>
-                </div>
-                {{-- タグに関する表示 --}}
-                <h3 class="middlefont">&laquo;設定タグ追加と一覧&raquo;</h3>
-
-                <form method="POST" action="{{ route('cakes.tag.criate', $info) }}" class="update flex-row">
-                    @csrf
-                    <p class="form-font">タグ名：</p>
-                    <div class="flex-column">
-                        <input type="hidden" name="cake_infos_id" value="{{ $info->id }}">
-                        <input type="text" name="tag" size="15" class="cakeform">
-                        @error('tag')
+            <table class="cakecode">
+                <tr>
+                    <td class="form-font">内容量</td>
+                    <td class="form-font">
+                        <input type="text" name="capacity" class="form-font">
+                        @error('capacity')
                             <div class="error">{{ $message }}</div>
                         @enderror
+                    </td>
+                    <td class="form-font">価格</td>
+                    <td class="form-font">
+                        ￥<input type="text" name="price">円
+                        @error('price')
+                            <div class="error">{{ $message }}</div>
+                        @enderror
+                    </td>
+                    <td>
+                        <form method="post" action="{{ route('cakes.price.criate', $info) }}" id="update_price"
+                            class="flex-row update">
+                            @csrf
+                            <button class="button">追加</button>
+                        </form>
+                    </td>
+                </tr>
+                {{-- 既存の大きさと価格の表示 --}}
+
+                @if ($prices)
+                    @forelse ($prices as $price)
+                        <tr>
+                            <td class="form-font">内容量</td>
+                            <td class="form-font">{{ $price->capacity }}</td>
+                            <td class="form-font">価格</td>
+                            <td class="form-font">￥{{ $price->price }}円</td>
+                            <td>
+                                <form method="post" action="{{ route('cakes.price.destroy', $price) }}"
+                                    class="flex-row delete">
+                                    @method('DELETE')
+                                    @csrf
+                                    <input type="hidden" name='id' value="{{ $cakeinfo->id }}">
+                                    <button class="button">消去</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td class="form-font"></td>
+                            <td class="form-font"></td>
+                            <td class="form-font">まだ商品がありません</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    @endforelse
+            </table>
+            @endif
+
+
+
+            {{-- タグに関する表示 --}}
+            <h3 class="middlefont">&laquo;設定タグ追加と一覧&raquo;</h3>
+
+            <form method="POST" action="{{ route('cakes.tag.criate', $info) }}" class="update flex-row">
+                @csrf
+                <p class="form-font">タグ名：</p>
+                <div class="flex-column">
+                    <input type="hidden" name="cake_infos_id" value="{{ $info->id }}">
+                    <input type="text" name="tag" size="15" class="cakeform">
+                    @error('tag')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
+                </div>
+                <button>追加</button>
+            </form>
+            @forelse ($tags as $tag)
+                <form method="POST" action="{{ route('cakes.tag.destroy', $tag) }}" class="delete flex-column">
+                    @method('DELETE')
+                    @csrf
+                    <div class="flex-row">
+                        <p class="form-font">{{ $tag->tag }}</p>
+                        <input type="hidden" name="info" value="{{ $info->id }}">
+                        <button>削除</button>
                     </div>
-                    <button>追加</button>
                 </form>
-                @forelse ($tags as $tag)
-                    <form method="POST" action="{{ route('cakes.tag.destroy', $tag) }}" class="delete flex-column">
-                        @method('DELETE')
-                        @csrf
-                        <div class="flex-row">
-                            <p class="form-font">{{ $tag->tag }}</p>
-                            <input type="hidden" name="info" value="{{ $info->id }}">
-                            <button>削除</button>
-                        </div>
-                    </form>
-                @empty
-                    <p class="form-font">まだ設定されていません</p>
-                @endforelse
+            @empty
+                <p class="form-font">まだ設定されていません</p>
+            @endforelse
             </div>
 
             <h3 class="middlefont">&laquo;ギャラリーの設定&raquo;</h3>

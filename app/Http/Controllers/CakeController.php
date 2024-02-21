@@ -311,7 +311,8 @@ class CakeController extends Controller
         $cakeID = $cakeinfo->id;
         $tags = Tag::where('cake_infos_id', $cakeID)->get();
 
-        return view('management.edit')
+
+        return back('management.edit')
             ->with([
                 'cakeinfos' => $infos,
                 'cakeinfo' => $cakeinfo,
@@ -350,7 +351,7 @@ class CakeController extends Controller
         $cakeinfosub->delete();
 
         //残りの値を渡して表示する。
-        $cakeinfo = $request->info;
+        $cakeinfo = $request->id;
         $infos = CakeInfo::all();
         $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo)->get();
         $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo)->get();
@@ -360,7 +361,7 @@ class CakeController extends Controller
         return view('management.edit')
             ->with([
                 'cakeinfos' => $infos,
-                'cakeinfo' => $cakeinfo,
+                'cakeinfo' => $cakeinfos,
                 'info' => $cakeinfos,
                 'prices' => $prices,
                 'cakecodes' => $infos,

@@ -121,18 +121,17 @@
 }
 
 
-@mixin edittable {
+@mixin edittable ($input) {
     font-weight: 500;
     border-bottom: 2px solid init.$topic-color;
     border-top: 2px solid init.$topic-color;
 
     input {
-        width: 360px;
+        width: $input;
         background-color: init.$background-color;
         border: 1px solid init.$test-color;
         border-radius: 4px;
-        padding:calc 4px;
-
+        padding: 4px;
     }
 
     td {
@@ -152,6 +151,7 @@
         background: init.$topic-color;
         width: fit-content;
     }
+
     td:nth-child(4) {
         flex-wrap: nowrap;
 
@@ -160,9 +160,10 @@
 }
 
 .cakeinfo {
-    @include edittable()
+    @include edittable(360px);
 }
 
 .cakecode {
-    @include edittable()
+    @include edittable(80px);
+    width: 440px;
 }

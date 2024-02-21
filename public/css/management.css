@@ -544,7 +544,7 @@ td.today {
   background-color: rgba(255, 255, 255, 0.598);
   border: 1px solid black;
   border-radius: 4px;
-  padding: calc 4px;
+  padding: 4px;
 }
 .cakeinfo td {
   border-bottom: 2px solid rgba(255, 167, 66, 0.841);
@@ -573,13 +573,14 @@ td.today {
   font-weight: 500;
   border-bottom: 2px solid rgba(255, 167, 66, 0.841);
   border-top: 2px solid rgba(255, 167, 66, 0.841);
+  width: 440px;
 }
 .cakecode input {
-  width: 360px;
+  width: 80px;
   background-color: rgba(255, 255, 255, 0.598);
   border: 1px solid black;
   border-radius: 4px;
-  padding: calc 4px;
+  padding: 4px;
 }
 .cakecode td {
   border-bottom: 2px solid rgba(255, 167, 66, 0.841);
