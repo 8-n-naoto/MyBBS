@@ -128,7 +128,6 @@ aside {
   display: inline-block;
   -webkit-box-decoration-break: clone;
           box-decoration-break: clone;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   border-radius: 8px;
@@ -353,7 +352,6 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   margin: 0 auto;
@@ -390,9 +388,7 @@ button {
 .items {
   margin: 2px;
   border-bottom: solid 1px #f5a368;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   display: inline-block;
-}
-/*# sourceMappingURL=init.css.map */
+}/*# sourceMappingURL=init.css.map */

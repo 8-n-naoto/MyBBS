@@ -122,19 +122,18 @@ aside {
 /* 見出し用 */
 .topic-font {
   font-size: 32px;
-  color: rgba(255, 201, 120, 0.782);
+  color: black;
   font-weight: 600;
   border-bottom: 4px black solid;
   display: inline-block;
   -webkit-box-decoration-break: clone;
           box-decoration-break: clone;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   border-radius: 8px;
   overflow-wrap: break-word;
   word-break: break-all;
-  background-color: rgba(255, 255, 255, 0.598);
+  background-color: rgba(255, 201, 120, 0.782);
   margin: 12px 0;
   padding: 8px;
 }
@@ -353,7 +352,6 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   margin: 0 auto;
@@ -390,7 +388,6 @@ button {
 .items {
   margin: 2px;
   border-bottom: solid 1px #f5a368;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   display: inline-block;
@@ -639,7 +636,6 @@ tr:nth-last-child(1) {
 
 #send_form {
   background-color: #f5a368;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   border-radius: 8px;
@@ -651,5 +647,4 @@ tr:nth-last-child(1) {
   resize: none;
   width: 350px;
   height: 24px;
-}
-/*# sourceMappingURL=front.css.map */
+}/*# sourceMappingURL=front.css.map */

@@ -128,7 +128,6 @@ aside {
   display: inline-block;
   -webkit-box-decoration-break: clone;
           box-decoration-break: clone;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   border-radius: 8px;
@@ -353,7 +352,6 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   margin: 0 auto;
@@ -390,7 +388,6 @@ button {
 .items {
   margin: 2px;
   border-bottom: solid 1px #f5a368;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   display: inline-block;
@@ -444,7 +441,6 @@ td.today {
 }
 
 .calender {
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   word-break: normal;
@@ -458,7 +454,6 @@ td.today {
 
 .file {
   border: 1px solid black;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   background-color: rgba(255, 243, 225, 0.684);
@@ -574,7 +569,6 @@ td.today {
 .cakeinfo td {
   border-bottom: 2px solid rgba(255, 167, 66, 0.841);
   text-align: left;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   vertical-align: middle;
@@ -586,7 +580,6 @@ td.today {
 }
 .cakeinfo td:nth-child(3) {
   background: rgba(255, 167, 66, 0.841);
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
@@ -610,7 +603,6 @@ td.today {
 .cakecode td {
   border-bottom: 2px solid rgba(255, 167, 66, 0.841);
   text-align: left;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   vertical-align: middle;
@@ -622,7 +614,6 @@ td.today {
 }
 .cakecode td:nth-child(3) {
   background: rgba(255, 167, 66, 0.841);
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
@@ -646,7 +637,6 @@ td.today {
 .newphoto td {
   border-bottom: 2px solid rgba(255, 167, 66, 0.841);
   text-align: left;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   vertical-align: middle;
@@ -658,7 +648,6 @@ td.today {
 }
 .newphoto td:nth-child(3) {
   background: rgba(255, 167, 66, 0.841);
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
@@ -684,5 +673,4 @@ td.today {
   text-align: left;
   vertical-align: middle;
   padding: 4px 8px;
-}
-/*# sourceMappingURL=management.css.map */
+}/*# sourceMappingURL=management.css.map */
