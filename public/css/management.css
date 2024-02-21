@@ -189,7 +189,6 @@ aside {
   color: red;
 }
 
-/* input */
 /** aside・見出し用フォント/リンクなし **/
 .aside-font {
   font-size: 20px;
@@ -368,6 +367,10 @@ button {
   font-size: 1em;
 }
 
+.overhidden {
+  overflow: hidden;
+}
+
 /* _calender.scss */
 /* カレンダー */
 table {
@@ -425,7 +428,7 @@ td.today {
 }
 
 .editphoto {
-  width: 300px;
+  width: 340px;
 }
 
 .file {
@@ -516,5 +519,88 @@ td.today {
 }
 .exel-edit button {
   word-break: keep-all;
+}
+
+.edit-textarea {
+  resize: none;
+  width: 900px;
+  height: 170px;
+  border: 1px solid;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.item-end {
+  margin-right: 0;
+}
+
+.cakeinfo {
+  font-weight: 500;
+  border-bottom: 2px solid rgba(255, 167, 66, 0.841);
+  border-top: 2px solid rgba(255, 167, 66, 0.841);
+}
+.cakeinfo input {
+  width: 360px;
+  background-color: rgba(255, 255, 255, 0.598);
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: calc 4px;
+}
+.cakeinfo td {
+  border-bottom: 2px solid rgba(255, 167, 66, 0.841);
+  text-align: left;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  vertical-align: middle;
+  padding: 4px 8px;
+}
+.cakeinfo td:nth-child(1) {
+  background: rgba(255, 167, 66, 0.841);
+  color: black;
+}
+.cakeinfo td:nth-child(3) {
+  background: rgba(255, 167, 66, 0.841);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.cakeinfo td:nth-child(4) {
+  flex-wrap: nowrap;
+}
+
+.cakecode {
+  font-weight: 500;
+  border-bottom: 2px solid rgba(255, 167, 66, 0.841);
+  border-top: 2px solid rgba(255, 167, 66, 0.841);
+}
+.cakecode input {
+  width: 360px;
+  background-color: rgba(255, 255, 255, 0.598);
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: calc 4px;
+}
+.cakecode td {
+  border-bottom: 2px solid rgba(255, 167, 66, 0.841);
+  text-align: left;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  vertical-align: middle;
+  padding: 4px 8px;
+}
+.cakecode td:nth-child(1) {
+  background: rgba(255, 167, 66, 0.841);
+  color: black;
+}
+.cakecode td:nth-child(3) {
+  background: rgba(255, 167, 66, 0.841);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.cakecode td:nth-child(4) {
+  flex-wrap: nowrap;
 }
 /*# sourceMappingURL=management.css.map */

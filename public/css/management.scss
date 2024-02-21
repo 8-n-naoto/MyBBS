@@ -2,7 +2,7 @@
 @use'calender';
 
 .editphoto {
-    width: 300px;
+    width: 340px;
 }
 
 .file {
@@ -46,11 +46,12 @@
     margin: 0 auto;
     text-align: center;
 
-    th{
+    th {
         border: 1px solid init.$test-color;
         text-align: center;
 
     }
+
     td {
         border: 1px solid init.$test-color;
         text-align: center;
@@ -72,17 +73,19 @@
         width: 150px;
     }
 }
+
 /** 表計算 **/
 .exel-edit {
     display: block;
     margin: 0 auto;
     text-align: center;
 
-    th{
+    th {
         border: 1px solid init.$test-color;
         text-align: center;
 
     }
+
     td {
         border: 1px solid init.$test-color;
         text-align: center;
@@ -102,3 +105,64 @@
 
 }
 
+.edit-textarea {
+    resize: none;
+    width: 900px;
+    height: 170px;
+    border: 1px solid;
+    border-radius: 4px;
+    margin-bottom: 8px;
+
+}
+
+.item-end {
+    margin-right: 0;
+
+}
+
+
+@mixin edittable {
+    font-weight: 500;
+    border-bottom: 2px solid init.$topic-color;
+    border-top: 2px solid init.$topic-color;
+
+    input {
+        width: 360px;
+        background-color: init.$background-color;
+        border: 1px solid init.$test-color;
+        border-radius: 4px;
+        padding:calc 4px;
+
+    }
+
+    td {
+        border-bottom: 2px solid init.$topic-color;
+        text-align: left;
+        width: fit-content;
+        vertical-align: middle;
+        padding: 4px 8px;
+    }
+
+    td:nth-child(1) {
+        background: init.$topic-color;
+        color: black;
+    }
+
+    td:nth-child(3) {
+        background: init.$topic-color;
+        width: fit-content;
+    }
+    td:nth-child(4) {
+        flex-wrap: nowrap;
+
+    }
+
+}
+
+.cakeinfo {
+    @include edittable()
+}
+
+.cakecode {
+    @include edittable()
+}

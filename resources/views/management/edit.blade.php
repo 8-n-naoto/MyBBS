@@ -8,7 +8,7 @@
 @endsection
 
 @section('main')
-    <section class="flex-center">
+    <section class="">
         <!-- 画面左側 -->
         <h3 class="topic-font">商品内容を変更する</h3>
         <section class="textbackground">
@@ -22,86 +22,75 @@
                     @csrf
 
                     {{-- ケーキの写真 --}}
-                    <p class="form-font">現在の写真</p>
                     <div class="flex-row">
                         <div class="flex-column">
+                            <p class="middlefont">現在の写真</p>
                             <img src="{{ asset($info->mainphoto) }}" class="editphoto" alt="ケーキの写真" accept=".jpg,.png">
-                        </div>
-                        <div class="flex-column">
                             {{-- 写真の選択 --}}
                             <input type="file" name="mainphoto" value="{{ $info->mainphoto }}" class="file">
                             @error('mainphoto')
                                 <div class="error">{{ $message }}</div>
                             @enderror
+                        </div>
 
-                            <div>
-                                {{-- 商品名 --}}
-                                <div class="flex-row">
-                                    <p class="form-font">商品名　　　：</p>
-                                    <div class="flex-column">
-                                        <input type="text" name="cakename" size="20" value="{{ $info->cakename }}"
-                                            class="value-font cakeform">
-                                        @error('cakename')
-                                            <div class="error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+                        <div class="flex-column">
+                            <table class="cakeinfo">
+                                <tbody>
+                                    <tr>
+                                        <td class="form-font">商品名</td>
+                                        <td>
+                                            <input type="text" name="cakename" value="{{ $info->cakename }}"
+                                                class="formfont">
+                                            @error('cakename')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="form-font">ひとこと説明</td>
+                                        <td> <input type="text" name="topic" size="20" value="{{ $info->topic }}"
+                                                class="value-font cakeform">
+                                            @error('topic')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="form-font">商品コード</td>
+                                        <td>
+                                            <p class="form-font">{{ $info->cakecode }}</p>
+                                            <input type="hidden" name="cakecode" size="7"
+                                                value="{{ $info->cakecode }}" class="value-font cakeform">
+                                            @error('cakecode')
+                                                <div class="error">{{ $message }}</div>
+                                            @enderror
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-                                {{-- トピック --}}
-                                <div class="flex-row">
-                                    <p class="form-font">ひとこと説明：</p>
-                                    <div class="flex-column">
-                                        <input type="text" name="topic" size="20" value="{{ $info->topic }}"
-                                            class="value-font cakeform">
-                                        @error('topic')
-                                            <div class="error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
 
-                                <div class="flex-row">
-                                    {{-- 商品コード --}}
-                                    <p class="form-font">商品コード　：</p>
-                                    <div class="flex-column">
-                                        <p>{{ $info->cakecode }}</p>
-                                        <input type="hidden" name="cakecode" size="7" value="{{ $info->cakecode }}"
-                                            class="value-font cakeform">
-                                        @error('cakecode')
-                                            <div class="error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
+                            @if ($cakeinfo->cakecode)
+                                <p class="middlefont">既存の商品コード</p>
+                                <table class="cakecode">
+                                    @forelse ($cakeinfos as $cakeinfo)
+                                        <tr>
+                                            <td class="form-font">商品コード</td>
+                                            <td class="form-font">{{ $cakeinfo->cakecode }}</td>
+                                            <td class="form-font">商品名</td>
+                                            <td>{{ $cakeinfo->cakename }}</td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td class="form-font"></td>
+                                            <td class="form-font"></td>
+                                            <td class="form-font">まだ商品がありません</td>
+                                            <td></td>
+                                        </tr>
+                                    @endforelse
+                                </table>
 
-                                {{-- 既存のコードと商品名 --}}
-                                <div>
-                                    <p class="form-font">既存の商品コード</p>
-                                    <div class="flex-row">
-                                        {{-- 既存のコード --}}
-                                        <div class="flex-column">
-                                            @forelse ($cakecodes as $cakecode)
-                                                <div class="flex-row">
-                                                    <p class="form-font">商品コード：</p>
-                                                    <p class="form-font">{{ $cakecode->cakecode }}</p>
-                                                </div>
-                                            @empty
-                                                <p>まだ商品がありません</p>
-                                            @endforelse
-                                        </div>
-
-                                        {{-- 対応する商品名 --}}
-                                        <div class="flex-column">
-                                            @forelse ($cakenames as $cakename)
-                                                <div class="flex-row">
-                                                    <p class="form-font"> 商品名：</p>
-                                                    <p class="value-font">{{ $cakename->cakename }}</p>
-                                                </div>
-                                            @empty
-                                                <p class="value-font">まだ商品がありません</p>
-                                            @endforelse
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endif
 
                         </div>
                     </div>
@@ -109,22 +98,25 @@
 
                     {{-- 説明文//改行適応させたい --}}
                     <div>
-                        <p class="form-font">説明文：</p>
-                        <textarea name="explain"class="cakeformbox">{{ $info->explain }}</textarea>
+                        <p class="middlefont">説明文</p>
+                        <textarea name="explain"class="edit-textarea">{{ $info->explain }}</textarea>
                         @error('explain')
                             <div class="error">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="flex-row item-end">
-                        <button class="button" id="button">更新</button>
-                    </div>
+
+                    <div class="flex-row">
+                        <button class="item-end" id="button">更新</button>
                 </form>
                 <form method="post" action="{{ route('cakes.cake.destroy', $info) }}" class="delete flex-row item-end">
                     @method('DELETE')
                     @csrf
-                    <button class="button">削除</button>
+                    <button class="item-end">削除</button>
                 </form>
             </div>
+            </div>
+
+
 
             {{-- 大きさと価格の追加/削除 --}}
             <div class="flex-culomn">
@@ -157,7 +149,6 @@
                         <div>
                             <button class="button">追加</button>
                         </div>
-
                     </form>
 
                     {{-- 既存の大きさと価格の表示 --}}

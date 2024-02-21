@@ -30,6 +30,7 @@ html {
     box-sizing: border-box;
 }
 
+
 /* 全画面共通部分 */
 
 body {
@@ -202,8 +203,6 @@ aside {
 .error {
     color: red;
 }
-
-/* input */
 
 
 /** aside・見出し用フォント/リンクなし **/
@@ -380,3 +379,9 @@ button {
     font-weight: 600;
     font-size: 1em;
 }
+
+.overhidden{
+    overflow: hidden;
+}
+
+

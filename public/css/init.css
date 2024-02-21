@@ -189,7 +189,6 @@ aside {
   color: red;
 }
 
-/* input */
 /** aside・見出し用フォント/リンクなし **/
 .aside-font {
   font-size: 20px;
@@ -366,5 +365,9 @@ button {
   color: #fff;
   font-weight: 600;
   font-size: 1em;
+}
+
+.overhidden {
+  overflow: hidden;
 }
 /*# sourceMappingURL=init.css.map */
