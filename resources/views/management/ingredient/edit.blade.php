@@ -13,7 +13,7 @@
 {{-- <?php dd($basic->id); ?> --}}
 
 @section('main')
-    <table>
+    <table class="exel-edit">
         <thead>
             <tr>
                 <th></th>
@@ -34,7 +34,8 @@
                 <td>450</td>
                 <td>袋、ダースなど</td>
                 <td>約7日</td>
-                <td>処理ボタン</td>
+                <td></td>
+                <td></td>
             </tr>
             <tr>
                 <form action="{{ route('cakes.ingredient.edit.post', $basic) }}" method="post" class="criate">
@@ -46,31 +47,31 @@
                         @enderror
                     </td>
                     <td>
-                        <input type="text" name="ingredient_name" class="cakeform">
+                        <input type="text" name="ingredient_name" class="s-input">
                         @error('ingredient_name')
                             <p class="error">{{ $message }}</p>
                         @enderror
                     </td>
                     <td>
-                        <input type="text" name="ingredient_amount" class="cakeform">
+                        <input type="text" name="ingredient_amount" class="">
                         @error('ingredient_amount')
                             <p class="error">{{ $message }}</p>
                         @enderror
                     </td>
                     <td>
-                        <input type="text" name="lot_amount" class="cakeform">
+                        <input type="text" name="lot_amount" class="">
                         @error('lot_amount')
                             <p class="error">{{ $message }}</p>
                         @enderror
                     </td>
                     <td>
-                        <input type="text" name="lot_unit" class="cakeform">
+                        <input type="text" name="lot_unit" class="">
                         @error('lot_unit')
                             <p class="error">{{ $message }}</p>
                         @enderror
                     </td>
                     <td>
-                        <input type="text" name="expiration" class="cakeform">
+                        <input type="text" name="expiration" class="">
                         @error('expiration')
                             <p class="error">{{ $message }}</p>
                         @enderror
@@ -78,6 +79,7 @@
                     <td>
                         <button>追加</button>
                     </td>
+                    <td></td>
                 </form>
             </tr>
 
@@ -94,19 +96,19 @@
                         </td>
                         <td>
                             <input type="text" name="ingredient_amount" value="{{ $item->ingredient_amount }}"
-                                class="cakeform">
+                                class="">
                         </td>
                         <td>
-                            <input type="text" name="lot_amount" value="{{ $item->lot_amount }}" class="cakeform">
+                            <input type="text" name="lot_amount" value="{{ $item->lot_amount }}" class="">
 
                         </td>
                         <td>
-                            <input type="text" name="lot_unit" value="{{ $item->lot_unit }}" class="cakeform">
+                            <input type="text" name="lot_unit" value="{{ $item->lot_unit }}" class="">
                         </td>
                         <td>
-                            <input type="text" name="expiration" value="{{ $item->expiration }}" class="cakeform">
+                            <input type="text" name="expiration" value="{{ $item->expiration }}" class="">
                         </td>
-                        <td class="flex-row">
+                        <td>
                             <input type="hidden" name="basic_ingredients_id" value="{{$basic->id}}">
                             <button>変更</button>
                         </td>

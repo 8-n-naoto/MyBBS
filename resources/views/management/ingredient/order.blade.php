@@ -40,10 +40,10 @@
     {{-- @isset($basic) --}}
     <div class="flex-row">
         <p class="middlefont">基本量：{{ $basic->basic_amount }}</p>
-        <p class="middke" id="count"></p>
+        <p class="middlefont" id="count"></p>
     </div>
 
-    <table id="exel_table">
+    <table id="exel_table" class="exel-edit">
         <thead>
             <tr>
                 <th>材料名</th>

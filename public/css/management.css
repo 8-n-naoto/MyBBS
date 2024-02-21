@@ -492,4 +492,29 @@ td.today {
 .exel .cakeselect {
   width: 150px;
 }
+
+/** 表計算 **/
+.exel-edit {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+.exel-edit th {
+  border: 1px solid black;
+  text-align: center;
+}
+.exel-edit td {
+  border: 1px solid black;
+  text-align: center;
+}
+.exel-edit input {
+  width: 120px;
+  background-color: rgba(255, 255, 255, 0.598);
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 4px;
+}
+.exel-edit button {
+  word-break: keep-all;
+}
 /*# sourceMappingURL=management.css.map */

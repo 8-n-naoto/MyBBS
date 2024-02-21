@@ -22,6 +22,7 @@
                 <th>ケーキの種類</th>
                 <th>処理ボタン</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -29,6 +30,7 @@
                 <td>例</td>
                 <td>〇〇型〇枚分</td>
                 <td>g/kgなど、共通のもの</td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -48,7 +50,7 @@
                         </td>
                         <td>
                             <input type="text" name="ingredient_unit" placeholder="g/kgなど、共通のもの"
-                                value="{{ old('ingredient_unit') }}" class="">
+                                value="{{ old('ingredient_unit') }}">
                             @error('ingredient_unit')
                                 <p class="error">{{ $message }}</p>
                             @enderror
@@ -92,7 +94,7 @@
                                 <p class="error">{{ $message }}</p>
                             @enderror
                         </td>
-                        <td>
+                        <td class="cakeselect">
                             <select name="cake_infos_id" id="" class="cakeselect">
                                 <option value="">選択してください▼</option>
                                 @forelse ($cakeinfos as $info)
@@ -108,6 +110,7 @@
                         <td>
                             <button>登録</button>
                         </td>
+                        <td></td>
                         <td></td>
                     </form>
                 </tr>
@@ -141,11 +144,14 @@
                             <td>
                                 <button class="form">更新</button>
                         </form>
+                        </td>
+                        <td>
                         <form action="{{ route('cakes.ingredient.destroy', $item) }}" method="post" class="delete">
                             @csrf
                             @method('DELETE')
                             <button>削除</button>
                         </form>
+
                         </td>
                         <td>
                             <div class="flex-column">
