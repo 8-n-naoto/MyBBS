@@ -5,15 +5,22 @@
                 <img src="{{ asset($info->cake_info->mainphoto) }}" alt="商品画像" class="slider-photo">
             </a>
             <div>
-                <p class="bigfont">{{ $info->cake_info->cakename }}</p>
-                <p class="smallfont">{{ $info->cake_info->topic }}</p>
-                @forelse ($info->cake_info->cake_info_subs as $item)
-                <div class="flex-row smallfont">
-                    <p>内容量：{{ $item->capacity }}</p>
-                    <p>価格：{{ $item->price }}円</p>
-                </div>
-                @empty
-                @endforelse
+                <p class="middlefont">{{ $info->cake_info->cakename }}</p>
+                <p class="form-font">商品説明：{{ $info->cake_info->topic }}</p>
+                <table>
+                    <tr>
+
+                    </tr>
+                    @foreach ($info->cake_info->cake_info_subs as $item)
+                        <tr>
+                            <td class="form-font">内容量</td>
+                            <td class="form-font">{{ $item->capacity }}</td>
+                            <td class="form-font">価格</td>
+                            <td class="form-font">￥{{ $item->price }}円</td>
+                        </tr>
+                    @endforeach
+
+                </table>
             </div>
         </div>
     @endforeach

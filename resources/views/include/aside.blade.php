@@ -12,7 +12,7 @@
                     @forelse ($cakeinfos as $info)
                         <li>
                             <a href="{{ route('reservations.count.store', $info) }}">
-                                <p class="asidemenu-font link">{{ $info->cakename }}</p>
+                                <p class="asidemenu-font link items">{{ $info->cakename }}</p>
                             </a>
                         </li>
                     @empty
@@ -41,7 +41,7 @@
                     @forelse ($cakeinfos as $info)
                         <li>
                             <a href="{{ route('cakes.upudate.store', $info) }}">
-                                <p class="asidemenu-font link">{{ $info->cakename }}</p>
+                                <p class="asidemenu-font link items">{{ $info->cakename }}</p>
                             </a>
                         </li>
                     @empty
@@ -60,7 +60,7 @@
                     @forelse ($cakeinfos as $info)
                         <li>
                             <a href="{{ route('cakes.intgredient.criate.store', $info->id) }}">
-                                <p class="asidemenu-font link">{{ $info->cakename }}</p>
+                                <p class="asidemenu-font link items">{{ $info->cakename }}</p>
                             </a>
                         </li>
                     @empty
