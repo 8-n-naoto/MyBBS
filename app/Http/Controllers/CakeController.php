@@ -379,17 +379,17 @@ class CakeController extends Controller
         $cakephoto->delete();
 
         //残りの値を渡して表示する。
-        $cakeinfo = $request->info;
+        $cakeinfo = $request->id;
         $infos = CakeInfo::all();
         $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo)->get();
         $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo)->get();
         $cakeinfos = CakeInfo::find($cakeinfo);
         $tags = Tag::where('cake_infos_id', $cakeinfo)->get();
 
-        return view('management.edit')
+        return back()
             ->with([
                 'cakeinfos' => $infos,
-                'cakeinfo' => $cakeinfo,
+                'cakeinfo' => $cakeinfos,
                 'info' => $cakeinfos,
                 'prices' => $prices,
                 'cakecodes' => $infos,

@@ -1,9 +1,9 @@
 @extends('components.managementlayout')
 
-@section('title','お知らせ編集')
+@section('title', 'お知らせ編集')
 
 @section('css')
-<link rel="stylesheet" href="{{ url('css/management.css') }}">
+    <link rel="stylesheet" href="{{ url('css/management.css') }}">
 @endsection
 
 @section('aside')
@@ -13,16 +13,17 @@
 @section('main')
     <ul>
         <div>
-            <form method="POST" action="{{ route('information.edit.update', $information) }}" class="update textbackground flex-column">
+            <form method="POST" action="{{ route('information.edit.update', $information) }}"
+                class="update textbackground flex-column">
                 @csrf
                 @method('PATCH')
                 <p class="form-font">題名</p>
-                <input type="text" name="topic" value="{{ $information->topic }}">
+                <input type="text" name="topic" value="{{ $information->topic }}" class="items">
                 @error('topic')
                     <p class="error">{{ $message }}</p>
                 @enderror
                 <p class="form-font">お知らせ内容</p>
-                <textarea name="information" id="" cols="30" rows="10"class="informationformbox">{{ $information->information }}</textarea>
+                <textarea name="information" class="edit-textarea">{{ $information->information }}</textarea>
                 @error('information')
                     <p class="error">{{ $message }}</p>
                 @enderror

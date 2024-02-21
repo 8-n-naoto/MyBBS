@@ -167,7 +167,32 @@
     @include edittable(80px);
     width: 440px;
 }
+
 .newphoto {
     @include edittable(290px);
     width: 900px;
+}
+
+.info {
+    font-weight: 500;
+    border-bottom: 2px solid init.$topic-color;
+    border-top: 2px solid init.$topic-color;
+    vertical-align: middle;
+
+    tr {
+        width: 900px;
+
+    }
+
+    td:nth-child(1) {
+        background: init.$topic-color;
+        color: black;
+    }
+
+    td {
+        border-bottom: 2px solid init.$topic-color;
+        text-align: left;
+        vertical-align: middle;
+        padding: 4px 8px;
+    }
 }

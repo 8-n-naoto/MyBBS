@@ -241,7 +241,7 @@
                         <td class="form-font">画像の名前</td>
                         <td class="form-font">
                             <input type="text" name="photoname" size="10" class="value-font cakeform"
-                                style="width: 260px">
+                                style="width: 240px">
                             @error('photoname')
                                 <div class="error">{{ $message }}</div>
                             @enderror
@@ -250,13 +250,14 @@
                             <button class="button">追加</button>
                         </td>
                     </tr>
+                </form>
             </table>
 
 
             <h3 class="middlefont">既存のギャラリー</h3>
-            <div class="gallery">
+            <div class="cakephotos">
                 @forelse ($subphotos as $subphoto)
-                    <object>
+                    <object class="gallery">
                         <img src=" {{ asset($subphoto->subphotos) }}" alt="商品画像"width="200px">
                         <input type="hidden" name="info" value="{{ $info->id }}">
                         <div class="flex-row item-end">
@@ -264,12 +265,13 @@
                             <form method="post" action="{{ route('cakes.photo.destroy', $subphoto) }}" class="delete">
                                 @method('DELETE')
                                 @csrf
+                                <input type="hidden" name="info" value="{{ $info->id }}">
                                 <button class="button">消去</button>
                             </form>
                         </div>
                     </object>
                 @empty
-                    <p>バリエーションを追加してください</p>
+                    <p>画像を追加してください</p>
                 @endforelse
             </div>
         </section>
