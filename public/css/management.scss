@@ -167,3 +167,7 @@
     @include edittable(80px);
     width: 440px;
 }
+.newphoto {
+    @include edittable(290px);
+    width: 900px;
+}

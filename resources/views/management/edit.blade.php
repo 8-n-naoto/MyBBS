@@ -226,32 +226,34 @@
                 </td>
             </table>
 
+            <table class="newphoto">
+                <form method="post" action="{{ route('cakes.photo.criate', $info) }}" enctype="multipart/form-data"
+                    id="update_subphoto"class="update flex-row">
+                    @csrf
+                    <input type="hidden" name='cake_photos_id' value="{{ $info->id }}">
+                    <tr>
+                        <td class="form-font">画像を選択する</td>
+                        <td class="form-font"><input type="file" name="subphotos" accept=".jpg,.png">
+                            @error('subphotos')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </td>
+                        <td class="form-font">画像の名前</td>
+                        <td class="form-font">
+                            <input type="text" name="photoname" size="10" class="value-font cakeform"
+                                style="width: 260px">
+                            @error('photoname')
+                                <div class="error">{{ $message }}</div>
+                            @enderror
+                        </td>
+                        <td>
+                            <button class="button">追加</button>
+                        </td>
+                    </tr>
+            </table>
 
-            
-            <h3 class="middlefont">&laquo;ギャラリーの設定&raquo;</h3>
-            <p class="form-font">新規追加</p>
-            <form method="post" action="{{ route('cakes.photo.criate', $info) }}" enctype="multipart/form-data"
-                id="update_subphoto"class="update flex-row">
-                @csrf
-                <input type="hidden" name='cake_photos_id' value="{{ $info->id }}">
-                <div class="flex-column">
-                    <p class="form-font">写真を選択してください： </p>
-                    <p class="form-font">写真の名前　　　　　　：</p>
-                </div>
-                <div class="flex-column">
-                    <input type="file" name="subphotos" accept=".jpg,.png">
-                    @error('subphotos')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
-                    <input type="text" name="photoname" size="10" class="value-font cakeform">
-                    @error('photoname')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
-                </div>
-                <button class="button">追加するよ！</button>
-            </form>
 
-            <h3 class="middlefont">&laquo;既存のギャラリー&raquo;</h3>
+            <h3 class="middlefont">既存のギャラリー</h3>
             <div class="gallery">
                 @forelse ($subphotos as $subphoto)
                     <object>
