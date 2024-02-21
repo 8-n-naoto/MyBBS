@@ -248,9 +248,9 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         //商品新規追加処理処理
         Route::post('/store', '_cake_criate')->name('cake.criate');
         //商品更新処理（price）
-        Route::post('/edit/update/{cakeinfo}/addprice', '_price_criate')->name('price.criate');
+        Route::post('/edit/update/addprice', '_price_criate')->name('price.criate');
         //商品更新画面(subphoto)
-        Route::post('/edit/update/{cakeinfo}/addphoto', '_photo_criate')->name('photo.criate');
+        Route::post('/edit/update/addphoto', '_photo_criate')->name('photo.criate');
         //商品更新画面(tag)
         Route::post('/edit/update/{cakeinfo}/addtag', '_tag_criate')->name('tag.criate');
         //材料詳細追加処理
