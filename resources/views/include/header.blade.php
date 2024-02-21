@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://unpkg.com/destyle.css@1.0.5/destyle.css">
     {{-- <link href="{{ url('css/bootstrap.min.css') }}" rel="stylesheet"> --}}
     @yield('css')
-    <link rel="stylesheet" href="{{ url('css/main.css') }}">
 
     {{-- jquery --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.js"></script>

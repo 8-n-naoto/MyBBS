@@ -203,6 +203,9 @@ aside {
     color: red;
 }
 
+/* input */
+
+
 /** aside・見出し用フォント/リンクなし **/
 .aside-font {
     @include no-wrap(20px, black);
@@ -229,6 +232,7 @@ aside {
     @include no-wrap(16px, black);
     padding: 2px 0;
 }
+
 .form-wrap-font {
     font-size: 16px;
     color: black;
@@ -311,20 +315,23 @@ aside {
     width: 914px;
     background-color: $background-color;
 
-    .information{
+    .information {
         width: 350px;
         margin: 0 12px;
-        p{
-        overflow: hidden;
+
+        p {
+            overflow: hidden;
         }
     }
-    .map{
+
+    .map {
         width: 550px;
         flex: 3;
         margin: 0 12px;
     }
 
 }
+
 .information-font {
     font-size: 16px;
     font-weight: 600;

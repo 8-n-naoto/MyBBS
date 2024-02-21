@@ -1,11 +1,11 @@
 @use'init';
 @use'calender';
 
-.editphoto{
+.editphoto {
     width: 300px;
 }
 
-.file{
+.file {
     border: 1px solid init.$test-color;
     width: fit-content;
     background-color: init.$sideback-color;
@@ -39,3 +39,39 @@
 .gallery {
     width: 180px;
 }
+
+/** 表計算 **/
+.exel {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+
+    th{
+        border: 1px solid init.$test-color;
+        text-align: center;
+        
+    }
+    td {
+        border: 1px solid init.$test-color;
+        text-align: center;
+    }
+
+    input {
+        width: 175px;
+        background-color: init.$background-color;
+        border: 1px solid init.$test-color;
+        border-radius: 4px;
+        padding: 4px;
+    }
+
+    button {
+        word-break: keep-all;
+    }
+
+    .cakeselect {
+        width: 150px;
+    }
+
+}
+
+

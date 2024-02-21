@@ -13,7 +13,7 @@
 {{-- <?php dd($none); ?> --}}
 @section('main')
     <p class="topic-font">ルセット管理</p>
-    <table>
+    <table class="exel">
         <thead>
             <tr>
                 <th></th>
@@ -21,7 +21,6 @@
                 <th>単位(レシピの分量)</th>
                 <th>ケーキの種類</th>
                 <th>処理ボタン</th>
-                <th></th>
                 <th></th>
             </tr>
         </thead>
@@ -32,22 +31,24 @@
                 <td>g/kgなど、共通のもの</td>
                 <td></td>
                 <td></td>
+                <td></td>
             </tr>
+            {{-- </tbody> --}}
             @isset($none)
-                <form action="{{ route('cakes.ingredient.post') }}" method="post" class="criate">
-                    @csrf
-                    <tr>
+                <tr>
+                    <form action="{{ route('cakes.ingredient.post') }}" method="post" class="criate">
+                        @csrf
                         <td></td>
                         <td>
                             <input type="text" name="basic_amount" placeholder="〇〇型〇枚分" value="{{ old('basic_amount') }}"
-                                class="cakeform">
+                                class="">
                             @error('basic_amount')
                                 <p class="error">{{ $message }}</p>
                             @enderror
                         </td>
                         <td>
                             <input type="text" name="ingredient_unit" placeholder="g/kgなど、共通のもの"
-                                value="{{ old('ingredient_unit') }}" class="cakeform">
+                                value="{{ old('ingredient_unit') }}" class="">
                             @error('ingredient_unit')
                                 <p class="error">{{ $message }}</p>
                             @enderror
@@ -56,7 +57,7 @@
                             <select name="cake_infos_id" id="">
                                 <option value="">選択してください▼</option>
                                 @forelse ($menus as $info)
-                                    <option value="{{ $info->id }}">{{ $info->cakename }}</option>
+                                    <option value="{{ $info->id }}" class="form-wrap-font">{{ $info->cakename }}</option>
                                     @error('cake_infos_id')
                                         <p class="error">{{ $message }}</p>
                                     @enderror
@@ -68,8 +69,9 @@
                         <td>
                             <button>登録</button>
                         </td>
-                    </tr>
-                </form>
+                        <td></td>
+                    </form>
+                </tr>
             @endisset
             @isset($basic)
                 <tr>
@@ -78,20 +80,20 @@
                         <td></td>
                         <td>
                             <input type="text" name="basic_amount" placeholder="〇〇型〇枚分" value="{{ old('basic_amount') }}"
-                                class="cakeform">
+                                class="">
                             @error('basic_amount')
                                 <p class="error">{{ $message }}</p>
                             @enderror
                         </td>
                         <td>
                             <input type="text" name="ingredient_unit" placeholder="g/kgなど、共通のもの"
-                                value="{{ old('ingredient_unit') }}" class="cakeform">
+                                value="{{ old('ingredient_unit') }}" class="">
                             @error('ingredient_unit')
                                 <p class="error">{{ $message }}</p>
                             @enderror
                         </td>
                         <td>
-                            <select name="cake_infos_id" id="">
+                            <select name="cake_infos_id" id="" class="cakeselect">
                                 <option value="">選択してください▼</option>
                                 @forelse ($cakeinfos as $info)
                                     <option value="{{ $info->id }}">{{ $info->cakename }}</option>
@@ -106,6 +108,7 @@
                         <td>
                             <button>登録</button>
                         </td>
+                        <td></td>
                     </form>
                 </tr>
                 @foreach ($basic as $item)
@@ -116,44 +119,45 @@
                             <td></td>
                             <td>
                                 <input type="text" name="basic_amount" placeholder="{{ old('basic_amount') }}"
-                                    class="cakeform" value="{{ $item->basic_amount }}">
+                                    class="" value="{{ $item->basic_amount }}">
                                 @error('basic_amount')
                                     <p class="error">{{ $message }}</p>
                                 @enderror
                             </td>
                             <td>
                                 <input type="text" name="ingredient_unit" placeholder="{{ old('ingredient_unit') }}"
-                                    class="cakeform" value="{{ $item->ingredient_unit }}">
+                                    class="" value="{{ $item->ingredient_unit }}">
                                 @error('ingredient_unit')
                                     <p class="error">{{ $message }}</p>
                                 @enderror
                             </td>
                             <td>
-                                <p>{{ $item->cake_info->cakename }}</p>
+                                <p class="">{{ $item->cake_info->cakename }}</p>
                                 <input type="hidden" name="cake_infos_id" value="{{ $item->cake_infos_id }}">
                                 @error('cake_infos_id')
                                     <p class="error">{{ $message }}</p>
                                 @enderror
                             </td>
                             <td>
-                                <button>更新</button>
-                            </td>
+                                <button class="form">更新</button>
                         </form>
-                        <td>
-                            <form action="{{ route('cakes.ingredient.destroy', $item) }}" method="post" class="delete">
-                                @csrf
-                                @method('DELETE')
-                                <button>削除</button>
-                            </form>
-
+                        <form action="{{ route('cakes.ingredient.destroy', $item) }}" method="post" class="delete">
+                            @csrf
+                            @method('DELETE')
+                            <button>削除</button>
+                        </form>
                         </td>
-                        <td class="flex-column">
-                            <a href="{{ route('cakes.ingredient.edit.store', $item) }}">配合詳細画面へ</a>
-                            <a href="{{ route('cakes.ingredient.edit.order.store', $item) }}">発注試算画面へ</a>
+                        <td>
+                            <div class="flex-column">
+                                <a href="{{ route('cakes.ingredient.edit.store', $item) }}">配合詳細画面へ</a>
+                                <a href="{{ route('cakes.ingredient.edit.order.store', $item) }}">発注試算画面へ</a>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
             @endisset
         </tbody>
     </table>
+
+
 @endsection

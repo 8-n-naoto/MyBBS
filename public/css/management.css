@@ -189,6 +189,7 @@ aside {
   color: red;
 }
 
+/* input */
 /** aside・見出し用フォント/リンクなし **/
 .aside-font {
   font-size: 20px;
@@ -462,5 +463,33 @@ td.today {
 
 .gallery {
   width: 180px;
+}
+
+/** 表計算 **/
+.exel {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+.exel th {
+  border: 1px solid black;
+  text-align: center;
+}
+.exel td {
+  border: 1px solid black;
+  text-align: center;
+}
+.exel input {
+  width: 175px;
+  background-color: rgba(255, 255, 255, 0.598);
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 4px;
+}
+.exel button {
+  word-break: keep-all;
+}
+.exel .cakeselect {
+  width: 150px;
 }
 /*# sourceMappingURL=management.css.map */
