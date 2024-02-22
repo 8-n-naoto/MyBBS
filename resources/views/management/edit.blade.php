@@ -288,7 +288,7 @@
 
 @section('js')
     {{-- <script src="{{ url('js/price.js') }}"></script> --}}
-    {{-- <script>
+    <script>
         (function($) {
             $('.pricebtn').on('click', function(e) {
                 e.preventDefault();
@@ -343,9 +343,9 @@
                 });
             });
         })(jQuery);
-    </script> --}}
+    </script>
     {{-- <script src="{{ url('js/tag.js') }}"></script> --}}
-    {{-- <script>
+    <script>
         (function($) {
             $('.tagbtn').on('click', function(e) {
                 e.preventDefault();
@@ -384,7 +384,7 @@
                 });
             });
         })(jQuery);
-    </script> --}}
+    </script>
     <script src="{{ url('js/gallery.js') }}"></script>
     {{-- <script>
         (function($) {
