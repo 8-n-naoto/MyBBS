@@ -234,15 +234,17 @@ class CakeController extends Controller
         // $request->session()->regenerateToken();
 
         //バリデート
-        $request->validate([
-            'cake_id' => 'required',
-            'photoname' => 'required',
-            'subphotos' => 'required',
-        ], [
-            'cake_id.required' => 'ログインしてください',
-            'photoname.required' => 'ケーキの名前を入力してください',
-            'subphotos.required' => '写真を選択してください',
-        ]);
+        // $request->validate([
+        //     'cake_id' => 'required',
+        //     'photoname' => 'required',
+        //     'subphotos' => 'required',
+        // ], [
+        //     'cake_id.required' => 'ログインしてください',
+        //     'photoname.required' => 'ケーキの名前を入力してください',
+        //     'subphotos.required' => '写真を選択してください',
+        // ]);
+
+        // dd($request);
 
         $post = new CakePhoto();
         $post->cake_id = $request->cake_photos_id;
@@ -254,6 +256,23 @@ class CakeController extends Controller
         //名前を保存
         $post->subphotos = 'storage/images/' . $image_path;
         $post->save();
+
+
+        // $cake_id=$request->cake_id;
+        // $photoname=$request->photoname;
+        // $subphotos=$request->file('galleryphoto');
+
+
+        // $respons=[
+        //     'cake_id'=>$cake_id,
+        //     'photoname'=>$photoname,
+        //     'subphoto'=>$subphotos,
+        // ];
+
+        // return response()->json($respons);
+
+
+
 
         // $infos = CakeInfo::all();
         // $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo->id)->get();
@@ -302,7 +321,7 @@ class CakeController extends Controller
 
 
         $post = new Tag();
-        $post->cake_infos_id = $cakeinfo->id;
+        $post->cake_infos_id = $request->cake_infos_id;
         $post->tag = $request->tag;
         $post->save();
 

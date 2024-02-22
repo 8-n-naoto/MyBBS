@@ -1,0 +1,126 @@
+@charset "UTF-8";
+/* 大きい写真 */
+.mainphoto {
+  width: 480px;
+  margin: 12px 0;
+  border-radius: 8px;
+}
+
+.management-photo {
+  width: 240px;
+  border-radius: 8px;
+}
+
+/* ギャラリー */
+.gallery {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 20px 40px;
+  gap: 20px;
+}
+
+.subphoto {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.favorite-photo {
+  width: 100%;
+  border-radius: 8px 8px 0px 0px;
+}
+
+/* ケーキ */
+.cakephotos {
+  box-sizing: border-box;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 40px;
+  gap: 40px;
+  margin: 0 auto;
+}
+
+/* 商品一覧 */
+.menuphotos {
+  width: 100%;
+  border-radius: 8px 8px 0px 0px;
+}
+
+.shadow {
+  filter: grayscale(100%);
+}
+
+/* お店紹介の背景 */
+.about-me {
+  box-sizing: border-box;
+  width: 100%;
+  background: center/cover url(../img/decoratephotos/100_0090.JPG);
+  background-blend-mode: color;
+  position: relative;
+  z-index: 0;
+  padding: 120px 0;
+  overflow: hidden;
+}
+
+.about-me:before {
+  content: "";
+  background: inherit;
+  /*.bgImageで設定した背景画像を継承する*/
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  position: absolute;
+  /*ブラー効果で画像の端がボヤけた分だけ位置を調整*/
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  z-index: -1;
+  /*重なり順序を一番下にしておく*/
+}
+
+/*  スライドショー */
+.slider-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  padding: 16px 0;
+  margin-bottom: 40px;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s;
+  padding: 32px;
+}
+
+.slide .slider-photo {
+  width: 500px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.arrow-slide {
+  display: none;
+}
+
+.arrow-slide.active {
+  opacity: 1;
+  display: block;
+}
+
+/* カートの商品 */
+.cartphotos {
+  width: 400px;
+  border-radius: 8px;
+}/*# sourceMappingURL=cakephotos.css.map */

@@ -1,0 +1,24 @@
+@use '';
+
+/* aside用 */
+aside{
+    margin-top: 12px;
+    box-sizing: border-box;
+    background: init.$sideback-color;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 230px;
+    flex: none;
+    border-radius: 8px;
+}
+.sidemenu{
+    background: init.$sidemain-color;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.sidemenu .asidemenu-font{
+    margin-left: 1rem;
+}

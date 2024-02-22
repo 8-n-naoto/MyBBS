@@ -14,7 +14,7 @@
             data: {
                 "cake_id": cake_id,
                 "capacity": capacity,
-                "price": price,
+                "price": pric
 
             },
             // dataType: "",
