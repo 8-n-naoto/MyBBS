@@ -291,8 +291,9 @@
 @endsection
 
 @section('js')
-    {{-- 金額関係のスクリプト --}}
     <script>
+        // 金額関係のスクリプト
+        // 金額追加
         (function($) {
             $('.priceadd').on('click', function(e) {
                 e.preventDefault();
@@ -349,8 +350,8 @@
 
             });
         })(jQuery);
-    </script>
-    <script>
+
+        // 金額削除
         (function($) {
             $('.pricedelete').on('click', function(e) {
                 e.preventDefault();
@@ -385,11 +386,9 @@
                 }
             });
         })(jQuery);
-    </script>
 
-    {{-- タグ関係のスクリプト --}}
-    {{-- <script src="{{ url('js/tag.js') }}"></script> --}}
-    <script>
+        //  タグ関係のスクリプト
+        // タグ作成
         (function($) {
             $('.tagadd').on('click', function(e) {
 
@@ -439,8 +438,8 @@
 
             });
         })(jQuery);
-    </script>
-    <script>
+
+        // タグ削除処理
         (function($) {
             $('.tagdelete').on('click', function(e) {
                 e.preventDefault();
@@ -479,11 +478,9 @@
                 }
             });
         })(jQuery);
-    </script>
 
-    {{-- gallery関係 --}}
-    {{-- <script src="{{ url('js/gallery.js') }}"></script> --}}
-    <script>
+        //  gallery関係
+        // ギャラリー作成
         (function($) {
             $('.galleryadd').on('click', function(e) {
                 e.preventDefault();
@@ -534,8 +531,8 @@
                 }
             });
         })(jQuery);
-    </script>
-    <script>
+
+        // ギャラリー削除
         (function($) {
             $('.gallerydelete').on('click', function(e) {
                 e.preventDefault();
