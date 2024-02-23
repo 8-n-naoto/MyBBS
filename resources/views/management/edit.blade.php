@@ -242,8 +242,10 @@
                     <input type="hidden" name='cake_id' value="{{ $info->id }}">
                     <tr>
                         <td class="form-font">画像を選択する</td>
+                        <div><output id="output1"></output></div>
                         <td class="form-font">
-                            <input type="file" name="subphotos" accept=".jpg,.png" class="galleryphoto">
+                            <input type="file" name="subphotos" accept=".jpg,.png" class="galleryphoto"
+                                id="galleryphoto">
                             @error('subphotos')
                                 <div class="error">{{ $message }}</div>
                             @enderror
@@ -289,7 +291,7 @@
 
 @section('js')
     {{-- <script src="{{ url('js/price.js') }}"></script> --}}
-    <script>
+    {{-- <script>
         (function($) {
             $('.priceadd').on('click', function(e) {
                 e.preventDefault();
@@ -341,7 +343,7 @@
 
             });
         })(jQuery);
-    </script>
+    </script> --}}
     {{-- <form method="post" action="{{ route('cakes.price.destroy') }}"
                                     class="flex-row delete">
                                     <input type="hidden" name="_token" value="${CSRF}" autocomplete="off">
@@ -386,7 +388,7 @@
     </script> --}}
 
     {{-- <script src="{{ url('js/tag.js') }}"></script> --}}
-    <script>
+    {{-- <script>
         (function($) {
             $('.tagadd').on('click', function(e) {
                 e.preventDefault();
@@ -429,27 +431,40 @@
 
             });
         })(jQuery);
-    </script>
+    </script> --}}
+
     {{-- <script src="{{ url('js/gallery.js') }}"></script> --}}
-    {{-- <script>
+    <script>
+        'use strict';
+        var file = document.getElementById('galleryphoto');
+
+        function fileChange(ev) {
+            var target = ev.target;
+            var files = target.files;
+
+            console.log(files);
+        }
+        file.addEventListener('change', fileChange, false);
+    </script>
+    <script>
         (function($) {
             $('.galleryadd').on('click', function(e) {
                 e.preventDefault();
                 var CSRF = $('meta[name="csrf-token"]').attr('content');
-
-                var galleryphoto = $('.galleryphoto').val();
                 var galleryname = $('.galleryname').val();
                 var cake_id = $('.cake_id').val();
 
+                //file関係の処理
+                var file = document.getElementById('galleryphoto').files[0];
                 var form = new FormData();
                 //フォームデータにアップロードファイルの情報追加
-                form.append("subphotos", galleryphoto);
-                form.append("cake_id", cake_id);
+                form.append("subphotos", file);
                 form.append("photoname", galleryname);
+                form.append("cake_id", cake_id);
 
 
                 $.ajax({
-                    url: "{{route('cakes.photo.criate')}}",
+                    url: "{{ route('cakes.photo.criate') }}",
                     headers: {
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
                     },
@@ -457,37 +472,32 @@
                     data: form,
                     contentType: false,
                     processData: false,
-                    // dataType: "",
                 }).done(function() {
                     console.log('通信成功');
+                    $('.cakephotos').append(`
+                        <object class="gallery">
+                            <img src="  http://localhost:8569/storage/images/${file.name}" alt="商品画像"width="200px">
+                            <div class="flex-row item-end">
+                                <p>${galleryname}</p>
+
+                            </div>
+                        </object>
+                  `)
                 }).fail(function() {
                     console.log('通信失敗');
-                    alert('通信失敗');
+                    alert('情報が不足しています');
                 }).always(function() {
                     console.log('実行しました');
-                    console.log(galleryname);
-                    console.log(galleryphoto);
+                    console.log(file.type);
+                    console.log(file.size);
+                    console.log(form);
                     //     // success: function(json){
-                    //     $('.cakephotos').append(`
-                //     <object class="gallery">
-                //      <img src="  http://localhost:8569/storage/images/${galleryphoto}" alt="商品画像"width="200px">
-                //      <div class="flex-row item-end">
-                //         <p>${galleryname}</p>
-                //         <form method="post" action="{{ route('cakes.photo.destroy', $subphoto) }}" class="delete">
-                //             @method('DELETE')
-                //             @csrf
-                //             <input type="hidden" name="info" value="${cake_id}">
-                //             <button class="gallerydelete">消去</button>
-                //         </form>
-                //      </div>
-                //     </object>
-                //   `  )
                     //     // }
                 });
             });
         })(jQuery);
-    </script> --}}
+    </script>
 
 
-    <script src="{{ url('js/button.js') }}"></script>
+    {{-- <script src="{{ url('js/button.js') }}"></script> --}}
 @endsection

@@ -252,13 +252,11 @@ class CakeController extends Controller
             'subphotos.required' => '写真を選択してください',
         ]);
 
-        // dd($request);
-
         $post = new CakePhoto();
         $post->cake_photos_id = $request->cake_id;
         $post->photoname = $request->photoname;
-        // // name属性が'images'のinputタグをファイル形式に、画像をpublic/imagesに名前付きで保存
-        $image_path = $request->file('subphotos')->getClientOriginalName();
+        // // name属性が'subphotos'のinputタグをファイル形式に、画像をpublic/imagesに名前付きで保存
+        $image_path = $request->subphotos->getClientOriginalName();
         // 上記処理にて保存した画像に名前を付け、Cakeinfoテーブルのimagesカラムをパスに形にして名前を付ける
         $request->file('subphotos')->storeAs('public/images/' . $image_path);
         //名前を保存
@@ -282,24 +280,24 @@ class CakeController extends Controller
 
 
 
-        $infos = CakeInfo::all();
-        $cakeinfo=CakeInfo::find($request->cake_id);
-        $cakephotos = CakePhoto::where('cake_photos_id', $request->cake_id)->get();
-        $prices = CakeInfoSub::where('cake_infos_id', $request->cake_id)->get();
-        $cakeID = $request->id;
-        $tags = Tag::where('cake_infos_id', $cakeID)->get();
+        // $infos = CakeInfo::all();
+        // $cakeinfo=CakeInfo::find($request->cake_id);
+        // $cakephotos = CakePhoto::where('cake_photos_id', $request->cake_id)->get();
+        // $prices = CakeInfoSub::where('cake_infos_id', $request->cake_id)->get();
+        // $cakeID = $request->id;
+        // $tags = Tag::where('cake_infos_id', $cakeID)->get();
 
-        return view('management.edit')
-            ->with([
-                'cakeinfos' => $infos,
-                'cakeinfo' => $cakeinfo,
-                'info' => $cakeinfo,
-                'prices' => $prices,
-                'cakecodes' => $infos,
-                'cakenames' => $infos,
-                'subphotos' => $cakephotos,
-                'tags' => $tags,
-            ]);
+        // return view('management.edit')
+        //     ->with([
+        //         'cakeinfos' => $infos,
+        //         'cakeinfo' => $cakeinfo,
+        //         'info' => $cakeinfo,
+        //         'prices' => $prices,
+        //         'cakecodes' => $infos,
+        //         'cakenames' => $infos,
+        //         'subphotos' => $cakephotos,
+        //         'tags' => $tags,
+        //     ]);
     }
 
     //商品情報更新用(tag)
