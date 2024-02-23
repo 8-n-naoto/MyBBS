@@ -262,7 +262,7 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         //BasicIngredientテーブル更新処理
         Route::patch('/ingredient/{basicIngredient}/post', '_ingredient_update')->name('ingredient.update');
         //材料詳細更新処理
-        Route::patch('/ingredient/edit/{eachIngredient}/update', '_ingredient_edit_update')->name('ingredient.edit.update')->where('eachIngredient', '[0-9]+');
+        Route::post('/ingredient/edit/update/ajxa', '_ingredient_edit_update')->name('ingredient.edit.update')->where('eachIngredient', '[0-9]+');
 
         /** 商品情報削除処理一覧 **/
         //商品情報削除ページ（main）
@@ -276,7 +276,7 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         //材料登録画面
         Route::delete('/ingredient/{basicIngredient}/destroy', '_ingredient_destroy')->name('ingredient.destroy')->where('basicIngredient', '[0-9]+');
         //材料詳細削除処理
-        Route::delete('/ingredient/edit/{eachIngredient}/destroy', '_ingredient_edit_destroy')->name('ingredient.edit.destroy')->where('eachIngredient', '[0-9]+');
+        Route::post('/ingredient/edit/destroy/ajxa', '_ingredient_edit_destroy')->name('ingredient.edit.destroy')->where('eachIngredient', '[0-9]+');
     });
 });
 
