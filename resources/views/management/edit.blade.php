@@ -472,11 +472,11 @@
                     data: form,
                     contentType: false,
                     processData: false,
-                }).done(function() {
+                }).done(function(response) {
                     console.log('通信成功');
                     $('.cakephotos').append(`
                         <object class="gallery">
-                            <img src="  http://localhost:8569/storage/images/${file.name}" alt="商品画像"width="200px">
+                            <img src="  http://57.181.132.42/storage/images/${file.name}" alt="商品画像"width="200px">
                             <div class="flex-row item-end">
                                 <p>${galleryname}</p>
 
