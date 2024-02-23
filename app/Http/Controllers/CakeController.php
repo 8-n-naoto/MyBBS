@@ -206,6 +206,14 @@ class CakeController extends Controller
         $post->price = $request->price;
         $post->save();
 
+        $photo_id=$post->id;
+
+        $respons = [
+            'photo_id' => $photo_id,
+        ];
+
+        return response()->json($respons);
+
 
         // $infos = CakeInfo::all();
         // $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo->id)->get();
@@ -215,39 +223,39 @@ class CakeController extends Controller
 
         // return view('management.edit')
         //     ->with([
-                // 'cakeinfos' => $infos,
-                // 'cakeinfo' => $cakeinfo,
-                // 'info' => $cakeinfo,
-                // 'prices' => $prices,
-                // 'cakecodes' => $infos,
-                // 'cakenames' => $infos,
-                // 'subphotos' => $cakephotos,
-                // 'tags' => $tags,
-            // ]);
+        // 'cakeinfos' => $infos,
+        // 'cakeinfo' => $cakeinfo,
+        // 'info' => $cakeinfo,
+        // 'prices' => $prices,
+        // 'cakecodes' => $infos,
+        // 'cakenames' => $infos,
+        // 'subphotos' => $cakephotos,
+        // 'tags' => $tags,
+        // ]);
         // return back();
     }
 
     //商品更新処理(photo)
-    public function _photo_criate(CakeInfo $cakeinfo, Request $request)
+    public function _photo_criate( Request $request)
     {
         //トークン再生成
         // $request->session()->regenerateToken();
 
         //バリデート
-        // $request->validate([
-        //     'cake_id' => 'required',
-        //     'photoname' => 'required',
-        //     'subphotos' => 'required',
-        // ], [
-        //     'cake_id.required' => 'ログインしてください',
-        //     'photoname.required' => 'ケーキの名前を入力してください',
-        //     'subphotos.required' => '写真を選択してください',
-        // ]);
+        $request->validate([
+            'cake_id' => 'required',
+            'photoname' => 'required',
+            'subphotos' => 'required',
+        ], [
+            'cake_id.required' => 'ログインしてください',
+            'photoname.required' => 'ケーキの名前を入力してください',
+            'subphotos.required' => '写真を選択してください',
+        ]);
 
         // dd($request);
 
         $post = new CakePhoto();
-        $post->cake_id = $request->cake_photos_id;
+        $post->cake_photos_id = $request->cake_id;
         $post->photoname = $request->photoname;
         // // name属性が'images'のinputタグをファイル形式に、画像をpublic/imagesに名前付きで保存
         $image_path = $request->file('subphotos')->getClientOriginalName();
@@ -274,23 +282,24 @@ class CakeController extends Controller
 
 
 
-        // $infos = CakeInfo::all();
-        // $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo->id)->get();
-        // $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo->id)->get();
-        // $cakeID = $cakeinfo->id;
-        // $tags = Tag::where('cake_infos_id', $cakeID)->get();
+        $infos = CakeInfo::all();
+        $cakeinfo=CakeInfo::find($request->cake_id);
+        $cakephotos = CakePhoto::where('cake_photos_id', $request->cake_id)->get();
+        $prices = CakeInfoSub::where('cake_infos_id', $request->cake_id)->get();
+        $cakeID = $request->id;
+        $tags = Tag::where('cake_infos_id', $cakeID)->get();
 
-        // return view('management.edit')
-        //     ->with([
-        //         'cakeinfos' => $infos,
-        //         'cakeinfo' => $cakeinfo,
-        //         'info' => $cakeinfo,
-        //         'prices' => $prices,
-        //         'cakecodes' => $infos,
-        //         'cakenames' => $infos,
-        //         'subphotos' => $cakephotos,
-        //         'tags' => $tags,
-        //     ]);
+        return view('management.edit')
+            ->with([
+                'cakeinfos' => $infos,
+                'cakeinfo' => $cakeinfo,
+                'info' => $cakeinfo,
+                'prices' => $prices,
+                'cakecodes' => $infos,
+                'cakenames' => $infos,
+                'subphotos' => $cakephotos,
+                'tags' => $tags,
+            ]);
     }
 
     //商品情報更新用(tag)
@@ -362,14 +371,19 @@ class CakeController extends Controller
             ]);
     }
     //商品情報削除用ページ(price)
-    public function _price_destroy(Request $request, CakeInfoSub $cakeinfosub)
+    public function _price_destroy(Request $request)
     {
         //トークン再生成
         $request->session()->regenerateToken();
 
-        $cakeinfosub->delete();
 
-        //残りの値を渡して表示する。
+        // dd($request);
+        $price = CakeInfoSub::find($request->price_id);
+        // $price->delete();
+        $price->delete();
+
+
+        // //残りの値を渡して表示する。
         $cakeinfo = $request->id;
         $infos = CakeInfo::all();
         $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo)->get();
@@ -435,7 +449,7 @@ class CakeController extends Controller
         $cakeinfos = CakeInfo::find($cakeinfo);
         $tags = Tag::where('cake_infos_id', $cakeinfo)->get();
 
-        return view('management.edit')
+        return back()
             ->with([
                 'cakeinfos' => $infos,
                 'cakeinfo' => $cakeinfo,

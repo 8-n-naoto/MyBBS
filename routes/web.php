@@ -268,7 +268,7 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         //商品情報削除ページ（main）
         Route::delete('/edit/{cakeinfo}/destroy', '_cake_destroy')->name('cake.destroy')->where('cakeinfo', '[0-9]+');
         //商品情報削除ページ（price）
-        Route::delete('/edit/{cakeinfosub}/destroyprice', '_price_destroy')->name('price.destroy')->where('cakeinfosub', '[0-9]+');
+        Route::delete('/edit/destroyprice', '_price_destroy')->name('price.destroy')->where('cakeinfosub', '[0-9]+');
         //商品情報削除ページ（photo）
         Route::delete('/edit/{cakephoto}/destroyphoto', '_photo_destroy')->name('photo.destroy')->where('cakephoto', '[0-9]+');
         //商品情報削除ページ（tag）

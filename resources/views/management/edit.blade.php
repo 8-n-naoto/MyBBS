@@ -119,7 +119,7 @@
 
                     {{-- 大きさと価格の追加/削除 --}}
                     <h3 class="middlefont">&laquo;内容量と価格の設定&raquo;</h3>
-                    <table class="cakecode">
+                    <table class="cakecode" id="price">
                         <tbody class="pricetable">
                             <form method="post" action="{{ route('cakes.price.criate', $info) }}" id="update_price"
                                 class="flex-row update">
@@ -141,7 +141,7 @@
                                     </td>
                                     <td>
                                         <input type="hidden" name='id' class="cake_id" value="{{ $info->id }}">
-                                        <button class="button pricebtn">追加</button>
+                                        <button class="button priceadd">追加</button>
                                     </td>
                                 </tr>
                             </form>
@@ -149,7 +149,7 @@
 
                             @if ($prices)
                                 @forelse ($prices as $price)
-                                    <tr>
+                                    <tr id="deleteprice">
                                         <td class="form-font">内容量</td>
                                         <td class="form-font">{{ $price->capacity }}</td>
                                         <td class="form-font">価格</td>
@@ -160,7 +160,8 @@
                                                 @method('DELETE')
                                                 @csrf
                                                 <input type="hidden" name='id' value="{{ $cakeinfo->id }}">
-                                                <button class="button">消去</button>
+                                                <input type="hidden" name='price_id' value="{{ $price->id }}">
+                                                <button class="pricedelete">消去</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -200,7 +201,7 @@
 
                                         <input type="hidden" name='id' class="cake_id"
                                             value="{{ $info->id }}">
-                                        <button class="tagbtn">追加</button>
+                                        <button class="tagadd">追加</button>
                                     </td>
                                 </tr>
                             </form>
@@ -208,7 +209,7 @@
 
                             @if ($tags)
                                 @forelse ($tags as $tag)
-                                    <tr>
+                                    <tr id="deletetag">
                                         <td class="form-font"></td>
                                         <td class="form-font">{{ $tag->tag }}</td>
                                         <td class="form-font">
@@ -217,7 +218,7 @@
                                                 @method('DELETE')
                                                 @csrf
                                                 <input type="hidden" name="info" value="{{ $info->id }}">
-                                                <button>削除</button>
+                                                <button class="tagdelete">削除</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -235,7 +236,7 @@
             </table>
 
             <table class="newphoto">
-                <form method="post" action="{{ route('cakes.photo.criate', $info) }}" enctype="multipart/form-data"
+                <form method="post" action="{{ route('cakes.photo.criate') }}" enctype="multipart/form-data"
                     id="update_subphoto"class="update flex-row">
                     @csrf
                     <input type="hidden" name='cake_id' value="{{ $info->id }}">
@@ -256,7 +257,7 @@
                             @enderror
                         </td>
                         <td>
-                            <button class="gallerybtn">追加</button>
+                            <button class="galleryadd">追加</button>
                         </td>
                     </tr>
                 </form>
@@ -274,7 +275,7 @@
                                 @method('DELETE')
                                 @csrf
                                 <input type="hidden" name="info" value="{{ $info->id }}">
-                                <button class="button">消去</button>
+                                <button class="gallerydelete">消去</button>
                             </form>
                         </div>
                     </object>
@@ -290,29 +291,30 @@
     {{-- <script src="{{ url('js/price.js') }}"></script> --}}
     <script>
         (function($) {
-            $('.pricebtn').on('click', function(e) {
+            $('.priceadd').on('click', function(e) {
                 e.preventDefault();
-                var capacity = $('.capacity').val();
-                var price = $('.price').val();
-                var cake_id = $('.cake_id').val();
-                var CSRF = $('meta[name="csrf-token"]').attr('content');
-                $.ajax({
-                    url: "{{ route('cakes.price.criate') }}",
-                    headers: {
-                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
-                    },
-                    method: "POST",
-                    data: {
-                        "cake_id": cake_id,
-                        "capacity": capacity,
-                        "price": price,
-
-                    },
-                    // dataType: "",
-                }).done(function() {
-                    console.log('通信成功');
-                    $('.pricetable').append(`
-                             <tr>
+                if (confirm('登録しますか？')) {
+                    var capacity = $('.capacity').val();
+                    var price = $('.price').val();
+                    var cake_id = $('.cake_id').val();
+                    var CSRF = $('meta[name="csrf-token"]').attr('content');
+                    $.ajax({
+                        url: "{{ route('cakes.price.criate') }}",
+                        headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        method: "POST",
+                        data: {
+                            "cake_id": cake_id,
+                            "capacity": capacity,
+                            "price": price,
+                        },
+                        // dataType: "",
+                    }).done(function(response) {
+                        console.log('通信成功');
+                        console.log(response);
+                        $('.pricetable').append(`
+                             <tr  id="deleteprice">
                                 <td class="form-font">内容量</td>
                                 <td class="form-font">
                                     ${capacity}
@@ -322,20 +324,58 @@
                                 ￥${price}円
                                 </td>
                                 <td>
-                                <form method="post" action="http://localhost:8569/management/cake/edit/1/destroyprice"
-                                class="flex-row delete">
-                                @method('DELETE')
-                                <input type="hidden" name="_token" value="${CSRF}" autocomplete="off">
 
-                                <input type="hidden" name='id' value="">
-                                <button class="button">消去</button>
-                                </form>
                                 </td>
                             </tr>
           `)
+                    }).fail(function() {
+                        console.log('通信失敗');
+                        alert('通信失敗');
+                    }).always(function() {
+                        console.log('実行しました');
+                        // success: function(json){
+                        // }
+                    });
+                }
+
+
+            });
+        })(jQuery);
+    </script>
+    {{-- <form method="post" action="{{ route('cakes.price.destroy') }}"
+                                    class="flex-row delete">
+                                    <input type="hidden" name="_token" value="${CSRF}" autocomplete="off">
+
+                                    <input type="hidden" name='price_id' value="${response.photo_id}">
+                                    <button class="pricedelete">消去</button>
+                                    </form> --}}
+
+    {{-- <script>
+        (function($) {
+            $('.pricedelete').on('click', function(e) {
+                e.preventDefault();
+                var price_id = $(this).siblings('#price [name="price_id"]').val();
+                var delete_price = $(this).parents();
+                var CSRF = $('meta[name="csrf-token"]').attr('content');
+                delete_price.remove();
+
+                $.ajax({
+                    url: "{{ route('cakes.price.destroy') }}",
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    method: "POST",
+                    data: {
+                        "price_id": price_id,
+                    },
+                    // dataType: "",
+                }).done(function() {
+                    console.log('通信成功');
+                    console.log(delete_price);
+                    // delete_price.remove();
+
                 }).fail(function() {
                     console.log('通信失敗');
-                    alert('通信失敗');
                 }).always(function() {
                     console.log('実行しました');
                     // success: function(json){
@@ -343,12 +383,14 @@
                 });
             });
         })(jQuery);
-    </script>
+    </script> --}}
+
     {{-- <script src="{{ url('js/tag.js') }}"></script> --}}
     <script>
         (function($) {
-            $('.tagbtn').on('click', function(e) {
+            $('.tagadd').on('click', function(e) {
                 e.preventDefault();
+                confirm()
                 var tag = $('.tag').val();
                 var cake_infos_id = $('.cake_id').val();
                 var CSRF = $('meta[name="csrf-token"]').attr('content');
@@ -385,14 +427,14 @@
             });
         })(jQuery);
     </script>
-    <script src="{{ url('js/gallery.js') }}"></script>
+    {{-- <script src="{{ url('js/gallery.js') }}"></script> --}}
     {{-- <script>
         (function($) {
-            $('.gallerybtn').on('click', function(e) {
+            $('.galleryadd').on('click', function(e) {
                 e.preventDefault();
                 var CSRF = $('meta[name="csrf-token"]').attr('content');
 
-                var galleryphoto = $('input:file');
+                var galleryphoto = $('.galleryphoto').val();
                 var galleryname = $('.galleryname').val();
                 var cake_id = $('.cake_id').val();
 
@@ -404,7 +446,7 @@
 
 
                 $.ajax({
-                    url: "http://localhost:8569/management/cake/edit/update/addphoto",
+                    url: "{{route('cakes.photo.criate')}}",
                     headers: {
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
                     },
@@ -432,7 +474,7 @@
                 //             @method('DELETE')
                 //             @csrf
                 //             <input type="hidden" name="info" value="${cake_id}">
-                //             <button class="button">消去</button>
+                //             <button class="gallerydelete">消去</button>
                 //         </form>
                 //      </div>
                 //     </object>
@@ -442,6 +484,7 @@
             });
         })(jQuery);
     </script> --}}
-    <script src="{{ url('js/button.js') }}"></script>
 
+
+    <script src="{{ url('js/button.js') }}"></script>
 @endsection
