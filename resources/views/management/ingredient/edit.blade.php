@@ -111,7 +111,8 @@
                         </td>
                         <td>
                             <input type="hidden" name="basic_ingredients_id" value="{{ $basic->id }}">
-                            <button>変更</button>
+                            <input type="hidden" name="each_id" value="{{ $item->id }}">
+                            <button class="cellupdata">変更</button>
                         </td>
                     </form>
                     <td>
@@ -137,29 +138,31 @@
         (function($) {
             $('.celladd').on('click', function(e) {
                 e.preventDefault();
-                var basic_ingredients_id = $('#basic_ingredients_id').val();
-                var ingredient_name = $('#ingredient_name').val();
-                var ingredient_amount = $('#ingredient_amount').val();
-                var lot_amount = $('#lot_amount').val();
-                var lot_unit = $('#lot_unit').val();
-                var expiration = $('#expiration').val();
-                var CSRF = $('meta[name="csrf-token"]').attr('content');
-                $.ajax({
-                    url: " {{ route('cakes.ingredient.edit.update') }}",
-                    headers: {
-                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
-                    },
-                    method: "POST",
-                    data: {
-                        "basic_ingredients_id": basic_ingredients_id,
-                        "ingredient_name": ingredient_name,
-                        "ingredient_amount": ingredient_amount,
-                        "lot_amount": lot_amount,
-                        "lot_unit": lot_unit,
-                        "expiration": expiration,
-                    },
-                    success: function(response) {
-                        $('.exel-edit').append(`
+                if (confirm('追加しますか？')) {
+
+                    var basic_ingredients_id = $('#basic_ingredients_id').val();
+                    var ingredient_name = $('#ingredient_name').val();
+                    var ingredient_amount = $('#ingredient_amount').val();
+                    var lot_amount = $('#lot_amount').val();
+                    var lot_unit = $('#lot_unit').val();
+                    var expiration = $('#expiration').val();
+                    var CSRF = $('meta[name="csrf-token"]').attr('content');
+                    $.ajax({
+                        url: " {{ route('cakes.ingredient.edit.post') }}",
+                        headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        method: "POST",
+                        data: {
+                            "basic_ingredients_id": basic_ingredients_id,
+                            "ingredient_name": ingredient_name,
+                            "ingredient_amount": ingredient_amount,
+                            "lot_amount": lot_amount,
+                            "lot_unit": lot_unit,
+                            "expiration": expiration,
+                        },
+                        success: function(response) {
+                            $('.exel-edit').append(`
                         <tr>
                     <form action="{{ route('cakes.ingredient.edit.update') }}" method="post" class="update">
                         <input type="hidden" name="_token" value="${CSRF}" autocomplete="off">
@@ -197,20 +200,64 @@
                     </td>
                 </tr>
                    `)
-                    }
-                    // dataType: "",
-                }).done(function() {
-                    console.log('通信成功');
-                }).fail(function() {
-                    console.log('通信失敗');
-                }).always(function() {
-                    console.log('実行しました');
-                });
+                        }
+                        // dataType: "",
+                    }).done(function() {
+                        console.log('通信成功');
+                    }).fail(function() {
+                        alert('失敗しました');
+                    }).always(function() {
+                        console.log('実行しました');
+                    });
+                }
             });
         })(jQuery);
 
+        //材料更新
+        (function($) {
+            $('.cellupdata').on('click', function(e) {
+                e.preventDefault();
+                if (confirm('変更しますか？')) {
+                    var each_id = $(this).siblings('[name="each_id"]').val();
+                    var basic_ingredients_id = $('#basic_ingredients_id').val();
 
-        // 金額削除
+                    var cousin = $(this).parent().parent().children('form');
+                    var ingredient_name = cousin.next().next().next().next().children('input').val();
+                    var ingredient_amount = cousin.next().next().next().next().next().children('input').val();
+                    var lot_amount = cousin.next().next().next().next().next().next().children('input').val();
+                    var lot_unit = cousin.next().next().next().next().next().next().next().children('input')
+                        .val();
+                    var expiration = cousin.next().next().next().next().next().next().next().next().children(
+                        'input').val();
+                    var CSRF = $('meta[name="csrf-token"]').attr('content');
+                    $.ajax({
+                        url: " {{ route('cakes.ingredient.edit.update') }}",
+                        headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        method: "POST",
+                        data: {
+                            "each_id": each_id,
+                            "basic_ingredients_id": basic_ingredients_id,
+                            "ingredient_name": ingredient_name,
+                            "ingredient_amount": ingredient_amount,
+                            "lot_amount": lot_amount,
+                            "lot_unit": lot_unit,
+                            "expiration": expiration,
+                        },
+                        success: function(response) {}
+                        // dataType: "",
+                    }).done(function() {
+                        console.log('通信成功');
+                    }).fail(function() {
+                        alert('通信失敗');
+                    }).always(function() {
+                        console.log('実行しました');
+                    });
+                }
+            });
+        })(jQuery);
+        // 材料削除
         (function($) {
             $('.celldelete').on('click', function(e) {
                 e.preventDefault();

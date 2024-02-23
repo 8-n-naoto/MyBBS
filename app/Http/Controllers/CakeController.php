@@ -614,7 +614,6 @@ class CakeController extends Controller
     {
         // // トークン再生成
         // $request->session()->regenerateToken();
-        dd($request);
         $request->validate([
             'basic_ingredients_id' => 'required',
             'ingredient_name' => 'required',
@@ -634,8 +633,8 @@ class CakeController extends Controller
         ]);
         //該当商品があるか検索
         $already = EachIngredient::query()
-            ->where('basic_ingredients_id', $request->input('basic_ingredients_id'))
-            ->where('ingredient_name', $request->input('ingredient_name'))
+            ->where('basic_ingredients_id', $request->basic_ingredients_id)
+            ->where('ingredient_name', $request->ingredient_name)
             ->exists();
         if ($already) {
             return back()->withErrors([
@@ -672,7 +671,7 @@ class CakeController extends Controller
     public function _ingredient_edit_update(EachIngredient $eachIngredient, Request $request)
     {
         // トークン再生成
-        $request->session()->regenerateToken();
+        // $request->session()->regenerateToken();
         $request->validate([
             'basic_ingredients_id' => 'required',
             'ingredient_name' => 'required',
@@ -692,6 +691,7 @@ class CakeController extends Controller
         ]);
 
         //情報保存
+        $eachIngredient=EachIngredient::find($request->each_id);
         $eachIngredient->basic_ingredients_id = $request->basic_ingredients_id;
         $eachIngredient->ingredient_name = $request->ingredient_name;
         $eachIngredient->ingredient_amount = $request->ingredient_amount;
@@ -701,15 +701,15 @@ class CakeController extends Controller
         $eachIngredient->save();
 
 
-        $infos = CakeInfo::all();
-        $basicIngredient = BasicIngredient::find($request->basic_ingredients_id);
-        $each = EachIngredient::where('basic_ingredients_id', $request->basic_ingredients_id)->get();
-        return view('management.ingredient.edit')->with([
-            'cakeinfos' => $infos,
-            'basic' => $basicIngredient,
-            'each' => $each,
+        // $infos = CakeInfo::all();
+        // $basicIngredient = BasicIngredient::find($request->basic_ingredients_id);
+        // $each = EachIngredient::where('basic_ingredients_id', $request->basic_ingredients_id)->get();
+        // return view('management.ingredient.edit')->with([
+        //     'cakeinfos' => $infos,
+        //     'basic' => $basicIngredient,
+        //     'each' => $each,
 
-        ]);
+        // ]);
     }
     //材料詳細削除処理
     public function _ingredient_edit_destroy(Request $request)

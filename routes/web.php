@@ -253,14 +253,14 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         Route::post('/edit/update/addphoto/ajxa', '_photo_criate')->name('photo.criate');
         //商品更新画面(tag)
         Route::post('/edit/update/addtag/ajxa', '_tag_criate')->name('tag.criate');
-        //材料詳細追加処理
-        Route::post('/ingredient/edit/{basicIngredient}/post', '_ingredient_edit_post')->name('ingredient.edit.post');
         //商品情報更新処理(main)
         Route::patch('/edit/{cakeinfo}/update', '_cake_update')->name('cake.update')->where('cakeinfo', '[0-9]+');
         //BasicIngredientテーブル新規作成処理
         Route::post('/ingredient/post', '_ingredient_post')->name('ingredient.post');
         //BasicIngredientテーブル更新処理
         Route::patch('/ingredient/{basicIngredient}/post', '_ingredient_update')->name('ingredient.update');
+        //材料詳細追加処理
+        Route::post('/ingredient/edit/post/ajxa', '_ingredient_edit_post')->name('ingredient.edit.post');
         //材料詳細更新処理
         Route::post('/ingredient/edit/update/ajxa', '_ingredient_edit_update')->name('ingredient.edit.update')->where('eachIngredient', '[0-9]+');
 
@@ -273,7 +273,7 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         Route::post('/edit/destroyphoto/ajxa', '_photo_destroy')->name('photo.destroy')->where('cakephoto', '[0-9]+');
         //商品情報削除ページ（tag）
         Route::post('/edit/destroytag/ajxa', '_tag_destroy')->name('tag.destroy')->where('tag', '[0-9]+');
-        //材料登録画面
+        //基本量削除
         Route::delete('/ingredient/{basicIngredient}/destroy', '_ingredient_destroy')->name('ingredient.destroy')->where('basicIngredient', '[0-9]+');
         //材料詳細削除処理
         Route::post('/ingredient/edit/destroy/ajxa', '_ingredient_edit_destroy')->name('ingredient.edit.destroy')->where('eachIngredient', '[0-9]+');
