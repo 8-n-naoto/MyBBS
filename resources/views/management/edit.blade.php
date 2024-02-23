@@ -291,11 +291,11 @@
 
 @section('js')
     {{-- <script src="{{ url('js/price.js') }}"></script> --}}
-    {{-- <script>
+    <script>
         (function($) {
             $('.priceadd').on('click', function(e) {
                 e.preventDefault();
-                if (confirm('登録しますか？')) {
+                if (confirm('追加しますか？')) {
                     var capacity = $('.capacity').val();
                     var price = $('.price').val();
                     var cake_id = $('.cake_id').val();
@@ -323,16 +323,19 @@
                                 </td>
                                 <td class="form-font">価格</td>
                                 <td class="form-font">
-                                ￥${price}円
+                                    ￥${price}円
                                 </td>
                                 <td>
-
+                                    <form method="post" action="{{ route('cakes.price.destroy',$price) }}"class="flex-row delete">
+                                    <input type="hidden" name='id' value="{{ $cakeinfo->id }}">
+                                    <input type="hidden" name='price_id' value="{{ $price->id }}">
+                                    <button class="pricedelete">消去</button>
+                                    </form>
                                 </td>
                             </tr>
           `)
                     }).fail(function() {
-                        console.log('通信失敗');
-                        alert('通信失敗');
+                        alert('情報が誤っています');
                     }).always(function() {
                         console.log('実行しました');
                         // success: function(json){
@@ -343,7 +346,7 @@
 
             });
         })(jQuery);
-    </script> --}}
+    </script>
     {{-- <form method="post" action="{{ route('cakes.price.destroy') }}"
                                     class="flex-row delete">
                                     <input type="hidden" name="_token" value="${CSRF}" autocomplete="off">
@@ -352,48 +355,47 @@
                                     <button class="pricedelete">消去</button>
                                     </form> --}}
 
-    {{-- <script>
+    <script>
         (function($) {
             $('.pricedelete').on('click', function(e) {
                 e.preventDefault();
                 var price_id = $(this).siblings('#price [name="price_id"]').val();
-                var delete_price = $(this).parents();
+                var delete_price = $(this).parent().parent().parent();
                 var CSRF = $('meta[name="csrf-token"]').attr('content');
-                delete_price.remove();
 
-                $.ajax({
-                    url: "{{ route('cakes.price.destroy') }}",
-                    headers: {
-                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
-                    },
-                    method: "POST",
-                    data: {
-                        "price_id": price_id,
-                    },
-                    // dataType: "",
-                }).done(function() {
-                    console.log('通信成功');
-                    console.log(delete_price);
-                    // delete_price.remove();
+                if (confirm('削除しますか？')) {
+                    $.ajax({
+                        url: "{{ route('cakes.price.destroy') }}",
+                        headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        method: "POST",
+                        data: {
+                            "price_id": price_id,
+                        },
+                        // dataType: "",
+                    }).done(function() {
+                        console.log('通信成功');
+                        delete_price.remove();
 
-                }).fail(function() {
-                    console.log('通信失敗');
-                }).always(function() {
-                    console.log('実行しました');
-                    // success: function(json){
-                    // }
-                });
+                    }).fail(function() {
+                        console.log('通信失敗');
+                    }).always(function() {
+                        console.log('実行しました');
+                        // success: function(json){
+                        // }
+                    });
+                }
             });
         })(jQuery);
-    </script> --}}
+    </script>
 
     {{-- <script src="{{ url('js/tag.js') }}"></script> --}}
-    {{-- <script>
+    <script>
         (function($) {
             $('.tagadd').on('click', function(e) {
                 e.preventDefault();
                 if (confirm('追加しますか？')) {
-
                     var tag = $('.tag').val();
                     var cake_infos_id = $('.cake_id').val();
                     var CSRF = $('meta[name="csrf-token"]').attr('content');
@@ -419,7 +421,7 @@
                           </tr>
                      `)
                     }).fail(function() {
-                        console.log('通信失敗');
+                        console.log('情報が誤っています');
                         alert('通信失敗');
                     }).always(function() {
                         console.log('実行しました');
@@ -431,10 +433,10 @@
 
             });
         })(jQuery);
-    </script> --}}
+    </script>
 
     {{-- <script src="{{ url('js/gallery.js') }}"></script> --}}
-    <script>
+    {{-- <script>
         'use strict';
         var file = document.getElementById('galleryphoto');
 
@@ -445,7 +447,7 @@
             console.log(files);
         }
         file.addEventListener('change', fileChange, false);
-    </script>
+    </script> --}}
     <script>
         (function($) {
             $('.galleryadd').on('click', function(e) {
@@ -462,19 +464,19 @@
                 form.append("photoname", galleryname);
                 form.append("cake_id", cake_id);
 
-
-                $.ajax({
-                    url: "{{ route('cakes.photo.criate') }}",
-                    headers: {
-                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
-                    },
-                    method: "POST",
-                    data: form,
-                    contentType: false,
-                    processData: false,
-                }).done(function(response) {
-                    console.log('通信成功');
-                    $('.cakephotos').append(`
+                if (confirm('追加しますか？')) {
+                    $.ajax({
+                        url: "{{ route('cakes.photo.criate') }}",
+                        headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        method: "POST",
+                        data: form,
+                        contentType: false,
+                        processData: false,
+                    }).done(function(response) {
+                        console.log('通信成功');
+                        $('.cakephotos').append(`
                         <object class="gallery">
                             <img src="  http://57.181.132.42/storage/images/${file.name}" alt="商品画像"width="200px">
                             <div class="flex-row item-end">
@@ -483,17 +485,18 @@
                             </div>
                         </object>
                   `)
-                }).fail(function() {
-                    console.log('通信失敗');
-                    alert('情報が不足しています');
-                }).always(function() {
-                    console.log('実行しました');
-                    console.log(file.type);
-                    console.log(file.size);
-                    console.log(form);
-                    //     // success: function(json){
-                    //     // }
-                });
+                    }).fail(function() {
+                        console.log('通信失敗');
+                        alert('情報が不足しています');
+                    }).always(function() {
+                        console.log('実行しました');
+                        console.log(file.type);
+                        console.log(file.size);
+                        console.log(form);
+                        //     // success: function(json){
+                        //     // }
+                    });
+                }
             });
         })(jQuery);
     </script>

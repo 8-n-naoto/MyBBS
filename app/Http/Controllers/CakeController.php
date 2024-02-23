@@ -372,34 +372,34 @@ class CakeController extends Controller
     public function _price_destroy(Request $request)
     {
         //トークン再生成
-        $request->session()->regenerateToken();
+        // $request->session()->regenerateToken();
 
 
         // dd($request);
-        $price = CakeInfoSub::find($request->price_id);
+        $price = CakeInfoSub::find($request->price_id)->delete();
         // $price->delete();
-        $price->delete();
+        // $price;
 
 
-        // //残りの値を渡して表示する。
-        $cakeinfo = $request->id;
-        $infos = CakeInfo::all();
-        $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo)->get();
-        $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo)->get();
-        $cakeinfos = CakeInfo::find($cakeinfo);
-        $tags = Tag::where('cake_infos_id', $cakeinfo)->get();
+        // // //残りの値を渡して表示する。
+        // $cakeinfo = $request->id;
+        // $infos = CakeInfo::all();
+        // $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo)->get();
+        // $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo)->get();
+        // $cakeinfos = CakeInfo::find($cakeinfo);
+        // $tags = Tag::where('cake_infos_id', $cakeinfo)->get();
 
-        return back()
-            ->with([
-                'cakeinfos' => $infos,
-                'cakeinfo' => $cakeinfo,
-                'info' => $cakeinfos,
-                'prices' => $prices,
-                'cakecodes' => $infos,
-                'cakenames' => $infos,
-                'subphotos' => $cakephotos,
-                'tags' => $tags,
-            ]);
+        // return back()
+        //     ->with([
+        //         'cakeinfos' => $infos,
+        //         'cakeinfo' => $cakeinfo,
+        //         'info' => $cakeinfos,
+        //         'prices' => $prices,
+        //         'cakecodes' => $infos,
+        //         'cakenames' => $infos,
+        //         'subphotos' => $cakephotos,
+        //         'tags' => $tags,
+        //     ]);
     }
 
     //商品情報削除用ページ(photo)
