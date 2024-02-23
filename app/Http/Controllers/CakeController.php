@@ -47,6 +47,7 @@ class CakeController extends Controller
     //個別詳細変更画面
     public function _update_store(CakeInfo $cakeinfo)
     {
+        // dd($cakeinfo);
         $infos = CakeInfo::all();
         $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo->id)->get();
         $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo->id)->get();
@@ -332,6 +333,12 @@ class CakeController extends Controller
         $post->tag = $request->tag;
         $post->save();
 
+        $response=[
+            'id'=>$post->id,
+            'cake_id'=>$post->cake_infos_id,
+        ];
+
+        return response()->json($response);
         // $infos = CakeInfo::all();
         // $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo->id)->get();
         // $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo->id)->get();

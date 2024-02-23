@@ -410,16 +410,16 @@
 
                         },
                         // dataType: "",
-                    }).done(function() {
+                    }).done(function(response) {
                         console.log('通信成功');
                         $('.tagtable').append(`
                           <tr>
                             <td class="form-font"></td>
                             <td class="form-font">${tag}</td>
                             <td class="form-font">
-                                <form method="POST" action="{{ route('cakes.tag.destroy', $tag) }}" class="delete flex-column">
-                                    <input type="hidden" name="info" value="{{ $info->id }}">
-                                    <input type="hidden" name='tag_id' value="{{ $tag->id }}">
+                                <form method="POST" action="{{ route('cakes.tag.destroy') }}" class="delete flex-column">
+                                    <input type="hidden" name="cake_id" value="${response.cake_id}">
+                                    <input type="hidden" name='tag_id' value="${response.id}">
                                     <input type="hidden" name="_token" value="${CSRF}" autocomplete="off">
                                     <button type="button" class="tagdelete">削除</button>
                                 </form>
@@ -513,7 +513,7 @@
                             <img src="  http://57.181.132.42/storage/images/${file.name}" alt="商品画像"width="200px">
                             <div class="flex-row item-end">
                                 <p>${galleryname}</p>
-                                <form method="post" action="{{ route('cakes.photo.destroy', $subphoto) }}" class="delete">
+                                <form method="post" action="{{ route('cakes.photo.destroy') }}" class="delete">
                                 @method('DELETE')
                                 @csrf
                                 <input type="hidden" name="info" value="{{ $info->id }}">
