@@ -206,10 +206,10 @@ class CakeController extends Controller
         $post->price = $request->price;
         $post->save();
 
-        $photo_id=$post->id;
+        $price_id=$post->id;
 
         $respons = [
-            'photo_id' => $photo_id,
+            'price_id' => $price_id,
         ];
 
         return response()->json($respons);
@@ -374,9 +374,7 @@ class CakeController extends Controller
         //トークン再生成
         // $request->session()->regenerateToken();
 
-
-        // dd($request);
-        $price = CakeInfoSub::find($request->price_id)->delete();
+        CakeInfoSub::find($request->price_id)->delete();
         // $price->delete();
         // $price;
 
@@ -403,61 +401,62 @@ class CakeController extends Controller
     }
 
     //商品情報削除用ページ(photo)
-    public function _photo_destroy(Request $request, CakePhoto $cakephoto)
+    public function _photo_destroy(Request $request)
     {
         //トークン再生成
-        $request->session()->regenerateToken();
+        // $request->session()->regenerateToken();
 
-        $cakephoto->delete();
+        CakePhoto::find($request->gallery_id)->delete();
 
         //残りの値を渡して表示する。
-        $cakeinfo = $request->id;
-        $infos = CakeInfo::all();
-        $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo)->get();
-        $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo)->get();
-        $cakeinfos = CakeInfo::find($cakeinfo);
-        $tags = Tag::where('cake_infos_id', $cakeinfo)->get();
+        // $cakeinfo = $request->id;
+        // $infos = CakeInfo::all();
+        // $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo)->get();
+        // $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo)->get();
+        // $cakeinfos = CakeInfo::find($cakeinfo);
+        // $tags = Tag::where('cake_infos_id', $cakeinfo)->get();
 
-        return back()
-            ->with([
-                'cakeinfos' => $infos,
-                'cakeinfo' => $cakeinfos,
-                'info' => $cakeinfos,
-                'prices' => $prices,
-                'cakecodes' => $infos,
-                'cakenames' => $infos,
-                'subphotos' => $cakephotos,
-                'tags' => $tags,
-            ]);
+        // return back()
+        //     ->with([
+        //         'cakeinfos' => $infos,
+        //         'cakeinfo' => $cakeinfos,
+        //         'info' => $cakeinfos,
+        //         'prices' => $prices,
+        //         'cakecodes' => $infos,
+        //         'cakenames' => $infos,
+        //         'subphotos' => $cakephotos,
+        //         'tags' => $tags,
+        //     ]);
     }
 
     //商品情報削除用ページ(tag)
-    public function _tag_destroy(Request $request, Tag $tag)
+    public function _tag_destroy(Request $request)
     {
         //トークン再生成
-        $request->session()->regenerateToken();
+        // $request->session()->regenerateToken();
 
-        $tag->delete();
+        $id=$request->tag_id;
+        Tag::find($id)->delete();
 
-        //残りの値を渡して表示する。
-        $cakeinfo = $request->info;
-        $infos = CakeInfo::all();
-        $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo)->get();
-        $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo)->get();
-        $cakeinfos = CakeInfo::find($cakeinfo);
-        $tags = Tag::where('cake_infos_id', $cakeinfo)->get();
+        // //残りの値を渡して表示する。
+        // $cakeinfo = $request->info;
+        // $infos = CakeInfo::all();
+        // $cakephotos = CakePhoto::where('cake_photos_id', $cakeinfo)->get();
+        // $prices = CakeInfoSub::where('cake_infos_id', $cakeinfo)->get();
+        // $cakeinfos = CakeInfo::find($cakeinfo);
+        // $tags = Tag::where('cake_infos_id', $cakeinfo)->get();
 
-        return back()
-            ->with([
-                'cakeinfos' => $infos,
-                'cakeinfo' => $cakeinfo,
-                'info' => $cakeinfos,
-                'prices' => $prices,
-                'cakecodes' => $infos,
-                'cakenames' => $infos,
-                'subphotos' => $cakephotos,
-                'tags' => $tags,
-            ]);
+        // return back()
+        //     ->with([
+        //         'cakeinfos' => $infos,
+        //         'cakeinfo' => $cakeinfo,
+        //         'info' => $cakeinfos,
+        //         'prices' => $prices,
+        //         'cakecodes' => $infos,
+        //         'cakenames' => $infos,
+        //         'subphotos' => $cakephotos,
+        //         'tags' => $tags,
+        //     ]);
     }
 
     //材料新規登録、更新画面移動

@@ -141,7 +141,7 @@
                                     </td>
                                     <td>
                                         <input type="hidden" name='id' class="cake_id" value="{{ $info->id }}">
-                                        <button class="button priceadd">追加</button>
+                                        <button type="button" class="button priceadd">追加</button>
                                     </td>
                                 </tr>
                             </form>
@@ -161,7 +161,7 @@
                                                 @csrf
                                                 <input type="hidden" name='id' value="{{ $cakeinfo->id }}">
                                                 <input type="hidden" name='price_id' value="{{ $price->id }}">
-                                                <button class="pricedelete">消去</button>
+                                                <button type="button" class="pricedelete">消去</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -183,7 +183,7 @@
 
                     {{-- タグに関する表示 --}}
                     <h3 class="middlefont">&laquo;設定タグ追加と一覧&raquo;</h3>
-                    <table class="cakecode">
+                    <table class="cakecode" id="tag">
                         <tbody class="tagtable">
                             <form method="POST" action="{{ route('cakes.tag.criate', $info) }}"
                                 class="update flex-row">
@@ -201,7 +201,7 @@
 
                                         <input type="hidden" name='id' class="cake_id"
                                             value="{{ $info->id }}">
-                                        <button class="tagadd">追加</button>
+                                        <button type="button" class="tagadd">追加</button>
                                     </td>
                                 </tr>
                             </form>
@@ -218,7 +218,8 @@
                                                 @method('DELETE')
                                                 @csrf
                                                 <input type="hidden" name="info" value="{{ $info->id }}">
-                                                <button class="tagdelete">削除</button>
+                                                <input type="hidden" name='tag_id' value="{{ $tag->id }}">
+                                                <button type="button" class="tagdelete">削除</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -259,15 +260,14 @@
                             @enderror
                         </td>
                         <td>
-                            <button class="galleryadd">追加</button>
+                            <button type="button" class="galleryadd">追加</button>
                         </td>
                     </tr>
                 </form>
             </table>
 
-
             <h3 class="middlefont">既存のギャラリー</h3>
-            <div class="cakephotos">
+            <div class="cakephotos" id="gallery">
                 @forelse ($subphotos as $subphoto)
                     <object class="gallery">
                         <img src=" {{ asset($subphoto->subphotos) }}" alt="商品画像"width="200px">
@@ -277,6 +277,7 @@
                                 @method('DELETE')
                                 @csrf
                                 <input type="hidden" name="info" value="{{ $info->id }}">
+                                <input type="hidden" name="gallery_id" value="{{ $subphoto->id }}">
                                 <button class="gallerydelete">消去</button>
                             </form>
                         </div>
@@ -290,12 +291,13 @@
 @endsection
 
 @section('js')
-    {{-- <script src="{{ url('js/price.js') }}"></script> --}}
+    {{-- 金額関係のスクリプト --}}
     <script>
         (function($) {
             $('.priceadd').on('click', function(e) {
                 e.preventDefault();
                 if (confirm('追加しますか？')) {
+                    //保存するデータ
                     var capacity = $('.capacity').val();
                     var price = $('.price').val();
                     var cake_id = $('.cake_id').val();
@@ -311,29 +313,30 @@
                             "capacity": capacity,
                             "price": price,
                         },
+                        // 生成する要素群
+                        success: function(response) {
+                            $('.pricetable').append(`
+                             <tr id="deleteprice">
+                                    <td class="form-font">内容量</td>
+                                    <td class="form-font">${capacity} </td>
+                                    <td class="form-font">価格</td>
+                                    <td class="form-font">￥${price}円</td>
+                                    <td>
+                                        <form method="post" action="{{ route('cakes.price.destroy') }}?${response.price_id}" class="flex-row delete">
+                                            <input type="hidden" name="_token" value="${CSRF}" autocomplete="off">
+                                                    <input type="hidden" name='id' value="{{ $cakeinfo->id }}">
+                                                    <input type="hidden" name='price_id' value="${response.price_id}">
+                                                    <button type="button" class="pricedelete">消去</button>
+                                        </form>
+                                    </td>
+                            </tr>
+          `)
+                        }
                         // dataType: "",
                     }).done(function(response) {
                         console.log('通信成功');
                         console.log(response);
-                        $('.pricetable').append(`
-                             <tr  id="deleteprice">
-                                <td class="form-font">内容量</td>
-                                <td class="form-font">
-                                    ${capacity}
-                                </td>
-                                <td class="form-font">価格</td>
-                                <td class="form-font">
-                                    ￥${price}円
-                                </td>
-                                <td>
-                                    <form method="post" action="{{ route('cakes.price.destroy',$price) }}"class="flex-row delete">
-                                    <input type="hidden" name='id' value="{{ $cakeinfo->id }}">
-                                    <input type="hidden" name='price_id' value="{{ $price->id }}">
-                                    <button class="pricedelete">消去</button>
-                                    </form>
-                                </td>
-                            </tr>
-          `)
+
                     }).fail(function() {
                         alert('情報が誤っています');
                     }).always(function() {
@@ -347,21 +350,15 @@
             });
         })(jQuery);
     </script>
-    {{-- <form method="post" action="{{ route('cakes.price.destroy') }}"
-                                    class="flex-row delete">
-                                    <input type="hidden" name="_token" value="${CSRF}" autocomplete="off">
-
-                                    <input type="hidden" name='price_id' value="${response.photo_id}">
-                                    <button class="pricedelete">消去</button>
-                                    </form> --}}
-
     <script>
         (function($) {
             $('.pricedelete').on('click', function(e) {
                 e.preventDefault();
+                // 渡すデータ
                 var price_id = $(this).siblings('#price [name="price_id"]').val();
-                var delete_price = $(this).parent().parent().parent();
                 var CSRF = $('meta[name="csrf-token"]').attr('content');
+                //削除する要素
+                var delete_price = $(this).parent().parent().parent();
 
                 if (confirm('削除しますか？')) {
                     $.ajax({
@@ -373,29 +370,32 @@
                         data: {
                             "price_id": price_id,
                         },
+                        success: function() {
+                            //要素の削除
+                            delete_price.remove();
+                        },
                         // dataType: "",
                     }).done(function() {
                         console.log('通信成功');
-                        delete_price.remove();
-
                     }).fail(function() {
-                        console.log('通信失敗');
+                        alert('失敗しました');
                     }).always(function() {
                         console.log('実行しました');
-                        // success: function(json){
-                        // }
                     });
                 }
             });
         })(jQuery);
     </script>
 
+    {{-- タグ関係のスクリプト --}}
     {{-- <script src="{{ url('js/tag.js') }}"></script> --}}
     <script>
         (function($) {
             $('.tagadd').on('click', function(e) {
+
                 e.preventDefault();
                 if (confirm('追加しますか？')) {
+
                     var tag = $('.tag').val();
                     var cake_infos_id = $('.cake_id').val();
                     var CSRF = $('meta[name="csrf-token"]').attr('content');
@@ -417,12 +417,18 @@
                           <tr>
                             <td class="form-font"></td>
                             <td class="form-font">${tag}</td>
-                            <td class="form-font"></td>
+                            <td class="form-font">
+                                <form method="POST" action="{{ route('cakes.tag.destroy', $tag) }}" class="delete flex-column">
+                                    <input type="hidden" name="info" value="{{ $info->id }}">
+                                    <input type="hidden" name='tag_id' value="{{ $tag->id }}">
+                                    <input type="hidden" name="_token" value="${CSRF}" autocomplete="off">
+                                    <button type="button" class="tagdelete">削除</button>
+                                </form>
+                            </td>
                           </tr>
                      `)
                     }).fail(function() {
-                        console.log('情報が誤っています');
-                        alert('通信失敗');
+                        alert('情報が誤っています');
                     }).always(function() {
                         console.log('実行しました');
                         console.log($('.cake_id').val());
@@ -434,20 +440,49 @@
             });
         })(jQuery);
     </script>
+    <script>
+        (function($) {
+            $('.tagdelete').on('click', function(e) {
+                e.preventDefault();
+                // 渡すデータ
+                var tag_id = $(this).siblings('#tag [name="tag_id"]').val();
+                var CSRF = $('meta[name="csrf-token"]').attr('content');
+                //削除する要素
+                var delete_tag = $(this).parent().parent().parent();
 
+                if (confirm('削除しますか？')) {
+                    $.ajax({
+                        url: "{{ route('cakes.tag.destroy') }}",
+                        headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        method: "POST",
+                        data: {
+                            "tag_id": tag_id,
+                        },
+                        success: function() {
+                            //要素の削除
+                            delete_tag.remove();
+                        },
+                        // dataType: "",
+                    }).done(function() {
+                        console.log('通信成功');
+                        //要素の削除
+                        delete_tag.remove();
+
+                    }).fail(function() {
+                        alert('失敗しました');
+                        console.log('通信失敗');
+                    }).always(function() {
+                        console.log('実行しました');
+                    });
+                }
+            });
+        })(jQuery);
+    </script>
+
+    {{-- gallery関係 --}}
     {{-- <script src="{{ url('js/gallery.js') }}"></script> --}}
-    {{-- <script>
-        'use strict';
-        var file = document.getElementById('galleryphoto');
-
-        function fileChange(ev) {
-            var target = ev.target;
-            var files = target.files;
-
-            console.log(files);
-        }
-        file.addEventListener('change', fileChange, false);
-    </script> --}}
     <script>
         (function($) {
             $('.galleryadd').on('click', function(e) {
@@ -481,7 +516,12 @@
                             <img src="  http://57.181.132.42/storage/images/${file.name}" alt="商品画像"width="200px">
                             <div class="flex-row item-end">
                                 <p>${galleryname}</p>
-
+                                <form method="post" action="{{ route('cakes.photo.destroy', $subphoto) }}" class="delete">
+                                @method('DELETE')
+                                @csrf
+                                <input type="hidden" name="info" value="{{ $info->id }}">
+                                <button type="button" class="gallerydelete">消去</button>
+                            </form>
                             </div>
                         </object>
                   `)
@@ -490,11 +530,41 @@
                         alert('情報が不足しています');
                     }).always(function() {
                         console.log('実行しました');
-                        console.log(file.type);
-                        console.log(file.size);
-                        console.log(form);
-                        //     // success: function(json){
-                        //     // }
+                    });
+                }
+            });
+        })(jQuery);
+    </script>
+    <script>
+        (function($) {
+            $('.gallerydelete').on('click', function(e) {
+                e.preventDefault();
+                // 渡すデータ
+                var gallery_id = $(this).siblings('#gallery [name="gallery_id"]').val();
+                var CSRF = $('meta[name="csrf-token"]').attr('content');
+                //削除する要素
+                var delete_gallery = $(this).parent().parent().parent();
+                if (confirm('削除しますか？')) {
+                    $.ajax({
+                        url: "{{ route('cakes.photo.destroy') }}",
+                        headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        method: "POST",
+                        data: {
+                            "gallery_id": gallery_id,
+                        },
+                        // dataType: "",
+                        success: function() {
+                            //要素の削除
+                            delete_gallery.remove();
+                        },
+                    }).done(function() {
+                        console.log('通信成功');
+                    }).fail(function() {
+                        alert('失敗しました');
+                    }).always(function() {
+                        console.log('実行しました');
                     });
                 }
             });
@@ -502,5 +572,19 @@
     </script>
 
 
-    {{-- <script src="{{ url('js/button.js') }}"></script> --}}
+
+
+    <script src="{{ url('js/button.js') }}"></script>
+    {{-- <script>
+        'use strict';
+        var file = document.getElementById('galleryphoto');
+
+        function fileChange(ev) {
+            var target = ev.target;
+            var files = target.files;
+
+            console.log(files);
+        }
+        file.addEventListener('change', fileChange, false);
+    </script> --}}
 @endsection

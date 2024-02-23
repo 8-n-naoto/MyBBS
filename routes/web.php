@@ -270,9 +270,9 @@ Route::controller(CakeController::class)->middleware(['auth:admin'])->group(func
         //商品情報削除ページ（price）
         Route::post('/edit/destroyprice/ajxa', '_price_destroy')->name('price.destroy')->where('cakeinfosub', '[0-9]+');
         //商品情報削除ページ（photo）
-        Route::delete('/edit/{cakephoto}/destroyphoto', '_photo_destroy')->name('photo.destroy')->where('cakephoto', '[0-9]+');
+        Route::post('/edit/destroyphoto/ajxa', '_photo_destroy')->name('photo.destroy')->where('cakephoto', '[0-9]+');
         //商品情報削除ページ（tag）
-        Route::delete('/edit/{tag}/destroytag', '_tag_destroy')->name('tag.destroy')->where('tag', '[0-9]+');
+        Route::post('/edit/destroytag/ajxa', '_tag_destroy')->name('tag.destroy')->where('tag', '[0-9]+');
         //材料登録画面
         Route::delete('/ingredient/{basicIngredient}/destroy', '_ingredient_destroy')->name('ingredient.destroy')->where('basicIngredient', '[0-9]+');
         //材料詳細削除処理
