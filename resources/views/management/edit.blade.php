@@ -390,40 +390,43 @@
         (function($) {
             $('.tagadd').on('click', function(e) {
                 e.preventDefault();
-                confirm()
-                var tag = $('.tag').val();
-                var cake_infos_id = $('.cake_id').val();
-                var CSRF = $('meta[name="csrf-token"]').attr('content');
-                $.ajax({
-                    url: "{{ route('cakes.tag.criate') }}",
-                    headers: {
-                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
-                    },
-                    method: "POST",
-                    data: {
-                        "cake_infos_id": cake_infos_id,
-                        "tag": tag,
+                if (confirm('追加しますか？')) {
 
-                    },
-                    // dataType: "",
-                }).done(function() {
-                    console.log('通信成功');
-                    $('.tagtable').append(`
+                    var tag = $('.tag').val();
+                    var cake_infos_id = $('.cake_id').val();
+                    var CSRF = $('meta[name="csrf-token"]').attr('content');
+                    $.ajax({
+                        url: "{{ route('cakes.tag.criate') }}",
+                        headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        method: "POST",
+                        data: {
+                            "cake_infos_id": cake_infos_id,
+                            "tag": tag,
+
+                        },
+                        // dataType: "",
+                    }).done(function() {
+                        console.log('通信成功');
+                        $('.tagtable').append(`
                           <tr>
                             <td class="form-font"></td>
                             <td class="form-font">${tag}</td>
                             <td class="form-font"></td>
                           </tr>
                      `)
-                }).fail(function() {
-                    console.log('通信失敗');
-                    alert('通信失敗');
-                }).always(function() {
-                    console.log('実行しました');
-                    console.log($('.cake_id').val());
-                    // success: function(json){
-                    // }
-                });
+                    }).fail(function() {
+                        console.log('通信失敗');
+                        alert('通信失敗');
+                    }).always(function() {
+                        console.log('実行しました');
+                        console.log($('.cake_id').val());
+                        // success: function(json){
+                        // }
+                    });
+                }
+
             });
         })(jQuery);
     </script>
