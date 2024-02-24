@@ -1,6 +1,6 @@
 @extends('components.frontlayout')
 
-@section('title','予約情報入力(session)')
+@section('title', '予約情報入力(session)')
 
 @section('css')
     <link rel="stylesheet" href="{{ url('css/front.css') }}">
@@ -45,6 +45,8 @@
             </div>
             <form action="{{ route('user.session.result.store') }}" method="post">
                 @csrf
+                <p class="topic-font">※登録したメールアドレスに自動メールが送信されます <br />
+                    ご注意ください※</p>
                 <button>予約内容を確定する</button>
             </form>
         </section>

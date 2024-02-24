@@ -25,7 +25,7 @@ class InformationController extends Controller
     {
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
-        $informations = Information::orderByDEsc('updated_at')->get();
+        $informations = Information::orderByDEsc('updated_at')->limit(5)->get();
         $sliders = Tag::where('tag', 'イチオシ！')->get();
         $sliderscount = Tag::where('tag', 'イチオシ！')->count();
 
@@ -35,7 +35,7 @@ class InformationController extends Controller
                 'tags' => $tags,
                 'informations' => $informations,
                 'sliders' => $sliders,
-                'sliderscount'=>$sliderscount,
+                'sliderscount' => $sliderscount,
             ]);
     }
 
@@ -44,10 +44,10 @@ class InformationController extends Controller
     {
         $infos = CakeInfo::where('boolean', 1)->get();
         $cakeinfo = Tag::query()
-        ->where('tag', $tag->tag)
-        ->whereHas('cake_info',function($query){
-            $query->where('boolean',1);
-        })->get();
+            ->where('tag', $tag->tag)
+            ->whereHas('cake_info', function ($query) {
+                $query->where('boolean', 1);
+            })->get();
         $tags = Tag::all()->unique('tag');
         $informations = Information::orderByDEsc('updated_at')->get();
 
@@ -211,8 +211,8 @@ class InformationController extends Controller
         return view('auth.relation.form')
             ->with([
                 'carts' => $carts,
-                'infos'=>$infos,
-                'tags'=>$tags,
+                'infos' => $infos,
+                'tags' => $tags,
             ]);
     }
     //予約詳細確認画面
@@ -240,8 +240,8 @@ class InformationController extends Controller
             ->with([
                 'info' => $request,
                 'carts' => $carts,
-                'infos'=>$infos,
-                'tags'=>$tags,
+                'infos' => $infos,
+                'tags' => $tags,
             ]);
     }
     //予約確定画面
@@ -280,8 +280,9 @@ class InformationController extends Controller
 
         return view('auth.relation.result')
             ->with([
-                'infos'=>$infos,
-                'tags'=>$tags,]);
+                'infos' => $infos,
+                'tags' => $tags,
+            ]);
     }
 
     /** お気に入り機能関係 **/
@@ -303,7 +304,6 @@ class InformationController extends Controller
         $posts->user_id = $request->user_id;
         $posts->cake_id = $request->cake_id;
         $posts->save();
-
     }
     //お気に入り削除
     public function _favorite_destroy(Favorite $favorite, Request $request)
@@ -689,4 +689,86 @@ class InformationController extends Controller
             'information' => $information,
         ]);
     }
+    // public function _instagram_api_alt()
+    // {
+    //     $media1 = [
+    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
+    //         "permalink" => "リンク先のURL",
+    //         "caption" => "写真の説明とか…",
+    //         "like_count" => 10,
+    //     ];
+    //     $media2 = [
+    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
+    //         "permalink" => "リンク先のURL",
+    //         "caption" => "写真の説明とか…",
+    //         "like_count" => 10,
+    //     ];
+    //     $media3 = [
+    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
+    //         "permalink" => "リンク先のURL",
+    //         "caption" => "写真の説明とか…",
+    //         "like_count" => 10,
+    //     ];
+    //     $media4 = [
+    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
+    //         "permalink" => "リンク先のURL",
+    //         "caption" => "写真の説明とか…",
+    //         "like_count" => 10,
+    //     ];
+    //     $media5 = [
+    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
+    //         "permalink" => "リンク先のURL",
+    //         "caption" => "写真の説明とか…",
+    //         "like_count" => 10,
+    //     ];
+    //     $media6 = [
+    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
+    //         "permalink" => "リンク先のURL",
+    //         "caption" => "写真の説明とか…",
+    //         "like_count" => 10,
+    //     ];
+    //     $media7 = [
+    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
+    //         "permalink" => "リンク先のURL",
+    //         "caption" => "写真の説明とか…",
+    //         "like_count" => 10,
+    //     ];
+    //     $media8 = [
+    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
+    //         "permalink" => "リンク先のURL",
+    //         "caption" => "写真の説明とか…",
+    //         "like_count" => 10,
+    //     ];
+    //     $media9 = [
+    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
+    //         "permalink" => "リンク先のURL",
+    //         "caption" => "写真の説明とか…",
+    //         "like_count" => 10,
+    //     ];
+    //     $media10 = [
+    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
+    //         "permalink" => "リンク先のURL",
+    //         "caption" => "写真の説明とか…",
+    //         "like_count" => 10,
+    //     ];
+
+    //     $arrey=[
+    //         $media1,
+    //         $media2,
+    //         $media3,
+    //         $media4,
+    //         $media5,
+    //         $media6,
+    //         $media7,
+    //         $media8,
+    //         $media9,
+    //         $media10,
+    //     ];
+
+    //     return response()->json([
+    //         "media" => [
+    //             $arrey
+    //         ]
+    //     ]);
+    // }
 }

@@ -5,7 +5,7 @@
         var cake_id = $(this).siblings('#favorite [name="cake_id"]').val();
         var cakeinfos_id = $(this).siblings('#favorite [name="cakeinfos_id"]').val();
         $.ajax({
-            url: "user/fovorite/add",
+            url: "{{route('')}}",
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
             },

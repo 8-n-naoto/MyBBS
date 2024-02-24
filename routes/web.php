@@ -25,9 +25,6 @@ use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminRegisterController;
 use App\Http\Controllers\CakeController;
 
-use App\Http\Controllers\ApiProductController;
-use Spatie\FlareClient\Api;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -107,8 +104,6 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
     Route::group(['prefix' => 'front', 'as' => 'front.'], function () {
         //個別ページ
         Route::get('/{cakeinfo}/cake', '_cake_store')->name('cake')->where('cakeinfo', '[0-9]+');
-        // お気に入り登録（ajxa）
-        Route::post('/{favorite}/user/fovorite/add', '_favorite_add')->where('favorite', '[0-9]+');
 
         //tag別ページ
         Route::get('/{tag}/tag', '_tag_store')->name('tag');
@@ -121,6 +116,7 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
 
         //お知らせ個別ページ
         Route::get('/{information}/post', '_information_store')->name('information.store')->where('information', '[0-9]+');
+        // Route::get('/instagramAPI',' _instagram_api_alt')->name('instaAPIalt');
     });
 });
 

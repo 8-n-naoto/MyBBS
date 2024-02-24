@@ -8,7 +8,7 @@
 
     <title>@yield('title')</title>
     <link rel="stylesheet" href="https://unpkg.com/destyle.css@1.0.5/destyle.css">
-    <link href="{{ url('css/bootstrap.css') }}" rel="stylesheet">
+    {{-- <link href="{{ url('css/bootstrap.css') }}" rel="stylesheet"> --}}
     @yield('css')
 
     {{-- jquery --}}
