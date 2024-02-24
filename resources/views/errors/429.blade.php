@@ -1,7 +1,15 @@
 @extends('errors::minimal')
 
-@section('title', __('Too Many Requests'))
-@section('code', '429')
-@section('message', __('Too Many Requests'))
+@section('css')
+    <link rel="stylesheet" href="{{ url('css/front.css') }}">
+@endsection
 
-<p>サーバーがキャパオーバー</p>
+@section('main')
+    <p class="middlefont">ページの移動に失敗しました。<br />
+        サーバーがキャパオーバーです。<br />
+        しばらく時間をおいてからご利用ください</p>
+
+        <form method="get" action="{{ route('index') }}">
+        <button>ホームに戻る</button>
+    </form>
+@endsection

@@ -1,7 +1,7 @@
 {{-- <?php dd($info); ?> --}}
 @extends('components.frontlayout')
 
-@section('title','購入フォーム')
+@section('title', '購入フォーム')
 
 @section('css')
     <link rel="stylesheet" href="{{ url('css/front.css') }}">
@@ -91,7 +91,7 @@
             </div>
             <div class="flex-row">
                 <p class="form-wrap-font items">メッセ―ジ：</p>
-                <textarea name="message" placeholder="メッセージを入力してください" class="message-textarea items"></textarea>
+                <textarea name="message" placeholder="メッセージを入力してください" class="message-textarea items">{{ old('message') }}</textarea>
                 @error('message')
                     <div class="error">{{ $message }}</div>
                 @enderror

@@ -1,7 +1,12 @@
 @extends('errors::minimal')
 
-@section('title', __('Page Expired'))
-@section('code', '419')
-@section('message', __('Page Expired'))
+@section('css')
+    <link rel="stylesheet" href="{{ url('css/front.css') }}">
+@endsection
 
-<p>CSRF対策がされてない</p>
+@section('main')
+    <p class="middlefont">ページの移動に失敗しました。</p>
+    <form method="get" action="{{ route('index') }}">
+        <button>ホームに戻る</button>
+    </form>
+@endsection

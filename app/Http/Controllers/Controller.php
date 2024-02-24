@@ -10,14 +10,6 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-
-    const MENU_ITEM = [
-        'text' => 'SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!',
-        'topic' => 'SampleText!SampleText!',
-        'sectence' => 'SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!
-        SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!SampleText!',
-    ];
-
     // 定数なら使える 変数は無理！！
     // const MENU_ITEM = [
     //     'user' => 'ユーザー',

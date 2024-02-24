@@ -1,7 +1,14 @@
 @extends('errors::minimal')
 
-@section('title', __('Not Found'))
-@section('code', '404')
-@section('message', __('Not Found'))
+@section('css')
+    <link rel="stylesheet" href="{{ url('css/front.css') }}">
+@endsection
 
-<p>ページが見つかりません</p>
+@section('main')
+    <p class="middlefont">ページの移動に失敗しました。<br />
+        お探しのページは存在しません</p>
+
+        <form method="get" action="{{ route('index') }}">
+        <button>ホームに戻る</button>
+    </form>
+@endsection

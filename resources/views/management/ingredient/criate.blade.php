@@ -10,7 +10,6 @@
     <script src="{{ url('js/button.js') }}"></script>
 @endsection
 
-{{-- <?php dd($none); ?> --}}
 @section('main')
     <p class="topic-font">ルセット管理</p>
     <table class="exel">

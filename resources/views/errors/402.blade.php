@@ -1,7 +1,12 @@
 @extends('errors::minimal')
 
-@section('title', __('Payment Required'))
-@section('code', '402')
-@section('message', __('Payment Required'))
+@section('css')
+    <link rel="stylesheet" href="{{ url('css/front.css') }}">
+@endsection
 
-<p>支払い手続きがうまくいってない</p>
+@section('main')
+    <p class="middlefont">ページの移動に失敗しました。</p>
+    <form action="get" action="{{ route('index') }}">
+        <button>ホームに戻る</button>
+    </form>
+@endsection

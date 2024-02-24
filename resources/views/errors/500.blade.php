@@ -1,7 +1,15 @@
 @extends('errors::minimal')
 
-@section('title', __('Server Error'))
-@section('code', '500')
-@section('message', __('Server Error'))
+@section('css')
+    <link rel="stylesheet" href="{{ url('css/front.css') }}">
+@endsection
 
-<p>サーバーが一時的なミスをした</p>
+@section('main')
+    <p class="middlefont">ページの移動に失敗しました。<br />
+        サーバーが一時的にエラーをしました。<br />
+        しばらく時間をおいてからご利用ください</p>
+
+        <form method="get" action="{{ route('index') }}">
+        <button>ホームに戻る</button>
+    </form>
+@endsection

@@ -1,7 +1,8 @@
 @extends('errors::minimal')
 
-@section('title', __('Service Unavailable'))
-@section('code', '503')
-@section('message', __('Service Unavailable'))
-
-<p>レンタルサーバーの同時アクセス数の制限をこえた</p>
+@section('main')
+    <p class="middlefont">ページの移動に失敗しました。</p>
+    <form method="get" action="{{ route('index') }}">
+        <button>ホームに戻る</button>
+    </form>
+@endsection

@@ -1,8 +1,13 @@
 @extends('errors::minimal')
 
-@section('title', __('Unauthorized'))
-@section('code', '401')
-@section('message', __('Unauthorized'))
+@section('css')
+    <link rel="stylesheet" href="{{ url('css/front.css') }}">
+@endsection
 
-<p>アクセス権がない、または認証に失敗</p>
-
+@section('main')
+    <p class="middlefont">ページの移動に失敗しました。<br />
+   アクセス権がない、または認証に失敗しています</p>
+    <form action="get" action="{{ route('index') }}">
+        <button>ホームに戻る</button>
+    </form>
+@endsection

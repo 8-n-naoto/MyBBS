@@ -1,7 +1,13 @@
 @extends('errors::minimal')
 
-@section('title', __('Forbidden'))
-@section('code', '403')
-@section('message', __($exception->getMessage() ?: 'Forbidden'))
+@section('css')
+    <link rel="stylesheet" href="{{ url('css/front.css') }}">
+@endsection
 
-<p>閲覧できません</p>
+@section('main')
+    <p class="middlefont">ページの移動に失敗しました。<br />
+        閲覧権限がありません</p>
+    <form action="get" action="{{ route('index') }}">
+        <button>ホームに戻る</button>
+    </form>
+@endsection
