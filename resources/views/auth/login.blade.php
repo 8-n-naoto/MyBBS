@@ -66,7 +66,7 @@
                         </td>
                     </tr>
 
-                    <tr>
+                    {{-- <tr>
                         <td>
                         </td>
                         <td>
@@ -82,14 +82,14 @@
                                 </label>
                             </div>
                         </td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <td>
                         </td>
                         <td>
                         </td>
                         <td>
-                            <button class="form-font">登録する</button>
+                            <button class="form-font">ログインする</button>
                         </td>
                     </tr>
                     <tr>

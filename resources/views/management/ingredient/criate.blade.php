@@ -137,9 +137,6 @@
                             <td>
                                 <p class="">{{ $item->cake_info->cakename }}</p>
                                 <input type="hidden" name="cake_infos_id" value="{{ $item->cake_infos_id }}">
-                                @error('cake_infos_id')
-                                    <p class="error">{{ $message }}</p>
-                                @enderror
                             </td>
                             <td>
                                 <button class="form">更新</button>
