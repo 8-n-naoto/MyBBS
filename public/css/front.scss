@@ -199,14 +199,16 @@
     width: 900px;
     background-color: init.$background-color;
 
-    .information{
+    .information {
         width: 350px;
         margin: 0 12px;
-        p{
-        overflow: hidden;
+
+        p {
+            overflow: hidden;
         }
     }
-    .map{
+
+    .map {
         width: 550px;
         flex: 3;
         margin: 0 12px;
@@ -261,9 +263,29 @@ tr:nth-last-child(1) {
 
 }
 
-.message-textarea{
+.message-textarea {
     resize: none;
     width: 350px;
     height: 24px;
 }
 
+
+.formtable {
+    width: 750px;
+
+    tr {
+        border-bottom: 1px solid init.$topic-color;
+    }
+
+    td>table {
+        td:nth-child(1) {
+            background-color: init.$sidemain-color;
+            text-align: center;
+        }
+
+        td+td {
+            text-align: start;
+        }
+    }
+
+}
