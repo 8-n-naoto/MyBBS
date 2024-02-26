@@ -15,12 +15,16 @@
                             <td></td>
                         </tr>
                         @foreach ($info->cake_info->cake_info_subs as $item)
-                            <tr>
-                                <td class="form-font">内容量</td>
-                                <td class="form-font">{{ $item->capacity }}</td>
-                                <td class="form-font">価格</td>
-                                <td class="form-font">￥{{ $item->price }}円</td>
-                            </tr>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="form-font">内容量</td>
+                                    <td class="form-font">{{ $item->capacity }}</td>
+                                    <td class="form-font">価格</td>
+                                    <td class="form-font">￥{{ $item->price }}円</td>
+                                </tr>
+                            </tbody>
+                        </table>
                         @endforeach
                     </tbody>
                 </table>
