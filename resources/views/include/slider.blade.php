@@ -9,22 +9,22 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td class="form-font">商品説明</td>
-                            <td>{{ $info->cake_info->topic }}</td>
+                            <td class="form-font items">商品説明</td>
+                            <td class="form-font items">{{ $info->cake_info->topic }}</td>
                             <td></td>
                             <td></td>
                         </tr>
                         @foreach ($info->cake_info->cake_info_subs as $item)
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td class="form-font">内容量</td>
-                                    <td class="form-font">{{ $item->capacity }}</td>
-                                    <td class="form-font">価格</td>
-                                    <td class="form-font">￥{{ $item->price }}円</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="form-font items">内容量</td>
+                                        <td class="form-font items">{{ $item->capacity }}</td>
+                                        <td class="form-font items">価格</td>
+                                        <td class="form-font items">￥{{ $item->price }}円</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         @endforeach
                     </tbody>
                 </table>

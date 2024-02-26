@@ -250,7 +250,7 @@ class InformationController extends Controller
             'birthday.required' => '受取日を入力してください',
             'time.required' => '受け取り時間を入力してください',
         ]);
-        
+
         $id = Auth::user()->id;
         $infos = CakeInfo::where('boolean', 1)->get();
         $tags = Tag::all()->unique('tag');
@@ -709,86 +709,4 @@ class InformationController extends Controller
             'information' => $information,
         ]);
     }
-    // public function _instagram_api_alt()
-    // {
-    //     $media1 = [
-    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
-    //         "permalink" => "リンク先のURL",
-    //         "caption" => "写真の説明とか…",
-    //         "like_count" => 10,
-    //     ];
-    //     $media2 = [
-    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
-    //         "permalink" => "リンク先のURL",
-    //         "caption" => "写真の説明とか…",
-    //         "like_count" => 10,
-    //     ];
-    //     $media3 = [
-    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
-    //         "permalink" => "リンク先のURL",
-    //         "caption" => "写真の説明とか…",
-    //         "like_count" => 10,
-    //     ];
-    //     $media4 = [
-    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
-    //         "permalink" => "リンク先のURL",
-    //         "caption" => "写真の説明とか…",
-    //         "like_count" => 10,
-    //     ];
-    //     $media5 = [
-    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
-    //         "permalink" => "リンク先のURL",
-    //         "caption" => "写真の説明とか…",
-    //         "like_count" => 10,
-    //     ];
-    //     $media6 = [
-    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
-    //         "permalink" => "リンク先のURL",
-    //         "caption" => "写真の説明とか…",
-    //         "like_count" => 10,
-    //     ];
-    //     $media7 = [
-    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
-    //         "permalink" => "リンク先のURL",
-    //         "caption" => "写真の説明とか…",
-    //         "like_count" => 10,
-    //     ];
-    //     $media8 = [
-    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
-    //         "permalink" => "リンク先のURL",
-    //         "caption" => "写真の説明とか…",
-    //         "like_count" => 10,
-    //     ];
-    //     $media9 = [
-    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
-    //         "permalink" => "リンク先のURL",
-    //         "caption" => "写真の説明とか…",
-    //         "like_count" => 10,
-    //     ];
-    //     $media10 = [
-    //         "media_url" => "http://57.181.132.42/storage/images/IMG_0034.JPG",
-    //         "permalink" => "リンク先のURL",
-    //         "caption" => "写真の説明とか…",
-    //         "like_count" => 10,
-    //     ];
-
-    //     $arrey=[
-    //         $media1,
-    //         $media2,
-    //         $media3,
-    //         $media4,
-    //         $media5,
-    //         $media6,
-    //         $media7,
-    //         $media8,
-    //         $media9,
-    //         $media10,
-    //     ];
-
-    //     return response()->json([
-    //         "media" => [
-    //             $arrey
-    //         ]
-    //     ]);
-    // }
 }
