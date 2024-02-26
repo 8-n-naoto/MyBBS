@@ -128,7 +128,6 @@ aside {
   display: inline-block;
   -webkit-box-decoration-break: clone;
           box-decoration-break: clone;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   border-radius: 8px;
@@ -353,7 +352,6 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   margin: 0 auto;
@@ -395,7 +393,6 @@ button {
 .items {
   margin: 2px;
   border-bottom: solid 1px #f5a368;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   display: inline-block;
@@ -644,7 +641,6 @@ tr:nth-last-child(1) {
 
 #send_form {
   background-color: #f5a368;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   border-radius: 8px;
@@ -660,15 +656,88 @@ tr:nth-last-child(1) {
 
 .formtable {
   width: 750px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 167, 66, 0.841);
+}
+.formtable tbody > tr > td:nth-child(1) {
+  background-color: rgba(255, 201, 120, 0.782);
+  padding: 0 20px;
 }
 .formtable tr {
   border-bottom: 1px solid rgba(255, 167, 66, 0.841);
 }
+.formtable tr td {
+  vertical-align: middle;
+  text-align: left;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  padding: 4px;
+}
+.formtable td > table {
+  width: 600px;
+  max-width: 600px;
+  border: 1px solid rgba(255, 167, 66, 0.841);
+}
 .formtable td > table td:nth-child(1) {
   background-color: rgba(255, 201, 120, 0.782);
   text-align: center;
+  width: -moz-fit-content;
+  width: fit-content;
+  width: 140px;
 }
-.formtable td > table td + td {
+.formtable td > table td:nth-child(2) {
+  width: 24px;
+}
+.formtable td > table td {
   text-align: start;
+  max-width: 460px;
+  overflow-wrap: break-word;
 }
-/*# sourceMappingURL=front.css.map */
+
+@keyframes sk-cubemove {
+  25% {
+    transform: translateX(42px) rotate(-90deg) scale(0.5);
+  }
+  50% {
+    transform: translateX(42px) translateY(42px) rotate(-179deg);
+  }
+  50.1% {
+    transform: translateX(42px) translateY(42px) rotate(-180deg);
+  }
+  75% {
+    transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.loader__spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 57px;
+  height: 57px;
+  transform: translate(-50%, -50%);
+}
+.loader__spinner--cube1, .loader__spinner--cube2 {
+  background-color: #ffffff;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: sk-cubemove 2s infinite ease-in-out;
+}
+.loader__spinner--cube2 {
+  animation-delay: -1s;
+}/*# sourceMappingURL=front.css.map */

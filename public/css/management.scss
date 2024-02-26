@@ -196,3 +196,50 @@
         padding: 4px 8px;
     }
 }
+
+.formtable {
+    overflow: hidden;
+    color: init.$test-color;
+    border: 1px solid init.$topic-color;
+
+    tbody>tr>td:nth-child(1) {
+        background-color: init.$sidemain-color;
+        padding: 0 20px;
+    }
+
+    tr {
+        border-bottom: 1px solid init.$topic-color;
+
+        td {
+            vertical-align: middle;
+            text-align: left;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            color: init.$test-color;
+            padding: 4px;
+        }
+    }
+
+    td>table {
+        width: 350px;
+        max-width: 350px;
+        border: 1px solid init.$topic-color;
+
+        td:nth-child(1) {
+            background-color: init.$sidemain-color;
+            text-align: center;
+            text-align: center;
+            width: fit-content;
+        }
+
+        td:nth-child(2) {
+            width: 24px;
+        }
+
+        td {
+            max-width: 300px;
+            overflow-wrap: break-word;
+        }
+    }
+
+}

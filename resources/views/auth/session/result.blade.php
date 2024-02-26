@@ -11,14 +11,16 @@
 @endsection
 
 @section('main')
-    <section class="form">
-        <div>
-        <p class="">またのお越しをお待ちしております！</p>
-        </div>
-      <div>
-        <a href="{{route('index')}}" alt="ホームに戻るよ！">
-          <button>ホームへ戻る</button>
+<section class="">
+    <div class="flex-column">
+        <p class="form-font items">{{ Auth::user()->name }}様</p>
+        <p class="form-font  items">またのお越しをお待ちしております！</p>
+        <p class="form-font items">ご予約画面より内容、ご予約番号確認できます。</p>
+    </div>
+    <div>
+        <a href="{{ route('index') }}" alt="ホームに戻るよ！">
+            <button>ホームへ戻る</button>
         </a>
-      </div>
-    </section>
+    </div>
+</section>
 @endsection

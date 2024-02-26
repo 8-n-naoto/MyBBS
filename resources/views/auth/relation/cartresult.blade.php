@@ -11,6 +11,7 @@
 @endsection
 
 @section('main')
+<p class="topic-font">ご予約完了いたしました</p>
 <p class="textbackground ">カートに情報が保存されました</p>
 <a href="{{route('index')}}">ホームに戻る</a>
 @endsection

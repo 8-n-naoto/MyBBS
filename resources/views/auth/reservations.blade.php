@@ -13,7 +13,7 @@
 
 @section('main')
     <section>
-        <h3 class="textbackground form-font">ご予約情報の確認</h3>
+        <h3 class="topic-font">ご予約情報の確認</h3>
         @include('include.reservations')
     </section>
 @endsection

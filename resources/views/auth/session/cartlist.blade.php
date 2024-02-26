@@ -76,42 +76,6 @@
                 @endforeach
             </tbody>
         </table>
-        {{-- <section>
-            <div class="flex-column informations">
-                @foreach ($cartData as $key => $data)
-                    <div class="flex-row textbackground">
-                        <a href="{{ route('front.cake', $data['cake_info_id']) }}">
-                            <img src="{{ asset($data['mainphoto']) }}" class="formphoto" alt="ケーキの写真">
-                        </a>
-                        <div>
-                            <p class="form-font">
-                                受取日：{{ e($data['birthday']) }}
-                            </p>
-                            <p class="form-font">
-                                受け取り時間：{{ e($data['time']) }}
-                            </p>
-                            <p class="form-font">
-                                商品名：{{ e($data['cakename']) }}
-                            </p>
-                            <p class="form-font">
-                                容量：{{ $data['capacity'] }}
-                            </p>
-                            <p class="form-font">
-                                価格：{{ $data['price'] }}円
-                            </p>
-                            <p class="form-wrap-font">
-                                メッセージ：{{ $data['message'] }}
-                            </p>
-                            <form method="POST" action="{{ route('user.session.cart.destroy', $key) }}" class="delete">
-                                @method('DELETE')
-                                @csrf
-                                <button>予約情報を削除する</button>
-                            </form>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </section> --}}
         @if ($cartData)
             <form method="GET" action="{{ route('user.session.form.store') }}">
                 @csrf
