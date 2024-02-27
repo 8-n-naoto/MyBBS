@@ -353,7 +353,7 @@
 
         // 金額削除
         (function($) {
-            $('.pricedelete').on('click', function(e) {
+            $('body').on('click', '.pricedelete',function(e) {
                 e.preventDefault();
                 // 渡すデータ
                 var price_id = $(this).siblings('#price [name="price_id"]').val();
@@ -441,7 +441,7 @@
 
         // タグ削除処理
         (function($) {
-            $('.tagdelete').on('click', function(e) {
+            $('body').on('click', '.tagdelete',function(e) {
                 e.preventDefault();
                 // 渡すデータ
                 var tag_id = $(this).siblings('#tag [name="tag_id"]').val();
@@ -517,6 +517,7 @@
                                 @method('DELETE')
                                 @csrf
                                 <input type="hidden" name="info" value="{{ $info->id }}">
+                                <input type="hidden" name="gallery_id" value="${response.id}">
                                 <button type="button" class="gallerydelete">消去</button>
                             </form>
                             </div>
@@ -534,7 +535,7 @@
 
         // ギャラリー削除
         (function($) {
-            $('.gallerydelete').on('click', function(e) {
+            $('body').on('click','.gallerydelete' ,function(e) {
                 e.preventDefault();
                 // 渡すデータ
                 var gallery_id = $(this).siblings('#gallery [name="gallery_id"]').val();

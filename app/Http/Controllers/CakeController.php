@@ -234,6 +234,13 @@ class CakeController extends Controller
         //名前を保存
         $post->subphotos = 'storage/images/' . $image_path;
         $post->save();
+
+        $response=[
+            'id'=>$post->id,
+        ];
+
+        return response()->json($response);
+
     }
 
     //商品情報更新用(tag)
