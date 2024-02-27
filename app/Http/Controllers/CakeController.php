@@ -543,6 +543,7 @@ class CakeController extends Controller
         $eachIngredient->lot_unit = $request->lot_unit;
         $eachIngredient->expiration = $request->expiration;
         $eachIngredient->save();
+
     }
     //材料詳細削除処理
     public function _ingredient_edit_destroy(Request $request)

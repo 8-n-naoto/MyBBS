@@ -132,6 +132,7 @@
             @endforelse
         </tbody>
     </table>
+    <p>※材料名が全く同じものは登録できません</p>
 
     <script>
         //材料追加
@@ -162,7 +163,7 @@
                             "expiration": expiration,
                         },
                         success: function(response) {
-                            $('.exel-edit').append(`
+                            $('.exel-edit tbody').append(`
                         <tr>
                     <form action="{{ route('cakes.ingredient.edit.update') }}" method="post" class="update">
                         <input type="hidden" name="_token" value="${CSRF}" autocomplete="off">
@@ -193,8 +194,8 @@
                     <td>
                         <form action="{{ route('cakes.ingredient.edit.destroy') }}" method="post" class="delete">
                         <input type="hidden" name="_token" value="${CSRF}" autocomplete="off">
-                        <input type="hidden" name="basic_ingredients_id" value="${basic_ingredients_id}" class="delete">
-                            <button>削除</button>
+                            <input type="hidden" name="each_id" value="${response.each_ingredient}">
+                            <button  class="celldelete">削除</button>
                         </form>
 
                     </td>
@@ -259,7 +260,7 @@
         })(jQuery);
         // 材料削除
         (function($) {
-            $('.celldelete').on('click', function(e) {
+            $('body').on('click', '.celldelete',function(e) {
                 e.preventDefault();
                 // 渡すデータ
                 var each_id = $(this).siblings('[name="each_id"]').val();
