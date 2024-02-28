@@ -71,10 +71,10 @@
         <p class="about-me-font">○○○○なお店です</p>
     </div>
     {{-- instagramAPI --}}
-    <div class="section main-content">
+    {{-- <div class="section main-content">
         <h3 class="topic-font">最新情報一覧</h3>
         <ul class="insta_list"></ul>
-    </div>
+    </div> --}}
 
     @include('include.google-map')
 

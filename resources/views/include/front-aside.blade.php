@@ -67,8 +67,8 @@
 
 
         <div class="sidemenu">
-            <h2 class="aside-font">最新情報</h2>
-            <p>APIで取得した情報を表示する</p>
+            {{-- <h2 class="aside-font">最新情報</h2>
+            <p>APIで取得した情報を表示する</p> --}}
             {{-- API利用して表示する --}}
             <div class="sidemenu">
                 <p class="aside-font">公式ＳＮＳ一覧</p>

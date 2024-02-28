@@ -13,6 +13,7 @@
 {{-- <?php dd($basic->id); ?> --}}
 
 @section('main')
+<p class="topic-font">基本量詳細登録</p>
     <table class="exel-edit">
         <thead>
             <tr>
