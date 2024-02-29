@@ -18,8 +18,8 @@
                 url: "{{route('front.API')}}", //開発環境用
                 dataType: 'json',
                 success: function(response) {
+                    console.log(response);
                     var insta = response.media;
-                    console.log(insta);
                     for (var i = 0; i < 8; i++) {
                         let url = insta[i].media_url; // 動画ソースのURLを取得
                         let href = insta[i].permalink; // リンク先URLを取得
