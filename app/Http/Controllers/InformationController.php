@@ -16,6 +16,7 @@ use App\Models\Sub_reservation;
 use App\Models\Information;
 use App\Mail\ContactMail;
 use DateTime;
+use Faker\Provider\Medical;
 
 class InformationController extends Controller
 {
@@ -708,5 +709,16 @@ class InformationController extends Controller
             'tags' => $tags,
             'information' => $information,
         ]);
+    }
+
+    public function _insta_API()
+    {
+        $url = public_path() . '/json/instagramAPISAMPLE.json';
+        $json = file_get_contents($url);
+        $json = json_decode($json);
+        // $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+
+        // return response()->json($json);
+        return response()->json($json);
     }
 }

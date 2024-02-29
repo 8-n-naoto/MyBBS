@@ -116,6 +116,9 @@ Route::controller(InformationController::class)->middleware(['auth'])->group(fun
 
         //お知らせ個別ページ
         Route::get('/{information}/post', '_information_store')->name('information.store')->where('information', '[0-9]+');
+
+        //フォームOK画面
+        Route::get('/instagramAPI/ajxa', '_insta_API')->name('API');
     });
 });
 
