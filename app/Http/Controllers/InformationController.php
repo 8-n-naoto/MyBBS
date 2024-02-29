@@ -714,6 +714,7 @@ class InformationController extends Controller
     public function _insta_API()
     {
         $url = public_path() . '/json/instagramAPISAMPLE.json';
+        dd($url);
         $json = file_get_contents($url);
         $json = json_decode($json);
         // $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
